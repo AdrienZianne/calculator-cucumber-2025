@@ -117,8 +117,10 @@ Feature: Integer Arithmetic Expressions
   Scenario Outline: Dividing per zero
     Given an integer operation '/'
     When I provide a first number <n>
+    When I provide a second number <n2>
     Then the operation evaluates to <result>
 
     Examples:
-      |n|result|
-      |2|"Integer.MAX_VALUE"|
+      |n|n2|result|
+      |5|0|"max"|
+      |-5|0|"min"|

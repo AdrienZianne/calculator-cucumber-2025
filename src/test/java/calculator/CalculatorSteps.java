@@ -131,6 +131,11 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {string}")
 	public void thenTheOperationEvaluatesTo(String val) {
-		assertEquals(val, c.eval(op).toString());
+		if(val.equals("max")){
+			assertEquals(Integer.MAX_VALUE, c.eval(op));
+		}
+		else{
+			assertEquals(Integer.MIN_VALUE, c.eval(op));
+		}
 	}
 }
