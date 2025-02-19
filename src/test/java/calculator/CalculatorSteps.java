@@ -92,6 +92,14 @@ public class CalculatorSteps {
 		op.addMoreParams(params);
 	}
 
+	@When("^-I provide a (.*) number (\\d+)$")
+	public void whenIProvideANegativeNumber(String s, int val) {
+		//add extra parameter to the operation
+		params = new ArrayList<>();
+		params.add(new MyNumber(-val));
+		op.addMoreParams(params);
+	}
+
 	@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {

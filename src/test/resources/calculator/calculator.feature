@@ -114,7 +114,7 @@ Feature: Integer Arithmetic Expressions
       | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
 
-  Scenario Outline: Dividing per zero
+  Scenario Outline: Dividing a positive number by 0
     Given an integer operation '/'
     When I provide a first number <n>
     When I provide a second number <n2>
@@ -122,5 +122,15 @@ Feature: Integer Arithmetic Expressions
 
     Examples:
       |n|n2|result|
+      |0|0|"max"|
       |5|0|"max"|
-      |-5|0|"min"|
+
+  Scenario Outline: Dividing a negative number by 0
+    Given an integer operation '/'
+    When -I provide a first number <n>
+    When I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n|n2|result|
+      |5|0|"min"|
