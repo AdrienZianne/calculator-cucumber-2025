@@ -92,7 +92,7 @@ Feature: Integer Arithmetic Expressions
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
 
-  Scenario Outline: Evaluating arithmetic operations with two integer parameters
+  Scenario Outline: Checks the formatting of an equation between two integers parameters
     Given an integer operation <op>
     When I provide a first number <n1>
     When I provide a second number <n2>
@@ -113,3 +113,25 @@ Feature: Integer Arithmetic Expressions
       | "-" | 4| 5|  INFIX|   ( 4 - 5 )|
       | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
+
+  Scenario Outline: Checks the formatting of an equation composed of multiple equations
+    Given an integer operation <op3>
+    When I provide a first integer operation <op1> to operator <n11>
+    When I
+    When I provide a first number <n11>
+    And I provide a second number <n12>
+
+
+    When I provide the notation <notation>
+    Then the operation is written like <result>
+
+    Examples:
+      | op1|n11|n12|n13|not1   | op2|n21|n22|not2| op3|n3|not3 | result|
+      | "+"  |3  |4  |5  | POSTFIX| "-"  |5  |4  | INFIX| "/"  |  7 | PREFIX |  / (+ (3, 4, 5), - (5, 4), 7) |
+
+    # / (+ (3, 4, 5), - (5, 4), 7)
+    # ( ( 3 + 4 + 5 ) / ( 5 - 4 ) / 7 )
+    # ((3, 4, 5) +, (5, 4) -, 7) /
+
+  # Create new "given an operation ..."
+

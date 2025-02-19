@@ -3,49 +3,69 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.ja.但し;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CalculatorSteps {
-
 //	static final Logger log = getLogger(lookup().lookupClass());
 
 	private ArrayList<Expression> params;
-	private Operation op;
+	private ArrayList<Operation> operations;
 	private Calculator c;
+
+	/**
+	 * Creates a new integer operation.
+	 * @param operator The operator of the operation.
+	 * @param params The params to pass the created operation.
+	 * @return An instance of the {@link Operation} class.
+	 * @throws IllegalConstruction if the given operator is not valid
+	 */
+	private static  Operation createIntegerOperation(String operator, ArrayList<Expression> params) throws IllegalConstruction {
+
+		Operation op = null;
+		try {
+            op = switch (operator) {
+                case "sum", "+" -> new Plus(params);
+                case "difference", "-" -> new Minus(params);
+                case "product", "*" -> new Times(params);
+                case "quotient", "/" -> new Divides(params);
+                default -> throw new IllegalConstruction();
+            };
+		} catch (IllegalConstruction e) {
+			throw new IllegalConstruction();
+		}
+		return op;
+	}
 
 	@Before
     public void resetMemoryBeforeEachScenario() {
 		params = null;
-		op = null;
+		operations = new ArrayList<>();
 	}
 
 	@Given("I initialise a calculator")
 	public void givenIInitialiseACalculator() {
 		c = new Calculator();
+		operations = new ArrayList<>();
 	}
 
 	@Given("an integer operation {string}")
 	public void givenAnIntegerOperation(String s) {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
-		try {
-			switch (s) {
-				case "+"	->	op = new Plus(params);
-				case "-"	->	op = new Minus(params);
-				case "*"	->	op = new Times(params);
-				case "/"	->	op = new Divides(params);
-				default		->	fail();
-			}
-		} catch (IllegalConstruction e) {
-			fail();
-		}
-	}
+        try {
+            operations = new ArrayList<>(List.of(createIntegerOperation(s, params)));	// create an empty set of operations to be filled in
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
 
 	// The following example shows how to use a DataTable provided as input.
 	// The example looks slightly complex, since DataTables can take as input
@@ -58,7 +78,7 @@ public class CalculatorSteps {
 		// which is a list of strings, that we will manually convert to integers:
 		numbers.get(0).forEach(n -> params.add(new MyNumber(Integer.parseInt(n))));
 	    params.forEach(n -> System.out.println("value ="+ n));
-		op = null;
+		operations = new ArrayList<>();
 	}
 
 	// The string in the Given annotation shows how to use regular expressions...
@@ -71,62 +91,111 @@ public class CalculatorSteps {
 			params = new ArrayList<>();
 		    params.add(new MyNumber(n1));
 		    params.add(new MyNumber(n2));
-		    op = new Plus(params);}
+		    operations = new ArrayList<>( List.of(new Plus(params)));}
 		catch(IllegalConstruction e) { fail(); }
 	}
 
 	@Then("^its (.*) notation is (.*)$")
 	public void thenItsNotationIs(String notation, String s) {
 		if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
-			op.notation = Notation.valueOf(notation);
-			assertEquals(s, op.toString());
+			operations.getFirst().notation = Notation.valueOf(notation);
+			assertEquals(s, operations.getFirst().toString());
 		}
 		else fail(notation + " is not a correct notation! ");
 	}
 
 	@When("^I provide a (.*) number (\\d+)$")
 	public void whenIProvideANumber(String s, int val) {
-		//add extra parameter to the operation
-		params = new ArrayList<>();
-		params.add(new MyNumber(val));
-		op.addMoreParams(params);
+		whenIProvideANumber(s, val, 0);
 	}
 
-	@Then("^the (.*) is (\\d+)$")
+	@And("^I provide a (.*) number (\\d+) to operator (.*)$")
+	public void whenIProvideANumber(String s, int val, int opIndex) {
+		try {
+			Operation op = operations.get(opIndex);
+			//add extra parameter to the operation
+			params = new ArrayList<>();
+			params.add(new MyNumber(val));
+			op.addMoreParams(params);
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			fail("The given operator index is out of bounds! " + e);
+		}
+	}
+
+	@When("^I provide a (.*) integer operation (.*)$")
+	public void whenIProvideAnIntegerOperation(String s, String operator) {
+		whenIProvideAnIntegerOperation(s, operator, 0);
+	}
+
+
+	@And("^I provide a (.*) integer operation (.*) to operator (.*)$")
+	public void whenIProvideAnIntegerOperation(String s, String operator, int opIndex) {
+		try {
+			// add an extra operation to the operation
+			ArrayList<Expression> parameters = new ArrayList<>();
+
+			Operation newOp = createIntegerOperation(operator, parameters);
+			operations.add(newOp);
+
+			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			fail("The given operator index is out of bounds! " + e);
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+	}
+
+
+
+
+
+		@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {
-			switch (s) {
-				case "sum"			->	op = new Plus(params);
-				case "product"		->	op = new Times(params);
-				case "quotient"		->	op = new Divides(params);
-				case "difference"	->	op = new Minus(params);
-				default -> fail();
+			if (operations.isEmpty()) {
+				operations.add(createIntegerOperation(s, params));
 			}
-			assertEquals(val, c.eval(op));
-		} catch (IllegalConstruction e) {
+			else
+			{
+				operations.set(0, createIntegerOperation(s, params));
+			}
+			assertEquals(val, c.eval(operations.getFirst()));
+		}
+		catch (IllegalConstruction e) {
 			fail();
 		}
 	}
 
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(val, c.eval(op));
+		assertEquals(val, c.eval(operations.getFirst()));
 	}
 
 
 
 	@When("^I provide the notation (.*)$")
 	public void whenIProvideANotation(String notation) {
-		//add extra parameter to the operation
-		if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
-			op.notation = Notation.valueOf(notation);
+		whenIProvideANotation(notation, 0);
+	}
+
+	@And("^I provide the notation (.*) to operator (.*)$")
+	public void whenIProvideANotation(String notation, int opIndex) {
+		try {
+			if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
+				operations.get(opIndex).notation = Notation.valueOf(notation);
+			}
+			else fail(notation + " is not a correct notation! ");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			fail("The given operator index is out of bounds! " + e);
 		}
-		else fail(notation + " is not a correct notation! ");
+
 	}
 
 	@Then("the operation is written like (.*)$")
 	public void thenTheOperationWriteLike(String val) {
-		assertEquals(val, op.toString());
+		assertEquals(val, operations.getFirst().toString());
 	}
 
 }
