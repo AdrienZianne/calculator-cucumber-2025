@@ -92,6 +92,14 @@ public class CalculatorSteps {
 		op.addMoreParams(params);
 	}
 
+	@When("^-I provide a (.*) number (\\d+)$")
+	public void whenIProvideANegativeNumber(String s, int val) {
+		//add extra parameter to the operation
+		params = new ArrayList<>();
+		params.add(new MyNumber(-val));
+		op.addMoreParams(params);
+	}
+
 	@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {
@@ -129,4 +137,13 @@ public class CalculatorSteps {
 		assertEquals(val, op.toString());
 	}
 
+	@Then("the operation evaluates to {string}")
+	public void thenTheOperationEvaluatesTo(String val) {
+		if(val.equals("max")){
+			assertEquals(Integer.MAX_VALUE, c.eval(op));
+		}
+		else{
+			assertEquals(Integer.MIN_VALUE, c.eval(op));
+		}
+	}
 }
