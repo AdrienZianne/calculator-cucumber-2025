@@ -91,3 +91,25 @@ Feature: Integer Arithmetic Expressions
       | "-" | 8| 5|     3|
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
+
+  Scenario Outline: Evaluating arithmetic operations with two integer parameters
+    Given an integer operation <op>
+    When I provide a first number <n1>
+    When I provide a second number <n2>
+    When I provide the notation <notation>
+    Then the operation is written like <result>
+
+    Examples:
+      | op  |n1|n2|notation|   result|
+      | "+" | 4| 5|  PREFIX|   + (4, 5)|
+      | "-" | 4| 5|  PREFIX|   - (4, 5)|
+      | "*" | 4| 5|  PREFIX|   * (4, 5)|
+      | "/" | 4| 5|  PREFIX|   / (4, 5)|
+      | "+" | 4| 5|  POSTFIX| (4, 5) + |
+      | "-" | 4| 5|  POSTFIX| (4, 5) - |
+      | "*" | 4| 5|  POSTFIX| (4, 5) * |
+      | "/" | 4| 5|  POSTFIX| (4, 5) /|
+      | "+" | 4| 5|  INFIX|   ( 4 + 5 )|
+      | "-" | 4| 5|  INFIX|   ( 4 - 5 )|
+      | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
+      | "/" | 4| 5|  INFIX|   ( 4 / 5 )|

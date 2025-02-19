@@ -6,6 +6,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.ja.但し;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,22 @@ public class CalculatorSteps {
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
 		assertEquals(val, c.eval(op));
+	}
+
+
+
+	@When("^I provide the notation (.*)$")
+	public void whenIProvideANotation(String notation) {
+		//add extra parameter to the operation
+		if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
+			op.notation = Notation.valueOf(notation);
+		}
+		else fail(notation + " is not a correct notation! ");
+	}
+
+	@Then("the operation is written like (.*)$")
+	public void thenTheOperationWriteLike(String val) {
+		assertEquals(val, op.toString());
 	}
 
 }
