@@ -129,4 +129,8 @@ public class CalculatorSteps {
 		assertEquals(val, op.toString());
 	}
 
+	@Then("the operation evaluates to {string}")
+	public void thenTheOperationEvaluatesTo(String val) {
+		assertEquals(val, c.eval(op).toString());
+	}
 }

@@ -113,3 +113,12 @@ Feature: Integer Arithmetic Expressions
       | "-" | 4| 5|  INFIX|   ( 4 - 5 )|
       | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
+
+  Scenario Outline: Dividing per zero
+    Given an integer operation '/'
+    When I provide a first number <n>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n|result|
+      |2|"Integer.MAX_VALUE"|
