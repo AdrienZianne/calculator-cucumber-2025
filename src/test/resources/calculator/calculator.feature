@@ -115,20 +115,23 @@ Feature: Integer Arithmetic Expressions
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
 
   Scenario Outline: Checks the formatting of an equation composed of multiple equations
-    Given an integer operation <op3>
-    When I provide a first integer operation <op1> to operator <n11>
-    When I
-    When I provide a first number <n11>
-    And I provide a second number <n12>
+    Given an integer operation <op_0>
 
+    When I provide another integer operation <op_1> to operator 0
+    And I provide a first number <arg_10> to operator 1
+    And I provide a second number <arg_11> to operator 1
+    And I provide a third number <arg_12> to operator 1
 
-    When I provide the notation <notation>
+    When I provide another integer operation <op_2> to operator 0
+    And I provide a first number <arg_20> to operator 2
+    And I provide a second number <arg_21> to operator 2
+
+    When I provide a first number <arg_0> to operator 0
     Then the operation is written like <result>
 
     Examples:
-      | op1|n11|n12|n13|not1   | op2|n21|n22|not2| op3|n3|not3 | result|
-      | "+"  |3  |4  |5  | POSTFIX| "-"  |5  |4  | INFIX| "/"  |  7 | PREFIX |  / (+ (3, 4, 5), - (5, 4), 7) |
-
+      | op_0 | arg_0 | op_1 | arg_10 | arg_11 | arg_12 | op_2 | arg_20 | arg_21 | result                               |
+      | "/"  | 7     | "+"  | 3      |4       |5       | "-" | 5      | 4      | ( ( 3 + 4 + 5 ) / ( 5 - 4 ) / 7 ) |
     # / (+ (3, 4, 5), - (5, 4), 7)
     # ( ( 3 + 4 + 5 ) / ( 5 - 4 ) / 7 )
     # ((3, 4, 5) +, (5, 4) -, 7) /

@@ -123,14 +123,14 @@ public class CalculatorSteps {
 		}
 	}
 
-	@When("^I provide a (.*) integer operation (.*)$")
+	@When("^I provide a (.*) integer operation (\".*\")$")
 	public void whenIProvideAnIntegerOperation(String s, String operator) {
-		whenIProvideAnIntegerOperation(s, operator, 0);
+		whenIProvideAnIntegerOperation(operator, 0);
 	}
 
 
-	@And("^I provide a (.*) integer operation (.*) to operator (.*)$")
-	public void whenIProvideAnIntegerOperation(String s, String operator, int opIndex) {
+	@And("I provide another integer operation {string} to operator {int}")
+	public void whenIProvideAnIntegerOperation(String operator, int opIndex) {
 		try {
 			// add an extra operation to the operation
 			ArrayList<Expression> parameters = new ArrayList<>();
