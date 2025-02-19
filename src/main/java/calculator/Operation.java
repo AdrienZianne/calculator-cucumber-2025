@@ -67,6 +67,14 @@ public abstract class Operation implements Expression
 	}
 
 	/**
+	 * getter method to return the symbol of the operation
+	 * @return
+	 */
+	public String getSymbol() {
+		return symbol;
+	}
+
+	/**
 	 * getter method to return the number of arguments of an arithmetic operation.
 	 *
 	 * @return	The number of arguments of the arithmetic operation.
