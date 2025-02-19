@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Calculator with JUnit5 and Cucumber tests,calculator,Divides,0,20,0,0,0,7,0,3,0,3
+Calculator with JUnit5 and Cucumber tests,calculator,IllegalConstruction,0,3,0,0,0,1,0,1,0,1
+Calculator with JUnit5 and Cucumber tests,calculator,MyNumber,2,49,1,7,0,17,1,12,0,9
+Calculator with JUnit5 and Cucumber tests,calculator,Times,0,20,0,0,0,7,0,3,0,3
+Calculator with JUnit5 and Cucumber tests,calculator,Operation,7,189,1,14,2,44,2,21,1,14
+Calculator with JUnit5 and Cucumber tests,calculator,Minus,0,20,0,0,0,7,0,3,0,3
+Calculator with JUnit5 and Cucumber tests,calculator,Notation,0,21,0,0,0,4,0,1,0,1
+Calculator with JUnit5 and Cucumber tests,calculator,Plus,0,20,0,0,0,7,0,3,0,3
+Calculator with JUnit5 and Cucumber tests,calculator,Calculator,35,14,0,0,10,4,2,2,2,2
+Calculator with JUnit5 and Cucumber tests,visitor,Evaluator,0,67,0,4,0,15,0,6,0,4
+Calculator with JUnit5 and Cucumber tests,visitor,Visitor,0,3,0,0,0,1,0,1,0,1

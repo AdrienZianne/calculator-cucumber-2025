@@ -1,0 +1,45 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'23'
+-sourcepath
+'/home/adrien/dev/projets/calculator-cucumber-2025/src/main/java:/home/adrien/dev/projets/calculator-cucumber-2025/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Calculator with JUnit5 and Cucumber tests 0.5.0 API'
+-use
+-version
+-windowtitle
+'Calculator with JUnit5 and Cucumber tests 0.5.0 API'
+calculator
+visitor
+/home/adrien/dev/projets/calculator-cucumber-2025/src/main/java = 1739869326784
+/home/adrien/dev/projets/calculator-cucumber-2025/target/generated-sources/annotations = 1739869608136
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/package-search-index.js = 1739869741608
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/element-list = 1739869741528
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/tag-search-index.js = 1739869741608
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/type-search-index.js = 1739869741608
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/search.html = 1739869741620
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/serialized-form.html = 1739869741548
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/member-search-index.js = 1739869741608
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/module-search-index.js = 1739869741608
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/overview-summary.html = 1739869741620
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/overview-tree.html = 1739869741592
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/allclasses-index.html = 1739869741604
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/index-all.html = 1739869741620
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/index.html = 1739869741592
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/help-doc.html = 1739869741624
+/home/adrien/dev/projets/calculator-cucumber-2025/target/reports/apidocs/allpackages-index.html = 1739869741604

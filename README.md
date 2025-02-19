@@ -5,6 +5,7 @@ Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cu
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
 
+Test workflow
 
 # Calculating arithmetic expressions
 

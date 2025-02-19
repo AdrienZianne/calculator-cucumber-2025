@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Times.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Calculator with JUnit5 and Cucumber tests</a> &gt; <a href="index.source.html" class="el_package">calculator</a> &gt; <span class="el_source">Times.java</span></div><h1>Times.java</h1><pre class="source lang-java linenums">package calculator;
+
+import java.util.List;
+
+/** This class represents the arithmetic multiplication operation &quot;*&quot;.
+ * The class extends an abstract superclass Operation.
+ * Other subclasses of Operation represent other arithmetic operations.
+ * @see Operation
+ * @see Minus
+ * @see Plus
+ * @see Divides
+ */
+public final class Times extends Operation
+ {
+  /**
+   * Class constructor specifying a number of Expressions to multiply.
+   *
+   * @param elist The list of Expressions to multiply
+   * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
+   * @see #Times(List&lt;Expression&gt;,Notation)
+   */
+  public /*constructor*/ Times(List&lt;Expression&gt; elist) throws IllegalConstruction {
+<span class="fc" id="L23">  	this(elist, null);</span>
+<span class="fc" id="L24">  }</span>
+
+  /**
+   * Class constructor specifying a number of Expressions to multiply,
+   * as well as the Notation used to represent the operation.
+   *
+   * @param elist The list of Expressions to multiply
+   * @param n The Notation to be used to represent the operation
+   * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
+   * @see #Times(List&lt;Expression&gt;)
+   * @see Operation#Operation(List&lt;Expression&gt;,Notation)
+   */
+  public Times(List&lt;Expression&gt; elist, Notation n) throws IllegalConstruction {
+<span class="fc" id="L37">  	super(elist,n);</span>
+<span class="fc" id="L38">  	symbol = &quot;*&quot;;</span>
+<span class="fc" id="L39">  	neutral = 1;</span>
+<span class="fc" id="L40">  }</span>
+
+  /**
+   * The actual computation of the (binary) arithmetic multiplication of two integers
+   * @param l The first integer
+   * @param r The second integer that should be multiplied with the first
+   * @return The integer that is the result of the multiplication
+   */
+  public int op(int l, int r)
+<span class="fc" id="L49">    { return (l*r); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Calculator with JUnit5 and Cucumber tests</a> &gt; <a href="index.source.html" class="el_package">calculator</a> &gt; <span class="el_source">Calculator.java</span></div><h1>Calculator.java</h1><pre class="source lang-java linenums">package calculator;
+
+import visitor.Evaluator;
+
+/**
+ * This class represents the core logic of a Calculator.
+ * It can be used to print and evaluate artihmetic expressions.
+ *
+ * @author tommens
+ */
+public class Calculator {
+
+    /**
+     * Default constructor of the class.
+     * Does nothing since the class does not have any variables that need to be initialised.
+     */
+<span class="fc" id="L17">    public Calculator() {}</span>
+
+    /*
+     For the moment the calculator only contains a print method and an eval method
+     It would be useful to complete this with a read method, so that we would be able
+     to implement a full REPL cycle (Read-Eval-Print loop) such as in Scheme, Python, R and other languages.
+     To do so would require to implement a method with the following signature, converting an input string
+     into an arithmetic expression:
+     public Expression read(String s)
+    */
+
+    /**
+     * Prints an arithmetic expression provided as input parameter.
+     * @param e the arithmetic Expression to be printed
+     * @see #printExpressionDetails(Expression) 
+     */
+    public void print(Expression e) {
+<span class="nc" id="L34">        System.out.println(&quot;The result of evaluating expression &quot; + e);</span>
+<span class="nc" id="L35">        System.out.println(&quot;is: &quot; + eval(e) + &quot;.&quot;);</span>
+<span class="nc" id="L36">        System.out.println();</span>
+<span class="nc" id="L37">    }</span>
+
+    /**
+     * Prints verbose details of an arithmetic expression provided as input parameter.
+     * @param e the arithmetic Expression to be printed
+     * @see #print(Expression)
+     */
+    public void printExpressionDetails(Expression e) {
+<span class="nc" id="L45">        print(e);</span>
+<span class="nc" id="L46">        System.out.print(&quot;It contains &quot; + e.countDepth() + &quot; levels of nested expressions, &quot;);</span>
+<span class="nc" id="L47">        System.out.print(e.countOps() + &quot; operations&quot;);</span>
+<span class="nc" id="L48">        System.out.println(&quot; and &quot; + e.countNbs() + &quot; numbers.&quot;);</span>
+<span class="nc" id="L49">        System.out.println();</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     * Evaluates an arithmetic expression and returns its result
+     * @param e the arithmetic Expression to be evaluated
+     * @return The result of the evaluation
+     */
+    public int eval(Expression e) {
+        // create a new visitor to evaluate expressions
+<span class="fc" id="L59">        Evaluator v = new Evaluator();</span>
+        // and ask the expression to accept this visitor to start the evaluation process
+<span class="fc" id="L61">        e.accept(v);</span>
+        // and return the result of the evaluation at the end of the process
+<span class="fc" id="L63">        return v.getResult();</span>
+    }
+
+    /*
+     We could also have other methods, e.g. to verify whether an expression is syntactically correct
+     public Boolean validate(Expression e)
+     or to simplify some expression
+     public Expression simplify(Expression e)
+    */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
