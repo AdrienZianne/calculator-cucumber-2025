@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import visitor.Formatter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,13 +19,9 @@ class TestNotation {
     /* This is an auxilary method to avoid code duplication.
      */
 	void testNotation(String s,Operation o,Notation n) {
-		assertEquals(s, o.toString(n));
-		o.notation = n;
-		assertEquals(s, o.toString());
-	}
-
-	void testNotation(String s,Operation o) {
-		assertEquals(s, o.toString());
+		Formatter formatter = new Formatter(n);
+		formatter.visit(o);
+		assertEquals(s, formatter.getResult());
 	}
 
 	/* This is an auxilary method to avoid code duplication.
@@ -67,11 +64,6 @@ class TestNotation {
 		List<Expression> params2 = Arrays.asList(new MyNumber(5), new MyNumber(4));
 		List<Expression> params3 = Arrays.asList(new Plus(params1, Notation.INFIX), new Minus(params2, Notation.PREFIX), new MyNumber(7));
 		o = new Divides(params3, Notation.POSTFIX);
-	}
-
-	@Test
-	void testBaseConsistency() {
-		testNotation("((3, 4, 5) +, (5, 4) -, 7) /", o);
 	}
 
 	@Test
