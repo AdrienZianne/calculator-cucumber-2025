@@ -84,19 +84,11 @@ public class CalculatorSteps {
 		else fail(notation + " is not a correct notation! ");
 	}
 
-	@When("^I provide a (.*) number (\\d+)$")
+	@When("^I provide a (.*) number (-?\\d+)$")
 	public void whenIProvideANumber(String s, int val) {
 		//add extra parameter to the operation
 		params = new ArrayList<>();
 		params.add(new MyNumber(val));
-		op.addMoreParams(params);
-	}
-
-	@When("^-I provide a (.*) number (\\d+)$")
-	public void whenIProvideANegativeNumber(String s, int val) {
-		//add extra parameter to the operation
-		params = new ArrayList<>();
-		params.add(new MyNumber(-val));
 		op.addMoreParams(params);
 	}
 
