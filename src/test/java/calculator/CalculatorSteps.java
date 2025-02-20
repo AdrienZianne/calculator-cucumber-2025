@@ -175,10 +175,10 @@ public class CalculatorSteps {
 
 
 
-	@When("^I provide the notation (.*)$")
-	public void whenIProvideANotation(String notation) {
-		whenIProvideANotation(notation, 0);
-	}
+	//@When("^I provide the notation (.*)$")
+	//public void whenIProvideANotation(String notation) {
+	//	whenIProvideANotation(notation, 0);
+	//}
 
 	@And("^I provide the notation (.*) to operator (.*)$")
 	public void whenIProvideANotation(String notation, int opIndex) {
