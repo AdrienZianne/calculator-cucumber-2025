@@ -134,8 +134,11 @@ public class CalculatorSteps {
 		if(val.equals("max")){
 			assertEquals(Integer.MAX_VALUE, c.eval(op));
 		}
-		else{
+		else if (val.equals("min")){
 			assertEquals(Integer.MIN_VALUE, c.eval(op));
+		}
+		else {
+			fail();
 		}
 	}
 }
