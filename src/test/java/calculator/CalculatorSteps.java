@@ -104,7 +104,7 @@ public class CalculatorSteps {
 		else fail(notation + " is not a correct notation! ");
 	}
 
-	@When("^I provide a (.*) number (\\d+)$")
+	@When("^I provide a (.*) number (-?\\d+)$")
 	public void whenIProvideANumber(String s, int val) {
 		whenIProvideANumber(s, val, 0);
 	}
@@ -198,4 +198,16 @@ public class CalculatorSteps {
 		assertEquals(val, operations.getFirst().toString());
 	}
 
+	@Then("the operation evaluates to {string}")
+	public void thenTheOperationEvaluatesTo(String val) {
+		if(val.equals("max")){
+			assertEquals(Integer.MAX_VALUE, c.eval(op));
+		}
+		else if (val.equals("min")){
+			assertEquals(Integer.MIN_VALUE, c.eval(op));
+		}
+		else {
+			fail();
+		}
+	}
 }

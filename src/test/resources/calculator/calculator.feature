@@ -113,7 +113,7 @@ Feature: Integer Arithmetic Expressions
       | "-" | 4| 5|  INFIX|   ( 4 - 5 )|
       | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
-
+      
   Scenario Outline: Checks the formatting of an equation composed of multiple equations
     Given an integer operation <op_0>
 
@@ -141,3 +141,14 @@ Feature: Integer Arithmetic Expressions
 
   # Create new "given an operation ..."
 
+  Scenario Outline: Dividing a number by 0
+    Given an integer operation '/'
+    When I provide a first number <n>
+    When I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n|n2|result|
+      |0|0|"max"|
+      |5|0|"max"|
+      |-5|0|"min"|
