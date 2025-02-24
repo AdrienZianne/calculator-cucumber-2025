@@ -52,6 +52,7 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 
 ## Contributors
 
+* Claire, Adrien, Adrien, Axel
 * Tom Mens
 * Gauvain Devillez @GauvainD
 
