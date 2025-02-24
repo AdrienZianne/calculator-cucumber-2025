@@ -151,7 +151,7 @@ public class CalculatorSteps {
 
 
 
-		@Then("^the (.*) is (\\d+)$")
+	@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {
 			if (operations.isEmpty()) {
@@ -174,12 +174,6 @@ public class CalculatorSteps {
 	}
 
 
-
-	//@When("^I provide the notation (.*)$")
-	//public void whenIProvideANotation(String notation) {
-	//	whenIProvideANotation(notation, 0);
-	//}
-
 	@And("^I provide the notation (.*) to operator (.*)$")
 	public void whenIProvideANotation(String notation, int opIndex) {
 		try {
@@ -201,10 +195,10 @@ public class CalculatorSteps {
 	@Then("the operation evaluates to {string}")
 	public void thenTheOperationEvaluatesTo(String val) {
 		if(val.equals("max")){
-			assertEquals(Integer.MAX_VALUE, c.eval(op));
+			assertEquals(Integer.MAX_VALUE, c.eval(operations.getFirst()));
 		}
 		else if (val.equals("min")){
-			assertEquals(Integer.MIN_VALUE, c.eval(op));
+			assertEquals(Integer.MIN_VALUE, c.eval(operations.getFirst()));
 		}
 		else {
 			fail();
