@@ -1,5 +1,6 @@
 package calculator;
 
+import visitor.Formatter;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -64,6 +65,14 @@ public abstract class Operation implements Expression
 			args = new ArrayList<>(elist);
 		}
 		if (n!=null) notation = n;
+	}
+
+	/**
+	 * getter method to return the symbol of the operation
+	 * @return
+	 */
+	public String getSymbol() {
+		return symbol;
 	}
 
 	/**
@@ -159,20 +168,9 @@ public abstract class Operation implements Expression
    * @return	The String that is the result of the conversion.
    */
   public final String toString(Notation n) {
-	   Stream<String> s = args.stream().map(Object::toString);
-	   return switch (n) {
-		   case INFIX -> "( " +
-				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).get() +
-				   " )";
-		   case PREFIX -> symbol + " " +
-				   "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-				   ")";
-		   case POSTFIX -> "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-				   ")" +
-				   " " + symbol;
-	   };
+	  Formatter formatter = new Formatter(n);
+	  formatter.visit(this);
+	  return formatter.getResult();
   }
 
 	/**

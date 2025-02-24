@@ -92,11 +92,11 @@ Feature: Integer Arithmetic Expressions
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
 
-  Scenario Outline: Evaluating arithmetic operations with two integer parameters
+  Scenario Outline: Checks the formatting of an equation between two integers parameters
     Given an integer operation <op>
     When I provide a first number <n1>
     When I provide a second number <n2>
-    When I provide the notation <notation>
+    And I provide the notation <notation> to operator 0
     Then the operation is written like <result>
 
     Examples:
@@ -113,6 +113,33 @@ Feature: Integer Arithmetic Expressions
       | "-" | 4| 5|  INFIX|   ( 4 - 5 )|
       | "*" | 4| 5|  INFIX|   ( 4 * 5 )|
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
+      
+  Scenario Outline: Checks the formatting of an equation composed of multiple equations
+    Given an integer operation <op_0>
+
+    When I provide another integer operation <op_1> to operator 0
+    And I provide a first number <arg_10> to operator 1
+    And I provide a second number <arg_11> to operator 1
+    And I provide a third number <arg_12> to operator 1
+    And I provide the notation <not_1> to operator 1
+
+    When I provide another integer operation <op_2> to operator 0
+    And I provide a first number <arg_20> to operator 2
+    And I provide a second number <arg_21> to operator 2
+    And I provide the notation <not_2> to operator 2
+
+    When I provide a first number <arg_0> to operator 0
+    And I provide the notation INFIX to operator 0
+    Then the operation is written like <result>
+
+    Examples:
+      | op_0 | arg_0 | op_1 | not_1  | arg_10 | arg_11 | arg_12 | op_2 | not_2  | arg_20 | arg_21 | result |
+      | "/"  | 7     | "+"  | PREFIX | 3      |4       |5       | "-"  | PREFIX | 5      | 4      | ( ( 3 + 4 + 5 ) / ( 5 - 4 ) / 7 ) |
+    # / (+ (3, 4, 5), - (5, 4), 7)
+    # ( ( 3 + 4 + 5 ) / ( 5 - 4 ) / 7 )
+    # ((3, 4, 5) +, (5, 4) -, 7) /
+
+  # Create new "given an operation ..."
 
   Scenario Outline: Dividing a number by 0
     Given an integer operation '/'
