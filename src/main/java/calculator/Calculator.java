@@ -1,6 +1,7 @@
 package calculator;
 
 import visitor.Evaluator;
+import visitor.Formatter;
 
 /**
  * This class represents the core logic of a Calculator.
@@ -31,7 +32,9 @@ public class Calculator {
      * @see #printExpressionDetails(Expression) 
      */
     public void print(Expression e) {
-        System.out.println("The result of evaluating expression " + e);
+        Formatter s = new Formatter(Notation.PREFIX);
+        e.accept(s);
+        System.out.println("The result of evaluating expression " + s.getResult());
         System.out.println("is: " + eval(e) + ".");
         System.out.println();
     }
