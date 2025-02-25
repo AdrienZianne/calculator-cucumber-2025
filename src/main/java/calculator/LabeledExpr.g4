@@ -1,10 +1,26 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: sum?
-    | sum_prefix?;
+expr: sum_infix?
+    | sum_prefix?
+    | sum_postfix?
+    ;
 
+/* POSTFIX NOTATION */
 
+sum_postfix : product_postfix
+           | '('args_postfix ')' '+'
+           | '('args_postfix ')' '-'
+           ;
+
+product_postfix  : '(' args_postfix (','? args_postfix)* ')' '*'
+                | '(' args_postfix (','? args_postfix)* ')' '/'
+                ;
+
+args_postfix :  INT (','? args_postfix)*
+            | sum_postfix
+            | INT
+            ;
 
 /* PREFIX NOTATION */
 sum_prefix : product_prefix
@@ -12,40 +28,30 @@ sum_prefix : product_prefix
            | '-' '('args_prefix ')'
            ;
 
-
 product_prefix  : '*' '(' args_prefix (','? args_prefix)* ')'
                 | '/' '(' args_prefix (','? args_prefix)* ')'
                 ;
-
 
 args_prefix :  INT (','? args_prefix)*
             | sum_prefix
             | INT
             ;
 
-
-
-
-
-
-
 /* INFIX NOTATION */
-sum : product
-    | sum '+' product
-    | sum '-' product
+sum_infix : product_infix
+    | sum_infix '+' product_infix
+    | sum_infix '-' product_infix
     ;
 
-product: atom               # Simple
-    | product '*' atom      # Mult
-    | product '/' atom      # Div
+product_infix: atom_infix
+    | product_infix '*' atom_infix
+    | product_infix '/' atom_infix
     ;
 
-
-atom: INT
+atom_infix: INT
     | '-' INT
-    | '(' sum ')'
+    | '(' sum_infix ')'
     ;
-
 
 
 MUL :   '*' ; // assigns token name to '*' used above in grammar
