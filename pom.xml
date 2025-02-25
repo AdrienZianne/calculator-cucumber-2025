@@ -163,7 +163,8 @@
                     <outputDirectory>src/main/java</outputDirectory>
                     <arguments>
                         <argument>-visitor</argument>
-                        <argument>-listener</argument>
+                        <argument>calculator/parser/LabeledExpr.g4</argument>
+                        <!-- <argument>-listener</argument> -->
                     </arguments>
                 </configuration>
                 <executions>
