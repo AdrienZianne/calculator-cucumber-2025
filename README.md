@@ -33,6 +33,11 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 *  The tests and BDD scenarios are executable with Maven using "mvn test"
 *  Note that the tests are also executed when you do a "mvn install". It is possible to skip those tests by providing an extra parameter. For details of more advanced uses of Maven, please refer to its official documentation https://maven.apache.org/guides/.
 
+### Generate new Grammar
+
+Run the following command : `mvn antlr4:antlr4`
+
+
 ### Test coverage and JavaDoc reporting
 
 *  In addition to testing the code, "mvn test" will also generate a test coverage report (in HTML format) using JaCoCo. This test coverage is generated in target/site/jacoco.
