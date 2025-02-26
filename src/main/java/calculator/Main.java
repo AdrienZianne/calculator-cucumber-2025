@@ -63,7 +63,7 @@ public class Main {
 
 		Parser p = new Parser();
 
-		p.ParseString("(3 + 1)");
+		p.ParseString("(10 + 4 / (3 - 1))");
 
 		/*
 		CharStream input = CharStreams.fromString("y = 9 + 2 / 2 * 2\n");
