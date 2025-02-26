@@ -61,6 +61,10 @@ public class Main {
 		c.print(e);
 		c.eval(e);
 
+		Parser p = new Parser();
+
+		p.ParseString("(3 + 1)");
+
 		/*
 		CharStream input = CharStreams.fromString("y = 9 + 2 / 2 * 2\n");
 		LabeledExprLexer lexer = new LabeledExprLexer(input);

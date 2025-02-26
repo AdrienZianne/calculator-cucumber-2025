@@ -1,9 +1,9 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: sumInfix?
-    | sumPrefix?
-    | sumPostfix?
+expr: sumInfix?     #ExprInfix
+    | sumPrefix?    #ExprPrefix
+    | sumPostfix?   #ExprPostfix
     ;
 
 /* POSTFIX NOTATION */
@@ -38,20 +38,21 @@ argsPrefix :  INT (','? argsPrefix)*
             ;
 
 /* INFIX NOTATION */
-sumInfix : productInfix
-    | sumInfix '+' productInfix
-    | sumInfix '-' productInfix
+sumInfix : productInfix             #SumInfixProd
+    | sumInfix '+' productInfix     #SumInfixAdd
+    | sumInfix '-' productInfix     #SumInfixDiff
     ;
 
-productInfix: atomInfix
-    | productInfix '*' atomInfix
-    | productInfix '/' atomInfix
+productInfix: atomInfix             #ProductInfixAtom
+    | productInfix '*' atomInfix    #ProductInfixMult
+    | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: INT
-    | '-' INT
-    | '(' sumInfix ')'
+atomInfix: INT          #AtomInfixInt
+    | '-' INT           #AtomInfixNegation
+    | '(' sumInfix ')'  #AtomInfixSum
     ;
+
 
 
 MUL :   '*' ; // assigns token name to '*' used above in grammar
