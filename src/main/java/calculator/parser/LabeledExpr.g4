@@ -8,34 +8,33 @@ expr: sumInfix?     #ExprInfix
 
 /* POSTFIX NOTATION */
 
-sumPostfix : productPostfix
-           | '('argsPostfix ')' '+'
-           | '('argsPostfix ')' '-'
+sumPostfix : productPostfix                                     #SumPostfixProd
+           | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
+           | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
            ;
 
-productPostfix  : '(' argsPostfix (','? argsPostfix)* ')' '*'
-                | '(' argsPostfix (','? argsPostfix)* ')' '/'
+productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
+                | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
                 ;
 
-argsPostfix :  INT (','? argsPostfix)*
-            | sumPostfix
-            | INT
+atomPostfix : sumPostfix    #AtomPostfixSum
+            | INT           #AtomPostfixInt
             ;
 
 /* PREFIX NOTATION */
-sumPrefix : productPrefix
-           | '+' '('argsPrefix ')'
-           | '-' '('argsPrefix ')'
+sumPrefix : productPrefix                               #SumPrefixProd
+           | '+' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixSum
+           | '-' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixDiff
            ;
 
-productPrefix  : '*' '(' argsPrefix (','? argsPrefix)* ')'
-                | '/' '(' argsPrefix (','? argsPrefix)* ')'
+productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
+                | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
                 ;
 
-argsPrefix :  INT (','? argsPrefix)*
-            | sumPrefix
-            | INT
+atomPrefix  : sumPrefix         #AtomPrefixSum
+            | INT               #AtomPrefixInt
             ;
+
 
 /* INFIX NOTATION */
 sumInfix : productInfix             #SumInfixProd
@@ -48,9 +47,9 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: INT          #AtomInfixInt
-    | '-' INT           #AtomInfixNegation
-    | '(' sumInfix ')'  #AtomInfixSum
+atomInfix: INT                  #AtomInfixInt
+    | '-' sumInfix              #AtomInfixNegation
+    | '(' sumInfix ')'          #AtomInfixSum
     ;
 
 
