@@ -32,41 +32,103 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprPostfix(LabeledExprParser.ExprPostfixContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#sumPostfix}.
+	 * Visit a parse tree produced by the {@code SumPostfixProd}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSumPostfix(LabeledExprParser.SumPostfixContext ctx);
+	T visitSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#productPostfix}.
+	 * Visit a parse tree produced by the {@code SumPostfixSum}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProductPostfix(LabeledExprParser.ProductPostfixContext ctx);
+	T visitSumPostfixSum(LabeledExprParser.SumPostfixSumContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#argsPostfix}.
+	 * Visit a parse tree produced by the {@code SumPostfixDiff}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgsPostfix(LabeledExprParser.ArgsPostfixContext ctx);
+	T visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#sumPrefix}.
+	 * Visit a parse tree produced by the {@code ProductPostfixMult}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSumPrefix(LabeledExprParser.SumPrefixContext ctx);
+	T visitProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#productPrefix}.
+	 * Visit a parse tree produced by the {@code ProductPostfixDiv}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProductPrefix(LabeledExprParser.ProductPrefixContext ctx);
+	T visitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LabeledExprParser#argsPrefix}.
+	 * Visit a parse tree produced by the {@code AtomPostfixSum}
+	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgsPrefix(LabeledExprParser.ArgsPrefixContext ctx);
+	T visitAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomPostfixInt}
+	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumPrefixProd}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPrefixProd(LabeledExprParser.SumPrefixProdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumPrefixSum}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPrefixSum(LabeledExprParser.SumPrefixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumPrefixDiff}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ProductPrefixMult}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ProductPrefixDiv}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomPrefixSum}
+	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomPrefixInt}
+	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
@@ -117,12 +179,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomInfixInt(LabeledExprParser.AtomInfixIntContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixNegation}
+	 * Visit a parse tree produced by the {@code AtomInfixNeg}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixNegation(LabeledExprParser.AtomInfixNegationContext ctx);
+	T visitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -130,4 +192,11 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberInt}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberInt(LabeledExprParser.NumberIntContext ctx);
 }

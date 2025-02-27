@@ -52,73 +52,169 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSumPostfix(LabeledExprParser.SumPostfixContext ctx) { }
+	@Override public void enterSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSumPostfix(LabeledExprParser.SumPostfixContext ctx) { }
+	@Override public void exitSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProductPostfix(LabeledExprParser.ProductPostfixContext ctx) { }
+	@Override public void enterSumPostfixSum(LabeledExprParser.SumPostfixSumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProductPostfix(LabeledExprParser.ProductPostfixContext ctx) { }
+	@Override public void exitSumPostfixSum(LabeledExprParser.SumPostfixSumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgsPostfix(LabeledExprParser.ArgsPostfixContext ctx) { }
+	@Override public void enterSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgsPostfix(LabeledExprParser.ArgsPostfixContext ctx) { }
+	@Override public void exitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSumPrefix(LabeledExprParser.SumPrefixContext ctx) { }
+	@Override public void enterProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSumPrefix(LabeledExprParser.SumPrefixContext ctx) { }
+	@Override public void exitProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProductPrefix(LabeledExprParser.ProductPrefixContext ctx) { }
+	@Override public void enterProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProductPrefix(LabeledExprParser.ProductPrefixContext ctx) { }
+	@Override public void exitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgsPrefix(LabeledExprParser.ArgsPrefixContext ctx) { }
+	@Override public void enterAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgsPrefix(LabeledExprParser.ArgsPrefixContext ctx) { }
+	@Override public void exitAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumPrefixProd(LabeledExprParser.SumPrefixProdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixProd(LabeledExprParser.SumPrefixProdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumPrefixSum(LabeledExprParser.SumPrefixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixSum(LabeledExprParser.SumPrefixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -208,13 +304,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomInfixNegation(LabeledExprParser.AtomInfixNegationContext ctx) { }
+	@Override public void enterAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtomInfixNegation(LabeledExprParser.AtomInfixNegationContext ctx) { }
+	@Override public void exitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -227,6 +323,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

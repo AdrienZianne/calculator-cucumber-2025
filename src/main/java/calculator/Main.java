@@ -63,8 +63,8 @@ public class Main {
 
 		Parser p = new Parser();
 
-		p.ParseString("((4 + 5 + 6) * (7 + (5 / 2 / 7)) * 9)");
-
+		Expression exp = p.ParseString("((4,5,6)+,(7,(5,2,7)/)+,9) *");
+		System.out.println(c.eval(exp));
 		/*
 		CharStream input = CharStreams.fromString("y = 9 + 2 / 2 * 2\n");
 		LabeledExprLexer lexer = new LabeledExprLexer(input);

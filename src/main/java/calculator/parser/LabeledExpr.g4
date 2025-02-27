@@ -18,7 +18,7 @@ productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixM
                 ;
 
 atomPostfix : sumPostfix    #AtomPostfixSum
-            | INT           #AtomPostfixInt
+            | number           #AtomPostfixInt
             ;
 
 /* PREFIX NOTATION */
@@ -32,7 +32,7 @@ productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMu
                 ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
-            | INT               #AtomPrefixInt
+            | number               #AtomPrefixInt
             ;
 
 
@@ -47,12 +47,16 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: INT                  #AtomInfixInt
-    | '-' sumInfix              #AtomInfixNegation
+atomInfix: number               #AtomInfixInt
+    | '-' sumInfix              #AtomInfixNeg
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
+/* NUMBER and TOKENS */
 
+// Add other number kinds, such as floats/doubles
+number: INT                     #NumberInt
+      ;
 
 MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;

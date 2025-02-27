@@ -2,6 +2,7 @@ package calculator.parser;
 
 import calculator.*;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,30 +13,25 @@ import java.util.List;
  */
 public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 {
-    @Override
-    public Expression visitExprInfix(LabeledExprParser.ExprInfixContext ctx) {
-        return ctx.getChild(0).accept(this);
-    }
-
-
+    /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {
-        return setFactors(ctx, this, () -> new Plus(new ArrayList<>(), Notation.INFIX));
+        return parseToOperator(ctx,expressions -> new Plus(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitSumInfixDiff(LabeledExprParser.SumInfixDiffContext ctx) {
-        return setFactors(ctx, this, () -> new Minus(new ArrayList<>(), Notation.INFIX));
+        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitProductInfixMult(LabeledExprParser.ProductInfixMultContext ctx) {
-        return setFactors(ctx, this, () -> new Times(new ArrayList<>(), Notation.INFIX));
+        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
-        return setFactors(ctx, this, () -> new Divides(new ArrayList<>(), Notation.INFIX));
+        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
     }
 
 
@@ -45,34 +41,83 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         return ctx.getChild(1).accept(this);
     }
 
+    /* _________________________________ PREFIX _________________________________ */
+
     @Override
-    public Expression visitAtomInfixInt(LabeledExprParser.AtomInfixIntContext ctx) {
-        // We are at the end of the parse tree, we can simply parse the text as an int
+    public Expression visitSumPrefixSum(LabeledExprParser.SumPrefixSumContext ctx) {
+        return parseToOperator(ctx, expressions -> new Plus(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) {
+        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) {
+        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx) {
+        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.PREFIX));
+    }
+    /* _________________________________ POSTFIX _________________________________ */
+
+    @Override
+    public Expression visitSumPostfixSum(LabeledExprParser.SumPostfixSumContext ctx) {
+        return parseToOperator(ctx, expressions -> new Plus(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) {
+        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx) {
+        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx) {
+        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.POSTFIX));
+    }
+
+    /* __________________________________ NUMBER _______________________________ */
+
+    @Override
+    public Expression visitNumberInt(LabeledExprParser.NumberIntContext ctx) {
         return new MyNumber(Integer.parseInt(ctx.getText()));
     }
 
     //__________________________________Static Functions__________________________
 
+
     /**
-     * Sets the factor of a given operator by visiting the child nodes
-     * @param ctx   The parser context
-     * @param visitor   The visitor
-     * @param operation The operation
+     * Parses the given context as expressions and feeds them to an operation.
+     * @param ctx       The context to parse
+     * @param operation The operation to build and to give the parsed expressions as parameters.
+     * @return The created operation
+     * @param <E>   The current parser rule context
+     * @param <O>   The type of operation to build
      */
-    private static <E extends ParserRuleContext, O extends Operation> O setFactors(E ctx, LabeledExprBaseVisitor<Expression> visitor, BuildOperationFunction<O> operation)
-    {
-        // We evaluate both factors (but not the second child since it is the operator character)
-        Expression factor1 = ctx.getChild(0).accept(visitor);
-        Expression factor2 = ctx.getChild(2).accept(visitor);
-        // Add the factors to the given operation
+    public <E extends ParserRuleContext, O extends Operation> O parseToOperator(E ctx, BuildOperationFunction<O> operation) {
+        ArrayList<Expression> expressions = new ArrayList<>();
+        for (int i = 0; i < ctx.getChildCount(); i++) {
+            // Checks if the node is a token without any interesting values
+            if (! (ctx.getChild(i) instanceof TerminalNode)) {
+                expressions.add(visit(ctx.getChild(i)));
+            }
+        }
         O res = null;
         try {
-            res = operation.build();
+            res = operation.build(expressions);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
         }
-        res.addMoreParams(List.of(factor1, factor2));
         return res;
     }
+
 
 }
