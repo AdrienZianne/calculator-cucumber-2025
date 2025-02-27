@@ -8,7 +8,7 @@ public class CalculatorParser {
 
         // Read input as stream
         CharStream inp = CharStreams.fromString(input);
-        
+
         LabeledExprLexer lexer = new LabeledExprLexer(inp);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         LabeledExprParser parser = new LabeledExprParser(tokens);

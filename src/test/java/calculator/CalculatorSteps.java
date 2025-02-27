@@ -8,6 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import javax.swing.text.html.parser.Parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class CalculatorSteps {
 
 	@Before
     public void resetMemoryBeforeEachScenario() {
-		params = null;
+		params = new ArrayList<>();
 		operations = new ArrayList<>();
 	}
 
@@ -203,5 +204,16 @@ public class CalculatorSteps {
 		else {
 			fail();
 		}
+	}
+
+
+	@When("I provide an expression as a string {string}")
+	public void whenIProvideAString(String string) {
+		params.add(CalculatorParser.parseString(string));
+	}
+
+	@Then("the expression evaluates to {int}")
+	public void thenTheExpressionEvaluatesTo(int val) {
+		assertEquals(val, c.eval(params.getFirst()));
 	}
 }
