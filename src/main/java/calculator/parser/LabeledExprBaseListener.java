@@ -16,37 +16,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprInfix(LabeledExprParser.ExprInfixContext ctx) { }
+	@Override public void enterExpr(LabeledExprParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprInfix(LabeledExprParser.ExprInfixContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprPrefix(LabeledExprParser.ExprPrefixContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprPrefix(LabeledExprParser.ExprPrefixContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprPostfix(LabeledExprParser.ExprPostfixContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprPostfix(LabeledExprParser.ExprPostfixContext ctx) { }
+	@Override public void exitExpr(LabeledExprParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

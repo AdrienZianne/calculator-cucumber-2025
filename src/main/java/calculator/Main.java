@@ -1,11 +1,5 @@
 package calculator;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,26 +55,9 @@ public class Main {
 		c.print(e);
 		c.eval(e);
 
-		Parser p = new Parser();
 
-		Expression exp = p.ParseString("((4,5,6)+,(7,(5,2,7)/)+,9) *");
-		System.out.println(c.eval(exp));
-		/*
-		CharStream input = CharStreams.fromString("y = 9 + 2 / 2 * 2\n");
-		LabeledExprLexer lexer = new LabeledExprLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		LabeledExprParser parser = new LabeledExprParser(tokens);
-		// Start parsing
-
-		ParseTree tree = parser.prog(); // parse
-		EvalVisitor eval = new EvalVisitor();
-		int result = eval.visit(tree);
-		System.out.println("");
-		System.out.println(result);
-
-		 */
-
-
+		Expression exp = CalculatorParser.parseString("(((4,5,6)+,(7,(5,2,7)/)+,9) * 2) /");
+		c.printExpressionDetails(exp);
 	}
 
 	catch(IllegalConstruction exception) {

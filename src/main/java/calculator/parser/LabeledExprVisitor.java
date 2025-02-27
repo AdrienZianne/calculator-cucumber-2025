@@ -11,26 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code ExprInfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
+	 * Visit a parse tree produced by {@link LabeledExprParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprInfix(LabeledExprParser.ExprInfixContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprPrefix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprPrefix(LabeledExprParser.ExprPrefixContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprPostfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprPostfix(LabeledExprParser.ExprPostfixContext ctx);
+	T visitExpr(LabeledExprParser.ExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.

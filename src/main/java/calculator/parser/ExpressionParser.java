@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 {
+    @Override
+    public Expression visitExpr(LabeledExprParser.ExprContext ctx) {
+        return visit(ctx.getChild(0));
+    }
+
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {

@@ -8,41 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface LabeledExprListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code ExprInfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
+	 * Enter a parse tree produced by {@link LabeledExprParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprInfix(LabeledExprParser.ExprInfixContext ctx);
+	void enterExpr(LabeledExprParser.ExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExprInfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
+	 * Exit a parse tree produced by {@link LabeledExprParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprInfix(LabeledExprParser.ExprInfixContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExprPrefix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprPrefix(LabeledExprParser.ExprPrefixContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExprPrefix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprPrefix(LabeledExprParser.ExprPrefixContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExprPostfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprPostfix(LabeledExprParser.ExprPostfixContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExprPostfix}
-	 * labeled alternative in {@link LabeledExprParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprPostfix(LabeledExprParser.ExprPostfixContext ctx);
+	void exitExpr(LabeledExprParser.ExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.

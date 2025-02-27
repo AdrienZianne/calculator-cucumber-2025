@@ -1,10 +1,9 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: sumInfix?     #ExprInfix
-    | sumPrefix?    #ExprPrefix
-    | sumPostfix?   #ExprPostfix
-    ;
+expr: (sumInfix
+    | sumPrefix
+    | sumPostfix) EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
 
 /* POSTFIX NOTATION */
 
