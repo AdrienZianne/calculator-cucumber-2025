@@ -1,5 +1,5 @@
-// Generated from calculator/parser/LabeledExpr.g4 by ANTLR 4.9.1
-package calculator.parser;
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+package calculator.parser.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

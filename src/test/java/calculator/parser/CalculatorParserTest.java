@@ -1,9 +1,9 @@
-package calculator;
+package calculator.parser;
 
+import calculator.Calculator;
+import calculator.Expression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.swing.text.html.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 

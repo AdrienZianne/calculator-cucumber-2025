@@ -1,11 +1,10 @@
-package calculator.parser;
+package calculator.parser.antlr;
 
 import calculator.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.

@@ -2,16 +2,14 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import javax.swing.text.html.parser.Parser;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class CalculatorSteps {
