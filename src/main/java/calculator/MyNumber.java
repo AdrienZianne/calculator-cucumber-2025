@@ -38,31 +38,6 @@ public class MyNumber implements Expression
       v.visit(this);
   }
 
-
-    /** The depth of a number expression is always 0
-     *
-     * @return The depth of a number expression
-     */
-  public int countDepth() {
-	  return 0;
-  }
-
-    /** The number of operations contained in a number expression is always 0
-     *
-     * @return The number of operations contained in a number expression
-     */
-  public int countOps() {
-	  return 0;
-  }
-
-    /** The number of numbers contained in a number expression is always 1
-     *
-     * @return The number of numbers contained in  a number expression
-     */
-  public int countNbs() {
-	  return 1;
-  }
-
     /**
      * Convert a number into a String to allow it to be printed.
      *
