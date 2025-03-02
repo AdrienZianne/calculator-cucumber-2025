@@ -30,7 +30,11 @@ public class Evaluator extends Visitor {
      * @param n The number being visited
      */
     public void visit(MyNumber n) {
-        computedValue = n.getValue();
+        //TMP new
+        if(n.getType() == MyNumber.Type.ENTIER)
+        {
+            computedValue = (int) n.getValue();
+        }
     }
 
     /** Use the visitor design pattern to visit an operation
