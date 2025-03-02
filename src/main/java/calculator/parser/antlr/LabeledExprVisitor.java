@@ -184,4 +184,25 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNumberInt(LabeledExprParser.NumberIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberReal}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberReal(LabeledExprParser.NumberRealContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberNegation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberImaginary}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
 }

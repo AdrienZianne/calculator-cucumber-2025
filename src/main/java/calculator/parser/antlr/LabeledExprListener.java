@@ -305,4 +305,40 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberInt(LabeledExprParser.NumberIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberReal}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberReal(LabeledExprParser.NumberRealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberReal}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberReal(LabeledExprParser.NumberRealContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberNegation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberNegation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberImaginary}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberImaginary}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
 }
