@@ -1,6 +1,6 @@
 [![](https://img.shields.io/github/v/release/University-of-Mons/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/University-of-Mons/calculator-cucumber/releases/latest)
 
-Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
+Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AdrienZianne_calculator-cucumber-2025)](https://sonarcloud.io/summary/new_code?id=AdrienZianne_calculator-cucumber-2025)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
