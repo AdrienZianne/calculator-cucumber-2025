@@ -3,20 +3,29 @@ package io;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
+import org.jline.reader.impl.LineReaderImpl;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
-import java.io.Console;
 import java.io.IOException;
 
+/**
+ * Implement CLI and REPL with command and error
+ */
 public class Shell {
 
     private boolean interrupted = false;
-    private Terminal terminal;
+    private final Terminal terminal;
+    private LineReader reader;
 
     public Shell() throws IOException {
         terminal = TerminalBuilder.terminal();
+        reader = LineReaderBuilder.builder()
+                .terminal(terminal)
+                .completer(new StringsCompleter(/* add completion string list here */))
+                .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
+                .build();
     }
 
     /**
@@ -30,13 +39,7 @@ public class Shell {
     /**
      * Loop of the REPL, making the application interactive
      */
-    public void loop() throws IOException {
-
-
-        LineReader reader = LineReaderBuilder.builder()
-                .terminal(terminal)
-                .completer(new StringsCompleter(/*put here completion string*/))
-                .build();
+    public void loop() {
 
         while (!interrupted) {
 
@@ -49,6 +52,9 @@ public class Shell {
                         break;
                     case "!h":
                         displayHelp();
+                        break;
+                    case "!c":
+                        clear();
                         break;
                     default:
                         try {
@@ -67,6 +73,13 @@ public class Shell {
     }
 
     /**
+     * Clear the screen
+     */
+    private void clear() {
+        ((LineReaderImpl) reader).clearScreen();
+    }
+
+    /**
      * Print help message to help user use the interactive console
      */
     private void displayHelp() {
@@ -74,6 +87,7 @@ public class Shell {
                 \033[1mCalculator Cucumber 2025\033[0m
                 
                 \t!h : Display this message
+                \t!c : Clear the screen
                 \t!q : Quit the application
                 """
         );
