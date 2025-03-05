@@ -31,7 +31,7 @@ public class Evaluator extends Visitor {
      */
     public void visit(MyNumber n) {
         //TMP new
-        if(n.getType() == MyNumber.Type.ENTIER)
+        if(n.getType() == MyNumber.Type.INTEGER)
         {
             computedValue = (int) n.getValue();
         }

@@ -14,8 +14,12 @@ import java.util.List;
  * @see Expression
  * @see MyNumber
  */
-public abstract class Operation implements Expression
+public class Operation implements Expression
 {
+    public enum Type {
+        PLUS, MINUS, TIMES, DIVIDES
+    }
+
 	/**
 	 * The list of expressions passed as an argument to the arithmetic operation
 	 */
@@ -31,6 +35,8 @@ public abstract class Operation implements Expression
    */
   protected int neutral;
 
+  protected Type type;
+
   /**
    * The notation used to render operations as strings.
    * By default, the infix notation will be used.
@@ -43,10 +49,10 @@ public abstract class Operation implements Expression
    * @param elist	The list of expressions passed as argument to the arithmetic operation
    * @throws IllegalConstruction	Exception thrown if a null list of expressions is passed as argument
    */
-  protected /*constructor*/ Operation(List<Expression> elist)
+  public /*constructor*/ Operation(List<Expression> elist, Operation.Type type)
 		  throws IllegalConstruction
 	{
-		this(elist, null);
+		this(elist, null, type);
     }
 
 	/** To construct an operation with a list of expressions as arguments,
@@ -56,7 +62,7 @@ public abstract class Operation implements Expression
 	 * @param n 	The notation to be used to represent the operation
 	 * @throws IllegalConstruction	Exception thrown if a null list of expressions is passed as argument
 	 */
-	protected /*constructor*/ Operation(List<Expression> elist,Notation n)
+	public /*constructor*/ Operation(List<Expression> elist, Notation n, Operation.Type type)
 			throws IllegalConstruction
 	{
 		if (elist == null) {
@@ -65,6 +71,29 @@ public abstract class Operation implements Expression
 			args = new ArrayList<>(elist);
 		}
 		if (n!=null) notation = n;
+
+        this.type = type;
+        switch (type) {
+            case Operation.Type.PLUS:
+                symbol = "+";
+                neutral = 0;
+                break;
+
+            case Operation.Type.MINUS:
+                symbol = "-";
+                neutral = 0;
+                break;
+
+            case Operation.Type.TIMES:
+                symbol = "*";
+                neutral = 1;
+                break;
+
+            case Operation.Type.DIVIDES:
+                symbol = "/";
+                neutral = 1;
+                break;
+        }
 	}
 
 	/**
@@ -90,8 +119,30 @@ public abstract class Operation implements Expression
 	 * @param r	second argument of the binary operation
 	 * @return	result of computing the binary operation
 	 */
-   public abstract int op(int l, int r);
-    // the operation itself is specified in the subclasses
+   public MyNumber op(MyNumber l, MyNumber r) {
+        switch (type) {
+            case PLUS:
+                switch (l.getType()) {
+                    case MyNumber.Type.INTEGER:
+                        return ((MyInteger) l).plus(r);
+                }
+            case MINUS:
+                switch (l.getType()) {
+                    case MyNumber.Type.INTEGER:
+                        return ((MyInteger) l).minus(r);
+                }
+            case TIMES:
+                switch (l.getType()) {
+                    case MyNumber.Type.INTEGER:
+                        return ((MyInteger) l).times(r);
+                }
+            case DIVIDES:
+                switch (l.getType()) {
+                    case MyNumber.Type.INTEGER:
+                        return ((MyInteger) l).divides(r);
+                }
+       }
+   }
 
 	/** Add more parameters to the existing list of parameters
 	 *
