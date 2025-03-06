@@ -1,7 +1,5 @@
 package calculator;
 
-//import java.util.Arrays;
-
 import visitor.Visitor;
 
 /**
@@ -13,7 +11,7 @@ import visitor.Visitor;
  */
 public abstract class MyNumber implements Expression
 {
-    private final Type type;
+    protected Type type;
 
     /**
      * Adding the different possible types
@@ -45,53 +43,8 @@ public abstract class MyNumber implements Expression
         v.visit(this);
     }
 
-  /** Two MyNumber expressions are equal if the values they contain are equal
-   *
-   * @param o The object to compare to
-   * @return A boolean representing the result of the equality test
-   */
-    @Override
-    public boolean equals(Object o) {
-        // No object should be equal to null (not including this check can result in an exception if a MyNumber is tested against null)
-        if (o == null) return false;
-
-        // If the object is compared to itself then return true
-        if (o == this) return true;
-
-        // If the object is of another type then return false
-        if (!(o instanceof MyNumber)) return false;
-
-        // If types are different, objects are not equal
-        MyNumber other = (MyNumber) o;
-        if (this.type != other.type) return false; 
-
-         // Comparison of values according to type
-         switch (this.type) {
-            case INTEGER :
-            case REAL:
-                return this.value == other.value;
-            case RATIONAL:
-                int[] thisRationnel = (int[]) this.value;
-                int[] otherRationnel = (int[]) other.value;
-                return thisRationnel[0] == otherRationnel[0] && thisRationnel[1] == otherRationnel[1];
-            case COMPLEX:
-                double[] thisComplex = (double[]) this.value;
-                double[] otherComplex = (double[]) other.value;
-                return thisComplex[0] == otherComplex[0] && thisComplex[1] == otherComplex[1];
-            default:
-                return false;
-        }
-    }
-
-    /** The method hashCode needs to be overridden it the equals method is overridden;
-     * 	otherwise there may be problems when you use your object in hashed collections
-     * 	such as HashMap, HashSet, LinkedHashSet.
-     *
-     * @return	The result of computing the hash.
-     */
-    @Override
-    public int hashCode() {
-    		return (int) value;
-            //TMP -> TO DO
-    }
+    public abstract MyNumber plus(MyNumber other);
+    public abstract MyNumber minus(MyNumber other);
+    public abstract MyNumber times(MyNumber other);
+    public abstract MyNumber divides(MyNumber other);
 }

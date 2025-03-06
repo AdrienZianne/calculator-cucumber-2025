@@ -2,8 +2,8 @@ package calculator;
 
 public class MyComplex extends MyNumber
 {
-    private final double real;
-    private final double imaginary;
+    public final double real;
+    public final double imaginary;
 
     /**
      * Constructor method
@@ -15,6 +15,22 @@ public class MyComplex extends MyNumber
         this.type = Type.COMPLEX;
         this.real = real;
         this.imaginary = imaginary;
+    }
+
+    public MyNumber plus(MyNumber other) {
+        return new MyComplex(0, 0);
+    }
+
+    public MyNumber minus(MyNumber other) {
+        return new MyComplex(0, 0);
+    }
+
+    public MyNumber times(MyNumber other) {
+        return new MyComplex(0, 0);
+    }
+
+    public MyNumber divides(MyNumber other) {
+        return new MyComplex(0, 0);
     }
 
     /**

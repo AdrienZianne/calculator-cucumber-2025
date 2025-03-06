@@ -2,7 +2,7 @@ package calculator;
 
 public class MyReal extends MyNumber
 {
-    private final double value;
+    public final double value;
 
     /**
      * Constructor method
@@ -12,6 +12,22 @@ public class MyReal extends MyNumber
     public /*constructor*/ MyReal(double v) {
         this.type = Type.REAL;
         this.value = v;
+    }
+
+    public MyNumber plus(MyNumber other) {
+        return new MyReal(this.value + ((MyReal) other).value);
+    }
+
+    public MyNumber minus(MyNumber other) {
+        return new MyReal(this.value - ((MyReal) other).value);
+    }
+
+    public MyNumber times(MyNumber other) {
+        return new MyReal(this.value * ((MyReal) other).value);
+    }
+
+    public MyNumber divides(MyNumber other) {
+        return new MyReal(this.value / ((MyReal) other).value);
     }
 
     /**

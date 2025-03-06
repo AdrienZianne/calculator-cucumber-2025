@@ -2,8 +2,8 @@ package calculator;
 
 public class MyRational extends MyNumber
 {
-    private final int numerator;
-    private final int denominator;
+    public final int numerator;
+    public final int denominator;
 
     /**
      * Constructor method
@@ -14,8 +14,25 @@ public class MyRational extends MyNumber
     public /*constructor*/ MyRational(int num, int den) {
         if (den == 0) throw new ArithmeticException("The denominator cannot be zero.");
         this.type = Type.RATIONAL;
+        //TODO Simplify the fraction
         this.numerator = num;
         this.denominator = den;
+    }
+
+    public MyNumber plus(MyNumber other) {
+        return new MyRational(0, 0);
+    }
+
+    public MyNumber minus(MyNumber other) {
+        return new MyRational(0, 0);
+    }
+
+    public MyNumber times(MyNumber other) {
+        return new MyRational(0, 0);
+    }
+
+    public MyNumber divides(MyNumber other) {
+        return new MyRational(0, 0);
     }
 
     /**

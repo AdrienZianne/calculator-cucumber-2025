@@ -5,7 +5,6 @@ import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.stream.Stream;
 
 /**
  * Operation is an abstract class that represents arithmetic operations,
@@ -71,8 +70,8 @@ public class Operation implements Expression
 			args = new ArrayList<>(elist);
 		}
 		if (n!=null) notation = n;
-
-        this.type = type;
+		
+		this.type = type;
         switch (type) {
             case Operation.Type.PLUS:
                 symbol = "+";
@@ -122,25 +121,15 @@ public class Operation implements Expression
    public MyNumber op(MyNumber l, MyNumber r) {
         switch (type) {
             case PLUS:
-                switch (l.getType()) {
-                    case MyNumber.Type.INTEGER:
-                        return ((MyInteger) l).plus(r);
-                }
+                return l.plus(r);
             case MINUS:
-                switch (l.getType()) {
-                    case MyNumber.Type.INTEGER:
-                        return ((MyInteger) l).minus(r);
-                }
+                return l.minus(r);
             case TIMES:
-                switch (l.getType()) {
-                    case MyNumber.Type.INTEGER:
-                        return ((MyInteger) l).times(r);
-                }
+                return l.times(r);
             case DIVIDES:
-                switch (l.getType()) {
-                    case MyNumber.Type.INTEGER:
-                        return ((MyInteger) l).divides(r);
-                }
+                return l.divides(r);
+			default:
+				return null;
        }
    }
 

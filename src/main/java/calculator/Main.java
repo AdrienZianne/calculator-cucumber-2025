@@ -21,44 +21,80 @@ public class Main {
 	 * @param args	Command-line parameters are not used in this version
 	 */
 	public static void main(String[] args) {
-
   	Expression e;
   	Calculator c = new Calculator();
 
 	try{
-
-		e = new MyNumber(8);
+		e = new MyInteger(1);
 		c.print(e);
 		c.eval(e);
 
-	    List<Expression> params = new ArrayList<>();
-	    Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
-	    e = new Plus(params,Notation.PREFIX);
+		e = new MyReal(1);
+		c.print(e);
+		c.eval(e);
+
+		e = new MyRational(1, 2);
+		c.print(e);
+		c.eval(e);
+
+		e = new MyComplex(1, 2);
+		c.print(e);
+		c.eval(e);
+
+		List<Expression> params = new ArrayList<>();
+		Collections.addAll(params, new MyInteger(3), new MyInteger(5));
+		e = new Operation(params, Operation.Type.PLUS);
 		c.printExpressionDetails(e);
 		c.eval(e);
-	
+
+		params = new ArrayList<>();
+		Collections.addAll(params, new MyInteger(3), new MyReal(5));
+		e = new Operation(params, Operation.Type.PLUS);
+		c.printExpressionDetails(e);
+		c.eval(e);
+
+		params = new ArrayList<>();
+		Collections.addAll(params, new MyInteger(3), new MyRational(2, 5));
+		e = new Operation(params, Operation.Type.PLUS);
+		c.printExpressionDetails(e);
+		c.eval(e);
+
+		params = new ArrayList<>();
+		Collections.addAll(params, new MyInteger(3), new MyComplex(2, 5));
+		e = new Operation(params, Operation.Type.PLUS);
+		c.printExpressionDetails(e);
+		c.eval(e);
+
+		/*
+		// Function but is not interesting
+	    List<Expression> params = new ArrayList<>();
+	    Collections.addAll(params, new MyInteger(3), new MyInteger(4), new MyInteger(5));
+	    e = new Operation(params,Notation.PREFIX, Operation.Type.PLUS);
+		c.printExpressionDetails(e);
+		c.eval(e);
+
 		List<Expression> params2 = new ArrayList<>();
-		Collections.addAll(params2, new MyNumber(5), new MyNumber(3));
-		e = new Minus(params2, Notation.INFIX);
+		Collections.addAll(params2, new MyInteger(5), new MyInteger(3));
+		e = new Operation(params2, Notation.INFIX, Operation.Type.MINUS);
 		c.print(e);
 		c.eval(e);
 
 		List<Expression> params3 = new ArrayList<>();
-		Collections.addAll(params3, new Plus(params), new Minus(params2));
-		e = new Times(params3);
+		Collections.addAll(params3, new Operation(params, Operation.Type.PLUS), new Operation(params2, Operation.Type.MINUS));
+		e = new Operation(params3, Operation.Type.TIMES);
 		c.printExpressionDetails(e);
 		c.eval(e);
 
 		List<Expression> params4 = new ArrayList<>();
-		Collections.addAll(params4, new Plus(params), new Minus(params2), new MyNumber(5));
-		e = new Divides(params4,Notation.POSTFIX);
+		Collections.addAll(params4, new Operation(params, Operation.Type.PLUS), new Operation(params2, Operation.Type.MINUS), new MyInteger(5));
+		e = new Operation(params4,Notation.POSTFIX, Operation.Type.DIVIDES);
 		c.print(e);
 		c.eval(e);
+		 */
 	}
 
 	catch(IllegalConstruction exception) {
 		System.out.println("cannot create operations without parameters");
 		}
  	}
-
 }
