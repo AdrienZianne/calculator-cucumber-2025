@@ -52,7 +52,7 @@ public class MyInteger extends MyNumber
         };
     }
 
-    //TODO protect division by zero
+    //TODO protect division by zero and 
     public MyNumber divides(MyNumber other) {
         return switch (other.type) {
             case INTEGER -> new MyInteger(this.value / ((MyInteger) other).value);

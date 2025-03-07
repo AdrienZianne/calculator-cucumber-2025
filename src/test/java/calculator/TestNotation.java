@@ -41,15 +41,15 @@ class TestNotation {
 		int value1 = 8;
 		int value2 = 6;
 		Operation op = null;
-		List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+		List<Expression> params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
 		try {
 			//construct another type of operation depending on the input value
 			//of the parameterised test
 			switch (symbol) {
-				case "+"	->	op = new Plus(params);
-				case "-"	->	op = new Minus(params);
-				case "*"	->	op = new Times(params);
-				case "/"	->	op = new Divides(params);
+				case "+"	->	op = new Operation(params, Operation.Type.PLUS);
+				case "-"	->	op = new Operation(params, Operation.Type.MINUS);
+				case "*"	->	op = new Operation(params, Operation.Type.TIMES);
+				case "/"	->	op = new Operation(params, Operation.Type.DIVIDES);
 				default		->	fail();
 			}
 		} catch (IllegalConstruction e) {
@@ -60,10 +60,10 @@ class TestNotation {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		List<Expression> params1 = Arrays.asList(new MyNumber(3), new MyNumber(4), new MyNumber(5));
-		List<Expression> params2 = Arrays.asList(new MyNumber(5), new MyNumber(4));
-		List<Expression> params3 = Arrays.asList(new Plus(params1, Notation.INFIX), new Minus(params2, Notation.PREFIX), new MyNumber(7));
-		o = new Divides(params3, Notation.POSTFIX);
+		List<Expression> params1 = Arrays.asList(new MyInteger(3), new MyInteger(4), new MyInteger(5));
+		List<Expression> params2 = Arrays.asList(new MyInteger(5), new MyInteger(4));
+		List<Expression> params3 = Arrays.asList(new Operation(params1, Notation.INFIX, Operation.Type.PLUS), new Operation(params2, Notation.PREFIX, Operation.Type.MINUS), new MyInteger(7));
+		o = new Operation(params3, Notation.POSTFIX, Operation.Type.DIVIDES);
 	}
 
 	@Test

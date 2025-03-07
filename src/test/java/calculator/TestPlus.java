@@ -12,20 +12,20 @@ class TestPlus {
 
 	private final int value1 = 8;
 	private final int value2 = 6;
-	private Plus op;
+	private Operation op;
 	private List<Expression> params;
 
 	@BeforeEach
 	void setUp() {
-		  params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
-		  try { op = new Plus(params); }
+		  params = new ArrayList<>(Arrays.asList(new MyInteger(value1),new MyInteger(value2)));
+		  try { op = new Operation(params, Operation.Type.PLUS); }
 		  catch(IllegalConstruction e) { fail(); }
 	}
 
 	@Test
 	void testConstructor1() {
 		// It should not be possible to create a Plus expression without null parameter list
-		assertThrows(IllegalConstruction.class, () -> op = new Plus(null));
+		assertThrows(IllegalConstruction.class, () -> op = new Operation(null, Operation.Type.PLUS));
 	}
 
 	@SuppressWarnings("AssertBetweenInconvertibleTypes")
@@ -33,7 +33,7 @@ class TestPlus {
 	void testConstructor2() {
 		// A Times expression should not be the same as a Plus expression
 		try {
-			assertNotSame(op, new Times(new ArrayList<>()));
+			assertNotSame(op, new Operation(new ArrayList<>(), Operation.Type.PLUS));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -42,12 +42,12 @@ class TestPlus {
 	@Test
 	void testEquals() {
 		// Two similar expressions, constructed separately (and using different constructors) should be equal
-		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyInteger(value1), new MyInteger(value2)));
 		try {
-			Plus e = new Plus(p, Notation.INFIX);
+			Operation e = new Operation(p, Notation.INFIX, Operation.Type.PLUS);
 			assertEquals(op, e);
 			assertEquals(e, e);
-			assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber(5), new MyNumber(4))), Notation.INFIX));
+			assertNotEquals(e, new Operation(new ArrayList<>(Arrays.asList(new MyInteger(5), new MyInteger(4))), Notation.INFIX, Operation.Type.PLUS));
 		}
 		catch(IllegalConstruction e) { fail(); }
 	}
@@ -61,9 +61,9 @@ class TestPlus {
 	@Test
 	void testHashCode() {
 		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
-		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+		ArrayList<Expression> p = new ArrayList<>(Arrays.asList(new MyInteger(value1), new MyInteger(value2)));
 		try {
-			Plus e = new Plus(p, Notation.INFIX);
+			Operation e = new Operation(p, Notation.INFIX, Operation.Type.PLUS);
 			assertEquals(e.hashCode(), op.hashCode());
 		}
 		catch(IllegalConstruction e) { fail(); }
@@ -72,7 +72,7 @@ class TestPlus {
 	@Test
 	void testNullParamList() {
 		params = null;
-		assertThrows(IllegalConstruction.class, () -> op = new Plus(params));
+		assertThrows(IllegalConstruction.class, () -> op = new Operation(params, Operation.Type.PLUS));
 	}
 
 }

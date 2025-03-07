@@ -32,10 +32,10 @@ public class CalculatorSteps {
 		Operation op = null;
 		try {
             op = switch (operator) {
-                case "sum", "+" -> new Plus(params);
-                case "difference", "-" -> new Minus(params);
-                case "product", "*" -> new Times(params);
-                case "quotient", "/" -> new Divides(params);
+                case "sum", "+" -> new Operation(params, Operation.Type.PLUS);
+                case "difference", "-" -> new Operation(params, Operation.Type.MINUS);
+                case "product", "*" -> new Operation(params, Operation.Type.TIMES);
+                case "quotient", "/" -> new Operation(params, Operation.Type.DIVIDES);
                 default -> throw new IllegalConstruction();
             };
 		} catch (IllegalConstruction e) {
@@ -76,7 +76,7 @@ public class CalculatorSteps {
 		params = new ArrayList<>();
 		// Since we only use one line of input, we use get(0) to take the first line of the list,
 		// which is a list of strings, that we will manually convert to integers:
-		numbers.get(0).forEach(n -> params.add(new MyNumber(Integer.parseInt(n))));
+		numbers.getFirst().forEach(n -> params.add(new MyInteger(Integer.parseInt(n))));
 	    params.forEach(n -> System.out.println("value ="+ n));
 		operations = new ArrayList<>();
 	}
@@ -89,9 +89,9 @@ public class CalculatorSteps {
 	public void givenTheSum(int n1, int n2) {
 		try {
 			params = new ArrayList<>();
-		    params.add(new MyNumber(n1));
-		    params.add(new MyNumber(n2));
-		    operations = new ArrayList<>( List.of(new Plus(params)));}
+		    params.add(new MyInteger(n1));
+		    params.add(new MyInteger(n2));
+		    operations = new ArrayList<>( List.of(new Operation(params, Operation.Type.PLUS)));}
 		catch(IllegalConstruction e) { fail(); }
 	}
 
@@ -115,7 +115,7 @@ public class CalculatorSteps {
 			Operation op = operations.get(opIndex);
 			//add extra parameter to the operation
 			params = new ArrayList<>();
-			params.add(new MyNumber(val));
+			params.add(new MyInteger(val));
 			op.addMoreParams(params);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -147,10 +147,6 @@ public class CalculatorSteps {
 		}
 	}
 
-
-
-
-
 	@Then("^the (.*) is (\\d+)$")
 	public void thenTheOperationIs(String s, int val) {
 		try {
@@ -161,7 +157,7 @@ public class CalculatorSteps {
 			{
 				operations.set(0, createIntegerOperation(s, params));
 			}
-			assertEquals(val, c.eval(operations.getFirst()));
+			assertEquals(new MyInteger(val), c.eval(operations.getFirst()));
 		}
 		catch (IllegalConstruction e) {
 			fail();
@@ -170,7 +166,7 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to {int}")
 	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(val, c.eval(operations.getFirst()));
+		assertEquals(new MyInteger(val), c.eval(operations.getFirst()));
 	}
 
 

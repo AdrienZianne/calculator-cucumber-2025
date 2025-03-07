@@ -27,7 +27,7 @@ class TestCounting {
 
     @Test
     void testNumberCounting() {
-        e = new MyNumber(value1);
+        e = new MyInteger(value1);
         Counter c = new Counter();
         e.accept(c);
         //test whether a number has zero depth (i.e. no nested expressions)
@@ -41,16 +41,16 @@ class TestCounting {
     @ParameterizedTest
     @ValueSource(strings = {"*", "+", "/", "-"})
     void testOperationCounting(String symbol) {
-        List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+        List<Expression> params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
         //Operation op = null;
         try {
             //construct another type of operation depending on the input value
             //of the parameterised test
             switch (symbol) {
-                case "+"	->	e = new Plus(params);
-                case "-"	->	e = new Minus(params);
-                case "*"	->	e = new Times(params);
-                case "/"	->	e = new Divides(params);
+                case "+"	->	e = new Operation(params, Operation.Type.PLUS);
+                case "-"	->	e = new Operation(params, Operation.Type.MINUS);
+                case "*"	->	e = new Operation(params, Operation.Type.TIMES);
+                case "/"	->	e = new Operation(params, Operation.Type.DIVIDES);
                 default		->	fail();
             }
         } catch (IllegalConstruction e) {

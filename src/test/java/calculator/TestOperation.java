@@ -17,11 +17,11 @@ class TestOperation {
 	@BeforeEach
 	void setUp() throws Exception {
 		c = new Counter();
-		List<Expression> params1 = Arrays.asList(new MyNumber(3), new MyNumber(4), new MyNumber(5));
-		List<Expression> params2 = Arrays.asList(new MyNumber(5), new MyNumber(4));
-		List<Expression> params3 = Arrays.asList(new Plus(params1), new Minus(params2), new MyNumber(7));
-		o = new Divides(params3);
-		o2 = new Divides(params3);
+		List<Expression> params1 = Arrays.asList(new MyInteger(3), new MyInteger(4), new MyInteger(5));
+		List<Expression> params2 = Arrays.asList(new MyInteger(5), new MyInteger(4));
+		List<Expression> params3 = Arrays.asList(new Operation(params1, Operation.Type.PLUS), new Operation(params2, Operation.Type.MINUS), new MyInteger(7));
+		o = new Operation(params3, Operation.Type.DIVIDES);
+		o2 = new Operation(params3, Operation.Type.DIVIDES);
 	}
 
 	@Test
