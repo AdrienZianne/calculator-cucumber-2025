@@ -19,11 +19,11 @@ public class MyInteger extends MyNumber
             case INTEGER -> new MyInteger(this.value + ((MyInteger) other).value);
             case REAL -> new MyReal(this.value + ((MyReal) other).value);
             case RATIONAL -> {
-                int new_value = this.value * ((MyRational) other).denominator;
-                MyRational myRational = new MyRational(new_value + ((MyRational) other).numerator, ((MyRational) other).denominator);
+                int new_value = this.value * ((MyRational) other).den;
+                MyRational myRational = new MyRational(new_value + ((MyRational) other).num, ((MyRational) other).den);
                 yield myRational;
             }
-            case COMPLEX -> new MyComplex(this.value + ((MyComplex) other).real, ((MyComplex) other).imaginary);
+            case COMPLEX -> new MyComplex(this.value + ((MyComplex) other).real, ((MyComplex) other).imag);
             default -> this;//TODO maybe thow an error
         };
     }
@@ -33,11 +33,11 @@ public class MyInteger extends MyNumber
             case INTEGER -> new MyInteger(this.value - ((MyInteger) other).value);
             case REAL -> new MyReal(this.value - ((MyReal) other).value);
             case RATIONAL -> {
-                int new_value = this.value * ((MyRational) other).denominator;
-                MyRational myRational = new MyRational(new_value - ((MyRational) other).numerator, ((MyRational) other).denominator);
+                int new_value = this.value * ((MyRational) other).den;
+                MyRational myRational = new MyRational(new_value - ((MyRational) other).num, ((MyRational) other).den);
                 yield myRational;
             }
-            case COMPLEX -> new MyComplex(this.value - ((MyComplex) other).real, ((MyComplex) other).imaginary);
+            case COMPLEX -> new MyComplex(this.value - ((MyComplex) other).real, ((MyComplex) other).imag);
             default -> this;//TODO maybe thow an error
         };
     }
@@ -46,8 +46,8 @@ public class MyInteger extends MyNumber
         return switch (other.type) {
             case INTEGER -> new MyInteger(this.value * ((MyInteger) other).value);
             case REAL -> new MyReal(this.value * ((MyReal) other).value);
-            case RATIONAL -> new MyRational(this.value * ((MyRational) other).numerator, ((MyRational) other).denominator);
-            case COMPLEX -> new MyComplex(this.value * ((MyComplex) other).real, this.value * ((MyComplex) other).imaginary);
+            case RATIONAL -> new MyRational(this.value * ((MyRational) other).num, ((MyRational) other).den);
+            case COMPLEX -> new MyComplex(this.value * ((MyComplex) other).real, this.value * ((MyComplex) other).imag);
             default -> this;//TODO maybe thow an error
         };
     }
@@ -57,8 +57,8 @@ public class MyInteger extends MyNumber
         return switch (other.type) {
             case INTEGER -> new MyInteger(this.value / ((MyInteger) other).value);
             case REAL -> new MyReal(this.value / ((MyReal) other).value);
-            case RATIONAL -> new MyRational(this.value * ((MyRational) other).denominator, ((MyRational) other).numerator);
-            case COMPLEX -> new MyComplex(this.value / ((MyComplex) other).real, this.value / ((MyComplex) other).imaginary);
+            case RATIONAL -> new MyRational(this.value * ((MyRational) other).den, ((MyRational) other).num);
+            case COMPLEX -> new MyComplex(this.value / ((MyComplex) other).real, this.value / ((MyComplex) other).imag);
             default -> this;//TODO maybe thow an error
         };
     }
