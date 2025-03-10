@@ -35,6 +35,9 @@
         <maven.compiler.proc>full</maven.compiler.proc>
         <maven.surefire.version>3.5.2</maven.surefire.version>
         <maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
+        <!-- Sonar configuration -->
+        <sonar.organization>adrienziannelegrandinquisiteurbackend</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     </properties>
 
