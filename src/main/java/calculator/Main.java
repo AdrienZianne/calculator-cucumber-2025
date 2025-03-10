@@ -1,5 +1,11 @@
 package calculator;
 
+import io.Shell;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import calculator.parser.CalculatorParser;
 
 /**
@@ -23,15 +29,17 @@ public class Main {
   	Expression e;
   	Calculator c = new Calculator();
 
-	try{
+		try {
 
-		Expression exp = CalculatorParser.parseString("(4 + )");
-		c.printExpressionDetails(exp);
-	}
-
-	catch(Exception exception) {
-		System.out.println("cannot create operations without parameters: " + exception.getMessage());
+			Shell shell = new Shell();
+			shell.loop(c);
 		}
- 	}
+		catch (IOException ex) {
+				throw new RuntimeException(ex);
+		}
+		catch(Exception exception) {
+			System.out.println("cannot create operations without parameters: " + exception.getMessage());
+		}
+    }
 
 }
