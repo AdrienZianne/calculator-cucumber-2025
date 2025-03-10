@@ -152,3 +152,30 @@ Feature: Integer Arithmetic Expressions
       |0|0|"max"|
       |5|0|"max"|
       |-5|0|"min"|
+
+
+  Scenario Outline: Providing an expression as a string
+    Given I initialise a calculator
+    When I provide an expression as a string <str>
+    Then the expression evaluates to <res>
+
+    Examples:
+      |str     |res|
+      |"0 + 0" |0  |
+      |"28 + 10" |38  |
+      |"28 - 10" |18  |
+      |"30 / 10" |3  |
+      |"30 * 10" |300 |
+      |"(5 + 2 * 10 - 5) / 2" | 10 |
+      |"+ (30 10)" | 40 |
+      |"- (30, 10)" | 20 |
+      |"/ (30 10)" | 3 |
+      |"* (30, 10)" | 300 |
+      |"+ (2 3 1)" | 6 |
+      |"/ (- (+(5, *(2, 10)), 5) ,2)" | 10 |
+      |"(30, 10) +" | 40 |
+      |"(30 10) -" | 20 |
+      |"(30, 10) /" | 3 |
+      |"(30 10) *" | 300 |
+      |"(3 2 1) -" | 0 |
+      |"(((5, (2, 10)*) +, 5) -,2) /" | 10 |
