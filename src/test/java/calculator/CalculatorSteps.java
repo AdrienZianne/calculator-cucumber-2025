@@ -2,6 +2,7 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -9,8 +10,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class CalculatorSteps {
@@ -46,7 +45,7 @@ public class CalculatorSteps {
 
 	@Before
     public void resetMemoryBeforeEachScenario() {
-		params = null;
+		params = new ArrayList<>();
 		operations = new ArrayList<>();
 	}
 
@@ -203,5 +202,16 @@ public class CalculatorSteps {
 		else {
 			fail();
 		}
+	}
+
+
+	@When("I provide an expression as a string {string}")
+	public void whenIProvideAString(String string) {
+		params.add(CalculatorParser.parseString(string));
+	}
+
+	@Then("the expression evaluates to {int}")
+	public void thenTheExpressionEvaluatesTo(int val) {
+		assertEquals(val, c.eval(params.getFirst()));
 	}
 }

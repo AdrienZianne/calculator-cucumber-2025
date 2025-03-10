@@ -1,5 +1,8 @@
 package io;
 
+import calculator.Calculator;
+import calculator.Expression;
+import calculator.parser.CalculatorParser;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -39,7 +42,7 @@ public class Shell {
     /**
      * Loop of the REPL, making the application interactive
      */
-    public void loop() {
+    public void loop(Calculator c) {
 
         while (!interrupted) {
 
@@ -58,7 +61,8 @@ public class Shell {
                         break;
                     default:
                         try {
-                            // call here the parser
+                            Expression exp = CalculatorParser.parseString(line);
+                            terminal.writer().println(c.eval(exp));
                         } catch (IllegalArgumentException e) {
                             printError(e.getMessage());
                         }

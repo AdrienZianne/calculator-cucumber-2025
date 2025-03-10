@@ -1,6 +1,6 @@
 [![](https://img.shields.io/github/v/release/University-of-Mons/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/University-of-Mons/calculator-cucumber/releases/latest)
 
-Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
+Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AdrienZianne_calculator-cucumber-2025)](https://sonarcloud.io/summary/new_code?id=AdrienZianne_calculator-cucumber-2025)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
@@ -32,6 +32,11 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 *  Once the code is compiled, you can execute the main class of the Java code using "mvn exec:java" 
 *  The tests and BDD scenarios are executable with Maven using "mvn test"
 *  Note that the tests are also executed when you do a "mvn install". It is possible to skip those tests by providing an extra parameter. For details of more advanced uses of Maven, please refer to its official documentation https://maven.apache.org/guides/.
+
+### Generate new Grammar
+
+Run the following command : `mvn antlr4:antlr4`
+
 
 ### Test coverage and JavaDoc reporting
 

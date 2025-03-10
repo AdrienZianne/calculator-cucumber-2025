@@ -1,5 +1,6 @@
 package calculator;
 
+import visitor.Counter;
 import visitor.Evaluator;
 import visitor.Formatter;
 
@@ -10,13 +11,7 @@ import visitor.Formatter;
  * @author tommens
  */
 public class Calculator {
-
-    /**
-     * Default constructor of the class.
-     * Does nothing since the class does not have any variables that need to be initialised.
-     */
-    public Calculator() {}
-
+    
     /*
      For the moment the calculator only contains a print method and an eval method
      It would be useful to complete this with a read method, so that we would be able
@@ -46,9 +41,11 @@ public class Calculator {
      */
     public void printExpressionDetails(Expression e) {
         print(e);
-        System.out.print("It contains " + e.countDepth() + " levels of nested expressions, ");
-        System.out.print(e.countOps() + " operations");
-        System.out.println(" and " + e.countNbs() + " numbers.");
+        Counter c = new Counter();
+        e.accept(c);
+        System.out.print("It contains " + c.getDepth() + " levels of nested expressions, ");
+        System.out.print(c.getOps() + " operations");
+        System.out.println(" and " + c.getNbs() + " numbers.");
         System.out.println();
     }
 
