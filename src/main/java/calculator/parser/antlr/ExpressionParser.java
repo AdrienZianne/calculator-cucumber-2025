@@ -92,7 +92,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitNumberInt(LabeledExprParser.NumberIntContext ctx) {
-        return new MyNumber(Integer.parseInt(ctx.getText()));
+        //return new MyNumber(Integer.parseInt(ctx.getText()));
+        return null; // FIXME waiting for the new types
     }
 
     //__________________________________Static Functions__________________________

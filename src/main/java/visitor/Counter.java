@@ -1,8 +1,6 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Operation;
+import calculator.*;
 
 import java.util.ArrayList;
 
@@ -47,6 +45,26 @@ public class Counter extends Visitor {
         depth = 0;
         ops = 0;
         nbs = 1;
+    }
+
+    @Override
+    public void visit(MyInteger n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(ComplexNumber n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(MyRational n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(MyReal n) {
+        visit((MyNumber) n);
     }
 
     /** Use the visitor design pattern to visit an operation

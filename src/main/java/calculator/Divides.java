@@ -42,28 +42,30 @@ public final class Divides extends Operation
 
     /**
      * The actual computation of the (binary) arithmetic division of two integers
+     *
      * @param l The first integer
      * @param r The second integer that should divide the first
      * @return The integer that is the result of the division
      */
-    public int op(int l, int r)
+    public MyNumber op(MyNumber l, MyNumber r)
     {
-        try {
-            return (l/r);
-        }
-        catch (ArithmeticException error) {
-            if (l >= 0) {
-                return Integer.MAX_VALUE;
-            }
-            return Integer.MIN_VALUE;
-            /* TO DO LATER
-            else if (l < 0) {
-                return Integer.MIN_VALUE;
-            }
-            else {
-                return Double.NaN;
-            }
-             */
-        }
+        return null;
+        //try {
+        //    return (l/r);
+        //}
+        //catch (ArithmeticException error) {
+        //    if (l >= 0) {
+        //        return Integer.MAX_VALUE;
+        //    }
+        //    return Integer.MIN_VALUE;
+        //    /* TO DO LATER
+        //    else if (l < 0) {
+        //        return Integer.MIN_VALUE;
+        //    }
+        //    else {
+        //        return Double.NaN;
+        //    }
+        //     */
+        //}
     }
 }

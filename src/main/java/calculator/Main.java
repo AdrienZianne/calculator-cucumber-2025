@@ -24,22 +24,26 @@ public class Main {
 	 *
 	 * @param args	Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalConstruction {
 
-  	Expression e;
-  	Calculator c = new Calculator();
+		Expression e;
+		Calculator c = new Calculator();
+		e = new Plus(List.of(new ComplexNumber(new MyInteger(1), new MyInteger(2)),
+							 new ComplexNumber(new MyInteger(1), new MyInteger(2))));
 
-		try {
+		System.out.println(c.eval(e));
 
-			Shell shell = new Shell();
-			shell.loop(c);
-		}
-		catch (IOException ex) {
-				throw new RuntimeException(ex);
-		}
-		catch(Exception exception) {
-			System.out.println("cannot create operations without parameters: " + exception.getMessage());
-		}
+		//try {
+//
+		//	Shell shell = new Shell();
+		//	shell.loop(c);
+		//}
+		//catch (IOException ex) {
+		//		throw new RuntimeException(ex);
+		//}
+		//catch(Exception exception) {
+		//	System.out.println("cannot create operations without parameters: " + exception.getMessage());
+		//}
     }
 
 }

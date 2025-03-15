@@ -1,8 +1,6 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Operation;
+import calculator.*;
 
 import java.util.ArrayList;
 
@@ -17,35 +15,55 @@ public class Evaluator extends Visitor {
     public Evaluator() {}
 
     /** The result of the evaluation will be stored in this private variable */
-    private int computedValue;
+    private MyNumber computedValue;
 
     /** getter method to obtain the result of the evaluation
      *
      * @return an Integer object containing the result of the evaluation
      */
-    public Integer getResult() { return computedValue; }
+    public MyNumber getResult() { return computedValue; }
 
     /** Use the visitor design pattern to visit a number.
      *
      * @param n The number being visited
      */
     public void visit(MyNumber n) {
-        computedValue = n.getValue();
+        computedValue = n;
+    }
+
+    @Override
+    public void visit(MyInteger n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(ComplexNumber n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(MyRational n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(MyReal n) {
+        visit((MyNumber) n);
     }
 
     /** Use the visitor design pattern to visit an operation
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) {
-        ArrayList<Integer> evaluatedArgs = new ArrayList<>();
+    public void visit(Operation o){
+        ArrayList<MyNumber> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
         for(Expression a:o.args) {
             a.accept(this);
             evaluatedArgs.add(computedValue);
         }
         //second loop to accumulate all the evaluated subresults
-        int temp = evaluatedArgs.get(0);
+        MyNumber temp = evaluatedArgs.get(0);
         int max = evaluatedArgs.size();
         for(int counter=1; counter<max; counter++) {
             temp = o.op(temp,evaluatedArgs.get(counter));

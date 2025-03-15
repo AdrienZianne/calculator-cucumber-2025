@@ -54,7 +54,7 @@ public class Calculator {
      * @param e the arithmetic Expression to be evaluated
      * @return The result of the evaluation
      */
-    public int eval(Expression e) {
+    public MyNumber eval(Expression e) {
         // create a new visitor to evaluate expressions
         Evaluator v = new Evaluator();
         // and ask the expression to accept this visitor to start the evaluation process

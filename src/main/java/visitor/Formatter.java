@@ -1,9 +1,6 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Notation;
-import calculator.Operation;
+import calculator.*;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -42,6 +39,27 @@ public class Formatter extends Visitor {
     public void visit(MyNumber n) {
         representation = n.toString();
     }
+
+    @Override
+    public void visit(MyInteger n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(ComplexNumber n) {
+        visit((MyNumber) n);
+    }
+
+    @Override
+    public void visit(MyRational n) {
+        visit(((MyNumber) n));
+    }
+
+    @Override
+    public void visit(MyReal n) {
+        visit((MyNumber) n);
+    }
+
 
     /** Use the visitor design pattern to visit an operation
      *
