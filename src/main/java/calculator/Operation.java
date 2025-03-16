@@ -83,47 +83,59 @@ public abstract class Operation implements Expression {
         return args;
     }
 
-    public MyNumber op(MyNumber l, MyNumber r)
+    public MyNumber op(MyNumber a, MyNumber b)
     {
-        if (l instanceof MyInteger lI)
+        if (a instanceof MyInteger l)
         {
-            if (r instanceof MyInteger rI) { return op(lI, rI); }
-            if (r instanceof MyReal rI) { return op(lI, rI); }
-            if (r instanceof ComplexNumber rI) { return op(lI, rI); }
-            if (r instanceof MyRational rI) { return op(lI, rI); }
+            if (b instanceof MyInteger r) { return op(l,r); }
+            if (b instanceof MyReal r) { return op(l,r); }
+            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyRational r) { return op(l,r); }
         }
-        if (l instanceof MyReal rI)
+        if (a instanceof MyReal l)
         {
-            if (r instanceof MyReal rR) { return op(rI, rR); }
-            if (r instanceof ComplexNumber rR) { return op(rI, rR); }
-            if (r instanceof MyInteger rR) { return op(rI, rR); }
-            if (r instanceof MyRational rR) { return op(rI, rR); }
+            if (b instanceof MyReal r) { return op(l,r); }
+            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyInteger r) { return op(l,r); }
+            if (b instanceof MyRational r) { return op(l,r); }
         }
-        if (l instanceof MyRational lI)
+        if (a instanceof MyRational l)
         {
-            if (r instanceof MyRational rI) { return op(lI, rI); }
-            if (r instanceof ComplexNumber rI) { return op(lI, rI); }
-            if (r instanceof MyInteger rI) { return op(lI, rI); }
-            if (r instanceof MyReal rI) { return op(lI, rI); }
+            if (b instanceof MyRational r) { return op(l,r); }
+            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyInteger r) { return op(l,r); }
+            if (b instanceof MyReal r) { return op(l,r); }
         }
-        if (l instanceof ComplexNumber lI)
+        if (a instanceof ComplexNumber l)
         {
-            if (r instanceof ComplexNumber rI) { return op(lI, rI); }
-            if (r instanceof MyReal rI) { return op(lI, rI); }
-            if (r instanceof MyInteger rI) { return op(lI, rI); }
-            if (r instanceof MyRational rI) { return op(lI, rI); }
+            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyReal r) { return op(l,r); }
+            if (b instanceof MyInteger r) { return op(l,r); }
+            if (b instanceof MyRational r) { return op(l,r); }
         }
         return null;
     }
 
-    // TODO implement missing functions
     public abstract MyNumber op(MyInteger l, MyInteger r);
     public abstract MyNumber op(MyInteger l, MyReal r);
+    public abstract MyNumber op(MyInteger l, ComplexNumber r);
+    public abstract MyNumber op(MyInteger l, MyRational r);
+
     public abstract MyNumber op(MyReal l, MyInteger r);
     public abstract MyNumber op(MyReal l, MyReal r);
-    public abstract MyNumber op(MyInteger l, ComplexNumber r);
+    public abstract MyNumber op(MyReal l, ComplexNumber r);
+    public abstract MyNumber op(MyReal l, MyRational r);
+
     public abstract MyNumber op(ComplexNumber l, MyInteger r);
+    public abstract MyNumber op(ComplexNumber l, MyReal r);
     public abstract MyNumber op(ComplexNumber l, ComplexNumber r);
+    public abstract MyNumber op(ComplexNumber l, MyRational r);
+
+    public abstract MyNumber op(MyRational l, MyInteger r);
+    public abstract MyNumber op(MyRational l, MyReal r);
+    public abstract MyNumber op(MyRational l, ComplexNumber r);
+    public abstract MyNumber op(MyRational l, MyRational r);
+
 
     // the operation itself is specified in the subclasses
 

@@ -30,7 +30,7 @@ public class MyInteger extends MyNumber
         return value;
     }
 
-    public int getInt()
+    public int getValue()
     {
         return value;
     }
