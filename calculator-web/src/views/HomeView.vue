@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Calculator-cucumber</h1>
-    <Calculator />
+    <Calculator class="calculator"/>
   </div>
 </template>
 
@@ -33,5 +33,10 @@ h1 {
   text-align: center;
   width: 100%;
   background-color: #deebee;
+}
+
+.calculator {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 </style>

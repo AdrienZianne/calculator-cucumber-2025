@@ -1,6 +1,14 @@
 <template>
   <!--First div that covers everything.-->
   <div class="calculator-container">
+
+    <div class="calculator-memory" v-if="isMemory">
+        <button class="memory-button" v-for="memory in memoryList" :memory="memory" @click="memoryBack(memory)">
+          {{ memory }}
+        </button>
+        <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
+    </div>
+
     <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
     
     <!--Three divs representing the three parts of the keyboard. 
@@ -37,13 +45,19 @@
 </template>
 
 <script>
+import Alert from '@/components/icons/Alert.vue';
+
 export default {
+  components: {Alert},
   data() {
     return {
       inputText: '',
       isExpandKeyboard : false,
-      authorizedKeys : [..."0123456789i.()/*+-^".split(''), "Shift", "Backspace"],
+      isMemory : false,
+      authorizedKeys : [..."0123456789i.()/*+-^".split(''), "Shift", "Backspace",
+      "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"],
       inputId : document.getElementById('inputId'),
+      memoryList : [],
       numbers: [
         ..."0123456789i.".split('')
       ],
@@ -60,7 +74,8 @@ export default {
   },
   methods: {
     /**
-     * Method for adding a key to the keyboard.
+     * Method for adding a key in the textarea.
+     * @param key What we want to write.
      */
     addKey(key) {
       this.inputText += key;
@@ -86,12 +101,12 @@ export default {
      * @param event Event linked to the key pressed on the keyboard.
      */
     forbiddenKeys(event) {
-      if (!this.authorizedKeys.includes(event.key)) {
-        //without a timer, remove is not applied correctly.
-        //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
-        setTimeout(() => this.removeOneKey(), 1); 
-        if (event.key == "Enter") this.replyRequest;
-      }
+      //without a timer, remove is not applied correctly.
+      //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
+      if (!this.authorizedKeys.includes(event.key)) setTimeout(() => this.removeOneKey(), 1); 
+        
+      if (event.key == "Enter" || event.key == "=") this.replyRequest();
+      
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
@@ -107,10 +122,61 @@ export default {
       inputId.setSelectionRange(this.cursorPosition+1, this.cursorPosition+1);
     },
     /**
+     * Method for returning to a specific input.
+     * @param memory The input we want to reuse.
+     */
+    memoryBack(memory)
+    {
+      this.inputText = memory;
+    },
+    /**
+     * Method for deleting memory.
+     */
+    memoryClear(){
+      this.isMemory = false;
+      this.memoryList = [];
+    },
+    /**
      * Method for handling API requests.
      */
     replyRequest(){
 
+      //just for testing
+
+      /*this.isMemory = true;
+      this.memoryList.push(this.inputText);
+      this.inputText = "2";
+      console.log(this.memoryList);*/
+
+      /*try {
+        throw new Error("test");
+      } catch (error) {
+        console.log("hi")
+        setTimeout(() => Alert.errorManagement(error.message), 1)
+      }*/
+      
+      //Send the calculation to do.
+      if(this.inputText != "")
+      {
+        const requestOptions = {
+          method: "POST",
+          headers: {}, 
+          body: JSON.stringify({ calculation: this.inputText }) //In GET, we can't put a body.
+        };
+        fetch("https://aaa.net/api/aaa", requestOptions)
+          .then(response => {
+              if(!response.ok) return response.json().then(json => Promise.reject(json));       
+              else return response.json();
+          })
+          .then(data => {
+            this.isMemory = true;
+            this.memoryList.push(this.inputText);
+            this.inputText = data.result;
+          })
+          .catch(error => {
+            Alert.errorManagement(error.message);
+          });
+      }
     }
   }
 };
@@ -133,6 +199,10 @@ textarea {
   font-size: 18px;
   border-radius: 5px;
   border: 1px solid #ddd;
+}
+
+.calculator-memory{
+  display: grid;
 }
 
 .calculator-keyboard {
@@ -166,5 +236,24 @@ button {
 
 button:hover {
   background-color: #c1d6f6;
+}
+
+.memory-button{
+  background-color: #f5f6f5;
+  max-width: 360px; 
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
+}
+
+.memory-button:hover {
+  background-color: #ceefce;
+}
+
+.memory-clear-button {
+  margin-bottom: 10px;
+}
+
+.memory-clear-button:hover {
+  background-color: #940909;
 }
 </style>
