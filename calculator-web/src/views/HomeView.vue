@@ -16,11 +16,10 @@ export default {
 <style scoped>
 .home {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   
-  /*We want to take the entire width/height of the window*/
+  /*We want to take the entire width/height of the window.*/
   min-height: 100vh; 
   width: 100vw; 
   background-color: #fff; 

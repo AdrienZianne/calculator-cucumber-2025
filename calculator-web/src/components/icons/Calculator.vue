@@ -1,7 +1,10 @@
 <template>
+  <!--First div that covers everything.-->
   <div class="calculator-container">
     <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
     
+    <!--Three divs representing the three parts of the keyboard. 
+    The calculator-keyboard div allows you to place the keyboard parts side by side.-->
     <div class="calculator-keyboard" >
       <div class="keyboard">
         <button v-for="number in numbers" :number="number" @click="addKey(number)">
@@ -27,6 +30,7 @@
       </div>
 
     </div>
+    <!--This button allows to display the third part of the keyboard.-->
     <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
     <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
   </div>
@@ -55,35 +59,56 @@ export default {
     };
   },
   methods: {
+    /**
+     * Method for adding a key to the keyboard.
+     */
     addKey(key) {
       this.inputText += key;
     },
+    /**
+     * Method for deleting the last key entered in the textarea.
+     */
     removeOneKey() {
       this.inputText = this.inputText.slice(0, -1);
     },
+    /**Method for deleting the entire entry in the textaera.*/
     clearAll() {
       this.inputText = '';
     },
+    /**
+     * Method for adding extra keys to the keyboard.
+     */
     expandKeyboard() {
       this.isExpandKeyboard = !this.isExpandKeyboard;
     },
+    /**
+     * Method for filtering keyboard entries.
+     * @param event Event linked to the key pressed on the keyboard.
+     */
     forbiddenKeys(event) {
       if (!this.authorizedKeys.includes(event.key)) {
         //without a timer, remove is not applied correctly.
-        setTimeout(() => this.removeOneKey(), 1); //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
+        //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
+        setTimeout(() => this.removeOneKey(), 1); 
         if (event.key == "Enter") this.replyRequest;
       }
     },
-    moveCursorLeft(){ //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
+    /**Method for moving the cursor left.*/
+    moveCursorLeft(){ 
+      //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
       this.cursorPosition = inputId.selectionStart;
       inputId.focus();
       if(this.cursorPosition != 0) inputId.setSelectionRange(this.cursorPosition-1, this.cursorPosition-1);
     },
+    /**Method for moving the cursor right.*/
     moveCursorRight(){
       this.cursorPosition = inputId.selectionStart;
       inputId.focus();
       inputId.setSelectionRange(this.cursorPosition+1, this.cursorPosition+1);
     },
+    /**
+     * Method for handling API requests.
+     */
     replyRequest(){
 
     }
