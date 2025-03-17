@@ -1,7 +1,9 @@
 package calculator;
 
+import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,21 +26,17 @@ public class Main {
 
 		Expression e;
 		Calculator c = new Calculator();
-		e = new Times(List.of(new MyComplexNumber(new MyRational(6, 4), new MyInteger(2)),
-							 new MyComplexNumber(new MyInteger(1), new MyInteger(2))));
-		System.out.println(c.eval(e));
 
-		//try {
-//
-		//	Shell shell = new Shell();
-		//	shell.loop(c);
-		//}
-		//catch (IOException ex) {
-		//		throw new RuntimeException(ex);
-		//}
-		//catch(Exception exception) {
-		//	System.out.println("cannot create operations without parameters: " + exception.getMessage());
-		//}
+		try {
+			Shell shell = new Shell();
+			shell.loop(c);
+		}
+		catch (IOException ex) {
+				throw new RuntimeException(ex);
+		}
+		catch(Exception exception) {
+			System.out.println("cannot create operations without parameters: " + exception.getMessage());
+		}
     }
 
 }

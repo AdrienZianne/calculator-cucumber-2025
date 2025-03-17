@@ -92,9 +92,27 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitNumberInt(LabeledExprParser.NumberIntContext ctx) {
-        //return new MyNumber(Integer.parseInt(ctx.getText()));
-        return null; // FIXME waiting for the new types
+        return new MyInteger(Integer.parseInt(ctx.INT().getText()));
     }
+
+    @Override
+    public Expression visitNumberReal(LabeledExprParser.NumberRealContext ctx) {
+        return new MyReal(Double.parseDouble(ctx.FLOAT().getText()));
+    }
+
+    @Override
+    public Expression visitRational(LabeledExprParser.RationalContext ctx) {
+        // We suppose that the rational has 3 child : the numerator, the operator `/` and the denominator
+        return new MyRational(Integer.parseInt(ctx.getChild(0).getText()), Integer.parseInt(ctx.getChild(2).getText())).simplify();
+    }
+
+    @Override
+    public Expression visitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx) {
+        if (ctx.getChildCount() == 1) {return new MyComplexNumber(new MyInteger(0), new MyInteger(1));}
+
+        return new MyComplexNumber(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
+    }
+
 
     //__________________________________Static Functions__________________________
 
