@@ -1,6 +1,7 @@
 package visitor;
 
 import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -45,7 +46,7 @@ public class Formatter extends Visitor {
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) {
+    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 
         ArrayList<String> stringArgs = new ArrayList<>();
         for(Expression a: o.args) {

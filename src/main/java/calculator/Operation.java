@@ -1,5 +1,6 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
 import visitor.Formatter;
 import visitor.Visitor;
 
@@ -83,59 +84,67 @@ public abstract class Operation implements Expression {
         return args;
     }
 
-    public MyNumber op(MyNumber a, MyNumber b)
+    /**
+     * Applies an operation to two numbers and returns it's results.
+     * @param a an instance of a {@link MyNumber} subclass
+     * @param b an instance of a {@link MyNumber} subclass
+     * @return A new instance of a {@link MyNumber} subclass, being the result of the operation on {@code a} and  {@code b}.
+     * @throws ExecutionControl.NotImplementedException if the operation between the two MyNumber subclasses wasn't taken into account.
+     */
+    public MyNumber op(MyNumber a, MyNumber b) throws ExecutionControl.NotImplementedException, IllegalConstruction
     {
         if (a instanceof MyInteger l)
         {
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplexNumber r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
         if (a instanceof MyReal l)
         {
             if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplexNumber r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
         if (a instanceof MyRational l)
         {
             if (b instanceof MyRational r) { return op(l,r); }
-            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplexNumber r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
         }
-        if (a instanceof ComplexNumber l)
+        if (a instanceof MyComplexNumber l)
         {
-            if (b instanceof ComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplexNumber r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
         // Error : Not implemented
-        return null;
+        throw new ExecutionControl.NotImplementedException("The given operation is not implemented yet for the " +
+                                                            "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
     }
 
-    public abstract MyNumber op(MyInteger l, MyInteger r);
-    public abstract MyNumber op(MyInteger l, MyReal r);
-    public abstract MyNumber op(MyInteger l, ComplexNumber r);
-    public abstract MyNumber op(MyInteger l, MyRational r);
+    public abstract MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyReal l, MyInteger r);
-    public abstract MyNumber op(MyReal l, MyReal r);
-    public abstract MyNumber op(MyReal l, ComplexNumber r);
-    public abstract MyNumber op(MyReal l, MyRational r);
+    public abstract MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(ComplexNumber l, MyInteger r);
-    public abstract MyNumber op(ComplexNumber l, MyReal r);
-    public abstract MyNumber op(ComplexNumber l, ComplexNumber r);
-    public abstract MyNumber op(ComplexNumber l, MyRational r);
+    public abstract MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyRational l, MyInteger r);
-    public abstract MyNumber op(MyRational l, MyReal r);
-    public abstract MyNumber op(MyRational l, ComplexNumber r);
-    public abstract MyNumber op(MyRational l, MyRational r);
+    public abstract MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
 
     // the operation itself is specified in the subclasses
@@ -156,7 +165,7 @@ public abstract class Operation implements Expression {
      *
      * @param v The visitor object
      */
-    public void accept(Visitor v) {
+    public void accept(Visitor v) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         for (Expression a : args) {
             a.accept(v);
         }
@@ -176,6 +185,8 @@ public abstract class Operation implements Expression {
             return toString(notation);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
+        } catch (ExecutionControl.NotImplementedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -186,7 +197,7 @@ public abstract class Operation implements Expression {
      * @param n The notation to be used for representing the operation (prefix, infix or postfix)
      * @return The String that is the result of the conversion.
      */
-    public final String toString(Notation n) throws IllegalConstruction {
+    public final String toString(Notation n) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         Formatter formatter = new Formatter(n);
         formatter.visit(this);
         return formatter.getResult();

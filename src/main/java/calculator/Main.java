@@ -1,12 +1,8 @@
 package calculator;
 
-import io.Shell;
+import jdk.jshell.spi.ExecutionControl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import calculator.parser.CalculatorParser;
 
 /**
  * A very simple calculator in Java
@@ -24,14 +20,15 @@ public class Main {
 	 *
 	 * @param args	Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) throws IllegalConstruction {
+	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 
 		Expression e;
 		Calculator c = new Calculator();
-		e = new Plus(List.of(new ComplexNumber(new MyInteger(1), new MyInteger(2)),
-							 new ComplexNumber(new MyInteger(1), new MyInteger(2))));
-
-		System.out.println(c.eval(e));
+		e = new Plus(List.of(new MyComplexNumber(new MyRational(6, 2), new MyInteger(2)),
+							 new MyComplexNumber(new MyInteger(1), new MyInteger(2))));
+		System.out.println(new Plus(List.of()).op(new MyReal(1),
+													new MyRational(1,2)));
+		//System.out.println(c.eval(e));
 
 		//try {
 //

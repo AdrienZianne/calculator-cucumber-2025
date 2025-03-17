@@ -1,5 +1,7 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.List;
 
 /**
@@ -57,43 +59,43 @@ public final class Plus extends CommutativeOperation {
     }
 
     @Override
-    public MyNumber op(ComplexNumber l, MyInteger r) {
-        return new ComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+    public MyNumber op(MyComplexNumber l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(ComplexNumber l, MyReal r) {
-        return new ComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+    public MyNumber op(MyComplexNumber l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(ComplexNumber l, ComplexNumber r) {
-        return new ComplexNumber(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+    public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
                                  op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
     }
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
-        // TODO : To implement later
-        return null;
+        return new MyRational(l.getNumDenomPair().a + (r.getValue()) * l.getNumDenomPair().b, l.getNumDenomPair().b).simplify();
     }
 
     @Override
     public MyNumber op(MyRational l, MyReal r) {
-        // TODO : To implement later
-        return null;
+        MyReal lReal = new MyReal(l.applyDenominator());
+        return op(lReal, r);
     }
 
     @Override
-    public MyNumber op(MyRational l, ComplexNumber r) {
-        // TODO : To implement later
-        return null;
+    public MyNumber op(MyRational l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplexNumber(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
     }
 
     @Override
     public MyNumber op(MyRational l, MyRational r) {
-        // TODO : To implement later
-        return null;
+        int lNum = l.getNumDenomPair().a * r.getNumDenomPair().b;
+        int rNum = r.getNumDenomPair().a * l.getNumDenomPair().b;
+
+        return new MyRational(lNum + rNum, l.getNumDenomPair().b * r.getNumDenomPair().b).simplify();
     }
 
 

@@ -1,5 +1,7 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.List;
 
 /** This class represents the arithmetic operation "-".
@@ -10,7 +12,7 @@ import java.util.List;
  * @see Times
  * @see Divides
  */
-public final class Minus extends Operation
+public final class Minus extends CommutativeOperation
  {
 
   /**
@@ -40,15 +42,53 @@ public final class Minus extends Operation
   	neutral = 0;
   }
 
-    /**
-     * The actual computation of the (binary) arithmetic subtraction of two integers
-     *
-     * @param l The first integer
-     * @param r The second integer that should be subtracted from the first
-     * @return The integer that is the result of the subtraction
-     */
-  public MyNumber op(MyNumber l, MyNumber r) {
-      return null;
-      //return (l-r);
-  }
-}
+     @Override
+     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyInteger(l.getValue() - r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyReal(l.getValue() - r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyReal(l.getValue() - r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+ }

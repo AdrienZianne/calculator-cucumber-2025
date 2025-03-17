@@ -1,5 +1,7 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.List;
 
 /// Classed used to represents a commutative operation, meaning if we have the following operation `a op b` then there is no need to also define `b op a`
@@ -11,32 +13,32 @@ public abstract class CommutativeOperation extends Operation
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyReal r) {
+    public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyInteger l, ComplexNumber r) {
+    public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r, l);
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyRational r) {
+    public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyReal l, ComplexNumber r) {
+    public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyReal l, MyRational r) {
+    public MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(ComplexNumber l, MyRational r) {
+    public MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 

@@ -2,11 +2,11 @@ package calculator;
 
 import visitor.Visitor;
 
-public class ComplexNumber extends MyNumber {
+public class MyComplexNumber extends MyNumber {
 
     Pair<MyNumber, MyNumber> realImaginaryPair;
 
-    public ComplexNumber(MyNumber n1, MyNumber n2) {
+    public MyComplexNumber(MyNumber n1, MyNumber n2) {
         this.realImaginaryPair = new Pair<>(n1, n2);
     }
 

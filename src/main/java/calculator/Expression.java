@@ -1,5 +1,6 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
 import visitor.Visitor;
 
 /**
@@ -16,5 +17,5 @@ public interface Expression {
     *
     * @param v The visitor object being passed as a parameter
     */
-   void accept(Visitor v);
+   void accept(Visitor v) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 }

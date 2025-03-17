@@ -1,6 +1,7 @@
 package visitor;
 
 import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class Evaluator extends Visitor {
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o){
+    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         ArrayList<MyNumber> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
         for(Expression a:o.args) {

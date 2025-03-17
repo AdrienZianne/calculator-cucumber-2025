@@ -1,5 +1,8 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class represents the arithmetic multiplication operation "*".
@@ -10,7 +13,7 @@ import java.util.List;
  * @see Plus
  * @see Divides
  */
-public final class Times extends Operation
+public final class Times extends CommutativeOperation
  {
   /**
    * Class constructor specifying a number of Expressions to multiply.
@@ -51,4 +54,60 @@ public final class Times extends Operation
         return null;
         //return (l*r);
     }
-}
+
+     @Override
+     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyInteger(l.getValue() * r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyReal(l.getValue() * (double) r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyReal(l.getValue() * r.getValue());
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         // (a + b*i) * c = (c*a) + (c*b*i)
+         return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+     }
+
+     @Override
+     public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+       MyNumber real = new Plus(new ArrayList<>()).op( op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                                                      op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a));
+
+       MyNumber imaginary = new Plus(new ArrayList<>()).op(op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
+                                                            op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
+       return new MyComplexNumber(real, imaginary);
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+       return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+
+     @Override
+     public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return null;
+     }
+ }

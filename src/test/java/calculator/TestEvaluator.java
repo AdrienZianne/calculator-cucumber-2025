@@ -2,6 +2,8 @@ package calculator;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -42,6 +44,8 @@ class TestEvaluator {
             }
         } catch (IllegalConstruction e) {
             fail();
+        } catch (ExecutionControl.NotImplementedException e) {
+            throw new RuntimeException(e);
         }
     }
 
