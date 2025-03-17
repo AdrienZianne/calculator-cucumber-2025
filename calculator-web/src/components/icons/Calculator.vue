@@ -103,7 +103,7 @@ export default {
     forbiddenKeys(event) {
       //without a timer, remove is not applied correctly.
       //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
-      if (!this.authorizedKeys.includes(event.key)) setTimeout(() => this.removeOneKey(), 1); 
+      if (!this.authorizedKeys.includes(event.key)) setTimeout(() => this.removeOneKey(), 5); 
         
       if (event.key == "Enter" || event.key == "=") this.replyRequest();
       
@@ -174,6 +174,7 @@ export default {
             this.inputText = data.result;
           })
           .catch(error => {
+            this.inputText = "";
             Alert.errorManagement(error.message);
           });
       }
