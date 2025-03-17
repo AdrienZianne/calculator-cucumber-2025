@@ -41,7 +41,7 @@ class TestNotation {
 		int value1 = 8;
 		int value2 = 6;
 		Operation op = null;
-		List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+		List<Expression> params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
 		try {
 			//construct another type of operation depending on the input value
 			//of the parameterised test
@@ -60,9 +60,9 @@ class TestNotation {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		List<Expression> params1 = Arrays.asList(new MyNumber(3), new MyNumber(4), new MyNumber(5));
-		List<Expression> params2 = Arrays.asList(new MyNumber(5), new MyNumber(4));
-		List<Expression> params3 = Arrays.asList(new Plus(params1, Notation.INFIX), new Minus(params2, Notation.PREFIX), new MyNumber(7));
+		List<Expression> params1 = Arrays.asList(new MyInteger(3), new MyInteger(4), new MyInteger(5));
+		List<Expression> params2 = Arrays.asList(new MyInteger(5), new MyInteger(4));
+		List<Expression> params3 = Arrays.asList(new Plus(params1, Notation.INFIX), new Minus(params2, Notation.PREFIX), new MyInteger(7));
 		o = new Divides(params3, Notation.POSTFIX);
 	}
 

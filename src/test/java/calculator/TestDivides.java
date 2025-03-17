@@ -17,7 +17,7 @@ class TestDivides {
 
 	@BeforeEach
 	void setUp() {
-		  params = Arrays.asList(new MyNumber(value1), new MyNumber(value2));
+		  params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
 		  try {
 		  	op = new Divides(params);
 			op.notation = Notation.INFIX; // reset the notation to infix (which is the default) before each test
@@ -45,7 +45,7 @@ class TestDivides {
 	@Test
 	void testEquals() {
 		// Two similar expressions, constructed separately (and using different constructors) should be equal
-		List<Expression> p = Arrays.asList(new MyNumber(value1), new MyNumber(value2));
+		List<Expression> p = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
 		try {
 			Divides d = new Divides(p, Notation.INFIX);
 			assertEquals(op, d);
@@ -62,7 +62,7 @@ class TestDivides {
 	@Test
 	void testHashCode() {
 		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
-		List<Expression> p = Arrays.asList(new MyNumber(value1), new MyNumber(value2));
+		List<Expression> p = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
 		try {
 			Divides e = new Divides(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());

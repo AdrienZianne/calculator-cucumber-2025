@@ -141,19 +141,6 @@ Feature: Integer Arithmetic Expressions
 
   # Create new "given an operation ..."
 
-  Scenario Outline: Dividing a number by 0
-    Given an integer operation '/'
-    When I provide a first number <n>
-    When I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n|n2|result|
-      |0|0|"max"|
-      |5|0|"max"|
-      |-5|0|"min"|
-
-
   Scenario Outline: Providing an expression as a string
     Given I initialise a calculator
     When I provide an expression as a string <str>

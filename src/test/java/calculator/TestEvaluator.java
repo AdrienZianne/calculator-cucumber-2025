@@ -24,23 +24,23 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyNumber() {
-        assertEquals( value1, calc.eval(new MyNumber(value1)));
+    void testEvaluatorMyInteger() {
+        assertEquals(value1, calc.eval(new MyInteger(value1)));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"*", "+", "/", "-"})
+    @ValueSource(strings = { "*", "+", "/", "-" })
     void testEvaluateOperations(String symbol) {
-        List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+        List<Expression> params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
         try {
-            //construct another type of operation depending on the input value
-            //of the parameterised test
+            // construct another type of operation depending on the input value
+            // of the parameterised test
             switch (symbol) {
-                case "+"	->	assertEquals( value1 + value2, calc.eval(new Plus(params)));
-                case "-"	->	assertEquals( value1 - value2, calc.eval(new Minus(params)));
-                case "*"	->	assertEquals( value1 * value2, calc.eval(new Times(params)));
-                case "/"	->	assertEquals( value1 / value2, calc.eval(new Divides(params)));
-                default		->	fail();
+                case "+" -> assertEquals(value1 + value2, calc.eval(new Plus(params)));
+                case "-" -> assertEquals(value1 - value2, calc.eval(new Minus(params)));
+                case "*" -> assertEquals(value1 * value2, calc.eval(new Times(params)));
+                case "/" -> assertEquals(value1 / value2, calc.eval(new Divides(params)));
+                default -> fail();
             }
         } catch (IllegalConstruction e) {
             fail();
