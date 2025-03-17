@@ -20,8 +20,8 @@ export default {
       inputText: '',
       keys: [
         ..."0123456789".split(''),
-        ..."ix".split(''),
-        ..."()/*+-".split('')
+        ..."i.".split(''),
+        ..."()/*+-^".split(''),
         //"log"
       ]
     };
