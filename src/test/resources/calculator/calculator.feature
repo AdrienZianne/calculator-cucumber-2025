@@ -13,28 +13,100 @@ Feature: Integer Arithmetic Expressions
   # implemented in a Java mapping file (CalculatorSteps.Java)
 
   Scenario: Adding two integer numbers
-    Given an integer operation '+'
+    Given an operation '+'
     When I provide a first number 4
     And I provide a second number 5
     Then the operation evaluates to 9
 
+  Scenario: Adding integer and real
+    Given an operation '+'
+    When I provide a first number 7
+    And I provide a second number 5.5
+    Then the operation evaluates to 12.5
+
+  Scenario: Adding integer and rational
+    Given an operation '+'
+    When I provide a first number 1
+    And I provide a second number 1/2
+    Then the operation evaluates to 1.5
+
+  Scenario: Adding integer and complex
+    Given an operation '+'
+    When I provide a first number 5
+    And I provide a second number 3 + 4i
+    Then the operation evaluates to 8 + 4i
+
   Scenario: Subtracting two integer numbers
-    Given an integer operation '-'
+    Given an operation '-'
     When I provide a first number 7
     And I provide a second number 5
     Then the operation evaluates to 2
 
+  Scenario: Subtracting integer and real
+    Given an operation '-'
+    When I provide a first number 7
+    And I provide a second number 5.5
+    Then the operation evaluates to 1.5
+
+  Scenario: Subtracting integer and rational
+    Given an operation '-'
+    When I provide a first number 1
+    And I provide a second number 1/2
+    Then the operation evaluates to 0.5
+
+  Scenario: Subtracting integer and complex
+    Given an operation '-'
+    When I provide a first number 5
+    And I provide a second number 3 + 4i
+    Then the operation evaluates to 2 + -4i
+
   Scenario: Multiplying two integer numbers
-    Given an integer operation '*'
+    Given an operation '*'
     When I provide a first number 7
     And I provide a second number 5
     Then the operation evaluates to 35
 
+  Scenario: Multiplying integer and real
+    Given an operation '*'
+    When I provide a first number 7
+    And I provide a second number 5.5
+    Then the operation evaluates to 38.5
+
+  Scenario: Multiplying integer and rational
+    Given an operation '*'
+    When I provide a first number 3
+    And I provide a second number 1/2
+    Then the operation evaluates to 1.5
+
+  Scenario: Multiplying integer and complex
+    Given an operation '*'
+    When I provide a first number 5
+    And I provide a second number 3 + 4i
+    Then the operation evaluates to 15 + 20i
+
   Scenario: Dividing two integer numbers
-    Given an integer operation '/'
+    Given an operation '/'
     When I provide a first number 7
     And I provide a second number 5
     Then the operation evaluates to 1
+
+  Scenario: Dividing integer and real
+    Given an operation '/'
+    When I provide a first number 6
+    And I provide a second number 1.5
+    Then the operation evaluates to 4
+
+  Scenario: Dividing integer and rational
+    Given an operation '/'
+    When I provide a first number 3
+    And I provide a second number 1/2
+    Then the operation evaluates to 6
+
+  Scenario: Dividing integer and complex
+    Given an operation '/'
+    When I provide a first number 4
+    And I provide a second number 2 + 2i
+    Then the operation evaluates to 1 + -1i
 
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6
@@ -57,7 +129,7 @@ Feature: Integer Arithmetic Expressions
   # with different values. The outline comes with a set of examples.
   # The scenario will be executed with each of the provided inputs.
   Scenario Outline: Adding two integer numbers
-    Given an integer operation '+'
+    Given an operation '+'
     When I provide a first number <n1>
     And I provide a second number <n2>
     Then the operation evaluates to <result>
@@ -68,7 +140,7 @@ Feature: Integer Arithmetic Expressions
       |5|3|8|
 
   Scenario Outline: Dividing two integer numbers
-    Given an integer operation '/'
+    Given an operation '/'
     When I provide a first number <n1>
     And I provide a second number <n2>
     Then the operation evaluates to <result>
@@ -80,7 +152,7 @@ Feature: Integer Arithmetic Expressions
       |5|7|0|
 
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
-    Given an integer operation <op>
+    Given an operation <op>
     When I provide a first number <n1>
     And I provide a second number <n2>
     Then the operation evaluates to <result>
@@ -93,7 +165,7 @@ Feature: Integer Arithmetic Expressions
       | "/" | 6| 2|     3|
 
   Scenario Outline: Checks the formatting of an equation between two integers parameters
-    Given an integer operation <op>
+    Given an operation <op>
     When I provide a first number <n1>
     When I provide a second number <n2>
     And I provide the notation <notation> to operator 0
@@ -115,7 +187,7 @@ Feature: Integer Arithmetic Expressions
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
       
   Scenario Outline: Checks the formatting of an equation composed of multiple equations
-    Given an integer operation <op_0>
+    Given an operation <op_0>
 
     When I provide another integer operation <op_1> to operator 0
     And I provide a first number <arg_10> to operator 1

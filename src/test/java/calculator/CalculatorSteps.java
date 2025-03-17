@@ -55,7 +55,7 @@ public class CalculatorSteps {
 		operations = new ArrayList<>();
 	}
 
-	@Given("an integer operation {string}")
+	@Given("an operation {string}")
 	public void givenAnIntegerOperation(String s) {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
@@ -104,17 +104,51 @@ public class CalculatorSteps {
 	}
 
 	@When("^I provide a (.*) number (-?\\d+)$")
-	public void whenIProvideANumber(String s, int val) {
-		whenIProvideANumber(s, val, 0);
+	public void whenIProvideAInteger(String s, int val) {
+		addParams(s, new MyInteger(val), 0);
 	}
 
-	@And("^I provide a (.*) number (\\d+) to operator (.*)$")
-	public void whenIProvideANumber(String s, int val, int opIndex) {
+	@And("^I provide a (.*) number (-?\\d+) to operator (.*)$")
+	public void whenIProvideAInteger(String s, int val, int opIndex) {
+		addParams(s, new MyInteger(val), opIndex);
+	}
+
+	@When("^I provide a (.*) number (-?\\d+.\\d+)$")
+	public void whenIProvideAReal(String s, double val) {
+		addParams(s, new MyReal(val), 0);
+	}
+
+	@And("^I provide a (.*) number (-?\\d+.\\d+) to operator (.*)$")
+	public void whenIProvideAReal(String s, double val, int opIndex) {
+		addParams(s, new MyReal(val), opIndex);
+	}
+
+	@When("^I provide a (.*) number (-?\\d+)/(\\d+)$")
+	public void whenIProvideARational(String s, int num, int den) {
+		addParams(s, new MyRational(num, den), 0);
+	}
+
+	@And("^I provide a (.*) number (-?\\d+)/(\\d+) to operator (.*)$")
+	public void whenIProvideARational(String s, int num, int den, int opIndex) {
+		addParams(s, new MyRational(num, den), opIndex);
+	}
+
+	@When("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
+	public void whenIProvideAComplex(String s, int real, int imaginary) {
+		addParams(s, new MyComplex(real, imaginary), 0);
+	}
+
+	@And("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i to operator (.*)$")
+	public void whenIProvideAComplex(String s, int real, int imaginary, int opIndex) {
+		addParams(s, new MyComplex(real, imaginary), opIndex);
+	}
+
+	public void addParams(String s, MyNumber number, int opIndex) {
 		try {
 			Operation op = operations.get(opIndex);
 			//add extra parameter to the operation
 			params = new ArrayList<>();
-			params.add(new MyInteger(val));
+			params.add(number);
 			op.addMoreParams(params);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -167,11 +201,25 @@ public class CalculatorSteps {
 		}
 	}
 
-	@Then("the operation evaluates to {int}")
+	@Then("the operation evaluates to (-?\\d+)$")
 	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(val, c.eval(operations.getFirst()));
+		assertEquals(new MyInteger(val), c.eval(operations.getFirst()));
 	}
 
+	@Then("the operation evaluates to (-?\\d+.\\d+)$")
+	public void thenTheOperationEvaluatesTo(double val) {
+		assertEquals(new MyReal(val), c.eval(operations.getFirst()));
+	}
+
+	@Then("the operation evaluates to (-?\\d+)/(\\d+)$")
+	public void thenTheOperationEvaluatesTo(int num, int den) {
+		assertEquals(new MyRational(num, den), c.eval(operations.getFirst()));
+	}
+
+	@Then("the operation evaluates to (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
+	public void thenTheOperationEvaluatesTo(int real, int imaginary) {
+		assertEquals(new MyComplex(real, imaginary), c.eval(operations.getFirst()));
+	}
 
 	@And("^I provide the notation (.*) to operator (.*)$")
 	public void whenIProvideANotation(String notation, int opIndex) {
