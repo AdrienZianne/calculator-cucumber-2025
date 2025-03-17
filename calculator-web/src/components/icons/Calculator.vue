@@ -2,14 +2,33 @@
   <div class="calculator-container">
     <textarea v-model="inputText" placeholder="You can write here..."></textarea>
     
-    <div class="calculator-keyboard">
-      <button v-for="key in keys" :key="key" @click="addKey(key)">
-        {{ key }}
-      </button>
+    <div class="calculator-keyboard" >
+      <div class="keyboard">
+        <button v-for="number in numbers" :number="number" @click="addKey(number)">
+          {{ number }}
+        </button>
+      </div>
 
-      <button @click="removeOneKey">⌫</button>
-      <button @click="clearAll">AC</button>
+      <div class="keyboard-expand" v-if="isExpandKeyboard">
+        <button v-for="expand in expandOperations" :expand="expand" @click="addKey(expand)">
+          {{ expand }}
+        </button>
+      </div>
+
+      <div class="keyboard">
+        <button v-for="op in operations" :op="op" @click="addKey(op)">
+          {{ op }}
+        </button>
+        <button @click="removeOneKey">⌫</button>
+        <button @click="clearAll">AC</button>
+        <button @click=""><</button>
+        <button @click="">></button>
+        <button @click="">=</button>
+      </div>
+
     </div>
+    <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
+    <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
   </div>
 </template>
 
@@ -18,12 +37,19 @@ export default {
   data() {
     return {
       inputText: '',
-      keys: [
-        ..."0123456789".split(''),
-        ..."i.".split(''),
+      isExpandKeyboard : false,
+      numbers: [
+        ..."0123456789i.".split('')
+      ],
+      operations: [
         ..."()/*+-^".split(''),
-        //"log"
-      ]
+      ],
+      expandOperations:[
+        "log",
+        "cos",
+        "sin",
+        ..."xeπ".split('')
+      ],
     };
   },
   methods: {
@@ -35,6 +61,9 @@ export default {
     },
     clearAll() {
       this.inputText = '';
+    },
+    expandKeyboard(){
+      this.isExpandKeyboard = !this.isExpandKeyboard;
     }
   }
 };
@@ -60,9 +89,23 @@ textarea {
 }
 
 .calculator-keyboard {
+  display: flex; 
+  gap: 10px;
+}
+
+.keyboard {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
+  grid-template-columns: repeat(4, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
   grid-gap: 5px;
+  padding: 6px;
+}
+
+.keyboard-expand {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-gap: 5px;
+  padding: 6px;
+  grid-auto-rows: 50px; 
 }
 
 button {
