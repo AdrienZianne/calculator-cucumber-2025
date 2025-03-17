@@ -1,6 +1,6 @@
 <template>
   <div class="calculator-container">
-    <textarea v-model="inputText" placeholder="You can write here..."></textarea>
+    <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
     
     <div class="calculator-keyboard" >
       <div class="keyboard">
@@ -21,9 +21,9 @@
         </button>
         <button @click="removeOneKey">⌫</button>
         <button @click="clearAll">AC</button>
-        <button @click=""><</button>
-        <button @click="">></button>
-        <button @click="">=</button>
+        <button @click="moveCursorLeft"><</button>
+        <button @click="moveCursorRight">></button>
+        <button @click="replyRequest">=</button>
       </div>
 
     </div>
@@ -38,6 +38,8 @@ export default {
     return {
       inputText: '',
       isExpandKeyboard : false,
+      authorizedKeys : [..."0123456789i.()/*+-^".split(''), "Shift", "Backspace"],
+      inputId : document.getElementById('inputId'),
       numbers: [
         ..."0123456789i.".split('')
       ],
@@ -62,8 +64,28 @@ export default {
     clearAll() {
       this.inputText = '';
     },
-    expandKeyboard(){
+    expandKeyboard() {
       this.isExpandKeyboard = !this.isExpandKeyboard;
+    },
+    forbiddenKeys(event) {
+      if (!this.authorizedKeys.includes(event.key)) {
+        //without a timer, remove is not applied correctly.
+        setTimeout(() => this.removeOneKey(), 1); //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
+        if (event.key == "Enter") this.replyRequest;
+      }
+    },
+    moveCursorLeft(){ //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
+      this.cursorPosition = inputId.selectionStart;
+      inputId.focus();
+      if(this.cursorPosition != 0) inputId.setSelectionRange(this.cursorPosition-1, this.cursorPosition-1);
+    },
+    moveCursorRight(){
+      this.cursorPosition = inputId.selectionStart;
+      inputId.focus();
+      inputId.setSelectionRange(this.cursorPosition+1, this.cursorPosition+1);
+    },
+    replyRequest(){
+
     }
   }
 };
@@ -81,9 +103,9 @@ export default {
 textarea {
   resize: none;
   width: 100% !important;
-  height: 100px !important; 
+  height: 50px !important; 
   margin-bottom: 15px;
-  font-size: 15px;
+  font-size: 18px;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
