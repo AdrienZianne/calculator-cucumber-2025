@@ -113,6 +113,7 @@ public abstract class Operation implements Expression {
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
+        // Error : Not implemented
         return null;
     }
 

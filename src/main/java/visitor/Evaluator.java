@@ -31,26 +31,6 @@ public class Evaluator extends Visitor {
         computedValue = n;
     }
 
-    @Override
-    public void visit(MyInteger n) {
-        visit((MyNumber) n);
-    }
-
-    @Override
-    public void visit(ComplexNumber n) {
-        visit((MyNumber) n);
-    }
-
-    @Override
-    public void visit(MyRational n) {
-        visit((MyNumber) n);
-    }
-
-    @Override
-    public void visit(MyReal n) {
-        visit((MyNumber) n);
-    }
-
     /** Use the visitor design pattern to visit an operation
      *
      * @param o The operation being visited

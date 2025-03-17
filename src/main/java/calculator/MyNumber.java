@@ -1,5 +1,7 @@
 package calculator;
 
+import visitor.Visitor;
+
 /**
  * MyNumber is a concrete class that represents arithmetic numbers,
  * which are a special kind of Expressions, just like operations are.
@@ -69,4 +71,9 @@ public abstract class MyNumber implements Expression
 		return (int) getObjectValue(); // FIXME THIS IS TEMPORARY !!!
   }
 
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

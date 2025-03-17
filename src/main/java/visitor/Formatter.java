@@ -40,26 +40,6 @@ public class Formatter extends Visitor {
         representation = n.toString();
     }
 
-    @Override
-    public void visit(MyInteger n) {
-        visit((MyNumber) n);
-    }
-
-    @Override
-    public void visit(ComplexNumber n) {
-        visit((MyNumber) n);
-    }
-
-    @Override
-    public void visit(MyRational n) {
-        visit(((MyNumber) n));
-    }
-
-    @Override
-    public void visit(MyReal n) {
-        visit((MyNumber) n);
-    }
-
 
     /** Use the visitor design pattern to visit an operation
      *

@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.List;
 
-/// Classed used to represents a commutative expression, meaning if we have the following operation `a op b` then there is no need to also define `b op a`
+/// Classed used to represents a commutative operation, meaning if we have the following operation `a op b` then there is no need to also define `b op a`
 public abstract class CommutativeOperation extends Operation
 {
 
