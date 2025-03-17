@@ -42,19 +42,6 @@ public final class Times extends CommutativeOperation
   	neutral = 1;
   }
 
-  /**
-   * The actual computation of the (binary) arithmetic multiplication of two integers
-   *
-   * @param l The first integer
-   * @param r The second integer that should be multiplied with the first
-   * @return The integer that is the result of the multiplication
-   */
-  public MyNumber op(MyNumber l, MyNumber r)
-    {
-        return null;
-        //return (l*r);
-    }
-
      @Override
      public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
          return new MyInteger(l.getValue() * r.getValue());
@@ -83,31 +70,32 @@ public final class Times extends CommutativeOperation
 
      @Override
      public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-       MyNumber real = new Plus(new ArrayList<>()).op( op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                                                      op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a));
+       MyNumber real = new Minus(new ArrayList<>()).op( op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                                                      op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
 
-       MyNumber imaginary = new Plus(new ArrayList<>()).op(op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
-                                                            op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
+       MyNumber imaginary = new Plus(new ArrayList<>()).op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
+                                                            op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a));
        return new MyComplexNumber(real, imaginary);
      }
 
      @Override
      public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-       return null;
+       return new MyRational(l.getNumDenomPair().a * r.getValue(), l.getNumDenomPair().b).simplify();
      }
 
      @Override
      public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+        MyReal lReal = new MyReal(l.applyDenominator());
+        return op(lReal, r);
      }
 
      @Override
      public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+        return new MyComplexNumber(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b));
      }
 
      @Override
      public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         return new MyRational(l.getNumDenomPair().a * r.getNumDenomPair().a, l.getNumDenomPair().b * r.getNumDenomPair().b).simplify();
      }
  }

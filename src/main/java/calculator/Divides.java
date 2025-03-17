@@ -42,68 +42,39 @@ public final class Divides extends Operation
 	neutral = 1;
   }
 
-    /**
-     * The actual computation of the (binary) arithmetic division of two integers
-     *
-     * @param l The first integer
-     * @param r The second integer that should divide the first
-     * @return The integer that is the result of the division
-     */
-    public MyNumber op(MyNumber l, MyNumber r)
-    {
-        return null;
-        //try {
-        //    return (l/r);
-        //}
-        //catch (ArithmeticException error) {
-        //    if (l >= 0) {
-        //        return Integer.MAX_VALUE;
-        //    }
-        //    return Integer.MIN_VALUE;
-        //    /* TO DO LATER
-        //    else if (l < 0) {
-        //        return Integer.MIN_VALUE;
-        //    }
-        //    else {
-        //        return Double.NaN;
-        //    }
-        //     */
-        //}
-    }
-
     @Override
     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyReal((double) l.getValue() / r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyReal(l.getValue() / r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
-    }
-
-    @Override
-    public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
-    }
-
-    @Override
-    public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
-    }
-
-    @Override
-    public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return null; // FIXME !!!
     }
 
     @Override
     public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return null;
+    }
+
+    @Override
+    public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        return new MyRational(l.getValue() * r.getNumDenomPair().a, r.getNumDenomPair().b);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        return new MyReal(l.getValue() / r.getValue());
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        return new MyReal(l.getValue() / r.getValue());
     }
 
     @Override
@@ -113,12 +84,12 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
     public MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override

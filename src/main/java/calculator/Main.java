@@ -24,11 +24,9 @@ public class Main {
 
 		Expression e;
 		Calculator c = new Calculator();
-		e = new Plus(List.of(new MyComplexNumber(new MyRational(6, 2), new MyInteger(2)),
+		e = new Times(List.of(new MyComplexNumber(new MyRational(6, 4), new MyInteger(2)),
 							 new MyComplexNumber(new MyInteger(1), new MyInteger(2))));
-		System.out.println(new Plus(List.of()).op(new MyReal(1),
-													new MyRational(1,2)));
-		//System.out.println(c.eval(e));
+		System.out.println(c.eval(e));
 
 		//try {
 //

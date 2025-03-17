@@ -12,7 +12,10 @@ public class MyRational extends MyNumber {
      * @param numerator The numerator of the rational number.
      * @param denominator The denominator of the rational number.
      */
-    public MyRational(Integer numerator, Integer denominator) { this.numDenomPair = new Pair<>(numerator, denominator); }
+    public MyRational(Integer numerator, Integer denominator)
+    {
+        this.numDenomPair = simplifyNumDenom(numerator, denominator);
+    }
 
     /**
      * Constructs a rational with a denominator set to 1.
@@ -47,10 +50,20 @@ public class MyRational extends MyNumber {
      * Or if the new denominator is equal to 1, then it returns an {@link MyInteger} instance.
      */
     public MyNumber simplify() {
-        int gcd = gcd(this.numDenomPair.a, this.numDenomPair.b);
-        int newNum = numDenomPair.a / gcd;
-        int newDenom = numDenomPair.b / gcd;
-        return newDenom != 1 ? new MyRational(newNum, newDenom) : new MyInteger(newNum);
+        Pair<Integer, Integer> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a, this.getNumDenomPair().b);
+        return newNumDenom.b != 1 ? new MyRational(newNumDenom.a, newNumDenom.b) : new MyInteger(newNumDenom.a);
+    }
+
+    /**
+     * Simplifies the given enumerator and denominator.
+     * @return The simplified enumerator and denominator.
+     */
+    public static Pair<Integer, Integer> simplifyNumDenom(int a, int b) {
+        int gcd = gcd(a, b);
+        int newNum = a / gcd;
+        int newDenom = b / gcd;
+        if (newDenom < 0)  {newNum *= -1;newDenom *= -1; }
+        return new Pair<>(newNum, newDenom);
     }
 
     /**
@@ -59,7 +72,7 @@ public class MyRational extends MyNumber {
      * @param b An integer.
      * @return The greatest common divisor of {@code a} and {@code b}.
      */
-    public int gcd(int a, int b) {
+    public static int gcd(int a, int b) {
         if (b == 0) return a;
         return gcd(b, a % b);
     }

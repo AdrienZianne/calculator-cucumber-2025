@@ -64,31 +64,36 @@ public final class Minus extends CommutativeOperation
 
      @Override
      public MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
      }
 
      @Override
      public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         return new MyComplexNumber(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                                    op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
      }
 
      @Override
      public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         return new MyRational(l.getNumDenomPair().a - (r.getValue()) * l.getNumDenomPair().b, l.getNumDenomPair().b).simplify();
      }
 
      @Override
      public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         MyReal lReal = new MyReal(l.applyDenominator());
+         return op(lReal, r);
      }
 
      @Override
      public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         return new MyComplexNumber(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
      }
 
      @Override
      public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return null;
+         int lNum = l.getNumDenomPair().a * r.getNumDenomPair().b;
+         int rNum = r.getNumDenomPair().a * l.getNumDenomPair().b;
+
+         return new MyRational(lNum - rNum, l.getNumDenomPair().b * r.getNumDenomPair().b).simplify();
      }
  }
