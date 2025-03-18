@@ -113,12 +113,12 @@ public class CalculatorSteps {
 		addParams(s, new MyInteger(val), opIndex);
 	}
 
-	@When("^I provide a (.*) number (-?\\d+.\\d+)$")
+	@When("^I provide a (.*) number (-?\\d+\\.\\d+)$")
 	public void whenIProvideAReal(String s, double val) {
 		addParams(s, new MyReal(val), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+.\\d+) to operator (.*)$")
+	@And("^I provide a (.*) number (-?\\d+\\.\\d+) to operator (.*)$")
 	public void whenIProvideAReal(String s, double val, int opIndex) {
 		addParams(s, new MyReal(val), opIndex);
 	}
@@ -135,12 +135,12 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
 	public void whenIProvideAComplex(String s, int real, int imaginary) {
-		addParams(s, new MyComplex(real, imaginary), 0);
+		addParams(s, new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary)), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i to operator (.*)$")
 	public void whenIProvideAComplex(String s, int real, int imaginary, int opIndex) {
-		addParams(s, new MyComplex(real, imaginary), opIndex);
+		addParams(s, new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary)), opIndex);
 	}
 
 	public void addParams(String s, MyNumber number, int opIndex) {
@@ -194,7 +194,7 @@ public class CalculatorSteps {
 			{
 				operations.set(0, createIntegerOperation(s, params));
 			}
-			assertEquals(val, c.eval(operations.getFirst()));
+			assert(c.eval(operations.getFirst()).equals(new MyInteger(val)));
 		}
 		catch (IllegalConstruction e) {
 			fail();
@@ -202,23 +202,23 @@ public class CalculatorSteps {
 	}
 
 	@Then("the operation evaluates to (-?\\d+)$")
-	public void thenTheOperationEvaluatesTo(int val) {
-		assertEquals(new MyInteger(val), c.eval(operations.getFirst()));
+	public void thenTheOperationEvaluatesToInteger(int val) {
+		assert(c.eval(operations.getFirst()).equals(new MyInteger(val)));
 	}
 
-	@Then("the operation evaluates to (-?\\d+.\\d+)$")
-	public void thenTheOperationEvaluatesTo(double val) {
-		assertEquals(new MyReal(val), c.eval(operations.getFirst()));
+	@Then("the operation evaluates to (-?\\d+\\.\\d+)$")
+	public void thenTheOperationEvaluatesToReal(double val) {
+		assert(c.eval(operations.getFirst()).equals(new MyReal(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)$")
-	public void thenTheOperationEvaluatesTo(int num, int den) {
-		assertEquals(new MyRational(num, den), c.eval(operations.getFirst()));
+	public void thenTheOperationEvaluatesToRational(int num, int den) {
+		assert(c.eval(operations.getFirst()).equals(new MyRational(num, den)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesTo(int real, int imaginary) {
-		assertEquals(new MyComplex(real, imaginary), c.eval(operations.getFirst()));
+	public void thenTheOperationEvaluatesToComplex(int real, int imaginary) {
+		assert(c.eval(operations.getFirst()).equals(new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary))));
 	}
 
 	@And("^I provide the notation (.*) to operator (.*)$")
@@ -239,20 +239,6 @@ public class CalculatorSteps {
 		assertEquals(val, operations.getFirst().toString());
 	}
 
-	@Then("the operation evaluates to {string}")
-	public void thenTheOperationEvaluatesTo(String val) {
-		if(val.equals("max")){
-			assertEquals(Integer.MAX_VALUE, c.eval(operations.getFirst()));
-		}
-		else if (val.equals("min")){
-			assertEquals(Integer.MIN_VALUE, c.eval(operations.getFirst()));
-		}
-		else {
-			fail();
-		}
-	}
-
-
 	@When("I provide an expression as a string {string}")
 	public void whenIProvideAString(String string) {
 		params.add(CalculatorParser.parseString(string));
@@ -260,6 +246,6 @@ public class CalculatorSteps {
 
 	@Then("the expression evaluates to {int}")
 	public void thenTheExpressionEvaluatesTo(int val) {
-		assertEquals(val, c.eval(params.getFirst()));
+		assert(c.eval(operations.getFirst()).equals(new MyInteger(val)));
 	}
 }

@@ -29,7 +29,11 @@ class TestCounting {
     void testNumberCounting() {
         e = new MyInteger(value1);
         Counter c = new Counter();
-        e.accept(c);
+        try {
+            e.accept(c);
+        } catch (Exception e) {
+            fail();
+        }
         //test whether a number has zero depth (i.e. no nested expressions)
         assertEquals( 0, c.getDepth());
         //test whether a number contains zero operations
@@ -57,7 +61,11 @@ class TestCounting {
             fail();
         }
         Counter c = new Counter();
-        e.accept(c);
+        try {
+            e.accept(c);
+        } catch (Exception e) {
+            fail();
+        }
         //test whether a binary operation has depth 1
         assertEquals(1, c.getDepth(),"counting depth of an Operation");
         //test whether a binary operation contains 1 operation

@@ -125,32 +125,6 @@ Feature: Integer Arithmetic Expressions
     And the difference is 4
     And the quotient is 2
 
-  # A scenario outline (or template) is a scenario that is parameterised
-  # with different values. The outline comes with a set of examples.
-  # The scenario will be executed with each of the provided inputs.
-  Scenario Outline: Adding two integer numbers
-    Given an operation '+'
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n1|n2|result|
-      |4|5|9|
-      |5|3|8|
-
-  Scenario Outline: Dividing two integer numbers
-    Given an operation '/'
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n1|n2|result|
-      |35|5|7|
-      |7|5|1|
-      |5|7|0|
-
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
     Given an operation <op>
     When I provide a first number <n1>

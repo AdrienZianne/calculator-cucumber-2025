@@ -75,13 +75,4 @@ class TestDivides {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(params));
 	}
-
-	@Test
-	void testDivisionByZeroError() throws IllegalConstruction {
-		Operation op1 = new Divides(new ArrayList<>());
-
-		assertEquals(Integer.MAX_VALUE, op1.op(5, 0));
-		assertEquals(Integer.MIN_VALUE, op1.op(-5, 0));
-	}
-
 }

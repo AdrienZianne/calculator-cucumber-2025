@@ -31,19 +31,31 @@ class TestOperation {
 
 	@Test
 	void testCountDepth() {
-		o.accept(c);
+		try {
+			o.accept(c);
+		} catch (Exception e) {
+			fail();
+		}
 		assertEquals(2, c.getDepth());
 	}
 
 	@Test
 	void testCountOps() {
-		o.accept(c);
+		try {
+			o.accept(c);
+		} catch (Exception e) {
+			fail();
+		}
 		assertEquals(3, c.getOps());
 	}
 
 	@Test
 	void testCountNbs() {
-		o.accept(c);
+		try {
+			o.accept(c);
+		} catch (Exception e) {
+			fail();
+		}
 		assertEquals(Integer.valueOf(6), c.getNbs());
 	}
 

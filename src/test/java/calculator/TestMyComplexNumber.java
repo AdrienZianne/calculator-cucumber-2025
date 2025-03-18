@@ -6,25 +6,25 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
-class TestMyComplex {
+class TestMyComplexNumber {
 
     private final int imaginary = 3;
     private final int real = 7;
-    private MyComplex number;
+    private MyComplexNumber number;
 
     @BeforeEach
     void setUp() {
-        number = new MyComplex(new MyInteger(imaginary), new MyInteger(real));
+        number = new MyComplexNumber(new MyInteger(imaginary), new MyInteger(real));
     }
 
     @Test
     void testEquals() {
         // Two distinct MyComplex, constructed separately (using a different constructor) but containing the same value should be equal
-        assertEquals(new MyComplex(new MyInteger(imaginary), new MyInteger(real)), number);
+        assertEquals(new MyComplexNumber(new MyInteger(imaginary), new MyInteger(real)), number);
         // Two MyComplex containing a distinct value should not be equal:
         int otherImaginary = 7;
         int otherReal = 9;
-        assertNotEquals(new MyComplex(new MyInteger(otherImaginary), new MyInteger(otherReal)),number);
+        assertNotEquals(new MyComplexNumber(new MyInteger(otherImaginary), new MyInteger(otherReal)),number);
         assertEquals(number, number); // Identity check (for coverage, as this should always be true)
         assertNotEquals(number, imaginary/real); // number is of type MyComplex, while value is of type int, so not equal
         try {

@@ -18,9 +18,13 @@ class TestNotation {
 
     /* This is an auxilary method to avoid code duplication.
      */
-	void testNotation(String s,Operation o,Notation n) {
+	void testNotation(String s,Operation o,Notation n){
 		Formatter formatter = new Formatter(n);
-		formatter.visit(o);
+		try {
+			formatter.visit(o);
+		} catch (Exception e) {
+			fail();
+		}
 		assertEquals(s, formatter.getResult());
 	}
 

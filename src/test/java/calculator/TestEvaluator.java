@@ -44,8 +44,8 @@ class TestEvaluator {
             }
         } catch (IllegalConstruction e) {
             fail();
-        } catch (ExecutionControl.NotImplementedException e) {
-            throw new RuntimeException(e);
+        //} catch (ExecutionControl.NotImplementedException e) {
+        //    throw new RuntimeException(e);
         }
     }
 
