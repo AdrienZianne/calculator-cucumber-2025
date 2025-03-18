@@ -2,6 +2,8 @@ package calculator;
 
 import jdk.jshell.spi.ExecutionControl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /** This class represents the arithmetic division operation "/".
@@ -44,12 +46,12 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyReal((double) l.getValue() / r.getValue());
+        return null;
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyReal(l.getValue() / r.getValue());
+        return null;
     }
 
     @Override
@@ -64,17 +66,19 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getValue() * r.getNumDenomPair().a, r.getNumDenomPair().b);
+        //return new MyRational(l.getValue() * r.getNumDenomPair().a, r.getNumDenomPair().b);
+        return null;
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyReal(l.getValue() / r.getValue());
+        //return new MyReal(l.getValue().divide(BigDecimal.valueOf(r.getValue()), RoundingMode.DOWN));
+        return null;
     }
 
     @Override
     public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyReal(l.getValue() / r.getValue());
+        return new MyReal(l.getValue().divide(r.getValue(), RoundingMode.DOWN));
     }
 
     @Override

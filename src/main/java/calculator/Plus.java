@@ -2,6 +2,8 @@ package calculator;
 
 import jdk.jshell.spi.ExecutionControl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -45,17 +47,17 @@ public final class Plus extends CommutativeOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) {
-        return new MyInteger(l.getValue() + r.getValue());
+        return new MyInteger(l.getValue().add(r.getValue()));
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) {
-        return new MyReal(l.getValue() + (double) r.getValue());
+        return new MyReal(l.getValue().add(new BigDecimal(r.getValue())));
     }
 
     @Override
     public MyNumber op(MyReal l, MyReal r) {
-        return new MyReal(l.getValue() + r.getValue());
+        return new MyReal(l.getValue().add(r.getValue()));
     }
 
     @Override
@@ -76,13 +78,13 @@ public final class Plus extends CommutativeOperation {
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
-        return new MyRational(l.getNumDenomPair().a + (r.getValue()) * l.getNumDenomPair().b, l.getNumDenomPair().b).simplify();
+        return new MyRational(MyInteger.valueOf(l.getNumDenomPair().a.getValue().add(r.getValue().multiply(l.getNumDenomPair().b.getValue()))),
+                              MyInteger.valueOf(l.getNumDenomPair().b.getValue())).simplify();
     }
 
     @Override
     public MyNumber op(MyRational l, MyReal r) {
-        MyReal lReal = new MyReal(l.applyDenominator());
-        return op(lReal, r);
+        return op(l, MyRational.toRational(r));
     }
 
     @Override
@@ -92,10 +94,12 @@ public final class Plus extends CommutativeOperation {
 
     @Override
     public MyNumber op(MyRational l, MyRational r) {
-        int lNum = l.getNumDenomPair().a * r.getNumDenomPair().b;
-        int rNum = r.getNumDenomPair().a * l.getNumDenomPair().b;
+        BigInteger lNum = l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue());
+        BigInteger rNum = r.getNumDenomPair().a.getValue().multiply(l.getNumDenomPair().b.getValue());
 
-        return new MyRational(lNum + rNum, l.getNumDenomPair().b * r.getNumDenomPair().b).simplify();
+        return new MyRational(MyInteger.valueOf(lNum.add(rNum)),
+                    MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue())))
+                .simplify();
     }
 
 

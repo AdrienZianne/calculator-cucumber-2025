@@ -2,6 +2,8 @@ package calculator;
 
 import jdk.jshell.spi.ExecutionControl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 /** This class represents the arithmetic operation "-".
@@ -44,17 +46,17 @@ public final class Minus extends CommutativeOperation
 
      @Override
      public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyInteger(l.getValue() - r.getValue());
+         return new MyInteger(l.getValue().subtract(r.getValue()));
      }
 
      @Override
      public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyReal(l.getValue() - r.getValue());
+         return new MyReal(l.getValue().subtract(new BigDecimal(r.getValue())));
      }
 
      @Override
      public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyReal(l.getValue() - r.getValue());
+         return new MyReal(l.getValue().subtract(r.getValue()));
      }
 
      @Override
@@ -75,13 +77,15 @@ public final class Minus extends CommutativeOperation
 
      @Override
      public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyRational(l.getNumDenomPair().a - (r.getValue()) * l.getNumDenomPair().b, l.getNumDenomPair().b).simplify();
+        // a/b - c = (a-(c*b)) / b
+         return new MyRational(l.getNumDenomPair().a.getValue().subtract(r.getValue().multiply(l.getNumDenomPair().b.getValue())),
+                                l.getNumDenomPair().b.getValue()).simplify();
      }
 
      @Override
      public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         MyReal lReal = new MyReal(l.applyDenominator());
-         return op(lReal, r);
+         MyRational rRatio = MyRational.toRational(r);
+         return op(l, rRatio);
      }
 
      @Override
@@ -91,9 +95,11 @@ public final class Minus extends CommutativeOperation
 
      @Override
      public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         int lNum = l.getNumDenomPair().a * r.getNumDenomPair().b;
-         int rNum = r.getNumDenomPair().a * l.getNumDenomPair().b;
+         BigInteger lNum = l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue());
+         BigInteger rNum = r.getNumDenomPair().a.getValue().multiply(l.getNumDenomPair().b.getValue());
 
-         return new MyRational(lNum - rNum, l.getNumDenomPair().b * r.getNumDenomPair().b).simplify();
+         return new MyRational(lNum.subtract(rNum),
+                                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()))
+                    .simplify();
      }
  }

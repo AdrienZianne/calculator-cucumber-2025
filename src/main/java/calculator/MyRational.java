@@ -1,11 +1,13 @@
 package calculator;
 
+import java.math.BigInteger;
+
 /**
  * Represents a rational number.
  */
 public class MyRational extends MyNumber {
 
-    Pair<Integer, Integer> numDenomPair;
+    Pair<MyInteger, MyInteger> numDenomPair;
 
     /**
      * The default constructor of the {@link MyRational} class.
@@ -17,19 +19,29 @@ public class MyRational extends MyNumber {
         this.numDenomPair = simplifyNumDenom(numerator, denominator);
     }
 
+    public MyRational(MyInteger numerator, MyInteger denominator)
+    {
+        this(numerator.getValue(), denominator.getValue());
+    }
+    public MyRational(BigInteger numerator, BigInteger denominator)
+    {
+        this.numDenomPair = simplifyNumDenom(numerator, denominator);
+    }
+
     /**
      * Constructs a rational with a denominator set to 1.
      * @param number The numerator of the rational number.
      */
-    public MyRational(Integer number) {this.numDenomPair = new Pair<>(number, 1);}
+    public MyRational(Integer number) {this.numDenomPair = new Pair<>(new MyInteger(number), new MyInteger(1));}
 
-    /**
-     * Turns a rational number into a double by dividing the enumerator by the denominator.
-     * @return The computed double.
-     */
-    public double applyDenominator() {
-        return (double) this.numDenomPair.a / (double) this.numDenomPair.b;
+
+    public static MyRational toRational(MyReal real)
+    {
+        int denom = (int) Math.pow(10, real.getValue().scale());
+        int num = (int) (real.getValue().doubleValue() * denom);
+        return new MyRational(num, denom);
     }
+
 
     @Override
     public Object getObjectValue() {
@@ -40,7 +52,7 @@ public class MyRational extends MyNumber {
      * Gets the enumerator and denominator of the rational number.
      * @return An instance of a {@link Pair} that stores the enumerator as the value {@code a} and the denominator as the value {@code b}
      */
-    public Pair<Integer, Integer> getNumDenomPair() { return numDenomPair; }
+    public Pair<MyInteger, MyInteger> getNumDenomPair() { return numDenomPair; }
 
 
     /**
@@ -50,28 +62,33 @@ public class MyRational extends MyNumber {
      * Or if the new denominator is equal to 1, then it returns an {@link MyInteger} instance.
      */
     public MyNumber simplify() {
-        Pair<Integer, Integer> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a, this.getNumDenomPair().b);
-        return newNumDenom.b != 1 ? new MyRational(newNumDenom.a, newNumDenom.b) : new MyInteger(newNumDenom.a);
+        Pair<MyInteger, MyInteger> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a.getValue(), this.getNumDenomPair().b.getValue());
+
+        return ! newNumDenom.b.getValue().equals(BigInteger.ONE) ? new MyRational(newNumDenom.a.getValue(), newNumDenom.b.getValue()) : new MyInteger(newNumDenom.a.getValue());
     }
 
     /**
      * Simplifies the given enumerator and denominator.
      * @return The simplified enumerator and denominator.
      */
-    public static Pair<Integer, Integer> simplifyNumDenom(int a, int b) {
-        int gcd = gcd(a, b);
-        int newNum = a / gcd;
-        int newDenom = b / gcd;
-        if (newDenom < 0)  {newNum *= -1;newDenom *= -1; }
-        return new Pair<>(newNum, newDenom);
+    public static Pair<MyInteger, MyInteger> simplifyNumDenom(int a, int b) {
+        return simplifyNumDenom(BigInteger.valueOf(a), BigInteger.valueOf(b));
+    }
+    public static Pair<MyInteger, MyInteger> simplifyNumDenom(BigInteger a, BigInteger b) {
+        BigInteger gcd = a.gcd(b);
+        BigInteger newNum = a.divide(gcd);
+        BigInteger newDenom = b.divide(gcd);
+        if (newDenom.signum() < 0)  {newNum = newNum.negate();newDenom = newDenom.negate(); }
+        return new Pair<>(new MyInteger(newNum), new MyInteger(newDenom));
     }
 
-    /**
-     * Finds the greatest common divisor of {@code a} and {@code b}.
-     * @param a An integer.
-     * @param b An integer.
-     * @return The greatest common divisor of {@code a} and {@code b}.
-     */
+
+        /**
+         * Finds the greatest common divisor of {@code a} and {@code b}.
+         * @param a An integer.
+         * @param b An integer.
+         * @return The greatest common divisor of {@code a} and {@code b}.
+         */
     public static int gcd(int a, int b) {
         if (b == 0) return a;
         return gcd(b, a % b);

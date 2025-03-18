@@ -24,7 +24,6 @@ public class Main {
 	 */
 	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 
-		Expression e;
 		Calculator c = new Calculator();
 
 		try {

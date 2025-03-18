@@ -97,7 +97,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitNumberReal(LabeledExprParser.NumberRealContext ctx) {
-        return new MyReal(Double.parseDouble(ctx.FLOAT().getText()));
+        return new MyReal(ctx.FLOAT().getText());
     }
 
     @Override
