@@ -46,12 +46,13 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyRational(l.getValue(), r.getValue()).simplify();
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        MyRational rRatio = MyRational.toRational(r);
+        return op(l, rRatio);
     }
 
     @Override
@@ -66,19 +67,22 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        //return new MyRational(l.getValue() * r.getNumDenomPair().a, r.getNumDenomPair().b);
-        return null;
+        return new MyRational(l.getValue().multiply(r.getNumDenomPair().b.getValue()), r.getNumDenomPair().a.getValue()).simplify();
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        //return new MyReal(l.getValue().divide(BigDecimal.valueOf(r.getValue()), RoundingMode.DOWN));
-        return null;
+      // To not lose any information we just divide them as rationals and integers
+      MyRational lRatio = MyRational.toRational(l);
+      return op(lRatio, r);
     }
 
     @Override
     public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyReal(l.getValue().divide(r.getValue(), RoundingMode.DOWN));
+      // To not lose any information we just divide them as rationals
+      MyRational lRatio = MyRational.toRational(l);
+      MyRational rRatio = MyRational.toRational(r);
+      return op(lRatio, rRatio);
     }
 
     @Override
@@ -123,6 +127,7 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyRational(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue()),
+                              l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue())).simplify();
     }
 }

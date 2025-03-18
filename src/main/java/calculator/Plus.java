@@ -97,8 +97,8 @@ public final class Plus extends CommutativeOperation {
         BigInteger lNum = l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue());
         BigInteger rNum = r.getNumDenomPair().a.getValue().multiply(l.getNumDenomPair().b.getValue());
 
-        return new MyRational(MyInteger.valueOf(lNum.add(rNum)),
-                    MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue())))
+        return new MyRational(lNum.add(rNum),
+                              l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()))
                 .simplify();
     }
 
