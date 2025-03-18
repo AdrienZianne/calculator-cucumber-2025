@@ -12,7 +12,7 @@ public class MyReal extends MyNumber {
     private final BigDecimal value;
 
     public MyReal(double value) {
-        this.value = BigDecimal.valueOf(value);
+        this.value = BigDecimal.valueOf(value).setScale(PRECISION, ROUNDING_MODE);
     }
     public MyReal(String value) {
         this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
@@ -27,9 +27,4 @@ public class MyReal extends MyNumber {
     }
 
     public BigDecimal getValue() { return value; }
-
-    @Override
-    public void accept(Visitor v) {
-        v.visit(this);
-    }
 }
