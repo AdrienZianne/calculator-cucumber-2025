@@ -87,7 +87,8 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+      MyRational lRatio = MyRational.toRational(l);
+      return op(lRatio, r);
     }
 
     @Override
@@ -102,27 +103,29 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return null; // TODO
     }
 
     @Override
     public MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return null; // TODO
     }
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return new MyRational(l.getNumDenomPair().a.getValue().multiply(r.getValue()),
+                              l.getNumDenomPair().b.getValue()).simplify();
     }
 
     @Override
     public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+      MyRational rRatio = MyRational.toRational(r);
+      return op(l, rRatio);
     }
 
     @Override
     public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return null; // TODO
     }
 
     @Override
