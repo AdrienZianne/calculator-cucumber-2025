@@ -90,7 +90,7 @@ public final class Minus extends CommutativeOperation
 
      @Override
      public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyComplexNumber(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
+         return diffByComplex(l, r);
      }
 
      @Override
@@ -102,4 +102,24 @@ public final class Minus extends CommutativeOperation
                                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()))
                     .simplify();
      }
+
+     // Redefine some "non commutative" expressions
+
+     @Override
+     public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return diffByComplex(l, r);
+     }
+
+
+     @Override
+     public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+         return diffByComplex(l, r);
+     }
+
+     public MyNumber diffByComplex(MyNumber l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+         return new MyComplexNumber(op(l, r.getRealImaginaryPair().a),
+                 op(new MyInteger(0), r.getRealImaginaryPair().b) ); // This should be negated !!
+     }
+
+
  }

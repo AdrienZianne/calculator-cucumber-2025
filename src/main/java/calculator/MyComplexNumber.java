@@ -10,16 +10,6 @@ public class MyComplexNumber extends MyNumber {
         this.realImaginaryPair = new Pair<>(n1, n2);
     }
 
-    /**
-     * accept method to implement the visitor design pattern to traverse arithmetic expressions.
-     * Each number will pass itself to the visitor object to get processed by the visitor.
-     *
-     * @param v	The visitor object
-     */
-    public void accept(Visitor v) {
-        v.visit(this);
-    }
-
     @Override
     public Object getObjectValue() {
         return getRealImaginaryPair();

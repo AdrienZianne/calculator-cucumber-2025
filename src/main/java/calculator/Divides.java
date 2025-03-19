@@ -57,12 +57,12 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null; // FIXME !!!
+      return divByComplex(l, r);
     }
 
     @Override
     public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null;
+        return divByComplex(l, r);
     }
 
     @Override
@@ -125,12 +125,36 @@ public final class Divides extends Operation
 
     @Override
     public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null; // TODO
+        return divByComplex(l, r);
     }
 
     @Override
     public MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return new MyRational(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue()),
                               l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue())).simplify();
+    }
+
+
+
+
+
+
+    // FIXME try with : 1 / ((5/9) + 8/6i)
+    public MyNumber divByComplex(MyNumber l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException
+    {
+      //  c / (a + bi) = (ac - bci) / (a^2 + b^2)
+      // numerator :
+      Times times = new Times(List.of());
+      Plus plus = new Plus(List.of());
+      Minus minus = new Minus(List.of());
+
+
+      MyNumber ac = times.op(l, r.getRealImaginaryPair().a);
+      MyNumber minusBc = minus.op(new MyInteger(0), times.op(l, r.getRealImaginaryPair().b)); // FIXME this IS TEMPORARY, because we need unary operators !
+
+      // Denominator :
+      MyNumber aTimes2PlusbTimes2 = plus.op(times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+              times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)); // FIXME we should be using pow operations !
+      return new MyComplexNumber(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
     }
 }
