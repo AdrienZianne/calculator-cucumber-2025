@@ -12,101 +12,77 @@ Feature: Integer Arithmetic Expressions
   # provided that each of the steps (Given, When, And and Then) are
   # implemented in a Java mapping file (CalculatorSteps.Java)
 
-  Scenario: Adding two integer numbers
-    Given an operation '+'
-    When I provide a first number 4
-    And I provide a second number 5
-    Then the operation evaluates to 9
-
-  Scenario: Adding integer and real
-    Given an operation '+'
-    When I provide a first number 7
-    And I provide a second number 5.5
-    Then the operation evaluates to 12.5
-
-  Scenario: Adding integer and rational
-    Given an operation '+'
-    When I provide a first number 1
-    And I provide a second number 1/2
-    Then the operation evaluates to 1.5
-
-  Scenario: Adding integer and complex
-    Given an operation '+'
-    When I provide a first number 5
-    And I provide a second number 3 + 4i
-    Then the operation evaluates to 8 + 4i
-
-  Scenario: Subtracting two integer numbers
-    Given an operation '-'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 2
-
-  Scenario: Subtracting integer and real
-    Given an operation '-'
-    When I provide a first number 7
-    And I provide a second number 5.5
-    Then the operation evaluates to 1.5
-
-  Scenario: Subtracting integer and rational
-    Given an operation '-'
-    When I provide a first number 1
-    And I provide a second number 1/2
-    Then the operation evaluates to 0.5
-
-  Scenario: Subtracting integer and complex
-    Given an operation '-'
-    When I provide a first number 5
-    And I provide a second number 3 + 4i
-    Then the operation evaluates to 2 + -4i
-
-  Scenario: Multiplying two integer numbers
-    Given an operation '*'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 35
-
-  Scenario: Multiplying integer and real
-    Given an operation '*'
-    When I provide a first number 7
-    And I provide a second number 5.5
-    Then the operation evaluates to 38.5
-
-  Scenario: Multiplying integer and rational
-    Given an operation '*'
-    When I provide a first number 3
-    And I provide a second number 1/2
-    Then the operation evaluates to 1.5
-
-  Scenario: Multiplying integer and complex
-    Given an operation '*'
-    When I provide a first number 5
-    And I provide a second number 3 + 4i
-    Then the operation evaluates to 15 + 20i
-
-  Scenario: Dividing two integer numbers
-    Given an operation '/'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 1
-
-  Scenario: Dividing integer and real
-    Given an operation '/'
-    When I provide a first number 6
-    And I provide a second number 1.5
-    Then the operation evaluates to 4
-
-  Scenario: Dividing integer and rational
-    Given an operation '/'
-    When I provide a first number 3
-    And I provide a second number 1/2
-    Then the operation evaluates to 6
-
-  Scenario: Dividing integer and complex
-    Given an operation '/'
-    When I provide a first number 4
-    And I provide a second number 2 + 2i
-    Then the operation evaluates to 1 + -1i
+  Scenario Outline: Different operation between two terms of different types
+    Given an operation <o>
+    When I provide a first number <val1>
+    And I provide a second number <val2>
+    Then the operation evaluates to <res>
+    Examples:
+      | o   | val1       | val2       | res           |
+      | '+' | 4          | 5          | 9             |
+      | '+' | 4          | 5.5        | 9.5           |
+      | '+' | 4          | 2/5        | 4.4           |
+      | '+' | 4          | 5.0 + 3.0i | 9.0 + 3.0i    |
+      | '+' | 4.5        | 5          | 9.5           |
+      | '+' | 4.5        | 5.5        | 10            |
+      | '+' | 4.5        | 2/5        | 4.9           |
+      | '+' | 4.5        | 5.0 + 3.0i | 9.5 + 3.0i    |
+      | '+' | 2/5        | 5          | 5.4           |
+      | '+' | 2/5        | 5.5        | 5.9           |
+      | '+' | 2/5        | 2/5        | 4/5           |
+      | '+' | 2/5        | 5.0 + 3.0i | 5.4 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 5          | 7.0 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 5.5        | 7.5 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 2/5        | 2.4 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 5.0 + 3.0i | 7.0 + 6.0i    |
+      | '-' | 4          | 5          | -1            |
+      | '-' | 4          | 5.5        | -1.5          |
+      | '-' | 4          | 2/5        | 3.6           |
+      | '-' | 4          | 5.0 + 3.0i | -1.0 + -3.0i  |
+      | '-' | 4.5        | 5          | -0.5          |
+      | '-' | 4.5        | 5.5        | -1            |
+      | '-' | 4.5        | 2/5        | 4.1           |
+      | '-' | 4.5        | 5.0 + 3.0i | -0.5 + -3.0i  |
+      | '-' | 2/5        | 5          | -4.6          |
+      | '-' | 2/5        | 5.5        | -5.1          |
+      | '-' | 2/5        | 2/5        | 0             |
+      | '-' | 2/5        | 5.0 + 3.0i | -4.6 + -3.0i  |
+      | '-' | 2.0 + 3.0i | 5          | -3.0 + 3.0i   |
+      | '-' | 2.0 + 3.0i | 5.5        | -3.5 + 3.0i   |
+      | '-' | 2.0 + 3.0i | 2/5        | 1.6 + 3.0i    |
+      | '-' | 2.0 + 3.0i | 5.0 + 3.0i | -3            |
+      | '*' | 4          | 5          | 20            |
+      | '*' | 4          | 5.5        | 22            |
+      | '*' | 4          | 2/5        | 1.6           |
+      | '*' | 4          | 5.0 + 3.0i | 20.0 + 12.0i  |
+      | '*' | 4.5        | 5          | 22.5          |
+      | '*' | 4.5        | 5.5        | 24.75         |
+      | '*' | 4.5        | 2/5        | 1.8           |
+      | '*' | 4.5        | 5.0 + 3.0i | 22.5 + 13.5i  |
+      | '*' | 2/5        | 5          | 2             |
+      | '*' | 2/5        | 5.5        | 2.2           |
+      | '*' | 2/5        | 2/5        | 0.16          |
+      | '*' | 2/5        | 5.0 + 3.0i | 2.0 + 1.2i    |
+      | '*' | 2.0 + 3.0i | 5          | 10.0 + 15.0i  |
+      | '*' | 2.0 + 3.0i | 5.5        | 11.0 + 16.5i  |
+      | '*' | 2.0 + 3.0i | 2/5        | 0.8 + 1.2i    |
+      | '*' | 2.0 + 3.0i | 5.0 + 3.0i | 1.0 + 21.0i   |
+      | '/' | 4          | 5          | 0.8           |
+      | '/' | 4          | 0.5        | 8             |
+      | '/' | 4          | 2/5        | 10            |
+      | '/' | 4          | 2.0 + 4.0i | 0.4 + -0.8i   |
+      | '/' | 4.5        | 5          | 0.9           |
+      | '/' | 4.5        | 5.5        | 1             |
+      | '/' | 4.5        | 2/5        | 11.25         |
+      | '/' | 4.5        | 2.5 + 0.0i | 1.8           |
+      | '/' | 2/5        | 5          | 0.08          |
+      | '/' | 1/5        | 2.5        | 0.2           |
+      | '/' | 2/5        | 4/5        | 0.5           |
+      | '/' | 1/4        | 4.0 + 2.0i | 0.05+ -0.025i |
+      | '/' | 2.0 + 3.0i | 5          | 0.4 + 0.6i    |
+      | '/' | 2.0 + 3.0i | 5.5        | 4.0 + 2.0i    |
+      | '/' | 2.0 + 3.0i | 2/5        | 5.0 + 7.5i    |
+      | '/' | 8.0 + 4.0i | 4.0 + 2.0i | 2             |
 
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6

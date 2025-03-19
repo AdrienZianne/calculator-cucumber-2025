@@ -24,13 +24,13 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyInteger() {
+    void testEvaluatorMyInteger() throws ExecutionControl.NotImplementedException, IllegalConstruction {
         assertEquals(value1, calc.eval(new MyInteger(value1)));
     }
 
     @ParameterizedTest
     @ValueSource(strings = { "*", "+", "/", "-" })
-    void testEvaluateOperations(String symbol) {
+    void testEvaluateOperations(String symbol) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         List<Expression> params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
         try {
             // construct another type of operation depending on the input value
@@ -44,9 +44,8 @@ class TestEvaluator {
             }
         } catch (IllegalConstruction e) {
             fail();
-        //} catch (ExecutionControl.NotImplementedException e) {
-        //    throw new RuntimeException(e);
+        } catch (ExecutionControl.NotImplementedException e) {
+            throw new RuntimeException(e);
         }
     }
-
 }

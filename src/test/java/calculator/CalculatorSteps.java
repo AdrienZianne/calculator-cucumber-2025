@@ -8,6 +8,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,14 +134,14 @@ public class CalculatorSteps {
 		addParams(s, new MyRational(num, den), opIndex);
 	}
 
-	@When("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
-	public void whenIProvideAComplex(String s, int real, int imaginary) {
-		addParams(s, new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary)), 0);
+	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
+	public void whenIProvideAComplex(String s, double real, double imaginary) {
+		addParams(s, new MyComplexNumber(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i to operator (.*)$")
-	public void whenIProvideAComplex(String s, int real, int imaginary, int opIndex) {
-		addParams(s, new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary)), opIndex);
+	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
+	public void whenIProvideAComplex(String s, double real, double imaginary, int opIndex) {
+		addParams(s, new MyComplexNumber(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
 	public void addParams(String s, MyNumber number, int opIndex) {
@@ -180,12 +181,8 @@ public class CalculatorSteps {
 		}
 	}
 
-
-
-
-
 	@Then("^the (.*) is (\\d+)$")
-	public void thenTheOperationIs(String s, int val) {
+	public void thenTheOperationIs(String s, int val) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		try {
 			if (operations.isEmpty()) {
 				operations.add(createIntegerOperation(s, params));
@@ -202,24 +199,25 @@ public class CalculatorSteps {
 	}
 
 	@Then("the operation evaluates to (-?\\d+)$")
-	public void thenTheOperationEvaluatesToInteger(int val) {
+	public void thenTheOperationEvaluatesToInteger(int val) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert(c.eval(operations.getFirst()).equals(new MyInteger(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)$")
-	public void thenTheOperationEvaluatesToReal(double val) {
+	public void thenTheOperationEvaluatesToReal(double val) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert(c.eval(operations.getFirst()).equals(new MyReal(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)$")
-	public void thenTheOperationEvaluatesToRational(int num, int den) {
+	public void thenTheOperationEvaluatesToRational(int num, int den) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert(c.eval(operations.getFirst()).equals(new MyRational(num, den)));
 	}
 
-	@Then("the operation evaluates to (-?\\d+)\\s*\\+\\s*(-?\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesToComplex(int real, int imaginary) {
-		assert(c.eval(operations.getFirst()).equals(new MyComplexNumber(new MyInteger(real), new MyInteger(imaginary))));
+	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
+	public void thenTheOperationEvaluatesToComplex(double real, double imaginary) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+		assert(c.eval(operations.getFirst()).equals(new MyComplexNumber(new MyReal(real), new MyReal(imaginary))));
 	}
+
 
 	@And("^I provide the notation (.*) to operator (.*)$")
 	public void whenIProvideANotation(String notation, int opIndex) {
@@ -245,7 +243,7 @@ public class CalculatorSteps {
 	}
 
 	@Then("the expression evaluates to {int}")
-	public void thenTheExpressionEvaluatesTo(int val) {
+	public void thenTheExpressionEvaluatesTo(int val) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert(c.eval(operations.getFirst()).equals(new MyInteger(val)));
 	}
 }
