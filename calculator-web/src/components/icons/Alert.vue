@@ -14,6 +14,18 @@
               title: 'An error occurred !',
               text: error
           })
+      },
+      /**
+       * Method used to display informations.
+       *
+       * @param info The message to display.
+       */
+      infoManagement(info) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Guide',
+            html: info
+        });
       }
   }
-  </script>
+</script>

@@ -2,14 +2,16 @@
   <div class="home">
     <h1>Calculator-cucumber</h1>
     <Calculator class="calculator"/>
+    <Info class="info"/>
   </div>
 </template>
 
 <script>
 import Calculator from '@/components/icons/Calculator.vue';
+import Info from '@/components/icons/Info.vue';
 
 export default {
-  components: {Calculator}
+  components: {Calculator, Info}
 };
 </script>
 
@@ -39,4 +41,7 @@ h1 {
   margin-top: 100px;
   margin-bottom: 100px;
 }
+
+
+
 </style>
