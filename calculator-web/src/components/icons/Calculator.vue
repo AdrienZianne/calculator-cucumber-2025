@@ -2,6 +2,7 @@
   <!--First div that covers everything.-->
   <div class="calculator-container">
 
+    <!--Divs managing the memoryList.-->
     <div class="calculator-memory" v-if="isMemory">
       <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
         <button class="memory-button" @click="memoryBack(memory)">
@@ -13,6 +14,7 @@
     </div>
 
     <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
+    
     <!--Three divs representing the three parts of the keyboard. 
     The calculator-keyboard div allows you to place the keyboard parts side by side.-->
     <div class="calculator-keyboard" >
@@ -38,8 +40,8 @@
         <button @click="moveCursorRight">></button>
         <button @click="replyRequest">=</button>
       </div>
-
     </div>
+    
     <!--This button allows to display the third part of the keyboard.-->
     <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
     <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
