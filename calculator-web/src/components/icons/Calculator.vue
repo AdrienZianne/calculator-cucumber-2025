@@ -138,6 +138,10 @@ export default {
       this.isMemory = false;
       this.memoryList = [];
     },
+    /**
+     * Method that removes an element from the list at a particular index.
+     * @param i The index.
+     */
     memoryRemove(i){
       this.memoryList.splice(i, 1);
     },
@@ -152,7 +156,7 @@ export default {
       this.memoryList.push(this.inputText);
       this.inputText = "2";
       if(this.memoryList.length > 5) this.memoryRemove(0);
-      
+
       /*try {
         throw new Error("test");
       } catch (error) {
