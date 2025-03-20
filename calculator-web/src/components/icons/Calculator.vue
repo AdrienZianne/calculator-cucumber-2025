@@ -5,7 +5,7 @@
     <!--Divs managing the memoryList.-->
     <div class="calculator-memory" v-if="isMemory">
       <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
-        <button class="memory-button" @click="memoryBack(memory)">
+        <button class="memory-button" :class="{'memory-button-expand' : isExpandKeyboard}" @click="memoryBack(memory)">
           {{ memory }}
         </button>
         <button class="delete-button" @click="memoryRemove(i)">❌</button>
@@ -41,7 +41,7 @@
         <button @click="replyRequest">=</button>
       </div>
     </div>
-    
+
     <!--This button allows to display the third part of the keyboard.-->
     <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
     <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
@@ -261,6 +261,11 @@ button:hover {
 
 .memory-button:hover {
   background-color: #ceefce;
+}
+
+.memory-button-expand{
+  min-width: 550px; 
+  max-width: 550px;
 }
 
 .memory-clear-button {
