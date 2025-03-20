@@ -54,7 +54,7 @@ export default {
       inputText: '',
       isExpandKeyboard : false,
       isMemory : false,
-      authorizedKeys : [..."0123456789i.()/*+-^".split(''), "Shift", "Backspace",
+      authorizedKeys : [..."0123456789.()/*+-^".split(''), "Shift", "Backspace",
       "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"],
       inputId : document.getElementById('inputId'),
       memoryList : [],
@@ -136,18 +136,21 @@ export default {
       this.isMemory = false;
       this.memoryList = [];
     },
+    memoryRemove(i){
+      this.memoryList.splice(i, 1);
+    },
     /**
      * Method for handling API requests.
      */
     replyRequest(){
 
       //just for testing
-
-      /*this.isMemory = true;
+      /*
+      this.isMemory = true;
       this.memoryList.push(this.inputText);
       this.inputText = "2";
-      console.log(this.memoryList);*/
-
+      if(this.memoryList.length > 5) this.memoryRemove(0);
+      */
       /*try {
         throw new Error("test");
       } catch (error) {
@@ -171,6 +174,7 @@ export default {
           .then(data => {
             this.isMemory = true;
             this.memoryList.push(this.inputText);
+            if(this.memoryList.length > 5) this.memoryRemove(0);
             this.inputText = data.result;
           })
           .catch(error => {
