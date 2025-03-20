@@ -35,7 +35,7 @@ export default {
 <style scoped>
 button {
   background: none;
-  font-size: 40px; 
+  font-size: 30px; 
   cursor: pointer; 
   border: none;
   /*https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties*/
