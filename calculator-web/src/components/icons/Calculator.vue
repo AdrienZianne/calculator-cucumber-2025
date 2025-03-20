@@ -3,14 +3,16 @@
   <div class="calculator-container">
 
     <div class="calculator-memory" v-if="isMemory">
-        <button class="memory-button" v-for="memory in memoryList" :memory="memory" @click="memoryBack(memory)">
+      <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
+        <button class="memory-button" @click="memoryBack(memory)">
           {{ memory }}
         </button>
-        <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
+        <button class="delete-button" @click="memoryRemove(i)">❌</button>
+      </div>
+      <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
     </div>
 
     <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
-    
     <!--Three divs representing the three parts of the keyboard. 
     The calculator-keyboard div allows you to place the keyboard parts side by side.-->
     <div class="calculator-keyboard" >
@@ -145,12 +147,12 @@ export default {
     replyRequest(){
 
       //just for testing
-      /*
+      
       this.isMemory = true;
       this.memoryList.push(this.inputText);
       this.inputText = "2";
       if(this.memoryList.length > 5) this.memoryRemove(0);
-      */
+      
       /*try {
         throw new Error("test");
       } catch (error) {
@@ -245,6 +247,7 @@ button:hover {
 
 .memory-button{
   background-color: #f5f6f5;
+  min-width: 360px; 
   max-width: 360px; 
   overflow-wrap: break-word;
   margin-bottom: 10px;
@@ -259,6 +262,16 @@ button:hover {
 }
 
 .memory-clear-button:hover {
+  background-color: #940909;
+}
+
+.delete-button {
+  background: none;
+  font-size: 20px; 
+  cursor: pointer; 
+}
+
+.delete-button:hover {
   background-color: #940909;
 }
 </style>
