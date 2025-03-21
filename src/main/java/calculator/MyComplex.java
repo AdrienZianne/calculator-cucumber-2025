@@ -1,12 +1,12 @@
 package calculator;
 
-import visitor.Visitor;
+import java.util.Objects;
 
-public class MyComplexNumber extends MyNumber {
+public class MyComplex extends MyNumber {
 
     Pair<MyNumber, MyNumber> realImaginaryPair;
 
-    public MyComplexNumber(MyNumber n1, MyNumber n2) {
+    public MyComplex(MyNumber n1, MyNumber n2) {
         this.realImaginaryPair = new Pair<>(n1, n2);
     }
 
@@ -23,5 +23,18 @@ public class MyComplexNumber extends MyNumber {
     @Override
     public String toString() {
         return this.realImaginaryPair.a + " + " + this.realImaginaryPair.b + "i";
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MyComplex that = (MyComplex) o;
+        return Objects.equals(realImaginaryPair, that.realImaginaryPair);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(realImaginaryPair);
     }
 }

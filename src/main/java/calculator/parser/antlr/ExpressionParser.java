@@ -108,9 +108,9 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx) {
-        if (ctx.getChildCount() == 1) {return new MyComplexNumber(new MyInteger(0), new MyInteger(1));}
+        if (ctx.getChildCount() == 1) {return new MyComplex(new MyInteger(0), new MyInteger(1));}
 
-        return new MyComplexNumber(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
+        return new MyComplex(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
     }
 
 

@@ -97,26 +97,26 @@ public abstract class Operation implements Expression {
         {
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
         if (a instanceof MyReal l)
         {
             if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
         if (a instanceof MyRational l)
         {
             if (b instanceof MyRational r) { return op(l,r); }
-            if (b instanceof MyComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
         }
-        if (a instanceof MyComplexNumber l)
+        if (a instanceof MyComplex l)
         {
-            if (b instanceof MyComplexNumber r) { return op(l,r); }
+            if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
@@ -128,22 +128,22 @@ public abstract class Operation implements Expression {
 
     public abstract MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
     public abstract MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
     public abstract MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
     public abstract MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
 

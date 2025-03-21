@@ -136,12 +136,12 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void whenIProvideAComplex(String s, double real, double imaginary) {
-		addParams(s, new MyComplexNumber(new MyReal(real), new MyReal(imaginary)), 0);
+		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
 	public void whenIProvideAComplex(String s, double real, double imaginary, int opIndex) {
-		addParams(s, new MyComplexNumber(new MyReal(real), new MyReal(imaginary)), opIndex);
+		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
 	public void addParams(String s, MyNumber number, int opIndex) {
@@ -215,7 +215,7 @@ public class CalculatorSteps {
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(double real, double imaginary) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert(c.eval(operations.getFirst()).equals(new MyComplexNumber(new MyReal(real), new MyReal(imaginary))));
+		assert(c.eval(operations.getFirst()).equals(new MyComplex(new MyReal(real), new MyReal(imaginary))));
 	}
 
 

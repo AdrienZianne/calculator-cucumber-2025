@@ -35,7 +35,7 @@ class TestMyRational {
 
     @Test
     void testToString() {
-        assertEquals(Double.toString(numerator/denominator), number.toString());
+        assertEquals(numerator + "/" + denominator, number.toString());
     }
 
 }

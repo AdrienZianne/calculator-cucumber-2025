@@ -1,6 +1,7 @@
 package calculator;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Represents a rational number.
@@ -83,19 +84,20 @@ public class MyRational extends MyNumber {
     }
 
 
-        /**
-         * Finds the greatest common divisor of {@code a} and {@code b}.
-         * @param a An integer.
-         * @param b An integer.
-         * @return The greatest common divisor of {@code a} and {@code b}.
-         */
-    public static int gcd(int a, int b) {
-        if (b == 0) return a;
-        return gcd(b, a % b);
-    }
-
     @Override
     public String toString() {
         return numDenomPair.a + "/" + numDenomPair.b;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MyRational that = (MyRational) o;
+        return Objects.equals(numDenomPair, that.numDenomPair);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(numDenomPair);
     }
 }

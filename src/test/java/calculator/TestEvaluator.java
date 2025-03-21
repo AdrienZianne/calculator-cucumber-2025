@@ -25,7 +25,7 @@ class TestEvaluator {
 
     @Test
     void testEvaluatorMyInteger() throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        assertEquals(value1, calc.eval(new MyInteger(value1)));
+        assertEquals(MyInteger.valueOf(value1), calc.eval(new MyInteger(value1)));
     }
 
     @ParameterizedTest
@@ -36,10 +36,10 @@ class TestEvaluator {
             // construct another type of operation depending on the input value
             // of the parameterised test
             switch (symbol) {
-                case "+" -> assertEquals(value1 + value2, calc.eval(new Plus(params)));
-                case "-" -> assertEquals(value1 - value2, calc.eval(new Minus(params)));
-                case "*" -> assertEquals(value1 * value2, calc.eval(new Times(params)));
-                case "/" -> assertEquals(value1 / value2, calc.eval(new Divides(params)));
+                case "+" -> assertEquals(MyInteger.valueOf(value1 + value2), calc.eval(new Plus(params)));
+                case "-" -> assertEquals(MyInteger.valueOf(value1 - value2), calc.eval(new Minus(params)));
+                case "*" -> assertEquals(MyInteger.valueOf(value1 * value2), calc.eval(new Times(params)));
+                case "/" -> assertEquals(new MyRational(value1, value2), calc.eval(new Divides(params)));
                 default -> fail();
             }
         } catch (IllegalConstruction e) {

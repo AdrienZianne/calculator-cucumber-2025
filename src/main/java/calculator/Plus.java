@@ -61,18 +61,18 @@ public final class Plus extends CommutativeOperation {
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+    public MyNumber op(MyComplex l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+    public MyNumber op(MyComplex l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+    public MyNumber op(MyComplex l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
                                  op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
     }
 
@@ -88,8 +88,8 @@ public final class Plus extends CommutativeOperation {
     }
 
     @Override
-    public MyNumber op(MyRational l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplexNumber(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
+    public MyNumber op(MyRational l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
     }
 
     @Override

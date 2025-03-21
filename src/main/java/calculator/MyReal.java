@@ -4,6 +4,7 @@ import visitor.Visitor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 public class MyReal extends MyNumber {
     public static int PRECISION = 5;
@@ -27,4 +28,21 @@ public class MyReal extends MyNumber {
     }
 
     public BigDecimal getValue() { return value; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MyReal myReal = (MyReal) o;
+        return Objects.equals(value, myReal.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

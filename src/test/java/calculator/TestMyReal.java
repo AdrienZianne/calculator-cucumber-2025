@@ -4,6 +4,8 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 class TestMyReal {
@@ -33,7 +35,8 @@ class TestMyReal {
 
     @Test
     void testToString() {
-        assertEquals(Double.toString(value), number.toString());
+        assertEquals(BigDecimal.valueOf(value).setScale(MyReal.PRECISION, MyReal.ROUNDING_MODE).toString(),
+                    number.toString());
     }
 
 }

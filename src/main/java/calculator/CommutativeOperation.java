@@ -18,7 +18,7 @@ public abstract class CommutativeOperation extends Operation
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r, l);
     }
 
@@ -28,7 +28,7 @@ public abstract class CommutativeOperation extends Operation
     }
 
     @Override
-    public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 
@@ -38,7 +38,7 @@ public abstract class CommutativeOperation extends Operation
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
         return op(r,l);
     }
 

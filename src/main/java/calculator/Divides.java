@@ -2,8 +2,6 @@ package calculator;
 
 import jdk.jshell.spi.ExecutionControl;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 /** This class represents the arithmetic division operation "/".
@@ -56,12 +54,12 @@ public final class Divides extends Operation
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
       return divByComplex(l, r);
     }
 
     @Override
-    public MyNumber op(MyReal l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return divByComplex(l, r);
     }
 
@@ -92,22 +90,22 @@ public final class Divides extends Operation
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+    public MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplexNumber(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+    public MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return null; // TODO
     }
 
     @Override
-    public MyNumber op(MyComplexNumber l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return null; // TODO
     }
 
@@ -124,7 +122,7 @@ public final class Divides extends Operation
     }
 
     @Override
-    public MyNumber op(MyRational l, MyComplexNumber r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return divByComplex(l, r);
     }
 
@@ -140,7 +138,7 @@ public final class Divides extends Operation
 
 
     // FIXME try with : 1 / ((5/9) + 8/6i)
-    public MyNumber divByComplex(MyNumber l, MyComplexNumber r) throws IllegalConstruction, ExecutionControl.NotImplementedException
+    public MyNumber divByComplex(MyNumber l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException
     {
       //  c / (a + bi) = (ac - bci) / (a^2 + b^2)
       // numerator :
@@ -155,6 +153,6 @@ public final class Divides extends Operation
       // Denominator :
       MyNumber aTimes2PlusbTimes2 = plus.op(times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
               times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)); // FIXME we should be using pow operations !
-      return new MyComplexNumber(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
+      return new MyComplex(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
     }
 }
