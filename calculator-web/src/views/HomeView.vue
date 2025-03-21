@@ -15,16 +15,36 @@ export default {
 };
 </script>
 
+
 <style scoped>
+
 .home {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  /*We want to take the entire width/height of the window.*/
-  min-height: 100vh; 
-  width: 100vw; 
-  background-color: #fff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(min-width: 900px) and (max-width: 2000px)
+{
+  .home {
+    /*Just to move the navigation bar further.*/
+    min-width: 100vw; 
+  }
+  h1 {
+    min-width: 100vw;
+  }
+}
+
+@media(min-width: 0px) and (max-width: 899px)
+{
+  .home {
+    display: inline-block;
+    padding: 25px;
+    left: 0;
+  }
+  h1 {
+    display: inline-block;
+  }
 }
 
 h1 {
@@ -33,7 +53,6 @@ h1 {
   position: absolute; 
   top: 0; 
   text-align: center;
-  width: 100%;
   background-color: #deebee;
 }
 

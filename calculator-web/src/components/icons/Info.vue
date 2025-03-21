@@ -38,15 +38,21 @@ button {
   font-size: 30px; 
   cursor: pointer; 
   border: none;
-  /*https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties*/
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
 }
 
-button:hover {
-  opacity: 1;
-  background-color: #73a6f3;
+@media(min-width: 900px) and (max-width: 2000px)
+{
+  button {
+    /*https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties*/
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  button:hover {
+    opacity: 1;
+    background-color: #73a6f3;
+  }
 }
+
 
 </style>
   
