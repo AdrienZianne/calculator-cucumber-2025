@@ -42,8 +42,9 @@ export default {
     padding: 25px;
     left: 0;
   }
+  /*How to adapt it to the parent div??*/
   h1 {
-    display: inline-block;
+    width: 100%;
   }
 }
 
