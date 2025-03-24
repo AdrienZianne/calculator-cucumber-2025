@@ -8,7 +8,7 @@
         <button class="memory-button" :class="{'memory-button-expand' : isExpandKeyboard}" @click="memoryBack(memory)">
           {{ memory }}
         </button>
-        <button class="delete-button" @click="memoryRemove(i)">❌</button>
+        <button class="delete-button" @click="memoryRemove(i)"></button>
       </div>
       <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
     </div>
@@ -36,8 +36,8 @@
         </button>
         <button @click="removeOneKey">⌫</button>
         <button @click="clearAll">AC</button>
-        <button @click="moveCursorLeft"><</button>
-        <button @click="moveCursorRight">></button>
+        <button @click="moveCursorLeft">←</button>
+        <button @click="moveCursorRight">→</button>
         <button @click="replyRequest">=</button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
         ..."0123456789i.".split('')
       ],
       operations: [
-        ..."()/*+-^".split(''),
+        ..."+-/*()^".split(''),
       ],
       expandOperations:[
         "log",
@@ -293,7 +293,15 @@ button:hover {
   cursor: pointer; 
 }
 
-.delete-button:hover {
-  background-color: #940909;
+.delete-button::after{
+  content: '✖️';
+}
+
+.delete-button:hover{
+  background: none;
+}
+
+.delete-button:hover::after {
+  content: '❌';
 }
 </style>
