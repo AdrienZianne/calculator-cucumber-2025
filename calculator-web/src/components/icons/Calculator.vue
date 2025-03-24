@@ -92,11 +92,13 @@ export default {
     },
     /**
      * Method used to remove a specific character from the textarea.
+     * The case where enter is pressed is also managed.
      * 
      * @param character the character to delete.
      */
     removeSpecificWord(character){
-      this.inputText = this.inputText.replace(character, '');
+      if (character = 'Enter' ) this.removeOneKey();
+      else this.inputText = this.inputText.replace(character, '');
     },
     /**Method for deleting the entire entry in the textaera.*/
     clearAll() {
