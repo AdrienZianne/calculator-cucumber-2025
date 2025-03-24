@@ -13,8 +13,14 @@
       <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
     </div>
 
+    <div>
+      <!--TO DO : put \ before sqrt, \over instead of / and \times instead of *.-->
+      <!--https://github.com/justforuse/vue-mathjax-->
+      <!--https://github.com/justforuse/vue-mathjax-next-->
     <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
-    
+      <vue-mathjax :formula="`$$`+inputText+`$$`"></vue-mathjax>
+    </div>
+
     <!--Three divs representing the three parts of the keyboard. 
     The calculator-keyboard div allows you to place the keyboard parts side by side.-->
     <div class="calculator-keyboard" >
@@ -50,15 +56,16 @@
 
 <script>
 import Alert from '@/components/icons/Alert.vue';
+import VueMathjax from 'vue-mathjax-next';
 
 export default {
-  components: {Alert},
+  components: {Alert, VueMathjax},
   data() {
     return {
-      inputText: '',
+      inputText: 'a',
       isExpandKeyboard : false,
       isMemory : false,
-      authorizedKeys : [..."0123456789.()/*+-^".split(''), "Shift", "Backspace",
+      authorizedKeys : [..."0123456789.()/*+-".split(''), "Shift", "Backspace",
       "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"],
       inputId : document.getElementById('inputId'),
       memoryList : [],
@@ -72,6 +79,7 @@ export default {
         "log",
         "cos",
         "sin",
+        "sqrt",
         ..."xeπ".split('')
       ],
     };
@@ -97,6 +105,7 @@ export default {
      * @param character the character to delete.
      */
     removeSpecificWord(character){
+      console.log(character);
       if (character = 'Enter' ) this.removeOneKey();
       else this.inputText = this.inputText.replace(character, '');
     },
@@ -118,10 +127,9 @@ export default {
       //without a timer, remove is not applied correctly.
       //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
       let word = event.key;
-      if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5); 
-        
-      if (word == "Enter" || word == "=") this.replyRequest();
-      
+      //There is always ^number not only ^.
+      if (!this.authorizedKeys.includes(word) && !word.includes('^')) setTimeout(() => this.removeSpecificWord(word), 5);        
+      if (word == "Enter" || word == "=") this.replyRequest();   
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
