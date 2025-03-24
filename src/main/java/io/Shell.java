@@ -67,6 +67,7 @@ public class Shell {
                             terminal.writer().println(c.eval(exp));
                         } catch (IllegalArgumentException e) {
                             printError(e.getMessage());
+                            e.printStackTrace(terminal.writer());
                         } catch (IllegalConstruction e) {
                             throw new RuntimeException(e);
                         } catch (ExecutionControl.NotImplementedException e) {

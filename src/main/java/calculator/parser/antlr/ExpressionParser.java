@@ -1,9 +1,12 @@
 package calculator.parser.antlr;
 
 import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import visitor.Evaluator;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**
@@ -92,7 +95,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitNumberInt(LabeledExprParser.NumberIntContext ctx) {
-        return new MyInteger(Integer.parseInt(ctx.INT().getText()));
+        return new MyInteger(new BigInteger(ctx.INT().getText()));
     }
 
     @Override
@@ -127,10 +130,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
      */
     public <E extends ParserRuleContext, O extends Operation> O parseToOperator(E ctx, BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
+        Evaluator v;
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // Checks if the node is a token without any interesting values
             if (! (ctx.getChild(i) instanceof TerminalNode)) {
-                expressions.add(visit(ctx.getChild(i)));
+                v = new Evaluator();
+                try {
+                    visit(ctx.getChild(i)).accept(v);
+                }
+                catch (Exception e) {throw new RuntimeException(e);} // FIXME : Adrien Fievet should have a look at that
+                expressions.add(v.getResult());
             }
         }
         O res = null;
