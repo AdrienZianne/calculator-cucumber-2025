@@ -157,6 +157,7 @@ export default {
      */
     memoryRemove(i){
       this.memoryList.splice(i, 1);
+      if(this.memoryList.length == 0) this.isMemory = false;
     },
     /**
      * Method for handling API requests.
