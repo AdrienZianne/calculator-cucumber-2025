@@ -14,11 +14,10 @@
     </div>
 
     <div>
-      <!--TO DO : put \ before sqrt, \over instead of / and \times instead of *.-->
-      <!--https://github.com/justforuse/vue-mathjax-->
-      <!--https://github.com/justforuse/vue-mathjax-next-->
-    <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" placeholder="You can write here..."></textarea>
-      <vue-mathjax :formula="`$$`+inputText+`$$`"></vue-mathjax>
+    <!--https://github.com/justforuse/vue-mathjax-->
+    <!--https://github.com/justforuse/vue-mathjax-next-->
+    <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" @input="formatInput" placeholder="You can write here..."></textarea>
+      <vue-mathjax :formula="`$$`+formattedInputText+`$$`"></vue-mathjax>
     </div>
 
     <!--Three divs representing the three parts of the keyboard. 
@@ -62,7 +61,8 @@ export default {
   components: {Alert, VueMathjax},
   data() {
     return {
-      inputText: 'a',
+      inputText: '',
+      formattedInputText: '',
       isExpandKeyboard : false,
       isMemory : false,
       authorizedKeys : [..."0123456789.()/*+-".split(''), "Shift", "Backspace",
@@ -90,13 +90,16 @@ export default {
      * @param key What we want to write.
      */
     addKey(key) {
-      this.inputText += key;
+      let i = inputId.selectionStart;
+      this.inputText = this.inputText.slice(0, i) + key + this.inputText.slice(i);
+      this.formatInput();
     },
     /**
      * Method for deleting the last key entered in the textarea.
      */
     removeOneKey() {
       this.inputText = this.inputText.slice(0, -1);
+      this.formatInput();
     },
     /**
      * Method used to remove a specific character from the textarea.
@@ -105,7 +108,6 @@ export default {
      * @param character the character to delete.
      */
     removeSpecificWord(character){
-      console.log(character);
       if (character = 'Enter' ) this.removeOneKey();
       else this.inputText = this.inputText.replace(character, '');
     },
@@ -131,18 +133,29 @@ export default {
       if (!this.authorizedKeys.includes(word) && !word.includes('^')) setTimeout(() => this.removeSpecificWord(word), 5);        
       if (word == "Enter" || word == "=") this.replyRequest();   
     },
+    /**
+     * Method for formatting the input into a beautiful font.
+     */
+    formatInput() {
+      this.formattedInputText = this.inputText;
+      if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replace('*','\\times');
+      if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replace('sqrt','\\sqrt');
+
+      //Specific case for the division ->  find what to put below/above.
+      //if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replace('/','\\over');
+    },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
       //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
-      this.cursorPosition = inputId.selectionStart;
+      let cursorPosition = inputId.selectionStart;
       inputId.focus();
-      if(this.cursorPosition != 0) inputId.setSelectionRange(this.cursorPosition-1, this.cursorPosition-1);
+      if(cursorPosition != 0) inputId.setSelectionRange(cursorPosition-1, cursorPosition-1);
     },
     /**Method for moving the cursor right.*/
     moveCursorRight(){
-      this.cursorPosition = inputId.selectionStart;
+      let cursorPosition = inputId.selectionStart;
       inputId.focus();
-      inputId.setSelectionRange(this.cursorPosition+1, this.cursorPosition+1);
+      inputId.setSelectionRange(cursorPosition+1, cursorPosition+1);
     },
     /**
      * Method for returning to a specific input.
