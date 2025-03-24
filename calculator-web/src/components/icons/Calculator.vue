@@ -90,6 +90,14 @@ export default {
     removeOneKey() {
       this.inputText = this.inputText.slice(0, -1);
     },
+    /**
+     * Method used to remove a specific character from the textarea.
+     * 
+     * @param character the character to delete.
+     */
+    removeSpecificWord(character){
+      this.inputText = this.inputText.replace(character, '');
+    },
     /**Method for deleting the entire entry in the textaera.*/
     clearAll() {
       this.inputText = '';
@@ -107,9 +115,10 @@ export default {
     forbiddenKeys(event) {
       //without a timer, remove is not applied correctly.
       //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
-      if (!this.authorizedKeys.includes(event.key)) setTimeout(() => this.removeOneKey(), 5); 
+      let word = event.key;
+      if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5); 
         
-      if (event.key == "Enter" || event.key == "=") this.replyRequest();
+      if (word == "Enter" || word == "=") this.replyRequest();
       
     },
     /**Method for moving the cursor left.*/
