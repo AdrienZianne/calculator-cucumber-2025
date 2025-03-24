@@ -39,7 +39,7 @@
         <button v-for="op in operations" :op="op" @click="addKey(op)">
           {{ op }}
         </button>
-        <button @click="removeOneKey">⌫</button>
+        <button @click="removeASpecificKey">⌫</button>
         <button @click="clearAll">AC</button>
         <button @click="moveCursorLeft">←</button>
         <button @click="moveCursorRight">→</button>
@@ -102,6 +102,16 @@ export default {
       this.formatInput();
     },
     /**
+     * Method for deleting a character at the current index.
+     */
+    removeASpecificKey() {
+      let i = inputId.selectionStart;
+      let tmp = this.inputText.split('');
+      tmp.splice(i-1, 1);
+      this.inputText = tmp.join('');
+      this.formatInput();
+    },
+    /**
      * Method used to remove a specific character from the textarea.
      * The case where enter is pressed is also managed.
      * 
@@ -114,6 +124,7 @@ export default {
     /**Method for deleting the entire entry in the textaera.*/
     clearAll() {
       this.inputText = '';
+      this.formatInput();
     },
     /**
      * Method for adding extra keys to the keyboard.
