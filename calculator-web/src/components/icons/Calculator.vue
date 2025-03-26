@@ -16,7 +16,7 @@
     <div>
     <!--https://github.com/justforuse/vue-mathjax-->
     <!--https://github.com/justforuse/vue-mathjax-next-->
-    <textarea v-model="inputText" id="inputId" @keydown="forbiddenKeys" @input="formatInput" placeholder="You can write here..."></textarea>
+    <textarea v-model="inputText" @paste.prevent id="inputId" @keydown="forbiddenKeys" @input="formatInput" placeholder="You can write here..."></textarea>
       <vue-mathjax :formula="`$$`+formattedInputText+`$$`"></vue-mathjax>
     </div>
 
@@ -150,10 +150,15 @@ export default {
     formatInput() {
       this.formattedInputText = this.inputText;
       if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replace('*','\\times');
-      if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replace('sqrt','\\sqrt');
-
+      if(this.formattedInputText.includes('sqrt')) {
+        this.formattedInputText = this.formattedInputText.replace('sqrt','\\sqrt');
+        //Ne gère pas les () imbriquées.
+        this.formattedInputText = this.formattedInputText.replace(/\\sqrt\((.*)\)/g, '\\sqrt{$1}');
+      }
+      
       //Specific case for the division ->  find what to put below/above.
       //if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replace('/','\\over');
+      //Gérer les () et {}
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
