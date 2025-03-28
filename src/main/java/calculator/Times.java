@@ -61,12 +61,12 @@ public final class Times extends CommutativeOperation
      @Override
      public MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
          // (a + b*i) * c = (c*a) + (c*b*i)
-         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
      }
 
      @Override
      public MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
      }
 
      @Override
@@ -76,7 +76,7 @@ public final class Times extends CommutativeOperation
 
        MyNumber imaginary = new Plus(new ArrayList<>()).op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
                                                             op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a));
-       return new MyComplex(real, imaginary);
+       return new MyComplex(real, imaginary).simplify();
      }
 
      @Override
@@ -92,7 +92,7 @@ public final class Times extends CommutativeOperation
 
      @Override
      public MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b));
+        return new MyComplex(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b)).simplify();
      }
 
      @Override

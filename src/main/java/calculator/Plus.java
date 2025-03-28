@@ -62,18 +62,18 @@ public final class Plus extends CommutativeOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                                 op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
+                                 op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
     }
 
     @Override
@@ -89,7 +89,7 @@ public final class Plus extends CommutativeOperation {
 
     @Override
     public MyNumber op(MyRational l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
+        return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b).simplify();
     }
 
     @Override

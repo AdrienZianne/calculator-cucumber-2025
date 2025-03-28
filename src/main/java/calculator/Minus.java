@@ -64,18 +64,18 @@ public final class Minus extends Operation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
     }
 
     @Override
@@ -131,7 +131,7 @@ public final class Minus extends Operation {
     @Override
     public MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return new MyComplex(op(l.getRealImaginaryPair().a, r),
-                op(new MyInteger(0), l.getRealImaginaryPair().b));
+                op(new MyInteger(0), l.getRealImaginaryPair().b)).simplify();
     }
 
     @Override
@@ -147,7 +147,7 @@ public final class Minus extends Operation {
     public MyNumber diffByComplex(MyNumber l, MyComplex r)
             throws IllegalConstruction, ExecutionControl.NotImplementedException {
         return new MyComplex(op(l, r.getRealImaginaryPair().a),
-                op(new MyInteger(0), r.getRealImaginaryPair().b)); // This should be negated !!
+                op(new MyInteger(0), r.getRealImaginaryPair().b)).simplify(); // This should be negated !!
     }
 
 }

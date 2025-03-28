@@ -60,12 +60,14 @@ public class MyRational extends MyNumber {
      * Simplifies this {@link MyRational} instance.
      * @return The simplified number.
      * Either another instance of {@link MyRational}.
-     * Or if the new denominator is equal to 1, then it returns an {@link MyInteger} instance.
+     * Or if the new denominator is equal to 1 or the enumerator is equal to 0, then it returns an {@link MyInteger} instance.
      */
     public MyNumber simplify() {
         Pair<MyInteger, MyInteger> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a.getValue(), this.getNumDenomPair().b.getValue());
-
-        return ! newNumDenom.b.getValue().equals(BigInteger.ONE) ? new MyRational(newNumDenom.a.getValue(), newNumDenom.b.getValue()) : new MyInteger(newNumDenom.a.getValue());
+        if ( newNumDenom.b.getValue().equals(BigInteger.ONE) || newNumDenom.b.isZero() ) {
+            return new MyInteger(newNumDenom.a.getValue());
+        }
+        return new MyRational(newNumDenom.a.getValue(), newNumDenom.b.getValue());
     }
 
     /**
@@ -99,5 +101,10 @@ public class MyRational extends MyNumber {
     @Override
     public int hashCode() {
         return Objects.hashCode(numDenomPair);
+    }
+
+    @Override
+    public boolean isZero() {
+        return this.numDenomPair.a.isZero();
     }
 }

@@ -96,12 +96,12 @@ public final class Divides extends Operation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
+        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
     }
 
     @Override
@@ -157,6 +157,6 @@ public final class Divides extends Operation {
         MyNumber aTimes2PlusbTimes2 = plus.op(times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
                 times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)); // FIXME we should be using pow
                                                                                    // operations !
-        return new MyComplex(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
+        return new MyComplex(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2)).simplify();
     }
 }

@@ -48,4 +48,9 @@ public class MyReal extends MyNumber {
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public boolean isZero() {
+        return this.value.equals(BigDecimal.ZERO);
+    }
 }

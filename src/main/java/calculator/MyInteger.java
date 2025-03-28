@@ -51,4 +51,9 @@ public class MyInteger extends MyNumber
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public boolean isZero() {
+        return this.value.equals(BigInteger.ZERO);
+    }
 }

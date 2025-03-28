@@ -20,9 +20,29 @@ public class MyComplex extends MyNumber {
         return realImaginaryPair;
     }
 
+    /**
+     * Simplifies the given {@link MyComplex} instance to another number if possible.
+     * @return An {@link MyInteger} with the value of the real part if the imaginary part is equal to zero.
+     * Or an {@link MyInteger} with the value of zero if both the real part and the imaginary part are both equal to zero.
+     * Or simply gives back this instance if no simplification was possible. 
+     */
+    public MyNumber simplify()
+    {
+        if (this.isZero()) {
+            return MyInteger.valueOf(0);
+        }
+        if (this.realImaginaryPair.b.isZero()) {
+            return realImaginaryPair.a;
+        }
+        return this;
+    }
+
     @Override
     public String toString() {
-        return this.realImaginaryPair.a + " + " + this.realImaginaryPair.b + "i";
+        // important to let this display for debug reason since without it there would be no way to differentiate 
+        // between complex value printed and non complex values.
+        
+        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString() + " + ") + this.realImaginaryPair.b + " i";
     }
 
 
@@ -36,5 +56,10 @@ public class MyComplex extends MyNumber {
     @Override
     public int hashCode() {
         return Objects.hashCode(realImaginaryPair);
+    }
+
+    @Override
+    public boolean isZero() {
+        return this.realImaginaryPair.a.isZero() && this.realImaginaryPair.b.isZero();
     }
 }

@@ -23,7 +23,11 @@ public abstract class MyNumber implements Expression
      */
     public /*constructor*/ MyNumber() {}
 
-
+  /**
+   * Checks if the value stored can be considered as a zero.
+   * @return true if the value is zero, false otherwise.
+   */
+  public abstract boolean isZero();
 
 
     /**
