@@ -4,6 +4,8 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 class TestMyInteger {
@@ -36,4 +38,10 @@ class TestMyInteger {
 		assertEquals(Integer.toString(value), number.toString());
 	}
 
+	@Test
+	void testIsZero()
+	{
+		MyInteger i = MyInteger.valueOf(0);
+		assertTrue(i.isZero());
+	}
 }

@@ -34,6 +34,13 @@ class TestMyReal {
     }
 
     @Test
+    void testIsZero()
+    {
+        MyReal r = new MyReal(BigDecimal.valueOf(0));
+        assertTrue(r.isZero());
+    }
+
+    @Test
     void testToString() {
         assertEquals(BigDecimal.valueOf(value).setScale(MyReal.PRECISION, MyReal.ROUNDING_MODE).toString(),
                     number.toString());

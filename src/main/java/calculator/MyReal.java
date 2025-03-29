@@ -51,6 +51,6 @@ public class MyReal extends MyNumber {
 
     @Override
     public boolean isZero() {
-        return this.value.equals(BigDecimal.ZERO);
+        return this.value.equals(BigDecimal.ZERO.setScale(PRECISION, ROUNDING_MODE));
     }
 }

@@ -4,6 +4,7 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 class TestMyRational {
@@ -38,4 +39,23 @@ class TestMyRational {
         assertEquals(numerator + "/" + denominator, number.toString());
     }
 
+    @Test
+    void testIsZero()
+    {
+        MyRational r = new MyRational(0, 1);
+        assertTrue(r.isZero());
+    }
+
+    @Test
+    void testSimplify() {
+        // Integer simplification
+        MyNumber r = new MyRational(4, 2).simplify();
+        assertEquals(new MyInteger(2), r);
+        // Rational simplification
+        MyNumber r2 = new MyRational(6, 4).simplify();
+        assertEquals(new MyRational(3, 2), r2);
+        // Integer zero simplification
+        MyNumber r3 = new MyRational(0, 6).simplify();
+        assertEquals(MyInteger.valueOf(0), r3);
+    }
 }

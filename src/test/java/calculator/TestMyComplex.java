@@ -4,6 +4,7 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 class TestMyComplex {
@@ -38,4 +39,18 @@ class TestMyComplex {
         assertEquals(imaginary + " + " + real + "i", number.toString());
     }
 
+    @Test
+    void testIsZero()
+    {
+        MyComplex c = new MyComplex(MyInteger.valueOf(0), MyInteger.valueOf(0));
+        assertTrue(c.isZero());
+    }
+
+    @Test
+    void testSimplify()
+    {
+        MyNumber c = new MyComplex(new MyInteger(1), new MyInteger(0)).simplify();
+
+        assertEquals(new MyInteger(1), c);
+    }
 }
