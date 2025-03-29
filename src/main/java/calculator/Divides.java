@@ -112,7 +112,7 @@ public final class Divides extends Operation {
 
         // Denominator : c^2 + d^2
         MyNumber denom =  plus.op(
-                times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a), // fixme : use pow instead !
                 times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)
         );
 

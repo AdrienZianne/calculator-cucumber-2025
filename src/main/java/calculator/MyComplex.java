@@ -42,7 +42,7 @@ public class MyComplex extends MyNumber {
         // important to let this display for debug reason since without it there would be no way to differentiate 
         // between complex value printed and non complex values.
         
-        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString() + " + ") + this.realImaginaryPair.b + " i";
+        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString() + " + ") + this.realImaginaryPair.b + "i";
     }
 
 
