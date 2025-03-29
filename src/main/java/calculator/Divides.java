@@ -106,18 +106,48 @@ public final class Divides extends Operation {
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null; // TODO
+        Times times = new Times(List.of());
+        Plus plus = new Plus(List.of());
+        Minus minus = new Minus(List.of());
+
+        // Denominator : c^2 + d^2
+        MyNumber denom =  plus.op(
+                times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)
+        );
+
+        // Real part: ac + bd
+        MyNumber real = plus.op(
+                times.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                times.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)
+        );
+
+        // Imaginary part: - ad + bc = bc - ad
+        MyNumber imaginary = minus.op(
+                times.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a),
+                times.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b)
+        );
+
+        return new MyComplex(op(real, denom), op(imaginary, denom)).simplify();
     }
 
     @Override
     public MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return null; // TODO
+        // (a+bi) / (c/d) = (ad + bdi) / c
+        Times times = new Times(List.of());
+
+        // Real part : ad
+        MyNumber real = times.op(l.getRealImaginaryPair().a, r.getNumDenomPair().b);
+        // Imaginary part : bd
+        MyNumber imaginary = times.op(l.getRealImaginaryPair().b, r.getNumDenomPair().b);
+        // Imaginary part : bd
+        return new MyComplex(op(real, r.getNumDenomPair().a), op(imaginary, r.getNumDenomPair().a)).simplify();
     }
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getNumDenomPair().a.getValue().multiply(r.getValue()),
-                l.getNumDenomPair().b.getValue()).simplify();
+        return new MyRational(l.getNumDenomPair().a,
+                MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue())));
     }
 
     @Override
@@ -138,7 +168,6 @@ public final class Divides extends Operation {
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue())).simplify();
     }
 
-    // FIXME try with : 1 / ((5/9) + 8/6i)
     public MyNumber divByComplex(MyNumber l, MyComplex r)
             throws IllegalConstruction, ExecutionControl.NotImplementedException {
         // c / (a + bi) = (ac - bci) / (a^2 + b^2)
