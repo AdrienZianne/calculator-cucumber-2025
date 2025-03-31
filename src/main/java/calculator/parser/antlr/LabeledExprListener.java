@@ -294,6 +294,42 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ComplexImaginaryNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ComplexImaginaryNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ComplexRealNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ComplexRealNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberRational}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberRational(LabeledExprParser.NumberRationalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberRational}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberRational(LabeledExprParser.NumberRationalContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -330,15 +366,13 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberImaginary}
-	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * Enter a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
+	void enterRational(LabeledExprParser.RationalContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NumberImaginary}
-	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * Exit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
+	void exitRational(LabeledExprParser.RationalContext ctx);
 }

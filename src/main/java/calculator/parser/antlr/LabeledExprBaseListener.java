@@ -304,6 +304,42 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -340,13 +376,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx) { }
+	@Override public void enterRational(LabeledExprParser.RationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx) { }
+	@Override public void exitRational(LabeledExprParser.RationalContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

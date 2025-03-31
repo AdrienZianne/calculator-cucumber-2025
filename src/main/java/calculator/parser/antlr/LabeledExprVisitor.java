@@ -178,6 +178,27 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ComplexImaginaryNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ComplexRealNumber}
+	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberRational}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberRational(LabeledExprParser.NumberRationalContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -199,10 +220,9 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NumberImaginary}
-	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * Visit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumberImaginary(LabeledExprParser.NumberImaginaryContext ctx);
+	T visitRational(LabeledExprParser.RationalContext ctx);
 }

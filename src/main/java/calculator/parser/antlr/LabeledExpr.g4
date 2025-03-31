@@ -16,8 +16,8 @@ productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixM
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
                 ;
 
-atomPostfix : sumPostfix    #AtomPostfixSum
-            | number           #AtomPostfixInt
+atomPostfix : sumPostfix                #AtomPostfixSum
+            | complexNumber           #AtomPostfixInt
             ;
 
 /* PREFIX NOTATION */
@@ -31,7 +31,7 @@ productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMu
                 ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
-            | number               #AtomPrefixInt
+            | complexNumber   #AtomPrefixInt
             ;
 
 
@@ -46,20 +46,28 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: number               #AtomInfixInt
+atomInfix: complexNumber               #AtomInfixInt
     | '-' sumInfix              #AtomInfixNeg
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
 /* NUMBER and TOKENS */
 
+// Checks to see if the number is imaginary at first or not
+complexNumber   : number? 'i'    #ComplexImaginaryNumber
+                | number         #ComplexRealNumber
+                ;
+
 // Add other number kinds, such as floats/doubles
-number: INT                     #NumberInt
-      | FLOAT                   #NumberReal
-      | RATIONAL                   #NumberReal
-      | '-' number              #NumberNegation
-      | (FLOAT | RATIONAL | INT) 'i'               #NumberImaginary
+number: rational                            #NumberRational // Placed first in order to *override* the infix division !
+      | INT                                 #NumberInt
+      | FLOAT                               #NumberReal
+      | '-' number                          #NumberNegation
       ;
+
+
+rational: INT '/' INT
+        ;
 
 MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
@@ -68,6 +76,5 @@ SUB :   '-' ;
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers
 FLOAT :   [0-9]+ '.' [0-9]* ;         // match real
-RATIONAL :   [0-9]+ '/' [0-9]+ ;         // match real
 NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace
