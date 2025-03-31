@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Alert from '@/components/icons/Alert.vue';
+import Alert from '@/components/Alert.vue';
 import VueMathjax from 'vue-mathjax-next';
 
 export default {
@@ -152,13 +152,12 @@ export default {
       if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replace('*','\\times');
       if(this.formattedInputText.includes('sqrt')) {
         this.formattedInputText = this.formattedInputText.replace('sqrt','\\sqrt');
-        //Ne gère pas les () imbriquées.
+        //TO DO
+        //Does not handle nested ().
         this.formattedInputText = this.formattedInputText.replace(/\\sqrt\((.*)\)/g, '\\sqrt{$1}');
-      }
-      
+      }  
       //Specific case for the division ->  find what to put below/above.
       //if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replace('/','\\over');
-      //Gérer les () et {}
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
@@ -200,22 +199,6 @@ export default {
      * Method for handling API requests.
      */
     replyRequest(){
-
-      //just for testing
-      
-      this.isMemory = true;
-      this.memoryList.push(this.inputText);
-      this.inputText = "2";
-      if(this.memoryList.length > 5) this.memoryRemove(0);
-
-      /*try {
-        throw new Error("test");
-      } catch (error) {
-        console.log("hi")
-        setTimeout(() => Alert.errorManagement(error.message), 1)
-      }*/
-      
-      //Send the calculation to do.
       if(this.inputText != "")
       {
         const requestOptions = {

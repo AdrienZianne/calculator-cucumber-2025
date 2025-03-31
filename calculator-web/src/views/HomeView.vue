@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Calculator from '@/components/icons/Calculator.vue';
-import Info from '@/components/icons/Info.vue';
+import Calculator from '@/components/Calculator.vue';
+import Info from '@/components/Info.vue';
 
 export default {
   components: {Calculator, Info}
@@ -24,6 +24,7 @@ export default {
     align-items: center;
 }
 
+/*TO DO : Continue to adapt. */
 @media(min-width: 900px) and (max-width: 2000px)
 {
   .home {

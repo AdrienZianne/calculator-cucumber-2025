@@ -3,7 +3,7 @@
 </template>
   
   <script>
-  import Alert from '@/components/icons/Alert.vue';
+  import Alert from '@/components/Alert.vue';
   
 export default {
   components: {Alert},
