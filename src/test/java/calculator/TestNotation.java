@@ -2,6 +2,7 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import calculator.operations.Operation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,11 +15,11 @@ import java.util.List;
 
 class TestNotation {
 
-	private Operation o;
+	private BinaryOperation o;
 
     /* This is an auxilary method to avoid code duplication.
      */
-	void testNotation(String s,Operation o,Notation n){
+	void testNotation(String s, Operation o, Notation n){
 		Formatter formatter = new Formatter(n);
 		try {
 			formatter.visit(o);
@@ -30,7 +31,7 @@ class TestNotation {
 
 	/* This is an auxilary method to avoid code duplication.
      */
-	void testNotations(String symbol,int value1,int value2,Operation op) {
+	void testNotations(String symbol, int value1, int value2, Operation op) {
 		//prefix notation:
 		testNotation(symbol +" (" + value1 + ", " + value2 + ")", op, Notation.PREFIX);
 		//infix notation:
@@ -44,7 +45,7 @@ class TestNotation {
 	void testOutput(String symbol) {
 		int value1 = 8;
 		int value2 = 6;
-		Operation op = null;
+		BinaryOperation op = null;
 		List<Expression> params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
 		try {
 			//construct another type of operation depending on the input value

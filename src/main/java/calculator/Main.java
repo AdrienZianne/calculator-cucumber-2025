@@ -1,5 +1,7 @@
 package calculator;
 
+import calculator.operations.Negation;
+import calculator.operations.Operation;
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
 

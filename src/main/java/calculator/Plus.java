@@ -11,12 +11,12 @@ import java.util.List;
  * The class extends an abstract superclass Operation.
  * Other subclasses of Operation represent other arithmetic operations.
  *
- * @see Operation
+ * @see BinaryOperation
  * @see Minus
  * @see Times
  * @see Divides
  */
-public final class Plus extends CommutativeOperation {
+public final class Plus extends CommutativeBinaryOperation {
 
     /**
      * Class constructor specifying a number of Expressions to add.
@@ -37,7 +37,7 @@ public final class Plus extends CommutativeOperation {
      * @param n     The Notation to be used to represent the operation
      * @throws IllegalConstruction If an empty list of expressions if passed as parameter
      * @see #Plus(List<Expression>)
-     * @see Operation#Operation(List<Expression>,Notation)
+     * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
      */
     public Plus(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);

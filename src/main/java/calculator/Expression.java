@@ -7,7 +7,7 @@ import visitor.Visitor;
  * Expression is an abstract class that represents arithmetic expressions.
  * It has two concrete subclasses Operation and MyNumber.
  *
- * @see Operation
+ * @see BinaryOperation
  * @see MyNumber
  */
 public interface Expression {

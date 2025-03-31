@@ -9,12 +9,12 @@ import java.util.List;
  * The class extends an abstract superclass Operation.
  * Other subclasses of Operation represent other arithmetic operations.
  * 
- * @see Operation
+ * @see BinaryOperation
  * @see Minus
  * @see Times
  * @see Plus
  */
-public final class Divides extends Operation {
+public final class Divides extends BinaryOperation {
 
     /**
      * Class constructor specifying a number of Expressions to divide.
@@ -37,7 +37,7 @@ public final class Divides extends Operation {
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
      * @see #Divides(List<Expression>)
-     * @see Operation#Operation(List<Expression>,Notation)
+     * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
      */
     public Divides(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);

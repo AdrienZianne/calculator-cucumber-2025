@@ -8,10 +8,10 @@ import visitor.Counter;
 import java.util.Arrays;
 import java.util.List;
 
-class TestOperation {
+class TestBinaryOperation {
 
-	private Operation o;
-	private Operation o2;
+	private BinaryOperation o;
+	private BinaryOperation o2;
 	private Counter c;
 
 	@BeforeEach

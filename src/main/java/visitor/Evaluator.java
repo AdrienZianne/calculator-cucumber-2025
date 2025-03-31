@@ -1,6 +1,8 @@
 package visitor;
 
 import calculator.*;
+import calculator.operations.Operation;
+import calculator.operations.UnaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
@@ -36,21 +38,40 @@ public class Evaluator extends Visitor {
      *
      * @param o The operation being visited
      */
+    @Override
     public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         ArrayList<MyNumber> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
-        for(Expression a:o.args) {
+        for(Expression a:o.getArgs()) {
             a.accept(this);
             evaluatedArgs.add(computedValue);
         }
         //second loop to accumulate all the evaluated subresults
-        MyNumber temp = evaluatedArgs.get(0);
-        int max = evaluatedArgs.size();
-        for(int counter=1; counter<max; counter++) {
-            temp = o.op(temp,evaluatedArgs.get(counter));
+        switch (o)
+        {
+            // store the accumulated result
+            case UnaryOperation u -> computedValue = computeOperation(u, evaluatedArgs);
+            case BinaryOperation b -> computedValue = computeOperation(b, evaluatedArgs);
+            default -> throw new IllegalStateException("Unexpected value: " + o);
         }
-        // store the accumulated result
-        computedValue = temp;
+    }
+
+
+    private MyNumber computeOperation(UnaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction {
+        // Checks if there is really one argument
+        if (evaluatedArgs.size() != 1)
+        {
+            throw new IllegalStateException("There should be exactly one argument ("
+                                        + evaluatedArgs +  ") to an unary operator : " + op );
+        }
+        return op.op(evaluatedArgs.getFirst());
+    }
+    private MyNumber computeOperation(BinaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        MyNumber temp = evaluatedArgs.getFirst();
+        for(int counter=1; counter<evaluatedArgs.size(); counter++) {
+            temp = op.op(temp,evaluatedArgs.get(counter));
+        }
+        return temp;
     }
 
 }

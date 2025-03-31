@@ -5,10 +5,10 @@ import jdk.jshell.spi.ExecutionControl;
 import java.util.List;
 
 /// Classed used to represents a commutative operation, meaning if we have the following operation `a op b` then there is no need to also define `b op a`
-public abstract class CommutativeOperation extends Operation
+public abstract class CommutativeBinaryOperation extends BinaryOperation
 {
 
-    public CommutativeOperation(List<Expression> elist, Notation n) throws IllegalConstruction {
+    public CommutativeBinaryOperation(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
     }
 

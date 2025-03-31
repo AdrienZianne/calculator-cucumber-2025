@@ -1,6 +1,7 @@
 package visitor;
 
 import calculator.*;
+import calculator.operations.Operation;
 import jdk.jshell.spi.ExecutionControl;
 
 /**
@@ -17,7 +18,7 @@ public abstract class Visitor {
 
     /**
      * The Visitor can traverse an operation (a subtype of Expression)
-     *
-     * @param o The operation being visited
-     */   public abstract void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+     * @param o The unary operation being visited
+     */
+     public abstract void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction;
 }

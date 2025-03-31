@@ -7,7 +7,7 @@ import visitor.Visitor;
  * which are a special kind of Expressions, just like operations are.
  *
  * @see Expression
- * @see Operation
+ * @see BinaryOperation
  */
 public abstract class MyNumber implements Expression
 {

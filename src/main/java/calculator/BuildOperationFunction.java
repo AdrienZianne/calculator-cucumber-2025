@@ -1,5 +1,7 @@
 package calculator;
 
+import calculator.operations.Operation;
+
 import java.util.ArrayList;
 
 /**
