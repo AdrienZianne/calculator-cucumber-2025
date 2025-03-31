@@ -179,7 +179,7 @@ public class CalculatorSteps {
 
 			Operation newOp = createIntegerOperation(operator, parameters);
 			operations.add(newOp);
-			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)))
+			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			fail("The given operator index is out of bounds! " + e);
 		} catch (IllegalConstruction e) {
