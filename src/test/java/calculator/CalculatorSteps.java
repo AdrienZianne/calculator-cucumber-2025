@@ -56,6 +56,7 @@ public class CalculatorSteps {
 	public void givenIInitialiseACalculator() {
 		c = new Calculator();
 		operations = new ArrayList<>();
+		params = new ArrayList<>();
 	}
 
 	@Given("an operation {string}")
@@ -82,6 +83,7 @@ public class CalculatorSteps {
 		// which is a list of strings, that we will manually convert to integers:
 		numbers.get(0).forEach(n -> params.add(new MyInteger(Integer.parseInt(n))));
 		params.forEach(n -> System.out.println("value =" + n));
+
 		operations = new ArrayList<>();
 	}
 
@@ -151,23 +153,6 @@ public class CalculatorSteps {
 		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
-	// @When("^I provide a (.*) number
-	// (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
-	// public void whenIProvideAComplexWithRational(String s, int realNum, int
-	// realDen, int imagNum, int imagDen) {
-	// addParams(s, new MyComplex(new MyRational(realNum, realDen), new
-	// MyRational(imagNum, imagDen)), 0);
-	// }
-
-	// @And("^I provide a (.*) number (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i
-	// to operator (.*)$")
-	// public void whenIProvideAComplexWithRational(String s, int realNum, int
-	// realDen, int imagNum, int imagDen,
-	// int opIndex) {
-	// addParams(s, new MyComplex(new MyRational(realNum, realDen), new
-	// MyRational(imagNum, imagDen)), 0);
-	// }
-
 	public void addParams(String s, MyNumber number, int opIndex) {
 		try {
 			Operation op = operations.get(opIndex);
@@ -194,9 +179,7 @@ public class CalculatorSteps {
 
 			Operation newOp = createIntegerOperation(operator, parameters);
 			operations.add(newOp);
-
-			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
-
+			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)))
 		} catch (ArrayIndexOutOfBoundsException e) {
 			fail("The given operator index is out of bounds! " + e);
 		} catch (IllegalConstruction e) {
@@ -283,13 +266,14 @@ public class CalculatorSteps {
 	}
 
 	@When("I provide an expression as a string {string}")
-	public void whenIProvideAString(String string) {
+	public void whenIProvideAString(String string) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 		params.add(CalculatorParser.parseString(string));
 	}
 
 	@Then("the expression evaluates to {int}")
 	public void thenTheExpressionEvaluatesTo(int val)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst()).equals(new MyInteger(val)));
+
+		assert (c.eval(params.getFirst()).equals(MyInteger.valueOf(val)));
 	}
 }
