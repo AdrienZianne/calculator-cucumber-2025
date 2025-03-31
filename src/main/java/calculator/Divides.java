@@ -2,7 +2,6 @@ package calculator;
 
 import jdk.jshell.spi.ExecutionControl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -111,22 +110,19 @@ public final class Divides extends Operation {
         Minus minus = new Minus(List.of());
 
         // Denominator : c^2 + d^2
-        MyNumber denom =  plus.op(
+        MyNumber denom = plus.op(
                 times.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a), // fixme : use pow instead !
-                times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b)
-        );
+                times.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
 
         // Real part: ac + bd
         MyNumber real = plus.op(
                 times.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                times.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)
-        );
+                times.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
 
         // Imaginary part: - ad + bc = bc - ad
         MyNumber imaginary = minus.op(
                 times.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a),
-                times.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b)
-        );
+                times.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b));
 
         return new MyComplex(op(real, denom), op(imaginary, denom)).simplify();
     }
@@ -147,7 +143,7 @@ public final class Divides extends Operation {
     @Override
     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         return new MyRational(l.getNumDenomPair().a,
-                MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue())));
+                MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue()))).simplify();
     }
 
     @Override
