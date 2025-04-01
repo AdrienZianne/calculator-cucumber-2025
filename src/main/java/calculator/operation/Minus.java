@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public final class Minus extends BinaryOperation {
      * @param elist The list of Expressions to subtract
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
-     * @see #Minus(List<Expression>,Notation)
+     * @see #Minus(List< Expression >, Notation )
      */
     public /* constructor */ Minus(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);

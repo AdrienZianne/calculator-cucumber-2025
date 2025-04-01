@@ -2,6 +2,10 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import calculator.operation.Divides;
+import calculator.operation.Minus;
+import calculator.operation.Plus;
+import calculator.operation.Times;
 import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;

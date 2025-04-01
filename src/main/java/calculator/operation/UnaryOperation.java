@@ -1,9 +1,6 @@
-package calculator.operations;
+package calculator.operation;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
-import visitor.Formatter;
-import visitor.Visitor;
 
 import java.util.List;
 

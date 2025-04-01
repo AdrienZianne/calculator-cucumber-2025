@@ -1,7 +1,7 @@
 package calculator.parser.antlr;
 
 import calculator.*;
-import calculator.operations.Operation;
+import calculator.operation.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;

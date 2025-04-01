@@ -2,10 +2,10 @@ package calculator;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.operation.Times;
 import org.junit.jupiter.api.*;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 class TestMyInteger {

@@ -1,11 +1,8 @@
 package calculator;
 
-import calculator.operations.Operation;
+import calculator.operation.Operation;
 import jdk.jshell.spi.ExecutionControl;
-import visitor.Formatter;
-import visitor.Visitor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

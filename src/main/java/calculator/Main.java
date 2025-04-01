@@ -1,12 +1,9 @@
 package calculator;
 
-import calculator.operations.Negation;
-import calculator.operations.Operation;
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * A very simple calculator in Java

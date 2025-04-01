@@ -1,8 +1,6 @@
-package calculator.operations;
+package calculator.operation;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
-import visitor.Visitor;
 
 public class Negation extends UnaryOperation {
     public Negation(Expression arg) throws IllegalConstruction {

@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public final class Times extends CommutativeBinaryOperation
    *
    * @param elist The list of Expressions to multiply
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Times(List<Expression>,Notation)
+   * @see #Times(List< Expression >, Notation )
    */
   public /*constructor*/ Times(List<Expression> elist) throws IllegalConstruction {
   	this(elist, null);

@@ -1,7 +1,7 @@
 package visitor;
 
 import calculator.*;
-import calculator.operations.Operation;
+import calculator.operation.Operation;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package calculator;
 
-import calculator.operations.Operation;
+import calculator.operation.Operation;
 
 import java.util.ArrayList;
 

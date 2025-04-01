@@ -1,7 +1,11 @@
-package calculator;
+package calculator.operation;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.BinaryOperation;
+import calculator.Expression;
+import calculator.MyInteger;
 import org.junit.jupiter.api.*;
 import visitor.Counter;
 

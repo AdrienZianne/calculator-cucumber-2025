@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public final class Plus extends CommutativeBinaryOperation {
      *
      * @param elist The list of Expressions to add
      * @throws IllegalConstruction If an empty list of expressions if passed as parameter
-     * @see #Plus(List<Expression>,Notation)
+     * @see #Plus(List< Expression >, Notation )
      */
     public /*constructor*/ Plus(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
