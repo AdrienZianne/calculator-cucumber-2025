@@ -57,7 +57,7 @@ public class Evaluator extends Visitor {
     }
 
 
-    private MyNumber computeOperation(UnaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction {
+    private MyNumber computeOperation(UnaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         // Checks if there is really one argument
         if (evaluatedArgs.size() != 1)
         {

@@ -1,0 +1,48 @@
+package calculator.operation;
+
+import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
+
+import java.util.List;
+
+public class Inverse extends UnaryOperation{
+    public Inverse(Expression arg) throws IllegalConstruction {
+        this(arg, null);
+    }
+    public Inverse(Expression arg, Notation notation) throws IllegalConstruction {
+        super(arg, notation);
+        symbol = "1/";
+    }
+    @Override
+    public MyNumber op(MyInteger i) throws IllegalConstruction {
+        if (i.isZero()) {throw new IllegalConstruction();}
+        return new MyRational(MyInteger.valueOf(1), MyInteger.valueOf(i.getValue())).simplify();
+    }
+
+    @Override
+    public MyNumber op(MyReal r) throws IllegalConstruction {
+        if (r.isZero()) {throw new IllegalConstruction();}
+        MyRational rational = MyRational.toRational(r);
+        return op(rational);
+    }
+
+    @Override
+    public MyNumber op(MyRational r) throws IllegalConstruction {
+        if (r.isZero()) {throw new IllegalConstruction();}
+        return new MyRational(r.getNumDenomPair().b, r.getNumDenomPair().a);
+    }
+
+    @Override
+    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        if (c.isZero()) {throw new IllegalConstruction();}
+        // Denom : a^2 + b^2
+        Plus plus = new Plus(List.of());
+        Times times = new Times(List.of());
+        Divides divides = new Divides(List.of());
+        Negation negation = new Negation(c);
+        MyNumber denom = plus.op(times.op(c.getRealImaginaryPair().a, c.getRealImaginaryPair().a),
+                                 times.op(c.getRealImaginaryPair().b, c.getRealImaginaryPair().b));
+
+        return new MyComplex(divides.op(c.getRealImaginaryPair().a, denom), negation.op(divides.op(c.getRealImaginaryPair().b, denom)));
+    }
+}

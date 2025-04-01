@@ -1,6 +1,7 @@
 package calculator.operation;
 
 import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 
 public class Negation extends UnaryOperation {
     public Negation(Expression arg) throws IllegalConstruction {
@@ -29,7 +30,7 @@ public class Negation extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyComplex c) throws IllegalConstruction {
+    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         return new MyComplex(op(c.getRealImaginaryPair().a), op(c.getRealImaginaryPair().b));
     }
 }
