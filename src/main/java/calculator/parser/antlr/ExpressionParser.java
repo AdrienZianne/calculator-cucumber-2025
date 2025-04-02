@@ -2,16 +2,18 @@ package calculator.parser.antlr;
 
 import calculator.*;
 import calculator.operation.*;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Minus;
-import calculator.operation.binary.Plus;
-import calculator.operation.binary.Times;
+import calculator.operation.binary.*;
+import calculator.operation.unary.UnaryOperation;
+import calculator.operation.unary.trigonometry.Cosinus;
+import calculator.operation.unary.trigonometry.Sinus;
+import calculator.operation.unary.trigonometry.Tangent;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.
@@ -27,24 +29,38 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {
-        return parseToOperator(ctx,expressions -> new Plus(expressions, Notation.INFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Plus(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitSumInfixDiff(LabeledExprParser.SumInfixDiffContext ctx) {
-        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.INFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitProductInfixMult(LabeledExprParser.ProductInfixMultContext ctx) {
-        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.INFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Times(expressions, Notation.INFIX));
     }
 
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
-        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
     }
 
+    @Override
+    public Expression visitTrigoInfixSin(LabeledExprParser.TrigoInfixSinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Sinus(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixCos(LabeledExprParser.TrigoInfixCosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Cosinus(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixTan(LabeledExprParser.TrigoInfixTanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.INFIX));
+    }
 
     @Override
     public Expression visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) {
@@ -56,43 +72,43 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitSumPrefixSum(LabeledExprParser.SumPrefixSumContext ctx) {
-        return parseToOperator(ctx, expressions -> new Plus(expressions, Notation.PREFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Plus(expressions, Notation.PREFIX));
     }
 
     @Override
     public Expression visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) {
-        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
     }
 
     @Override
     public Expression visitProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) {
-        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.PREFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Times(expressions, Notation.PREFIX));
     }
 
     @Override
     public Expression visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx) {
-        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.PREFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.PREFIX));
     }
     /* _________________________________ POSTFIX _________________________________ */
 
     @Override
     public Expression visitSumPostfixSum(LabeledExprParser.SumPostfixSumContext ctx) {
-        return parseToOperator(ctx, expressions -> new Plus(expressions, Notation.POSTFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Plus(expressions, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) {
-        return parseToOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx) {
-        return parseToOperator(ctx, expressions -> new Times(expressions, Notation.POSTFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Times(expressions, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx) {
-        return parseToOperator(ctx, expressions -> new Divides(expressions, Notation.POSTFIX));
+        return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.POSTFIX));
     }
 
     /* __________________________________ NUMBER _______________________________ */
@@ -125,14 +141,14 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
 
     /**
-     * Parses the given context as expressions and feeds them to an operation.
+     * Parses the given context as expressions and feeds them to a binary operation.
      * @param ctx       The context to parse
-     * @param operation The operation to build and to give the parsed expressions as parameters.
+     * @param operation The binary operation to build and to give the parsed expressions as parameters.
      * @return The created operation
      * @param <E>   The current parser rule context
      * @param <O>   The type of operation to build
      */
-    public <E extends ParserRuleContext, O extends Operation> O parseToOperator(E ctx, BuildOperationFunction<O> operation) {
+    public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx, BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v;
         for (int i = 0; i < ctx.getChildCount(); i++) {
@@ -149,6 +165,46 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         O res = null;
         try {
             res = operation.build(expressions);
+        } catch (IllegalConstruction e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
+    /**
+     * Parses the given context as expressions and feeds them to a unary operation.
+     * @param ctx       The context to parse.
+     *                  This function assumes that the exploration can stop after finding a branch that returned an expression as
+     *                  a unary operator always as one argument.
+     * @param operation The unary operation to build and to give the parsed expression as a parameter
+     *                  (under the form of an {@link ArrayList} composed of only one element).
+     * @return The created operation
+     * @param <E>   The current parser rule context
+     * @param <O>   The type of operation to build
+     */
+    public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx, BuildUnaryOperationFunction<O> operation) {
+        Expression expression = null;
+        Evaluator v;
+        // Explore all path to find the argument to pass to the unary operator.
+        for (int i = 0; i < ctx.getChildCount(); i++) {
+            // Checks if the node is a token without any interesting values
+            if (! (ctx.getChild(i) instanceof TerminalNode)) {
+                v = new Evaluator();
+                try {
+                    visit(ctx.getChild(i)).accept(v);
+                }
+                catch (Exception e) {throw new RuntimeException(e);} // FIXME : Adrien Fievet should have a look at that
+                // We can stop after finding the only expression as this is a unary operation
+                expression = v.getResult();
+                break;
+            }
+        }
+        O res = null;
+        try {
+            if (expression == null) {
+                throw new IllegalConstruction();
+            }
+            res = operation.build(expression);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
         }

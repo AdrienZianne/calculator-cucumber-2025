@@ -14,11 +14,25 @@ sumPostfix : productPostfix                                     #SumPostfixProd
 
 productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
+                | trigoPostfix                                  #ProductPostfixTrigo
                 ;
+
+trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
+             | '(' atomPostfix ')' 'cos'   #TrigoPostfixCos
+             | '(' atomPostfix ')' 'tan'   #TrigoPostfixTan
+             | '(' atomPostfix ')' 'sinh'  #TrigoPostfixSinh
+             | '(' atomPostfix ')' 'cosh'  #TrigoPostfixCosh
+             | '(' atomPostfix ')' 'tanh'  #TrigoPostfixTanh
+             | '(' atomPostfix ')' 'asin'  #TrigoPostfixASin
+             | '(' atomPostfix ')' 'acos'  #TrigoPostfixACos
+             | '(' atomPostfix ')' 'atan'  #TrigoPostfixATan
+             ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
             | complexNumber           #AtomPostfixInt
             ;
+
+
 
 /* PREFIX NOTATION */
 sumPrefix : productPrefix                               #SumPrefixProd
@@ -28,12 +42,23 @@ sumPrefix : productPrefix                               #SumPrefixProd
 
 productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
                 | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
+                | trigoPrefix                                   #ProductPrefixTrigo
                 ;
+
+trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
+             | 'cos' '(' atomPrefix ')'   #TrigoPrefixCos
+             | 'tan' '(' atomPrefix ')'   #TrigoPrefixTan
+             | 'sinh' '(' atomPrefix ')'  #TrigoPrefixSinh
+             | 'cosh' '(' atomPrefix ')'  #TrigoPrefixCosh
+             | 'tanh' '(' atomPrefix ')'  #TrigoPrefixTanh
+             | 'asin' '(' atomPrefix ')'  #TrigoPrefixASin
+             | 'acos' '(' atomPrefix ')'  #TrigoPrefixACos
+             | 'atan' '(' atomPrefix ')'  #TrigoPrefixATan
+             ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
             | complexNumber   #AtomPrefixInt
             ;
-
 
 /* INFIX NOTATION */
 sumInfix : productInfix             #SumInfixProd
@@ -46,10 +71,22 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: complexNumber               #AtomInfixInt
+atomInfix: trigoInfix           #AtomInfixTrig
+    | complexNumber             #AtomInfixComplex
     | '-' sumInfix              #AtomInfixNeg
     | '(' sumInfix ')'          #AtomInfixSum
     ;
+
+trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
+             | 'cos' '(' sumInfix ')'   #TrigoInfixCos
+             | 'tan' '(' sumInfix ')'   #TrigoInfixTan
+             | 'sinh' '(' sumInfix ')'  #TrigoInfixSinh
+             | 'cosh' '(' sumInfix ')'  #TrigoInfixCosh
+             | 'tanh' '(' sumInfix ')'  #TrigoInfixTanh
+             | 'asin' '(' sumInfix ')'  #TrigoInfixASin
+             | 'acos' '(' sumInfix ')'  #TrigoInfixACos
+             | 'atan' '(' sumInfix ')'  #TrigoInfixATan
+             ;
 
 /* NUMBER and TOKENS */
 

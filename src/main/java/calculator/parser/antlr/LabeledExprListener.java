@@ -78,6 +78,126 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ProductPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPostfixTrigo(LabeledExprParser.ProductPostfixTrigoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPostfixTrigo(LabeledExprParser.ProductPostfixTrigoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixCos(LabeledExprParser.TrigoPostfixCosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixCos(LabeledExprParser.TrigoPostfixCosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixTan(LabeledExprParser.TrigoPostfixTanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixTan(LabeledExprParser.TrigoPostfixTanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixSinh(LabeledExprParser.TrigoPostfixSinhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixSinh(LabeledExprParser.TrigoPostfixSinhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixCosh(LabeledExprParser.TrigoPostfixCoshContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixCosh(LabeledExprParser.TrigoPostfixCoshContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixASin(LabeledExprParser.TrigoPostfixASinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixASin(LabeledExprParser.TrigoPostfixASinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixACos(LabeledExprParser.TrigoPostfixACosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixACos(LabeledExprParser.TrigoPostfixACosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code AtomPostfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
@@ -161,6 +281,126 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ProductPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixSin(LabeledExprParser.TrigoPrefixSinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixSin(LabeledExprParser.TrigoPrefixSinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixCos(LabeledExprParser.TrigoPrefixCosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixCos(LabeledExprParser.TrigoPrefixCosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixTan(LabeledExprParser.TrigoPrefixTanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixTan(LabeledExprParser.TrigoPrefixTanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixSinh(LabeledExprParser.TrigoPrefixSinhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixSinh(LabeledExprParser.TrigoPrefixSinhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixCosh(LabeledExprParser.TrigoPrefixCoshContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixCosh(LabeledExprParser.TrigoPrefixCoshContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixTanh(LabeledExprParser.TrigoPrefixTanhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixTanh(LabeledExprParser.TrigoPrefixTanhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixASin(LabeledExprParser.TrigoPrefixASinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixASin(LabeledExprParser.TrigoPrefixASinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixACos(LabeledExprParser.TrigoPrefixACosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixACos(LabeledExprParser.TrigoPrefixACosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomPrefixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
@@ -258,17 +498,29 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomInfixInt}
+	 * Enter a parse tree produced by the {@code AtomInfixTrig}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomInfixInt(LabeledExprParser.AtomInfixIntContext ctx);
+	void enterAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AtomInfixInt}
+	 * Exit a parse tree produced by the {@code AtomInfixTrig}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomInfixInt(LabeledExprParser.AtomInfixIntContext ctx);
+	void exitAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AtomInfixComplex}
+	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AtomInfixComplex}
+	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomInfixNeg}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -293,6 +545,114 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixSin(LabeledExprParser.TrigoInfixSinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixSin(LabeledExprParser.TrigoInfixSinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixCos(LabeledExprParser.TrigoInfixCosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixCos(LabeledExprParser.TrigoInfixCosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixTan(LabeledExprParser.TrigoInfixTanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixTan(LabeledExprParser.TrigoInfixTanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixSinh(LabeledExprParser.TrigoInfixSinhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixSinh(LabeledExprParser.TrigoInfixSinhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixCosh(LabeledExprParser.TrigoInfixCoshContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixCosh(LabeledExprParser.TrigoInfixCoshContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixTanh(LabeledExprParser.TrigoInfixTanhContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixTanh(LabeledExprParser.TrigoInfixTanhContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixASin(LabeledExprParser.TrigoInfixASinContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixASin(LabeledExprParser.TrigoInfixASinContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixACos(LabeledExprParser.TrigoInfixACosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixACos(LabeledExprParser.TrigoInfixACosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.

@@ -20,7 +20,7 @@ class TestNotation {
 
     /* This is an auxilary method to avoid code duplication.
      */
-	void testNotation(String s, TestOperation o, Notation n){
+	void testNotation(String s, Operation o, Notation n){
 		Formatter formatter = new Formatter(n);
 		try {
 			formatter.visit(o);
@@ -32,7 +32,7 @@ class TestNotation {
 
 	/* This is an auxilary method to avoid code duplication.
      */
-	void testNotations(String symbol, int value1, int value2, TestOperation op) {
+	void testNotations(String symbol, int value1, int value2, Operation op) {
 		//prefix notation:
 		testNotation(symbol +" (" + value1 + ", " + value2 + ")", op, Notation.PREFIX);
 		//infix notation:
