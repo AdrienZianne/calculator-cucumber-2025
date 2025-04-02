@@ -99,7 +99,7 @@ complexNumber   : number? 'i'    #ComplexImaginaryNumber
 number: rational                            #NumberRational // Placed first in order to *override* the infix division !
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
-      | '-' number                          #NumberNegation
+      | '-' number                          #NumberNegation // In case someone wants the negative value of a number
       ;
 
 

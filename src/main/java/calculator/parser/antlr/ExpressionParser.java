@@ -144,6 +144,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitNumberNegation(LabeledExprParser.NumberNegationContext ctx) {
+        // We are using infix as that is a special operation, this is simply applying a negation to an atomic value
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
 
