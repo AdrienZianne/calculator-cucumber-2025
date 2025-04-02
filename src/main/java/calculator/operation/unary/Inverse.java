@@ -1,6 +1,9 @@
-package calculator.operation;
+package calculator.operation.unary;
 
 import calculator.*;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Times;
+import calculator.operation.binary.Plus;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;

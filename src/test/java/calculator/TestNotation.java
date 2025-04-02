@@ -3,6 +3,7 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.operation.*;
+import calculator.operation.binary.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +20,7 @@ class TestNotation {
 
     /* This is an auxilary method to avoid code duplication.
      */
-	void testNotation(String s, Operation o, Notation n){
+	void testNotation(String s, TestOperation o, Notation n){
 		Formatter formatter = new Formatter(n);
 		try {
 			formatter.visit(o);
@@ -31,7 +32,7 @@ class TestNotation {
 
 	/* This is an auxilary method to avoid code duplication.
      */
-	void testNotations(String symbol, int value1, int value2, Operation op) {
+	void testNotations(String symbol, int value1, int value2, TestOperation op) {
 		//prefix notation:
 		testNotation(symbol +" (" + value1 + ", " + value2 + ")", op, Notation.PREFIX);
 		//infix notation:

@@ -1,4 +1,4 @@
-package calculator.operation;
+package calculator.operation.unary.trigonometry;
 
 import calculator.*;
 

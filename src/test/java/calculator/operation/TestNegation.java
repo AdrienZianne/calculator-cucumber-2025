@@ -1,9 +1,8 @@
 package calculator.operation;
 
 import calculator.*;
-import io.cucumber.java.ca.Cal;
+import calculator.operation.unary.Negation;
 import jdk.jshell.spi.ExecutionControl;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

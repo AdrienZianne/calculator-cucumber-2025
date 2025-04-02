@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation.binary;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;

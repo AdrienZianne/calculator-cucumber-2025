@@ -2,6 +2,10 @@ package calculator.parser.antlr;
 
 import calculator.*;
 import calculator.operation.*;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Minus;
+import calculator.operation.binary.Plus;
+import calculator.operation.binary.Times;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;

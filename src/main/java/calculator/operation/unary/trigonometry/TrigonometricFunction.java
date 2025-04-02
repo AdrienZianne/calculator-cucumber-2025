@@ -1,6 +1,7 @@
-package calculator.operation;
+package calculator.operation.unary.trigonometry;
 
 import calculator.*;
+import calculator.operation.unary.UnaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 
 /**

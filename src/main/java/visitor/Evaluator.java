@@ -1,8 +1,9 @@
 package visitor;
 
 import calculator.*;
+import calculator.operation.binary.BinaryOperation;
 import calculator.operation.Operation;
-import calculator.operation.UnaryOperation;
+import calculator.operation.unary.UnaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;

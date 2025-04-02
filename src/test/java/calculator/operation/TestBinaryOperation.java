@@ -3,9 +3,12 @@ package calculator.operation;
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
 
-import calculator.BinaryOperation;
 import calculator.Expression;
 import calculator.MyInteger;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Minus;
+import calculator.operation.binary.Plus;
 import org.junit.jupiter.api.*;
 import visitor.Counter;
 

@@ -2,10 +2,7 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import calculator.operation.Divides;
-import calculator.operation.Minus;
-import calculator.operation.Plus;
-import calculator.operation.Times;
+import calculator.operation.binary.*;
 import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -18,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalculatorSteps {
-	// static final Logger log = getLogger(lookup().lookupClass());
 
 	private ArrayList<Expression> params;
 	private ArrayList<BinaryOperation> binaryOperations;

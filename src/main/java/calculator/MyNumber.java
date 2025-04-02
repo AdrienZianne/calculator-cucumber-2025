@@ -1,5 +1,6 @@
 package calculator;
 
+import calculator.operation.binary.BinaryOperation;
 import visitor.Visitor;
 
 /**
