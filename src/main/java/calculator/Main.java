@@ -2,6 +2,7 @@ package calculator;
 
 import calculator.operation.Inverse;
 import calculator.operation.Negation;
+import calculator.operation.Sinus;
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
 

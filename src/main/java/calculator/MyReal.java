@@ -18,6 +18,15 @@ public class MyReal extends MyNumber {
         this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
     }
 
+    public static MyReal valueOf(double value) {
+        return new MyReal(value);
+    }
+    public static MyReal toReal(MyRational r) {
+        BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
+        BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
+        return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
+    }
+
     public MyReal(BigDecimal value) {
         this.value = value.setScale(PRECISION, ROUNDING_MODE);
     }
