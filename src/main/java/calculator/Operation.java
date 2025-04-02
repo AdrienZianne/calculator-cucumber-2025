@@ -40,10 +40,12 @@ public abstract class Operation implements Expression {
      * It is not allowed to construct an operation with a null list of expressions.
      * Note that it is allowed to have an EMPTY list of arguments.
      *
-     * @param elist The list of expressions passed as argument to the arithmetic operation
-     * @throws IllegalConstruction Exception thrown if a null list of expressions is passed as argument
+     * @param elist The list of expressions passed as argument to the arithmetic
+     *              operation
+     * @throws IllegalConstruction Exception thrown if a null list of expressions is
+     *                             passed as argument
      */
-    protected /*constructor*/ Operation(List<Expression> elist)
+    protected /* constructor */ Operation(List<Expression> elist)
             throws IllegalConstruction {
         this(elist, null);
     }
@@ -52,18 +54,21 @@ public abstract class Operation implements Expression {
      * To construct an operation with a list of expressions as arguments,
      * as well as the Notation used to represent the operation.
      *
-     * @param elist The list of expressions passed as argument to the arithmetic operation
+     * @param elist The list of expressions passed as argument to the arithmetic
+     *              operation
      * @param n     The notation to be used to represent the operation
-     * @throws IllegalConstruction Exception thrown if a null list of expressions is passed as argument
+     * @throws IllegalConstruction Exception thrown if a null list of expressions is
+     *                             passed as argument
      */
-    protected /*constructor*/ Operation(List<Expression> elist, Notation n)
+    protected /* constructor */ Operation(List<Expression> elist, Notation n)
             throws IllegalConstruction {
         if (elist == null) {
             throw new IllegalConstruction();
         } else {
             args = new ArrayList<>(elist);
         }
-        if (n != null) notation = n;
+        if (n != null)
+            notation = n;
     }
 
     /**
@@ -86,66 +91,124 @@ public abstract class Operation implements Expression {
 
     /**
      * Applies an operation to two numbers and returns it's results.
+     * 
      * @param a an instance of a {@link MyNumber} subclass
      * @param b an instance of a {@link MyNumber} subclass
-     * @return A new instance of a {@link MyNumber} subclass, being the result of the operation on {@code a} and  {@code b}.
-     * @throws ExecutionControl.NotImplementedException if the operation between the two MyNumber subclasses wasn't taken into account.
+     * @return A new instance of a {@link MyNumber} subclass, being the result of
+     *         the operation on {@code a} and {@code b}.
+     * @throws ExecutionControl.NotImplementedException if the operation between the
+     *                                                  two MyNumber subclasses
+     *                                                  wasn't taken into account.
      */
-    public MyNumber op(MyNumber a, MyNumber b) throws ExecutionControl.NotImplementedException, IllegalConstruction
-    {
-        if (a instanceof MyInteger l)
-        {
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+    public MyNumber op(MyNumber a, MyNumber b) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        if (a instanceof MyInteger l) {
+            if (b instanceof MyInteger r) {
+                return op(l, r);
+            }
+            if (b instanceof MyReal r) {
+                return op(l, r);
+            }
+            if (b instanceof MyComplex r) {
+                return op(l, r);
+            }
+            if (b instanceof MyRational r) {
+                return op(l, r);
+            }
         }
-        if (a instanceof MyReal l)
-        {
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+        if (a instanceof MyReal l) {
+            if (b instanceof MyReal r) {
+                return op(l, r);
+            }
+            if (b instanceof MyComplex r) {
+                return op(l, r);
+            }
+            if (b instanceof MyInteger r) {
+                return op(l, r);
+            }
+            if (b instanceof MyRational r) {
+                return op(l, r);
+            }
         }
-        if (a instanceof MyRational l)
-        {
-            if (b instanceof MyRational r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
+        if (a instanceof MyRational l) {
+            if (b instanceof MyRational r) {
+                return op(l, r);
+            }
+            if (b instanceof MyComplex r) {
+                return op(l, r);
+            }
+            if (b instanceof MyInteger r) {
+                return op(l, r);
+            }
+            if (b instanceof MyReal r) {
+                return op(l, r);
+            }
         }
-        if (a instanceof MyComplex l)
-        {
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+        if (a instanceof MyComplex l) {
+            if (b instanceof MyComplex r) {
+                return op(l, r);
+            }
+            if (b instanceof MyReal r) {
+                return op(l, r);
+            }
+            if (b instanceof MyInteger r) {
+                return op(l, r);
+            }
+            if (b instanceof MyRational r) {
+                return op(l, r);
+            }
         }
         // Error : Not implemented
         throw new ExecutionControl.NotImplementedException("The given operation is not implemented yet for the " +
-                                                            "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
+                "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
     }
 
-    public abstract MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyInteger r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyReal r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyComplex r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
-    public abstract MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyRational r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
+    public abstract MyNumber op(MyReal l, MyInteger r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyReal l, MyReal r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyReal l, MyComplex r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyReal l, MyRational r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyComplex l, MyInteger r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyComplex l, MyReal r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyComplex l, MyComplex r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyComplex l, MyRational r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyRational l, MyInteger r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyRational l, MyReal r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyRational l, MyComplex r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
+
+    public abstract MyNumber op(MyRational l, MyRational r)
+            throws ExecutionControl.NotImplementedException, IllegalConstruction;
 
     // the operation itself is specified in the subclasses
 
@@ -159,9 +222,12 @@ public abstract class Operation implements Expression {
     }
 
     /**
-     * Accept method to implement the visitor design pattern to traverse arithmetic expressions.
-     * Each operation will delegate the visitor to each of its arguments expressions,
-     * and will then pass itself to the visitor object to get processed by the visitor object.
+     * Accept method to implement the visitor design pattern to traverse arithmetic
+     * expressions.
+     * Each operation will delegate the visitor to each of its arguments
+     * expressions,
+     * and will then pass itself to the visitor object to get processed by the
+     * visitor object.
      *
      * @param v The visitor object
      */
@@ -172,10 +238,10 @@ public abstract class Operation implements Expression {
         v.visit(this);
     }
 
-
     /**
      * Convert the arithmetic operation into a String to allow it to be printed,
-     * using the default notation (prefix, infix or postfix) that is specified in some variable.
+     * using the default notation (prefix, infix or postfix) that is specified in
+     * some variable.
      *
      * @return The String that is the result of the conversion.
      */
@@ -192,9 +258,11 @@ public abstract class Operation implements Expression {
 
     /**
      * Convert the arithmetic operation into a String to allow it to be printed,
-     * using the notation n (prefix, infix or postfix) that is specified as a parameter.
+     * using the notation n (prefix, infix or postfix) that is specified as a
+     * parameter.
      *
-     * @param n The notation to be used for representing the operation (prefix, infix or postfix)
+     * @param n The notation to be used for representing the operation (prefix,
+     *          infix or postfix)
      * @return The String that is the result of the conversion.
      */
     public final String toString(Notation n) throws IllegalConstruction, ExecutionControl.NotImplementedException {
@@ -204,27 +272,33 @@ public abstract class Operation implements Expression {
     }
 
     /**
-     * Two operation objects are equal if their list of arguments is equal and they correspond to the same operation.
+     * Two operation objects are equal if their list of arguments is equal and they
+     * correspond to the same operation.
      *
      * @param o The object to compare with
      * @return The result of the equality comparison
      */
     @Override
     public boolean equals(Object o) {
-        if (o == null) return false; // No object should be equal to null
+        if (o == null)
+            return false; // No object should be equal to null
 
-        if (this == o) return true; // If it's the same object, they're obviously equal
+        if (this == o)
+            return true; // If it's the same object, they're obviously equal
 
         if (getClass() != o.getClass())
-            return false; // getClass() instead of instanceof() because an addition is not the same as a multiplication
+            return false; // getClass() instead of instanceof() because an addition is not the same as a
+                          // multiplication
 
         Operation other = (Operation) o;
         return this.args.equals(other.getArgs());
     }
 
     /**
-     * The method hashCode needs to be overridden it the equals method is overridden;
-     * otherwise there may be problems when you use your object in hashed collections
+     * The method hashCode needs to be overridden it the equals method is
+     * overridden;
+     * otherwise there may be problems when you use your object in hashed
+     * collections
      * such as HashMap, HashSet, LinkedHashSet.
      *
      * @return The result of computing the hash.
