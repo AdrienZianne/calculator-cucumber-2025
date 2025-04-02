@@ -3,6 +3,7 @@ package calculator.parser.antlr;
 import calculator.*;
 import calculator.operation.*;
 import calculator.operation.binary.*;
+import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.Cosinus;
 import calculator.operation.unary.trigonometry.Sinus;
@@ -45,6 +46,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) {
+        return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
 
     @Override
@@ -136,6 +142,10 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         return new MyComplex(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
     }
 
+    @Override
+    public Expression visitNumberNegation(LabeledExprParser.NumberNegationContext ctx) {
+        return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
+    }
 
     //__________________________________Static Functions__________________________
 
