@@ -3,11 +3,26 @@ package calculator.operation;
 import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
+/**
+ * A class used to represent the negation of an expression.
+ * Let {@code x} be our expression, the operation will result in {@code -x}.
+ */
 public class Negation extends UnaryOperation {
-    public Negation(Expression arg) throws IllegalConstruction {
-        this(arg, null);
+    /**
+     * The default contructor of the {@link Negation} class.
+     * @param expression An expression to apply the negation to.
+     * @throws IllegalConstruction
+     */
+    public Negation(Expression expression) throws IllegalConstruction {
+        this(expression, null);
     }
 
+    /**
+     * A contructor of the {@link Negation} class.
+     * @param argument The argument to apply to the negation operation.
+     * @param notation The notation to display this operation with.
+     * @throws IllegalConstruction
+     */
     public Negation(Expression argument, Notation notation) throws IllegalConstruction {
         super(argument, notation);
         symbol = "-";

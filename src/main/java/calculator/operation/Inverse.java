@@ -5,10 +5,25 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;
 
+/**
+ * A class used to represent the inversion of an expression.
+ * Let {@code x} be our expression, the operation will result in {@code 1/x}.
+ */
 public class Inverse extends UnaryOperation{
+    /**
+     * The default constructor of the {@link Inverse} class.
+     * @param arg The argument to apply the inverse operation to.
+     * @throws IllegalConstruction
+     */
     public Inverse(Expression arg) throws IllegalConstruction {
         this(arg, null);
     }
+    /**
+     * A constructor of the {@link Inverse} class.
+     * @param arg The argument to apply the inverse operation to.
+     * @param notation The notation to display this operation with.
+     * @throws IllegalConstruction
+     */
     public Inverse(Expression arg, Notation notation) throws IllegalConstruction {
         super(arg, notation);
         symbol = "1/";
