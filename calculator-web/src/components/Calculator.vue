@@ -79,8 +79,9 @@ export default {
         "log",
         "cos",
         "sin",
+        "tan",
         "sqrt",
-        ..."xeπ".split('')
+        "PI"
       ],
     };
   },
@@ -92,6 +93,8 @@ export default {
     addKey(key) {
       let i = inputId.selectionStart;
       this.inputText = this.inputText.slice(0, i) + key + this.inputText.slice(i);
+      inputId.focus();
+      setTimeout(() => inputId.setSelectionRange(i+1, i+1));
       this.formatInput();
     },
     /**
@@ -109,6 +112,8 @@ export default {
       let tmp = this.inputText.split('');
       tmp.splice(i-1, 1);
       this.inputText = tmp.join('');
+      inputId.focus();
+      setTimeout(() => inputId.setSelectionRange(i-1, i-1));
       this.formatInput();
     },
     /**
@@ -149,15 +154,15 @@ export default {
      */
     formatInput() {
       this.formattedInputText = this.inputText;
-      if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replace('*','\\times');
-      if(this.formattedInputText.includes('sqrt')) {
-        this.formattedInputText = this.formattedInputText.replace('sqrt','\\sqrt');
-        //TO DO
-        //Does not handle nested ().
-        this.formattedInputText = this.formattedInputText.replace(/\\sqrt\((.*)\)/g, '\\sqrt{$1}');
-      }  
-      //Specific case for the division ->  find what to put below/above.
-      //if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replace('/','\\over');
+      if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replaceAll('*','\\times');
+      //(?<!(cos|sin|tan|log)) is a negative lookbehind assertion. 
+      //(?<!y)x on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet
+      //[^xyz] negated character class.
+      if(this.formattedInputText.includes('(')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log))\(/g, '{');
+      if(this.formattedInputText.includes(')')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log)[^\)]*)\)/g, '}');
+      if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt','\\sqrt');
+      if(this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI','\\pi');
+      if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replaceAll('/','\\over');
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
