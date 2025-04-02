@@ -146,8 +146,10 @@ export default {
       //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
       let word = event.key;
       //There is always ^number not only ^.
-      if (!this.authorizedKeys.includes(word) && !word.includes('^')) setTimeout(() => this.removeSpecificWord(word), 5);        
+      let number = ["^1", "^2", "^3", "^4", "^5", "^6", "^7", "^8", "^9","^10"];
+      if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5);        
       if (word == "Enter" || word == "=") this.replyRequest();   
+      //TO DO add something for dead = ^ = `...
     },
     /**
      * Method for formatting the input into a beautiful font.
