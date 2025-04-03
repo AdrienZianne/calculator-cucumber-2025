@@ -17,14 +17,6 @@
 
 <style scoped> 
 
-/*https://www.easybear.fr/blog/reussir-son-responsive-design*/
-@media(min-width: 0px) and (max-width: 899px)
-{
-  .wrapper{
-    visibility: hidden;
-  }
-}
-
 /*De base https://vuejs.org/guide/quick-start.html*/
 header {
   line-height: 1.5;

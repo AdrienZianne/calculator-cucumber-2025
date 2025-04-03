@@ -2,9 +2,8 @@
     <button @click="accessFile">ℹ️</button>
 </template>
   
-  <script>
-  import Alert from '@/components/Alert.vue';
-  
+<script>
+import Alert from '@/components/Alert.vue';
 export default {
   components: {Alert},
   methods: {
@@ -40,7 +39,7 @@ button {
   border: none;
 }
 
-@media(min-width: 900px) and (max-width: 2000px)
+@media(min-width: 1367px) and (max-width: 2000px)
 {
   button {
     /*https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties*/
@@ -52,7 +51,4 @@ button {
     background-color: #73a6f3;
   }
 }
-
-
 </style>
-  

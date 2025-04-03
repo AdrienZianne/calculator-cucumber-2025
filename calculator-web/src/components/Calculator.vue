@@ -48,6 +48,7 @@
     </div>
 
     <!--This button allows to display the third part of the keyboard.-->
+    <button @click="gapButton" class="gapButton">__________</button>
     <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
     <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
   </div>
@@ -66,7 +67,7 @@ export default {
       isExpandKeyboard : false,
       isMemory : false,
       authorizedKeys : [..."0123456789.()/*+-".split(''), "Shift", "Backspace",
-      "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"],
+      "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " "],
       inputId : document.getElementById('inputId'),
       memoryList : [],
       numbers: [
@@ -137,6 +138,10 @@ export default {
       this.inputText = '';
       this.formatInput();
     },
+    /**Method used to add a space in the textaera.*/
+    gapButton(){
+      this.addKey(" ");
+    },
     /**
      * Method for adding extra keys to the keyboard.
      */
@@ -155,25 +160,26 @@ export default {
       let number = ["^1", "^2", "^3", "^4", "^5", "^6", "^7", "^8", "^9","^10"];
       if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5);        
       if (word == "Enter" || word == "=") this.replyRequest();   
-      //TO DO add something for dead = ^ = `...
     },
     /**
      * Method for formatting the input into a beautiful font.
      */
     formatInput() {
+      //TMP
       this.formattedInputText = this.inputText;
       if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replaceAll('*','\\times');
       //(?<!(cos|sin|tan|log)) is a negative lookbehind assertion. 
       //(?<!y)x on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet
       //[^xyz] negated character class.
-      
+      //First replacement for () which covers almost all cases.
       if(this.formattedInputText.includes('(')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log))\(/g, '{');
       if(this.formattedInputText.includes(')')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log)[^\)]*)\)/g, '}');
-      //Rajouter s'il n'y a pas de sqrt ou ^devant {} et qu'il n'y a pas de over dans les {} alors les transformer en () 
+      //If there is no sqrt or ^ before {} then transform them into ().
+      if(this.formattedInputText.includes('{') || this.formattedInputText.includes('}')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!sqrt|\^)\{(.*)\}/g, '($1)');
+      if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replaceAll(/\((.*)\/(.*)\)/g, '\\frac{$1}{$2}');
 
       if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt','\\sqrt');
       if(this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI','\\pi');
-      if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replaceAll('/','\\over');
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
@@ -195,6 +201,7 @@ export default {
     memoryBack(memory)
     {
       this.inputText = memory;
+      this.formatInput();
     },
     /**
      * Method for deleting memory.
@@ -340,5 +347,9 @@ button:hover {
 
 .delete-button:hover::after {
   content: '❌';
+}
+
+.gapButton{
+  margin-bottom: 5px;
 }
 </style>

@@ -7,6 +7,7 @@ If you're using your computer's keyboard, special operations like cos are theref
 performed by enlarging the application's keyboard. You can click Enter when 
 your calculation is complete or click on '=' if you use the application keyboard.<br><br>
 
+The “_____” button is used to add a space.
 AC deletes your entire calculation, and the arrows allow you to move in your calculation.<br><br>
 
 When you make a calculation and submit it, you'll see a memory system. 

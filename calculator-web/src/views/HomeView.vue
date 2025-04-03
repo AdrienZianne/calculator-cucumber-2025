@@ -15,37 +15,34 @@ export default {
 };
 </script>
 
-
 <style scoped>
 
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/*TO DO : Continue to adapt. */
-@media(min-width: 900px) and (max-width: 2000px)
-{
-  .home {
-    /*Just to move the navigation bar further.*/
-    min-width: 100vw; 
-  }
-  h1 {
     min-width: 100vw;
+}
+
+@media(min-width: 0px) and (max-width: 1366px)
+{
+  .home{
+    flex-direction: column;
+    min-width: 180vw;
+    height: 50vh;
+  }
+  h1{
+    min-width: 180vw;
+  }
+  .calculator{
+    margin-top: 100px;
   }
 }
 
-@media(min-width: 0px) and (max-width: 899px)
+@media(min-width: 0px) and (max-width: 1366px) and (orientation: landscape) 
 {
-  .home {
-    display: inline-block;
-    padding: 25px;
-    left: 0;
-  }
-  /*How to adapt it to the parent div??*/
-  h1 {
-    width: 100%;
+  .calculator{
+    margin-top: 200px;
   }
 }
 
@@ -56,11 +53,6 @@ h1 {
   top: 0; 
   text-align: center;
   background-color: #deebee;
+  width: 100%;
 }
-
-.calculator {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
 </style>
