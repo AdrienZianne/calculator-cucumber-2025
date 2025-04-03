@@ -1,20 +1,18 @@
 package calculator.parser.antlr;
 
 import calculator.*;
-import calculator.operation.*;
+import calculator.operation.BuildUnaryOperationFunction;
+import calculator.operation.BuildOperationFunction;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
-import calculator.operation.unary.trigonometry.Cosinus;
-import calculator.operation.unary.trigonometry.Sinus;
-import calculator.operation.unary.trigonometry.Tangent;
+import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.
@@ -66,6 +64,36 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     @Override
     public Expression visitTrigoInfixTan(LabeledExprParser.TrigoInfixTanContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixASin(LabeledExprParser.TrigoInfixASinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arcsine(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixACos(LabeledExprParser.TrigoInfixACosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arccosine(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arctangent(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixSinh(LabeledExprParser.TrigoInfixSinhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.INFIX));
+    }
+    
+    @Override
+    public Expression visitTrigoInfixCosh(LabeledExprParser.TrigoInfixCoshContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixTanh(LabeledExprParser.TrigoInfixTanhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.INFIX));
     }
 
     @Override
