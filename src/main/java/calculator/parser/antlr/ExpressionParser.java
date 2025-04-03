@@ -272,12 +272,12 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitConstantPi(LabeledExprParser.ConstantPiContext ctx) {
-        return MyReal.PI;
+        return ConstantNumber.PI;
     }
 
     @Override
     public Expression visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx) {
-        return MyReal.EULER;
+        return ConstantNumber.EULER;
     }
 
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Static Functions=-=-=-=-=-=-=-=-=-=-=-=-=
