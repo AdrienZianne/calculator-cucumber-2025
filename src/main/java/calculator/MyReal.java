@@ -5,8 +5,20 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 public class MyReal extends MyNumber {
+
     public static int PRECISION = 5;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
+
+    /**
+     * Represents PI : 3.14159...
+     * The precision depends on the given precision of the {@link MyReal} class : {@value PRECISION}
+     */
+    public static final MyReal PI = new MyReal(Math.PI);
+    /**
+    * Represents Euler's number : 2.71828 ...
+    * The precision depends on the given precision of the {@link MyReal} class : {@value PRECISION}
+    */
+    public static final MyReal EULER = new MyReal(Math.E);
 
     private final BigDecimal value;
 

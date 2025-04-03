@@ -268,9 +268,19 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
 
-    //__________________________________Static Functions__________________________
+    //__________________________________Constant Number__________________________
 
+    @Override
+    public Expression visitConstantPi(LabeledExprParser.ConstantPiContext ctx) {
+        return MyReal.PI;
+    }
 
+    @Override
+    public Expression visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx) {
+        return MyReal.EULER;
+    }
+
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Static Functions=-=-=-=-=-=-=-=-=-=-=-=-=
     /**
      * Parses the given context as expressions and feeds them to a binary operation.
      * @param ctx       The context to parse

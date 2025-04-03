@@ -99,9 +99,13 @@ complexNumber   : number? 'i'    #ComplexImaginaryNumber
 number: rational                            #NumberRational // Placed first in order to *override* the infix division !
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
+      | constant                            #NumberContant
       | '-' number                          #NumberNegation // In case someone wants the negative value of a number
       ;
 
+constant: ('pi' | 'PI' | 'Pi' | 'pI' | 'π') #ConstantPi
+        | ('E' | 'e')                       #ConstantEuler
+        ;
 
 rational: INT '/' INT
         ;

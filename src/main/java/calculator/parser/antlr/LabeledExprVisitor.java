@@ -423,12 +423,33 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberReal(LabeledExprParser.NumberRealContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstantPi}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantPi(LabeledExprParser.ConstantPiContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstantEuler}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree

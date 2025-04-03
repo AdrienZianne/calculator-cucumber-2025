@@ -714,6 +714,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberReal(LabeledExprParser.NumberRealContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -725,6 +737,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ConstantPi}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstantPi(LabeledExprParser.ConstantPiContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ConstantPi}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstantPi(LabeledExprParser.ConstantPiContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ConstantEuler}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ConstantEuler}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree
