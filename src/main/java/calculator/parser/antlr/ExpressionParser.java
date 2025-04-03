@@ -194,47 +194,47 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
 
     @Override
     public Expression visitTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Sinus(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Sinus(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixCos(LabeledExprParser.TrigoPostfixCosContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Cosinus(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Cosinus(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixTan(LabeledExprParser.TrigoPostfixTanContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixASin(LabeledExprParser.TrigoPostfixASinContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Arcsine(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Arcsine(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixACos(LabeledExprParser.TrigoPostfixACosContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Arccosine(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Arccosine(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new Arctangent(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new Arctangent(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixSinh(LabeledExprParser.TrigoPostfixSinhContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixCosh(LabeledExprParser.TrigoPostfixCoshContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.POSTFIX));
     }
 
     @Override
     public Expression visitTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx) {
-        return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.PREFIX));
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.POSTFIX));
     }
 
     /* __________________________________ NUMBER _______________________________ */
