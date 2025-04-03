@@ -94,7 +94,7 @@ export default {
       let i = inputId.selectionStart;
       this.inputText = this.inputText.slice(0, i) + key + this.inputText.slice(i);
       inputId.focus();
-      setTimeout(() => inputId.setSelectionRange(i+1, i+1));
+      setTimeout(() => inputId.setSelectionRange(i+key.length, i+key.length));
       this.formatInput();
     },
     /**
@@ -123,8 +123,14 @@ export default {
      * @param character the character to delete.
      */
     removeSpecificWord(character){
-      if (character = 'Enter' ) this.removeOneKey();
-      else this.inputText = this.inputText.replace(character, '');
+      if (character == 'Enter') this.removeOneKey();
+      else if (character != 'Dead'){
+        //management of ^ or ¨ or ` spam.
+        inputId.blur();
+        this.inputText = this.inputText.replaceAll(character, '');  
+        inputId.focus();
+        this.formattedInputText = this.formattedInputText.replaceAll(character, '');
+      }
     },
     /**Method for deleting the entire entry in the textaera.*/
     clearAll() {
@@ -160,8 +166,11 @@ export default {
       //(?<!(cos|sin|tan|log)) is a negative lookbehind assertion. 
       //(?<!y)x on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet
       //[^xyz] negated character class.
+      
       if(this.formattedInputText.includes('(')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log))\(/g, '{');
       if(this.formattedInputText.includes(')')) this.formattedInputText = this.formattedInputText.replaceAll(/(?<!(cos|sin|tan|log)[^\)]*)\)/g, '}');
+      //Rajouter s'il n'y a pas de sqrt ou ^devant {} et qu'il n'y a pas de over dans les {} alors les transformer en () 
+
       if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt','\\sqrt');
       if(this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI','\\pi');
       if(this.formattedInputText.includes('/')) this.formattedInputText = this.formattedInputText.replaceAll('/','\\over');
