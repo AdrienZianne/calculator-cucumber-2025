@@ -123,6 +123,52 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     public Expression visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.PREFIX));
     }
+
+    @Override
+    public Expression visitTrigoPrefixSin(LabeledExprParser.TrigoPrefixSinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Sinus(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixCos(LabeledExprParser.TrigoPrefixCosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Cosinus(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixTan(LabeledExprParser.TrigoPrefixTanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixASin(LabeledExprParser.TrigoPrefixASinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arcsine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixACos(LabeledExprParser.TrigoPrefixACosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arccosine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arctangent(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixSinh(LabeledExprParser.TrigoPrefixSinhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixCosh(LabeledExprParser.TrigoPrefixCoshContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixTanh(LabeledExprParser.TrigoPrefixTanhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.PREFIX));
+    }
+
     /* _________________________________ POSTFIX _________________________________ */
 
     @Override
@@ -143,6 +189,52 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     @Override
     public Expression visitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.POSTFIX));
+    }
+
+
+    @Override
+    public Expression visitTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Sinus(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixCos(LabeledExprParser.TrigoPostfixCosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Cosinus(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixTan(LabeledExprParser.TrigoPostfixTanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Tangent(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixASin(LabeledExprParser.TrigoPostfixASinContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arcsine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixACos(LabeledExprParser.TrigoPostfixACosContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arccosine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Arctangent(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixSinh(LabeledExprParser.TrigoPostfixSinhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixCosh(LabeledExprParser.TrigoPostfixCoshContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.PREFIX));
     }
 
     /* __________________________________ NUMBER _______________________________ */
