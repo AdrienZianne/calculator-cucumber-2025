@@ -90,6 +90,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductPostfixTrigo(LabeledExprParser.ProductPostfixTrigoContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -282,17 +306,41 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ProductPrefixTrigo}
+	 * Enter a parse tree produced by the {@code ProductPrefixUnary}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
 	 */
-	void enterProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx);
+	void enterProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ProductPrefixTrigo}
+	 * Exit a parse tree produced by the {@code ProductPrefixUnary}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
 	 */
-	void exitProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx);
+	void exitProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -498,17 +546,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomInfixTrig}
+	 * Enter a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx);
+	void enterAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AtomInfixTrig}
+	 * Exit a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx);
+	void exitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomInfixComplex}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -522,18 +570,6 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomInfixNeg}
-	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AtomInfixNeg}
-	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
@@ -545,6 +581,42 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoInfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.

@@ -14,8 +14,12 @@ sumPostfix : productPostfix                                     #SumPostfixProd
 
 productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
-                | trigoPostfix                                  #ProductPostfixTrigo
+                | unaryPostfix                                  #ProductPostfixTrigo
                 ;
+
+unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
+             | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
+             ;
 
 trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
              | '(' atomPostfix ')' 'cos'   #TrigoPostfixCos
@@ -42,8 +46,12 @@ sumPrefix : productPrefix                               #SumPrefixProd
 
 productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
                 | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
-                | trigoPrefix                                   #ProductPrefixTrigo
+                | unaryPrefix                                   #ProductPrefixUnary
                 ;
+
+unaryPrefix : trigoPrefix                   #UnaryPrefixTrigo
+             | 'log' '(' atomPrefix ')'     #UnaryPrefixLog
+             ;
 
 trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
              | 'cos' '(' atomPrefix ')'   #TrigoPrefixCos
@@ -71,11 +79,15 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: trigoInfix           #AtomInfixTrig
+atomInfix: unaryInfix           #AtomInfixUnary
     | complexNumber             #AtomInfixComplex
-    | '-' sumInfix              #AtomInfixNeg
     | '(' sumInfix ')'          #AtomInfixSum
     ;
+
+unaryInfix: trigoInfix                              #UnaryInfixTrigo
+          | 'log' sumInfix                          #UnaryInfixLog
+          | ('-' sumInfix | '-' '(' sumInfix ')')   #UnaryInfixNegation
+          ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
              | 'cos' '(' sumInfix ')'   #TrigoInfixCos

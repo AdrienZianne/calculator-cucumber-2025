@@ -100,6 +100,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -292,13 +316,37 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx) { }
+	@Override public void enterProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx) { }
+	@Override public void exitProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -508,13 +556,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx) { }
+	@Override public void enterAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx) { }
+	@Override public void exitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -532,18 +580,6 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -551,6 +587,42 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

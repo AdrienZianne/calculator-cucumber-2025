@@ -106,4 +106,9 @@ public class MyRational extends MyNumber {
     public boolean isZero() {
         return this.numDenomPair.a.isZero();
     }
+
+    @Override
+    public int getSign() {
+        return this.numDenomPair.a.getSign() * this.numDenomPair.b.getSign();
+    }
 }

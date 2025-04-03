@@ -4,11 +4,13 @@ import calculator.*;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.binary.*;
+import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jline.utils.Log;
 import visitor.Evaluator;
 
 import java.math.BigInteger;
@@ -47,7 +49,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     }
 
     @Override
-    public Expression visitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx) {
+    public Expression visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) {
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
 
@@ -94,6 +96,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     @Override
     public Expression visitTrigoInfixTanh(LabeledExprParser.TrigoInfixTanhContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.INFIX));
     }
 
     @Override
@@ -169,6 +176,12 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.PREFIX));
     }
 
+    @Override
+    public Expression visitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.PREFIX));
+    }
+
+
     /* _________________________________ POSTFIX _________________________________ */
 
     @Override
@@ -236,6 +249,12 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     public Expression visitTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new HyperbolicTangent(expression, Notation.POSTFIX));
     }
+
+    @Override
+    public Expression visitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.POSTFIX));
+    }
+
 
     /* __________________________________ NUMBER _______________________________ */
 

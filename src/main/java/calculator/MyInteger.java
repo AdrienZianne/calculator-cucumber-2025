@@ -56,4 +56,9 @@ public class MyInteger extends MyNumber
     public boolean isZero() {
         return this.value.equals(BigInteger.ZERO);
     }
+
+    @Override
+    public int getSign() {
+        return value.signum();
+    }
 }

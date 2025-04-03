@@ -59,6 +59,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductPostfixTrigo(LabeledExprParser.ProductPostfixTrigoContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -171,12 +185,26 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ProductPrefixTrigo}
+	 * Visit a parse tree produced by the {@code ProductPrefixUnary}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProductPrefixTrigo(LabeledExprParser.ProductPrefixTrigoContext ctx);
+	T visitProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -297,12 +325,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixTrig}
+	 * Visit a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixTrig(LabeledExprParser.AtomInfixTrigContext ctx);
+	T visitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomInfixComplex}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -311,19 +339,33 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixNeg}
-	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoInfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.

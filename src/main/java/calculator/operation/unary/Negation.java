@@ -9,7 +9,7 @@ import jdk.jshell.spi.ExecutionControl;
  */
 public class Negation extends UnaryOperation {
     /**
-     * The default contructor of the {@link Negation} class.
+     * The default constructor of the {@link Negation} class.
      * @param expression An expression to apply the negation to.
      * @throws IllegalConstruction
      */
@@ -18,8 +18,8 @@ public class Negation extends UnaryOperation {
     }
 
     /**
-     * A contructor of the {@link Negation} class.
-     * @param argument The argument to apply to the negation operation.
+     * A constructor of the {@link Negation} class.
+     * @param argument The argument to apply the negation operation.
      * @param notation The notation to display this operation with.
      * @throws IllegalConstruction
      */

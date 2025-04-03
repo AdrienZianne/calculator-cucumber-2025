@@ -63,4 +63,9 @@ public class MyReal extends MyNumber {
     public boolean isZero() {
         return this.value.equals(BigDecimal.ZERO.setScale(PRECISION, ROUNDING_MODE));
     }
+
+    @Override
+    public int getSign() {
+        return value.signum();
+    }
 }

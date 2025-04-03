@@ -30,6 +30,12 @@ public abstract class MyNumber implements Expression
    */
   public abstract boolean isZero();
 
+  /**
+   * Gets the sign of the number.
+   * @return A number bigger than 0 if the number is positive, 0 if the number is equal to zero and a number less than 0 otherwise.
+   */
+  public abstract int getSign();
+
 
     /**
      * Convert a number into a String to allow it to be printed.
