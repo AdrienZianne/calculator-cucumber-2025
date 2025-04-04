@@ -3,15 +3,6 @@ package calculator;
 import java.math.BigInteger;
 import java.util.Random;
 
-/*
-seed -> seed(int num)
-reset seed -> seed()
-integer -> rand_int(int max)
-real -> rand_real()
-rational -> rand_ratio(int max1, int max2)
-complexe -> rand_cpl()
-*/
-
 /**
  * The purpose of this class is to generate random numbers for different types.
  * The seed can be chosen to have a deterministic output.
