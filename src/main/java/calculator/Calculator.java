@@ -1,5 +1,6 @@
 package calculator;
 
+import jdk.jshell.spi.ExecutionControl;
 import visitor.Counter;
 import visitor.Evaluator;
 import visitor.Formatter;
@@ -26,7 +27,7 @@ public class Calculator {
      * @param e the arithmetic Expression to be printed
      * @see #printExpressionDetails(Expression) 
      */
-    public void print(Expression e) {
+    public void print(Expression e) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         Formatter s = new Formatter(Notation.PREFIX);
         e.accept(s);
         System.out.println("The result of evaluating expression " + s.getResult());
@@ -39,7 +40,7 @@ public class Calculator {
      * @param e the arithmetic Expression to be printed
      * @see #print(Expression)
      */
-    public void printExpressionDetails(Expression e) {
+    public void printExpressionDetails(Expression e) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         print(e);
         Counter c = new Counter();
         e.accept(c);
@@ -54,7 +55,7 @@ public class Calculator {
      * @param e the arithmetic Expression to be evaluated
      * @return The result of the evaluation
      */
-    public int eval(Expression e) {
+    public MyNumber eval(Expression e) throws IllegalConstruction, ExecutionControl.NotImplementedException {
         // create a new visitor to evaluate expressions
         Evaluator v = new Evaluator();
         // and ask the expression to accept this visitor to start the evaluation process

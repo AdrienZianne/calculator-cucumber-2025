@@ -1,12 +1,10 @@
 package calculator;
 
 import io.Shell;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import calculator.parser.CalculatorParser;
 
 /**
  * A very simple calculator in Java
@@ -24,13 +22,11 @@ public class Main {
 	 *
 	 * @param args	Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 
-  	Expression e;
-  	Calculator c = new Calculator();
+		Calculator c = new Calculator();
 
 		try {
-
 			Shell shell = new Shell();
 			shell.loop(c);
 		}
