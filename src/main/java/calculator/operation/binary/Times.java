@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation.binary;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
@@ -9,19 +10,19 @@ import java.util.List;
 /** This class represents the arithmetic multiplication operation "*".
  * The class extends an abstract superclass Operation.
  * Other subclasses of Operation represent other arithmetic operations.
- * @see Operation
+ * @see BinaryOperation
  * @see Minus
  * @see Plus
  * @see Divides
  */
-public final class Times extends CommutativeOperation
+public final class Times extends CommutativeBinaryOperation
  {
   /**
    * Class constructor specifying a number of Expressions to multiply.
    *
    * @param elist The list of Expressions to multiply
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
-   * @see #Times(List<Expression>,Notation)
+   * @see #Times(List< Expression >, Notation )
    */
   public /*constructor*/ Times(List<Expression> elist) throws IllegalConstruction {
   	this(elist, null);
@@ -35,7 +36,7 @@ public final class Times extends CommutativeOperation
    * @param n The Notation to be used to represent the operation
    * @throws IllegalConstruction    If an empty list of expressions if passed as parameter
    * @see #Times(List<Expression>)
-   * @see Operation#Operation(List<Expression>,Notation)
+   * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
    */
   public Times(List<Expression> elist, Notation n) throws IllegalConstruction {
   	super(elist,n);

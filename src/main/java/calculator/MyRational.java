@@ -36,8 +36,7 @@ public class MyRational extends MyNumber {
     public MyRational(Integer number) {this.numDenomPair = new Pair<>(new MyInteger(number), new MyInteger(1));}
 
 
-    public static MyRational toRational(MyReal real)
-    {
+    public static MyRational toRational(MyReal real) {
         int denom = (int) Math.pow(10, real.getValue().scale());
         int num = (int) (real.getValue().doubleValue() * denom);
         return new MyRational(num, denom);
@@ -106,5 +105,10 @@ public class MyRational extends MyNumber {
     @Override
     public boolean isZero() {
         return this.numDenomPair.a.isZero();
+    }
+
+    @Override
+    public int getSign() {
+        return this.numDenomPair.a.getSign() * this.numDenomPair.b.getSign();
     }
 }

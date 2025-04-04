@@ -52,6 +52,90 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductPostfixDiv(LabeledExprParser.ProductPostfixDivContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPostfixTrigo(LabeledExprParser.ProductPostfixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixTrigo(LabeledExprParser.UnaryPostfixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixCos(LabeledExprParser.TrigoPostfixCosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixTan(LabeledExprParser.TrigoPostfixTanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixSinh(LabeledExprParser.TrigoPostfixSinhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixCosh(LabeledExprParser.TrigoPostfixCoshContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixTanh(LabeledExprParser.TrigoPostfixTanhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixASin(LabeledExprParser.TrigoPostfixASinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixACos(LabeledExprParser.TrigoPostfixACosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AtomPostfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
@@ -100,6 +184,90 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProductPrefixDiv(LabeledExprParser.ProductPrefixDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ProductPrefixUnary}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPrefixUnary(LabeledExprParser.ProductPrefixUnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixTrigo(LabeledExprParser.UnaryPrefixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixSin(LabeledExprParser.TrigoPrefixSinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixCos(LabeledExprParser.TrigoPrefixCosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixTan(LabeledExprParser.TrigoPrefixTanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixSinh(LabeledExprParser.TrigoPrefixSinhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixCosh(LabeledExprParser.TrigoPrefixCoshContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixTanh(LabeledExprParser.TrigoPrefixTanhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixASin(LabeledExprParser.TrigoPrefixASinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixACos(LabeledExprParser.TrigoPrefixACosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomPrefixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
@@ -157,19 +325,19 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixInt}
+	 * Visit a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixInt(LabeledExprParser.AtomInfixIntContext ctx);
+	T visitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixNeg}
+	 * Visit a parse tree produced by the {@code AtomInfixComplex}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixNeg(LabeledExprParser.AtomInfixNegContext ctx);
+	T visitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -177,6 +345,90 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixTrigo}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixTrigo(LabeledExprParser.UnaryInfixTrigoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixLog}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixSin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixSin(LabeledExprParser.TrigoInfixSinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixCos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixCos(LabeledExprParser.TrigoInfixCosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixTan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixTan(LabeledExprParser.TrigoInfixTanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixSinh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixSinh(LabeledExprParser.TrigoInfixSinhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixCosh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixCosh(LabeledExprParser.TrigoInfixCoshContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixTanh}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixTanh(LabeledExprParser.TrigoInfixTanhContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixASin}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixASin(LabeledExprParser.TrigoInfixASinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixACos}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixACos(LabeledExprParser.TrigoInfixACosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixATan}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
@@ -213,12 +465,33 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberReal(LabeledExprParser.NumberRealContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstantPi}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantPi(LabeledExprParser.ConstantPiContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstantEuler}
+	 * labeled alternative in {@link LabeledExprParser#constant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree

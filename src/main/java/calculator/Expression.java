@@ -1,5 +1,6 @@
 package calculator;
 
+import calculator.operation.binary.BinaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 import visitor.Visitor;
 
@@ -7,7 +8,7 @@ import visitor.Visitor;
  * Expression is an abstract class that represents arithmetic expressions.
  * It has two concrete subclasses Operation and MyNumber.
  *
- * @see Operation
+ * @see BinaryOperation
  * @see MyNumber
  */
 public interface Expression {

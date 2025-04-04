@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 public class MyReal extends MyNumber {
+
     public static int PRECISION = 5;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
@@ -16,6 +17,15 @@ public class MyReal extends MyNumber {
 
     public MyReal(String value) {
         this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
+    }
+
+    public static MyReal valueOf(double value) {
+        return new MyReal(value);
+    }
+    public static MyReal toReal(MyRational r) {
+        BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
+        BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
+        return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
     }
 
     public MyReal(BigDecimal value) {
@@ -52,5 +62,10 @@ public class MyReal extends MyNumber {
     @Override
     public boolean isZero() {
         return this.value.equals(BigDecimal.ZERO.setScale(PRECISION, ROUNDING_MODE));
+    }
+
+    @Override
+    public int getSign() {
+        return value.signum();
     }
 }

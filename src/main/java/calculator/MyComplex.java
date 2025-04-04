@@ -37,6 +37,7 @@ public class MyComplex extends MyNumber {
         return this;
     }
 
+
     @Override
     public String toString() {
         // important to let this display for debug reason since without it there would be no way to differentiate 
@@ -61,5 +62,10 @@ public class MyComplex extends MyNumber {
     @Override
     public boolean isZero() {
         return this.realImaginaryPair.a.isZero() && this.realImaginaryPair.b.isZero();
+    }
+
+    @Override
+    public int getSign() {
+        return 0; // TODO: will need to add this after adding the absolute unary operator !
     }
 }

@@ -1,10 +1,13 @@
-package calculator;
+package calculator.operation;
+
+import calculator.Expression;
+import calculator.IllegalConstruction;
 
 import java.util.ArrayList;
 
 /**
  * An interface designed to make it easy to pass an operation as the result of a lambda function.
- * @param <O> A class implementing an operation
+ * @param <O> A class extending an operation
  */
 public interface BuildOperationFunction<O extends Operation> {
     /**

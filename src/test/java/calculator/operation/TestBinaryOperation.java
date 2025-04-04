@@ -1,17 +1,24 @@
-package calculator;
+package calculator.operation;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.Expression;
+import calculator.MyInteger;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Minus;
+import calculator.operation.binary.Plus;
 import org.junit.jupiter.api.*;
 import visitor.Counter;
 
 import java.util.Arrays;
 import java.util.List;
 
-class TestOperation {
+class TestBinaryOperation {
 
-	private Operation o;
-	private Operation o2;
+	private BinaryOperation o;
+	private BinaryOperation o2;
 	private Counter c;
 
 	@BeforeEach

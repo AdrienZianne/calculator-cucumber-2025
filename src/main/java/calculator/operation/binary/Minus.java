@@ -1,5 +1,6 @@
-package calculator;
+package calculator.operation.binary;
 
+import calculator.*;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
@@ -11,12 +12,12 @@ import java.util.List;
  * The class extends an abstract superclass Operation.
  * Other subclasses of Operation represent other arithmetic operations.
  * 
- * @see Operation
+ * @see BinaryOperation
  * @see Plus
  * @see Times
  * @see Divides
  */
-public final class Minus extends Operation {
+public final class Minus extends BinaryOperation {
 
     /**
      * Class constructor specifying a number of Expressions to subtract.
@@ -24,7 +25,7 @@ public final class Minus extends Operation {
      * @param elist The list of Expressions to subtract
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
-     * @see #Minus(List<Expression>,Notation)
+     * @see #Minus(List< Expression >, Notation )
      */
     public /* constructor */ Minus(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
@@ -39,7 +40,7 @@ public final class Minus extends Operation {
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
      * @see #Minus(List<Expression>)
-     * @see Operation#Operation(List<Expression>,Notation)
+     * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
      */
     public Minus(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
