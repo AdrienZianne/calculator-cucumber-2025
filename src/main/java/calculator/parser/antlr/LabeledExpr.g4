@@ -1,9 +1,16 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: (sumInfix
+expr: ( setting
+    | sumInfix
     | sumPrefix
     | sumPostfix) EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
+
+
+
+setting : 'seed' '(' INT ')'                             #SettingSetSeed
+        | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
+        ;
 
 /* POSTFIX NOTATION */
 
@@ -112,8 +119,15 @@ number: rational                            #NumberRational // Placed first in o
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
       | constant                            #NumberContant
+      | random                              #NumberRandom
       | '-' number                          #NumberNegation // In case someone wants the negative value of a number
       ;
+
+random : 'rand_int' '(' INT ')'                         #RandomInt
+       | 'rand_real' '(' ')'                            #RandomReal
+       | 'rand_ratio' '(' INT ',' INT ')'               #RandomRatio
+       | 'rand_cmplx' '(' ')'                           #RandomComplex
+       ;
 
 constant: ('pi' | 'PI' | 'Pi' | 'pI' | 'π') #ConstantPi
         | ('E' | 'e')                       #ConstantEuler

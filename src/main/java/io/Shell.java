@@ -64,7 +64,10 @@ public class Shell {
                     default:
                         try {
                             Expression exp = CalculatorParser.parseString(line);
-                            terminal.writer().println(c.eval(exp));
+                            if (exp == null)
+                                System.out.println("[DEBUG] : Result was null, returning");
+                            else
+                                terminal.writer().println(c.eval(exp));
                         } catch (IllegalArgumentException e) {
                             printError(e.getMessage());
                             e.printStackTrace(terminal.writer());

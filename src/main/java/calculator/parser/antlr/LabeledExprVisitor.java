@@ -17,6 +17,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(LabeledExprParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SettingSetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingResetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
@@ -472,12 +486,47 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberContant(LabeledExprParser.NumberContantContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NumberRandom}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberRandom(LabeledExprParser.NumberRandomContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RandomInt}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRandomInt(LabeledExprParser.RandomIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RandomReal}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRandomReal(LabeledExprParser.RandomRealContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RandomRatio}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRandomRatio(LabeledExprParser.RandomRatioContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RandomComplex}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRandomComplex(LabeledExprParser.RandomComplexContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ConstantPi}
 	 * labeled alternative in {@link LabeledExprParser#constant}.

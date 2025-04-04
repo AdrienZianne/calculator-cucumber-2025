@@ -26,6 +26,20 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         return visit(ctx.getChild(0));
     }
 
+    /* _________________________________ SETTINGS _________________________________ */
+
+    @Override
+    public Expression visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) {
+        RandomGenerator.setSeed(Integer.parseInt(ctx.getChild(2).getText()));
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) {
+        RandomGenerator.resetSeed();
+        return null;
+    }
+
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {
@@ -285,6 +299,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         // We are using infix as that is a special operation, this is simply applying a negation to an atomic value
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
+
     // @Override
     // public Expression
     // visitRandomNumberInt(LabeledExprParser.NumberRandomIntContext ctx) {

@@ -28,6 +28,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -808,6 +832,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumberRandom(LabeledExprParser.NumberRandomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberRandom(LabeledExprParser.NumberRandomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -815,6 +851,54 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRandomInt(LabeledExprParser.RandomIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRandomInt(LabeledExprParser.RandomIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRandomReal(LabeledExprParser.RandomRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRandomReal(LabeledExprParser.RandomRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRandomRatio(LabeledExprParser.RandomRatioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRandomRatio(LabeledExprParser.RandomRatioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRandomComplex(LabeledExprParser.RandomComplexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRandomComplex(LabeledExprParser.RandomComplexContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

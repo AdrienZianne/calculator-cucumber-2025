@@ -18,6 +18,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitExpr(LabeledExprParser.ExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingSetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingResetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingResetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
@@ -798,6 +822,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberRandom}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberRandom(LabeledExprParser.NumberRandomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberRandom}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberRandom(LabeledExprParser.NumberRandomContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -809,6 +845,54 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RandomInt}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void enterRandomInt(LabeledExprParser.RandomIntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RandomInt}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void exitRandomInt(LabeledExprParser.RandomIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RandomReal}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void enterRandomReal(LabeledExprParser.RandomRealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RandomReal}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void exitRandomReal(LabeledExprParser.RandomRealContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RandomRatio}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void enterRandomRatio(LabeledExprParser.RandomRatioContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RandomRatio}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void exitRandomRatio(LabeledExprParser.RandomRatioContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RandomComplex}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void enterRandomComplex(LabeledExprParser.RandomComplexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RandomComplex}
+	 * labeled alternative in {@link LabeledExprParser#random}.
+	 * @param ctx the parse tree
+	 */
+	void exitRandomComplex(LabeledExprParser.RandomComplexContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ConstantPi}
 	 * labeled alternative in {@link LabeledExprParser#constant}.
