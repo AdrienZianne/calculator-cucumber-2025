@@ -1,7 +1,5 @@
 package calculator;
 
-import visitor.Visitor;
-
 import java.math.BigInteger;
 import java.util.Objects;
 
