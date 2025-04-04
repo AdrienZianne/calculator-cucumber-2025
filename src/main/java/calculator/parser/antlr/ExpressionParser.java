@@ -10,7 +10,6 @@ import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.jline.utils.Log;
 import visitor.Evaluator;
 
 import java.math.BigInteger;
@@ -87,7 +86,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
     public Expression visitTrigoInfixSinh(LabeledExprParser.TrigoInfixSinhContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new HyperbolicSine(expression, Notation.INFIX));
     }
-    
+
     @Override
     public Expression visitTrigoInfixCosh(LabeledExprParser.TrigoInfixCoshContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new HyperbolicCosine(expression, Notation.INFIX));
@@ -286,6 +285,29 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression>
         // We are using infix as that is a special operation, this is simply applying a negation to an atomic value
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
+    // @Override
+    // public Expression
+    // visitRandomNumberInt(LabeledExprParser.NumberRandomIntContext ctx) {
+    // return RandomGenerator.genInt(new
+    // BigInteger(ctx.INT().getText()));
+    // }
+
+    // @Override
+    // public Expression
+    // visitRandomNumberReal(LabeledExprParser.NumberRandomRealContext ctx) {
+    // return RandomGenerator.genReal();
+    // }
+
+    // @Override
+    // public Expression visitRandomRational(LabeledExprParser.RandomRationalContext
+    // ctx) {
+    // return RandomGenerator
+    // .genRational(new BigInteger(ctx.getChild(0).getText()), new
+    // BigInteger(ctx.getChild(2).getText()))
+    // .simplify();
+    // }
+
+    // TODO need help for random complexe
 
     //__________________________________Constant Number__________________________
 
