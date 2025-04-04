@@ -3,15 +3,6 @@ package calculator;
 import java.math.BigInteger;
 import java.util.Random;
 
-/*
-seed -> seed(int num)
-reset seed -> seed()
-integer -> rand_int(int max)
-real -> rand_real()
-rational -> rand_ratio(int max1, int max2)
-complexe -> rand_cpl()
-*/
-
 /**
  * The purpose of this class is to generate random numbers for different types.
  * The seed can be chosen to have a deterministic output.
@@ -71,7 +62,17 @@ public abstract class RandomGenerator {
      * @return The randomly generated number.
      */
     public static MyRational genRational(BigInteger max1, BigInteger max2) {
-        return new MyRational(genInt(max1), genInt(max2));
+        MyInteger num = genInt(max1);
+        MyInteger den = genInt(max2);
+        // FIXME If the seed is fixed and the denominator is 0, then we are blocked and
+        // cannot return an error because of the parser.
+        // if (seed != null && den.equals(new MyInteger(0))) {
+        // throw new Exception("Erreur");
+        // }
+        while (den.equals(new MyInteger(0))) {
+            den = genInt(max2);
+        }
+        return new MyRational(num, den);
     }
 
     /**

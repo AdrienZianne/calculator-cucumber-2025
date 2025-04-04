@@ -59,13 +59,18 @@ public class CalculatorSteps {
 		params = new ArrayList<>();
 	}
 
+	@Given("I initialise a seed")
+	public void givenIInitialiseASeed() {
+		RandomGenerator.setSeed(1);
+	}
+
 	@Given("an operation {string}")
 	public void givenAnIntegerOperation(String s) {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
 		try {
 			binaryOperations = new ArrayList<>(List.of(createIntegerOperation(s, params))); // create an empty set of
-																						// operations to be filled in
+			// operations to be filled in
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -266,7 +271,8 @@ public class CalculatorSteps {
 	}
 
 	@When("I provide an expression as a string {string}")
-	public void whenIProvideAString(String string) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+	public void whenIProvideAString(String string)
+			throws IllegalConstruction, ExecutionControl.NotImplementedException {
 		params.add(CalculatorParser.parseString(string));
 	}
 
