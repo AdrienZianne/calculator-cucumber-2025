@@ -37,7 +37,8 @@ public class Logarithm extends UnaryOperation {
 
     @Override
     public MyNumber op(MyReal r) throws IllegalConstruction {
-        checkValidity(r);
+        MyErrorNumber check = checkValidity(r);
+        if (check != null) return check;
         // Will make us lose some information
         MyReal res = MyReal.valueOf(Math.log(r.getValue().doubleValue()));
         return MyRational.toRational(res).simplify();
@@ -51,16 +52,18 @@ public class Logarithm extends UnaryOperation {
 
     @Override
     public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        checkValidity(c);
-        throw new IllegalConstruction("Tried to apply the log operation on the following complex value: " + c);
+        MyErrorNumber check = checkValidity(c);
+        if (check != null) return check;
+        return new MyErrorNumber(this,"Tried to apply the log operation on the following complex value: " + c);
     }
 
-    private static void checkValidity(MyNumber nb) throws IllegalConstruction {
+    private MyErrorNumber checkValidity(MyNumber nb) {
         if (nb.isZero())
-            throw new IllegalConstruction("Tried to apply the log operation on an expression that resulted in : " + nb);
+            return new MyErrorNumber(this,"Tried to apply the log operation on an expression that resulted in : " + nb);
         if (nb.getSign() < 0)
         {
-            throw new IllegalConstruction("Tried to apply the log operation on an expression that resulted in the following negative value : " + nb);
+            return new MyErrorNumber(this,"Tried to apply the log operation on an expression that resulted in the following negative value : " + nb);
         }
+        return null;
     }
 }

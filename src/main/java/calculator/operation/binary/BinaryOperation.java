@@ -42,6 +42,12 @@ public abstract class BinaryOperation extends Operation {
      */
     public MyNumber op(MyNumber a, MyNumber b) throws ExecutionControl.NotImplementedException, IllegalConstruction
     {
+        if (a instanceof MyErrorNumber e) {
+            return e; // Simply pass the error up
+        }
+        if (b instanceof MyErrorNumber e) {
+            return e; // Simply pass the error upwards
+        }
         if (a instanceof MyInteger l)
         {
             if (b instanceof MyInteger r) { return op(l,r); }
@@ -70,9 +76,9 @@ public abstract class BinaryOperation extends Operation {
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
         }
+        return new MyErrorNumber(this,"The given operation is not implemented yet for the " +
+                "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
         // Error : Not implemented
-        throw new ExecutionControl.NotImplementedException("The given operation is not implemented yet for the " +
-                                                            "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
     }
 
     public abstract MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;

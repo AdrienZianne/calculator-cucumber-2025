@@ -18,7 +18,8 @@ public abstract class UnaryOperation extends Operation {
             case MyReal r -> op(r);
             case MyRational rr -> op(rr);
             case MyComplex c -> op(c);
-            default -> throw new IllegalStateException("The given operation is not implemented yet for the " +
+            case MyErrorNumber e -> e; // Simply pass the error up.
+            default -> new MyErrorNumber(this, "The given operation is not implemented yet for the " +
                     "given MyNumber subclass: " + a.getClass());
         };
     }
@@ -28,7 +29,4 @@ public abstract class UnaryOperation extends Operation {
     public abstract MyNumber op(MyReal r) throws IllegalConstruction;
     public abstract MyNumber op(MyRational r) throws IllegalConstruction;
     public abstract MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException;
-
-
-
 }
