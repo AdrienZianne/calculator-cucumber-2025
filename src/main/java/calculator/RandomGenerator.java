@@ -57,22 +57,28 @@ public abstract class RandomGenerator {
      * This method generates a random rational number by generating two integers,
      * one for the numerator and one for the denominator.
      *
+     * If the seed is set and the generator gives 0 when generating an integer, we
+     * call MyRational.create(), which returns a MyErrorNumber object to indicate an
+     * error.If the seed is set and the generator gives 0 when generating an
+     * integer, we call MyRational.create(), which returns a MyErrorNumber object to
+     * indicate an error.If the seed is set and the generator gives 0 when
+     * generating an integer, we call MyRational.create(), which returns a
+     * MyErrorNumber object to indicate an error.
+     *
      * @param max1 The maximum value the numerator can have.
      * @param max2 The maximum value the denominator can have.
      * @return The randomly generated number.
      */
-    public static MyRational genRational(BigInteger max1, BigInteger max2) {
+    public static MyNumber genRational(BigInteger max1, BigInteger max2) {
         MyInteger num = genInt(max1);
         MyInteger den = genInt(max2);
-        // FIXME If the seed is fixed and the denominator is 0, then we are blocked and
-        // cannot return an error because of the parser.
-        // if (seed != null && den.equals(new MyInteger(0))) {
-        // throw new Exception("Erreur");
-        // }
+        if (den.equals(new MyInteger(0))) {
+            return MyRational.create(num, den);
+        }
         while (den.equals(new MyInteger(0))) {
             den = genInt(max2);
         }
-        return new MyRational(num, den);
+        return MyRational.create(num, den);
     }
 
     /**

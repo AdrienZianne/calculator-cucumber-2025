@@ -48,12 +48,12 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getValue(), r.getValue()).simplify();
+        return MyRational.create(l.getValue(), r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyRational rRatio = MyRational.toRational(r);
+        MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
     }
 
@@ -69,28 +69,28 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getValue().multiply(r.getNumDenomPair().b.getValue()), r.getNumDenomPair().a.getValue())
-                .simplify();
+        return MyRational.create(l.getValue().multiply(r.getNumDenomPair().b.getValue()),
+                r.getNumDenomPair().a.getValue());
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         // To not lose any information we just divide them as rationals and integers
-        MyRational lRatio = MyRational.toRational(l);
+        MyNumber lRatio = MyRational.toRational(l);
         return op(lRatio, r);
     }
 
     @Override
     public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         // To not lose any information we just divide them as rationals
-        MyRational lRatio = MyRational.toRational(l);
-        MyRational rRatio = MyRational.toRational(r);
+        MyNumber lRatio = MyRational.toRational(l);
+        MyNumber rRatio = MyRational.toRational(r);
         return op(lRatio, rRatio);
     }
 
     @Override
     public MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyRational lRatio = MyRational.toRational(l);
+        MyNumber lRatio = MyRational.toRational(l);
         return op(lRatio, r);
     }
 
@@ -143,13 +143,13 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getNumDenomPair().a,
-                MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue()))).simplify();
+        return MyRational.create(l.getNumDenomPair().a,
+                MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue())));
     }
 
     @Override
     public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyRational rRatio = MyRational.toRational(r);
+        MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
     }
 
@@ -161,8 +161,8 @@ public final class Divides extends BinaryOperation {
     @Override
     public MyNumber op(MyRational l, MyRational r)
             throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue()),
-                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue())).simplify();
+        return MyRational.create(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue()),
+                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue()));
     }
 
     public MyNumber divByComplex(MyNumber l, MyComplex r)

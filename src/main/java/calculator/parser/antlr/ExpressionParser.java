@@ -286,8 +286,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitRational(LabeledExprParser.RationalContext ctx) {
         // We suppose that the rational has 3 child : the numerator, the operator `/`
         // and the denominator
-        return new MyRational(Integer.parseInt(ctx.getChild(0).getText()), Integer.parseInt(ctx.getChild(2).getText()))
-                .simplify();
+        return MyRational.create(Integer.parseInt(ctx.getChild(0).getText()),
+                Integer.parseInt(ctx.getChild(2).getText()));
     }
 
     @Override
@@ -319,8 +319,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitRandomRatio(LabeledExprParser.RandomRatioContext ctx) {
         return RandomGenerator
-                .genRational(new BigInteger(ctx.getChild(2).getText()), new BigInteger(ctx.getChild(4).getText()))
-                .simplify();
+                .genRational(new BigInteger(ctx.getChild(2).getText()), new BigInteger(ctx.getChild(4).getText()));
     }
 
     @Override

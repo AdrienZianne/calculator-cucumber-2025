@@ -82,14 +82,14 @@ public final class Minus extends BinaryOperation {
     @Override
     public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         // a/b - c = (a-(c*b)) / b
-        return new MyRational(
+        return MyRational.create(
                 l.getNumDenomPair().a.getValue().subtract(r.getValue().multiply(l.getNumDenomPair().b.getValue())),
-                l.getNumDenomPair().b.getValue()).simplify();
+                l.getNumDenomPair().b.getValue());
     }
 
     @Override
     public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyRational rRatio = MyRational.toRational(r);
+        MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
     }
 
@@ -104,9 +104,8 @@ public final class Minus extends BinaryOperation {
         BigInteger lNum = l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue());
         BigInteger rNum = r.getNumDenomPair().a.getValue().multiply(l.getNumDenomPair().b.getValue());
 
-        return new MyRational(lNum.subtract(rNum),
-                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()))
-                .simplify();
+        return MyRational.create(lNum.subtract(rNum),
+                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
     }
 
     // Redefine some "non commutative" expressions
@@ -118,14 +117,14 @@ public final class Minus extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        return new MyRational(
+        return MyRational.create(
                 l.getValue().multiply(r.getNumDenomPair().b.getValue()).subtract(r.getNumDenomPair().a.getValue()),
-                r.getNumDenomPair().b.getValue()).simplify();
+                r.getNumDenomPair().b.getValue());
     }
 
     @Override
     public MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyRational lRatio = MyRational.toRational(l);
+        MyNumber lRatio = MyRational.toRational(l);
         return op(lRatio, r);
     }
 

@@ -10,6 +10,7 @@ import jdk.jshell.spi.ExecutionControl;
 public class Negation extends UnaryOperation {
     /**
      * The default constructor of the {@link Negation} class.
+     * 
      * @param expression An expression to apply the negation to.
      * @throws IllegalConstruction
      */
@@ -19,6 +20,7 @@ public class Negation extends UnaryOperation {
 
     /**
      * A constructor of the {@link Negation} class.
+     * 
      * @param argument The argument to apply the negation operation.
      * @param notation The notation to display this operation with.
      * @throws IllegalConstruction
@@ -40,8 +42,8 @@ public class Negation extends UnaryOperation {
 
     @Override
     public MyNumber op(MyRational r) throws IllegalConstruction {
-        return new MyRational(MyInteger.valueOf(r.getNumDenomPair().a.getValue().negate()),
-                            r.getNumDenomPair().b).simplify();
+        return MyRational.create(MyInteger.valueOf(r.getNumDenomPair().a.getValue().negate()),
+                r.getNumDenomPair().b);
     }
 
     @Override

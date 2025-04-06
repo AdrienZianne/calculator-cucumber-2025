@@ -5,15 +5,19 @@ import calculator.operation.unary.UnaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 
 /**
- * An abstract class representing all trigonometric functions such as sin, cos, tan, atan,...
+ * An abstract class representing all trigonometric functions such as sin, cos,
+ * tan, atan,...
  */
 public abstract class TrigonometricFunction extends UnaryOperation {
     /**
-     * An interface used to store the function to call when applying a trigonometric function.
+     * An interface used to store the function to call when applying a trigonometric
+     * function.
      */
     public interface TrigonometricFuncExec {
         /**
-         * Applies the trigonometric function to the given parameter. For example : sin(x), cos(x),...
+         * Applies the trigonometric function to the given parameter. For example :
+         * sin(x), cos(x),...
+         * 
          * @param x The real value to feed to the trigonometric function.
          * @return The return value of the trigonometric function stored to {@code x}.
          */
@@ -24,12 +28,16 @@ public abstract class TrigonometricFunction extends UnaryOperation {
 
     /**
      * Creates a new {@link TrigonometricFunction} instance
+     * 
      * @param argument The argument to pass to the trigonometric function.
      * @param notation The notation to display to the trigonometric function.
-     * @param funcExec The function to call with the {@code argument} in order to apply the created trigonometric function.
-     * @throws IllegalConstruction The given {@code argument} was not valid for the trigonometric function.
+     * @param funcExec The function to call with the {@code argument} in order to
+     *                 apply the created trigonometric function.
+     * @throws IllegalConstruction The given {@code argument} was not valid for the
+     *                             trigonometric function.
      */
-    public TrigonometricFunction(Expression argument, Notation notation, TrigonometricFuncExec funcExec) throws IllegalConstruction {
+    public TrigonometricFunction(Expression argument, Notation notation, TrigonometricFuncExec funcExec)
+            throws IllegalConstruction {
         super(argument, notation);
         this.functionExec = funcExec;
     }
@@ -48,14 +56,14 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     public MyNumber op(MyReal r) throws IllegalConstruction {
         // Will make us lose some information
         MyReal res = MyReal.valueOf(functionExec.apply(r.getValue().doubleValue()));
-        return MyRational.toRational(res).simplify();
+        return MyRational.toRational(res);
     }
 
     @Override
     public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        // It's impossible to apply a trigonometric function to a complex value for now at least
-        throw  new IllegalConstruction();
+        // It's impossible to apply a trigonometric function to a complex value for now
+        // at least
+        throw new IllegalConstruction();
     }
-
 
 }

@@ -32,7 +32,7 @@ class TestRandomGenerator {
         assertNotNull(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")));
         RandomGenerator.setSeed(1); // With a seed of 0, the generation of the number will give 0 for the
                                     // denominator, which poses a problem for a rational number.
-        assertEquals(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")), new MyRational(3, 19));
+        assertEquals(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")), MyRational.create(3, 19));
         RandomGenerator.resetSeed();
         assertNotNull(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")));
     }
