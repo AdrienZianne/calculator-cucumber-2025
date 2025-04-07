@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import calculator.parser.CalculatorParser;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * A very simple calculator in Java
@@ -16,6 +21,9 @@ import calculator.parser.CalculatorParser;
  *
  * @author tommens
  */
+@SpringBootApplication(scanBasePackages = "io")
+@ComponentScan({"io"})
+@EntityScan({"io"})
 public class Main {
 
 	/**
@@ -25,21 +33,22 @@ public class Main {
 	 * @param args	Command-line parameters are not used in this version
 	 */
 	public static void main(String[] args) {
+		ConfigurableApplicationContext ctx = SpringApplication.run(Main.class);
 
-  	Expression e;
-  	Calculator c = new Calculator();
+		Expression e;
+		Calculator c = new Calculator();
 
 		try {
 
-			Shell shell = new Shell();
+			Shell shell = new Shell(ctx);
 			shell.loop(c);
 		}
 		catch (IOException ex) {
-				throw new RuntimeException(ex);
+			throw new RuntimeException(ex);
 		}
 		catch(Exception exception) {
 			System.out.println("cannot create operations without parameters: " + exception.getMessage());
 		}
-    }
+	}
 
 }
