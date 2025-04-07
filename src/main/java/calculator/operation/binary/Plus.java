@@ -1,7 +1,6 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -40,7 +39,7 @@ public final class Plus extends CommutativeBinaryOperation {
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
      * @see #Plus(List<Expression>)
-     * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
+     * @see BinaryOperation(List<Expression>,Notation)
      */
     public Plus(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
@@ -64,17 +63,17 @@ public final class Plus extends CommutativeBinaryOperation {
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex l, MyInteger r) {
         return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex l, MyReal r) {
         return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex l, MyComplex r) {
         return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
                 op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
     }
@@ -89,17 +88,11 @@ public final class Plus extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyReal r) {
-        try {
-            return op(l, MyRational.toRational(r));
-        } catch (IllegalConstruction e) {
-            return new MyErrorNumber(null, ""); // FIXME axel
-        } catch (ExecutionControl.NotImplementedException e) {
-            return new MyErrorNumber(null, ""); // FIXME axel
-        }
+        return op(l, MyRational.toRational(r));
     }
 
     @Override
-    public MyNumber op(MyRational l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyRational l, MyComplex r) {
         return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b).simplify();
     }
 

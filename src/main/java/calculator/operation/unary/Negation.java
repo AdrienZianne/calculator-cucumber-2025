@@ -1,7 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
 
 /**
  * A class used to represent the negation of an expression.
@@ -31,23 +30,23 @@ public class Negation extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger i) throws IllegalConstruction {
+    public MyNumber op(MyInteger i) {
         return MyInteger.valueOf(i.getValue().negate());
     }
 
     @Override
-    public MyNumber op(MyReal r) throws IllegalConstruction {
+    public MyNumber op(MyReal r) {
         return new MyReal(r.getValue().negate());
     }
 
     @Override
-    public MyNumber op(MyRational r) throws IllegalConstruction {
+    public MyNumber op(MyRational r) {
         return MyRational.create(MyInteger.valueOf(r.getNumDenomPair().a.getValue().negate()),
                 r.getNumDenomPair().b);
     }
 
     @Override
-    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex c) {
         return new MyComplex(op(c.getRealImaginaryPair().a), op(c.getRealImaginaryPair().b));
     }
 }

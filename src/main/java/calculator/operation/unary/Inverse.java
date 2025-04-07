@@ -1,10 +1,10 @@
 package calculator.operation.unary;
 
 import calculator.*;
+import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
 import calculator.operation.binary.Times;
 import calculator.operation.binary.Plus;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;
 
@@ -36,48 +36,29 @@ public class Inverse extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger i) throws IllegalConstruction {
-        if (i.isZero()) {
-            throw new IllegalConstruction();
-        }
+    public MyNumber op(MyInteger i) {
         return MyRational.create(MyInteger.valueOf(1), MyInteger.valueOf(i.getValue()));
     }
 
     @Override
-    public MyNumber op(MyReal r) throws IllegalConstruction {
-        if (r.isZero()) {
-            throw new IllegalConstruction();
-        }
+    public MyNumber op(MyReal r) {
         MyNumber rational = MyRational.toRational(r);
-        try {
-            return op(rational);
-        } catch (ExecutionControl.NotImplementedException e) {
-            return new MyErrorNumber(null, ""); // FIXME axel
-        }
+        return op(rational);
     }
 
     @Override
-    public MyNumber op(MyRational r) throws IllegalConstruction {
-        if (r.isZero()) {
-            throw new IllegalConstruction();
-        }
+    public MyNumber op(MyRational r) {
         return MyRational.create(r.getNumDenomPair().b, r.getNumDenomPair().a);
     }
 
     @Override
-    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        if (c.isZero()) {
-            throw new IllegalConstruction();
-        }
+    public MyNumber op(MyComplex c) {
         // Denom : a^2 + b^2
-        Plus plus = new Plus(List.of());
-        Times times = new Times(List.of());
-        Divides divides = new Divides(List.of());
-        Negation negation = new Negation(c);
-        MyNumber denom = plus.op(times.op(c.getRealImaginaryPair().a, c.getRealImaginaryPair().a),
-                times.op(c.getRealImaginaryPair().b, c.getRealImaginaryPair().b));
+        MyNumber denom = BinaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().a, c.getRealImaginaryPair().a, Times::new),
+                                            BinaryOperation.op(c.getRealImaginaryPair().b, c.getRealImaginaryPair().b, Times::new),
+                                            Plus::new);
 
-        return new MyComplex(divides.op(c.getRealImaginaryPair().a, denom),
-                negation.op(divides.op(c.getRealImaginaryPair().b, denom)));
+        return new MyComplex(BinaryOperation.op(c.getRealImaginaryPair().a, denom, Divides::new),
+                UnaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().b, denom, Divides::new), Negation::new));
     }
 }

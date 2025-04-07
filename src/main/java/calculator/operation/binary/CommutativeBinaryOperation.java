@@ -1,7 +1,6 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;
 
@@ -14,32 +13,32 @@ public abstract class CommutativeBinaryOperation extends BinaryOperation
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyInteger l, MyReal r) {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyInteger l, MyComplex r) {
         return op(r, l);
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyInteger l, MyRational r) {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyReal l, MyComplex r) {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyReal l, MyRational r) {
         return op(r,l);
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction  {
+    public MyNumber op(MyComplex l, MyRational r) {
         return op(r,l);
     }
 

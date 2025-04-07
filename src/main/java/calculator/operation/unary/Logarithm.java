@@ -1,7 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
 
 /**
  * A class used to represent the logarithmic value of an expression.
@@ -34,12 +33,12 @@ public class Logarithm extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger i) throws IllegalConstruction {
+    public MyNumber op(MyInteger i) {
         return op(MyReal.valueOf(i.getValue().doubleValue()));
     }
 
     @Override
-    public MyNumber op(MyReal r) throws IllegalConstruction {
+    public MyNumber op(MyReal r) {
         MyErrorNumber check = checkValidity(r);
         if (check != null)
             return check;
@@ -49,13 +48,13 @@ public class Logarithm extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyRational r) throws IllegalConstruction {
+    public MyNumber op(MyRational r) {
         // Will make us lose some information
         return op(MyReal.toReal(r));
     }
 
     @Override
-    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex c) {
         MyErrorNumber check = checkValidity(c);
         if (check != null)
             return check;

@@ -1,7 +1,6 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public final class Times extends CommutativeBinaryOperation {
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
      * @see #Times(List<Expression>)
-     * @see BinaryOperation#BinaryOperation(List<Expression>,Notation)
+     * @see BinaryOperation(List<Expression>,Notation)
      */
     public Times(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
@@ -48,61 +47,60 @@ public final class Times extends CommutativeBinaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyInteger l, MyInteger r) {
         return new MyInteger(l.getValue().multiply(r.getValue()));
     }
 
     @Override
-    public MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyReal l, MyInteger r) {
         return new MyReal(l.getValue().multiply(new BigDecimal(r.getValue())));
     }
 
     @Override
-    public MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyReal l, MyReal r) {
         return new MyReal(l.getValue().multiply(r.getValue()));
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyComplex l, MyInteger r) {
         // (a + b*i) * c = (c*a) + (c*b*i)
         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyComplex l, MyReal r) {
         return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-        MyNumber real = new Minus(new ArrayList<>()).op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
+    public MyNumber op(MyComplex l, MyComplex r) {
+        MyNumber real = BinaryOperation.op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b), Minus::new);
 
-        MyNumber imaginary = new Plus(new ArrayList<>()).op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
-                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a));
+        MyNumber imaginary = BinaryOperation.op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a), Plus::new);
         return new MyComplex(real, imaginary).simplify();
     }
 
     @Override
-    public MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyRational l, MyInteger r) {
         return MyRational.create(l.getNumDenomPair().a.getValue().multiply(r.getValue()),
                 l.getNumDenomPair().b.getValue());
     }
 
     @Override
-    public MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyRational l, MyReal r) {
         MyNumber rReal = MyRational.toRational(r);
         return op(l, rReal);
     }
 
     @Override
-    public MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyRational l, MyComplex r) {
         return new MyComplex(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b)).simplify();
     }
 
     @Override
-    public MyNumber op(MyRational l, MyRational r)
-            throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public MyNumber op(MyRational l, MyRational r) {
         return MyRational.create(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().a.getValue()),
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
     }

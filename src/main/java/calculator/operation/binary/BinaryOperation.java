@@ -1,9 +1,13 @@
 package calculator.operation.binary;
 
 import calculator.*;
+import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.Operation;
+import calculator.operation.unary.UnaryOperation;
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,10 +42,8 @@ public abstract class BinaryOperation extends Operation {
      * @param a an instance of a {@link MyNumber} subclass
      * @param b an instance of a {@link MyNumber} subclass
      * @return A new instance of a {@link MyNumber} subclass, being the result of the operation on {@code a} and  {@code b}.
-     * @throws ExecutionControl.NotImplementedException if the operation between the two MyNumber subclasses wasn't taken into account.
      */
-    public MyNumber op(MyNumber a, MyNumber b) throws ExecutionControl.NotImplementedException, IllegalConstruction
-    {
+    public MyNumber op(MyNumber a, MyNumber b) {
         if (a instanceof MyErrorNumber e) {
             return e; // Simply pass the error up
         }
@@ -81,25 +83,25 @@ public abstract class BinaryOperation extends Operation {
         // Error : Not implemented
     }
 
-    public abstract MyNumber op(MyInteger l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyInteger l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyInteger l, MyInteger r);
+    public abstract MyNumber op(MyInteger l, MyReal r);
+    public abstract MyNumber op(MyInteger l, MyComplex r);
+    public abstract MyNumber op(MyInteger l, MyRational r);
 
-    public abstract MyNumber op(MyReal l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyReal l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyReal l, MyInteger r);
+    public abstract MyNumber op(MyReal l, MyReal r);
+    public abstract MyNumber op(MyReal l, MyComplex r);
+    public abstract MyNumber op(MyReal l, MyRational r);
 
-    public abstract MyNumber op(MyComplex l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyComplex l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyComplex l, MyInteger r);
+    public abstract MyNumber op(MyComplex l, MyReal r);
+    public abstract MyNumber op(MyComplex l, MyComplex r);
+    public abstract MyNumber op(MyComplex l, MyRational r);
 
-    public abstract MyNumber op(MyRational l, MyInteger r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyReal r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyComplex r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
-    public abstract MyNumber op(MyRational l, MyRational r) throws ExecutionControl.NotImplementedException, IllegalConstruction;
+    public abstract MyNumber op(MyRational l, MyInteger r);
+    public abstract MyNumber op(MyRational l, MyReal r);
+    public abstract MyNumber op(MyRational l, MyComplex r);
+    public abstract MyNumber op(MyRational l, MyRational r);
 
 
     // the operation itself is specified in the subclasses
@@ -111,6 +113,27 @@ public abstract class BinaryOperation extends Operation {
      */
     public void addMoreParams(List<Expression> params) {
         args.addAll(params);
+    }
+
+    /**
+     * Creates and calls an operation on the given arguments.
+     * This method is useful in case one wishes not to deal with {@link IllegalConstruction} errors.
+     * Instead, if an error is thrown it will be stored inside a {@link MyErrorNumber} instance.
+     * @param arg1 The first argument to pass to the binary operator.
+     * @param arg2 The second argument to pass to the binary operator.
+     * @param builder A functional interface used to create the needed operation.
+     * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
+     * @param <T> The {@link BinaryOperation} to create.
+     */
+    public static <T extends BinaryOperation> MyNumber op(MyNumber arg1, MyNumber arg2, BuildOperationFunction<T> builder)
+    {
+        BinaryOperation u;
+        try {
+            u = builder.build(new ArrayList<>());
+        } catch (IllegalConstruction e) {
+            return new MyErrorNumber(null, e.getMessage());
+        }
+        return u.op(arg1, arg2);
     }
 
 }

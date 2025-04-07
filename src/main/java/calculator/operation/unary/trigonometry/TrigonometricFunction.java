@@ -2,7 +2,6 @@ package calculator.operation.unary.trigonometry;
 
 import calculator.*;
 import calculator.operation.unary.UnaryOperation;
-import jdk.jshell.spi.ExecutionControl;
 
 /**
  * An abstract class representing all trigonometric functions such as sin, cos,
@@ -43,24 +42,24 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger i) throws IllegalConstruction {
+    public MyNumber op(MyInteger i) {
         return op(MyReal.valueOf(i.getValue().doubleValue()));
     }
 
     @Override
-    public MyNumber op(MyRational r) throws IllegalConstruction {
+    public MyNumber op(MyRational r) {
         return op(MyReal.toReal(r));
     }
 
     @Override
-    public MyNumber op(MyReal r) throws IllegalConstruction {
+    public MyNumber op(MyReal r) {
         // Will make us lose some information
         MyReal res = MyReal.valueOf(functionExec.apply(r.getValue().doubleValue()));
         return MyRational.toRational(res);
     }
 
     @Override
-    public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public MyNumber op(MyComplex c) {
         // It's impossible to apply a trigonometric function to a complex value
         // for now at least
         return new MyErrorNumber(this, "Tried to apply a trigonometric function on the following complex value: "
