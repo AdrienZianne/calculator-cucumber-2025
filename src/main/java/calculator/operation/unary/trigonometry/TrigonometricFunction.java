@@ -61,9 +61,10 @@ public abstract class TrigonometricFunction extends UnaryOperation {
 
     @Override
     public MyNumber op(MyComplex c) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        // It's impossible to apply a trigonometric function to a complex value for now
-        // at least
-        throw new IllegalConstruction();
+        // It's impossible to apply a trigonometric function to a complex value
+        // for now at least
+        return new MyErrorNumber(this, "Tried to apply a trigonometric function on the following complex value: "
+                + c + ". This has not been implemented yet.");
     }
 
 }

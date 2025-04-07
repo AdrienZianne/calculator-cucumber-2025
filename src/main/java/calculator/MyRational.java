@@ -90,10 +90,9 @@ public class MyRational extends MyNumber {
      *         because the rational could not be created.
      */
     public static MyNumber create(MyInteger numerator, MyInteger denominator) {
-        if (denominator.equals(new MyInteger(0))) {
+        if (denominator.isZero()) {
             return createErrorNumber(numerator, denominator);
         }
-        System.out.println("2numerator : " + numerator.getValue() + " denominator : " + denominator.getValue());
         return new MyRational(numerator, denominator).simplify();
     }
 
@@ -107,11 +106,7 @@ public class MyRational extends MyNumber {
      *         because the rational could not be created.
      */
     public static MyNumber create(BigInteger numerator, BigInteger denominator) {
-        if (denominator == new BigInteger("0") || denominator == BigInteger.ZERO) {
-            return createErrorNumber(new MyInteger(numerator), new MyInteger(denominator));
-        }
-        System.out.println("3numerator : " + numerator + " denominator : " + denominator);
-        return new MyRational(numerator, denominator).simplify();
+        return create(new MyInteger(numerator), new MyInteger(denominator));
     }
 
     /**
