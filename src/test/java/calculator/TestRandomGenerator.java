@@ -13,7 +13,7 @@ class TestRandomGenerator {
     void testRandomInt() {
         assertNotNull(RandomGenerator.genInt(new BigInteger("10")));
         RandomGenerator.setSeed(0);
-        assertEquals(RandomGenerator.genInt(new BigInteger("10")), new MyInteger(0));
+        assertEquals(new MyInteger(0), RandomGenerator.genInt(new BigInteger("10")));
         RandomGenerator.resetSeed();
         assertNotNull(RandomGenerator.genInt(new BigInteger("10")));
     }
@@ -22,7 +22,7 @@ class TestRandomGenerator {
     void testRandomReal() {
         assertNotNull(RandomGenerator.genReal());
         RandomGenerator.setSeed(0);
-        assertEquals(RandomGenerator.genReal(), new MyReal("0.73097"));
+        assertEquals(new MyReal("0.73097"), RandomGenerator.genReal());
         RandomGenerator.resetSeed();
         assertNotNull(RandomGenerator.genReal());
     }
@@ -41,7 +41,7 @@ class TestRandomGenerator {
     void testRandomComplex() {
         assertNotNull(RandomGenerator.genComplex());
         RandomGenerator.setSeed(0);
-        assertEquals(RandomGenerator.genComplex(), new MyComplex(new MyReal("0.73097"), new MyReal("0.73097")));
+        assertEquals(RandomGenerator.genComplex(), MyComplex.create(new MyReal("0.73097"), new MyReal("0.73097")));
         RandomGenerator.resetSeed();
         assertNotNull(RandomGenerator.genComplex());
     }
