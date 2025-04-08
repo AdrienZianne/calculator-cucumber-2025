@@ -47,6 +47,6 @@ public class Negation extends UnaryOperation {
 
     @Override
     public MyNumber op(MyComplex c) {
-        return new MyComplex(op(c.getRealImaginaryPair().a), op(c.getRealImaginaryPair().b));
+        return MyComplex.create(op(c.getRealImaginaryPair().a), op(c.getRealImaginaryPair().b));
     }
 }

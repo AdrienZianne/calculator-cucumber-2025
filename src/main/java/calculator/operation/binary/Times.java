@@ -64,12 +64,12 @@ public final class Times extends CommutativeBinaryOperation {
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
         // (a + b*i) * c = (c*a) + (c*b*i)
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
@@ -79,7 +79,7 @@ public final class Times extends CommutativeBinaryOperation {
 
         MyNumber imaginary = BinaryOperation.op(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b),
                 op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a), Plus::new);
-        return new MyComplex(real, imaginary).simplify();
+        return MyComplex.create(real, imaginary);
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class Times extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyComplex r) {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b)).simplify();
+        return MyComplex.create(op(l, r.getRealImaginaryPair().a), op(l, r.getRealImaginaryPair().b));
     }
 
     @Override

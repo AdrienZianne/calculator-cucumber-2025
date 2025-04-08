@@ -64,18 +64,18 @@ public final class Plus extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class Plus extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyComplex r) {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b).simplify();
+        return MyComplex.create(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
     }
 
     @Override

@@ -98,12 +98,12 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
@@ -123,7 +123,7 @@ public final class Divides extends BinaryOperation {
                 BinaryOperation.op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().a, Times::new),
                 BinaryOperation.op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().b, Times::new), Minus::new);
 
-        return new MyComplex(op(real, denom), op(imaginary, denom)).simplify();
+        return MyComplex.create(op(real, denom), op(imaginary, denom));
     }
 
     @Override
@@ -134,7 +134,7 @@ public final class Divides extends BinaryOperation {
         // Imaginary part : bd
         MyNumber imaginary = BinaryOperation.op(l.getRealImaginaryPair().b, r.getNumDenomPair().b, Times::new);
         // (ad/c) + (db/c i)
-        return new MyComplex(op(real, r.getNumDenomPair().a), op(imaginary, r.getNumDenomPair().a)).simplify();
+        return MyComplex.create(op(real, r.getNumDenomPair().a), op(imaginary, r.getNumDenomPair().a));
     }
 
     @Override
@@ -172,6 +172,6 @@ public final class Divides extends BinaryOperation {
                                                          BinaryOperation.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b, Times::new),
                                                          Plus::new); // FIXME we should be using pow
                                                                                    // operations !
-        return new MyComplex(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2)).simplify();
+        return MyComplex.create(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
     }
 }

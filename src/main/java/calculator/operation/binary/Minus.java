@@ -65,18 +65,18 @@ public final class Minus extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
     }
 
     @Override
@@ -129,8 +129,8 @@ public final class Minus extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyRational r) {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r),
-                op(new MyInteger(0), l.getRealImaginaryPair().b)).simplify();
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r),
+                op(new MyInteger(0), l.getRealImaginaryPair().b));
     }
 
     @Override
@@ -144,8 +144,8 @@ public final class Minus extends BinaryOperation {
     }
 
     public MyNumber diffByComplex(MyNumber l, MyComplex r) {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a),
-                op(new MyInteger(0), r.getRealImaginaryPair().b)).simplify(); // This should be negated !!
+        return MyComplex.create(op(l, r.getRealImaginaryPair().a),
+                op(new MyInteger(0), r.getRealImaginaryPair().b)); // This should be negated !!
     }
 
 }

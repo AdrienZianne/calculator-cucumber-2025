@@ -6,8 +6,17 @@ public class MyComplex extends MyNumber {
 
     Pair<MyNumber, MyNumber> realImaginaryPair;
 
-    public MyComplex(MyNumber n1, MyNumber n2) {
+    private MyComplex(MyNumber n1, MyNumber n2) {
         this.realImaginaryPair = new Pair<>(n1, n2);
+    }
+
+    public static MyNumber create(MyNumber n1, MyNumber n2)
+    {
+        // Checks that the user didn't try to create a complex value using an error
+        if (n1 instanceof MyErrorNumber e) return e;
+        else if (n2 instanceof MyErrorNumber e) return e;
+
+        return new MyComplex(n1, n2).simplify();
     }
 
     @Override

@@ -87,7 +87,7 @@ public abstract class RandomGenerator {
      *
      * @return The randomly generated number.
      */
-    public static MyComplex genComplex() {
-        return new MyComplex(genReal(), genReal());
+    public static MyNumber genComplex() {
+        return MyComplex.create(genReal(), genReal());
     }
 }

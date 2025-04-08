@@ -58,7 +58,7 @@ public class Inverse extends UnaryOperation {
                                             BinaryOperation.op(c.getRealImaginaryPair().b, c.getRealImaginaryPair().b, Times::new),
                                             Plus::new);
 
-        return new MyComplex(BinaryOperation.op(c.getRealImaginaryPair().a, denom, Divides::new),
+        return MyComplex.create(BinaryOperation.op(c.getRealImaginaryPair().a, denom, Divides::new),
                 UnaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().b, denom, Divides::new), Negation::new));
     }
 }
