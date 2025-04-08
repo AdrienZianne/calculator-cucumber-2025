@@ -40,7 +40,7 @@ public class Evaluator extends Visitor {
      * @param o The operation being visited
      */
     @Override
-    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public void visit(Operation o) {
         ArrayList<MyNumber> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
         for(Expression a:o.getArgs()) {
@@ -58,7 +58,7 @@ public class Evaluator extends Visitor {
     }
 
 
-    private MyNumber computeOperation(UnaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    private MyNumber computeOperation(UnaryOperation op, ArrayList<MyNumber> evaluatedArgs) {
         // Checks if there is really one argument
         if (evaluatedArgs.size() != 1)
         {
@@ -67,7 +67,7 @@ public class Evaluator extends Visitor {
         }
         return op.op(evaluatedArgs.getFirst());
     }
-    private MyNumber computeOperation(BinaryOperation op, ArrayList<MyNumber> evaluatedArgs) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    private MyNumber computeOperation(BinaryOperation op, ArrayList<MyNumber> evaluatedArgs) {
         MyNumber temp = evaluatedArgs.getFirst();
         for(int counter=1; counter<evaluatedArgs.size(); counter++) {
             temp = op.op(temp,evaluatedArgs.get(counter));

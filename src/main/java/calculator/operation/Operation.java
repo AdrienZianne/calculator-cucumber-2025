@@ -59,7 +59,7 @@ public abstract class Operation implements Expression {
      *
      * @param v The visitor object
      */
-    public void accept(Visitor v) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public void accept(Visitor v) {
         for (Expression a : args) {
             a.accept(v);
         }

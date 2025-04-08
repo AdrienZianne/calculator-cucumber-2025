@@ -15,7 +15,7 @@ public class TestInverse {
 
     @Test
     void testConstruct() {
-        assertThrows(IllegalConstruction.class, () -> new Negation(null));
+        assertThrows(IllegalConstruction.class, () -> new Inverse(null));
     }
 
     @Test

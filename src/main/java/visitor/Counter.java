@@ -2,7 +2,6 @@ package visitor;
 
 import calculator.*;
 import calculator.operation.Operation;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,7 @@ public class Counter extends Visitor {
     }
 
     @Override
-    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public void visit(Operation o) {
         ArrayList<Integer> argsDepth = new ArrayList<>();
         ArrayList<Integer> argsOps = new ArrayList<>();
         ArrayList<Integer> argsNbs = new ArrayList<>();
