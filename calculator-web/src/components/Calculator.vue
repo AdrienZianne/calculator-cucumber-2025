@@ -67,7 +67,7 @@ export default {
       isExpandKeyboard : false,
       isMemory : false,
       authorizedKeys : [..."0123456789.()/*+-".split(''), "Shift", "Backspace",
-      "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " "],
+      "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " ", ","],
       inputId : document.getElementById('inputId'),
       memoryList : [],
       numbers: [
@@ -242,6 +242,7 @@ export default {
             this.memoryList.push(this.inputText);
             if(this.memoryList.length > 5) this.memoryRemove(0);
             this.inputText = data.answer;
+            this.formatInput();
           })
           .catch(error => {
             this.inputText = "";
