@@ -247,6 +247,7 @@ export default {
           .catch(error => {
             this.inputText = "";
             Alert.errorManagement(error.message);
+            this.formatInput();
           });
       }
     }
