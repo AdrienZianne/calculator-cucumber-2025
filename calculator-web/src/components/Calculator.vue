@@ -82,7 +82,8 @@ export default {
         "sin",
         "tan",
         "sqrt",
-        "PI"
+        "PI",
+        ","
       ],
     };
   },
@@ -225,10 +226,13 @@ export default {
       {
         const requestOptions = {
           method: "POST",
-          headers: {}, 
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
           body: JSON.stringify({ input: this.inputText }) //In GET, we can't put a body.
         };
-        fetch("server_ip:8000/calc", requestOptions)
+        fetch("http://localhost:8080/calc", requestOptions)
           .then(response => {
               if(!response.ok) return response.json().then(json => Promise.reject(json));       
               else return response.json();
