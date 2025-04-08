@@ -1,10 +1,9 @@
 package calculator;
 
 import io.Shell;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import calculator.parser.CalculatorParser;
 import org.springframework.boot.SpringApplication;
@@ -32,14 +31,12 @@ public class Main {
 	 *
 	 * @param args	Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Main.class);
 
-		Expression e;
 		Calculator c = new Calculator();
 
 		try {
-
 			Shell shell = new Shell(ctx);
 			shell.loop(c);
 		}

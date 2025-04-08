@@ -1,8 +1,7 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Operation;
+import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 
@@ -53,7 +52,7 @@ public class Counter extends Visitor {
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) {
+    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
         ArrayList<Integer> argsDepth = new ArrayList<>();
         ArrayList<Integer> argsOps = new ArrayList<>();
         ArrayList<Integer> argsNbs = new ArrayList<>();

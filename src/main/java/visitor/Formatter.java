@@ -1,9 +1,7 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Notation;
-import calculator.Operation;
+import calculator.*;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -43,11 +41,12 @@ public class Formatter extends Visitor {
         representation = n.toString();
     }
 
+
     /** Use the visitor design pattern to visit an operation
      *
      * @param o The operation being visited
      */
-    public void visit(Operation o) {
+    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
 
         ArrayList<String> stringArgs = new ArrayList<>();
         for(Expression a: o.args) {

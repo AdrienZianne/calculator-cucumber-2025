@@ -34,7 +34,7 @@ public class CalculatorControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"input\": \"10 + 10\"}"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"answer\": 20}"));
+                .andExpect(content().json("{\"answer\": \"20\"}"));
     }
 
     @Test

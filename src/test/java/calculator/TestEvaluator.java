@@ -2,6 +2,8 @@ package calculator;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -22,27 +24,28 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyNumber() {
-        assertEquals( value1, calc.eval(new MyNumber(value1)));
+    void testEvaluatorMyInteger() throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        assertEquals(MyInteger.valueOf(value1), calc.eval(new MyInteger(value1)));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"*", "+", "/", "-"})
-    void testEvaluateOperations(String symbol) {
-        List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
+    @ValueSource(strings = { "*", "+", "/", "-" })
+    void testEvaluateOperations(String symbol) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+        List<Expression> params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
         try {
-            //construct another type of operation depending on the input value
-            //of the parameterised test
+            // construct another type of operation depending on the input value
+            // of the parameterised test
             switch (symbol) {
-                case "+"	->	assertEquals( value1 + value2, calc.eval(new Plus(params)));
-                case "-"	->	assertEquals( value1 - value2, calc.eval(new Minus(params)));
-                case "*"	->	assertEquals( value1 * value2, calc.eval(new Times(params)));
-                case "/"	->	assertEquals( value1 / value2, calc.eval(new Divides(params)));
-                default		->	fail();
+                case "+" -> assertEquals(MyInteger.valueOf(value1 + value2), calc.eval(new Plus(params)));
+                case "-" -> assertEquals(MyInteger.valueOf(value1 - value2), calc.eval(new Minus(params)));
+                case "*" -> assertEquals(MyInteger.valueOf(value1 * value2), calc.eval(new Times(params)));
+                case "/" -> assertEquals(new MyRational(value1, value2), calc.eval(new Divides(params)));
+                default -> fail();
             }
         } catch (IllegalConstruction e) {
             fail();
+        } catch (ExecutionControl.NotImplementedException e) {
+            throw new RuntimeException(e);
         }
     }
-
 }

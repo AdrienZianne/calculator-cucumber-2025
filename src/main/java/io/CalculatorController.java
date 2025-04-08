@@ -1,5 +1,7 @@
 package io;
 
+import calculator.IllegalConstruction;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,8 +20,8 @@ public class CalculatorController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity compute(@RequestBody CalculatorDTO request) {
-        Integer value = calculatorService.compute(request.getInput());
+    public ResponseEntity compute(@RequestBody CalculatorDTO request) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+        String value = calculatorService.compute(request.getInput());
         return ResponseEntity.ok(CalculatorResponse.builder().answer(value).build());
     }
 

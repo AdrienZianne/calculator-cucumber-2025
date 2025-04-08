@@ -12,29 +12,77 @@ Feature: Integer Arithmetic Expressions
   # provided that each of the steps (Given, When, And and Then) are
   # implemented in a Java mapping file (CalculatorSteps.Java)
 
-  Scenario: Adding two integer numbers
-    Given an integer operation '+'
-    When I provide a first number 4
-    And I provide a second number 5
-    Then the operation evaluates to 9
-
-  Scenario: Subtracting two integer numbers
-    Given an integer operation '-'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 2
-
-  Scenario: Multiplying two integer numbers
-    Given an integer operation '*'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 35
-
-  Scenario: Dividing two integer numbers
-    Given an integer operation '/'
-    When I provide a first number 7
-    And I provide a second number 5
-    Then the operation evaluates to 1
+  Scenario Outline: Different operation between two terms of different types
+    Given an operation <o>
+    When I provide a first number <val1>
+    And I provide a second number <val2>
+    Then the operation evaluates to <res>
+    Examples:
+      | o   | val1       | val2       | res           |
+      | '+' | 4          | 5          | 9             |
+      | '+' | 4          | 5.5        | 9.5           |
+      | '+' | 4          | 2/5        | 22/5          |
+      | '+' | 4          | 5.0 + 3.0i | 9.0 + 3.0i    |
+      | '+' | 4.5        | 5          | 9.5           |
+      | '+' | 4.5        | 5.5        | 10.0          |
+      | '+' | 4.5        | 2/5        | 49/10         |
+      | '+' | 4.5        | 5.0 + 3.0i | 9.5 + 3.0i    |
+      | '+' | 2/5        | 5          | 54/10         |
+      | '+' | 2/5        | 5.5        | 59/10         |
+      | '+' | 2/5        | 2/5        | 4/5           |
+      | '+' | 2/5        | 5.0 + 3.0i | 54/10 + 3.0i  |
+      | '+' | 2.0 + 3.0i | 5          | 7.0 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 5.5        | 7.5 + 3.0i    |
+      | '+' | 2.0 + 3.0i | 2/5        | 12/5 + 3.0i   |
+      | '+' | 2.0 + 3.0i | 5.0 + 3.0i | 7.0 + 6.0i    |
+      | '-' | 4          | 5          | -1            |
+      | '-' | 4          | 5.5        | -1.5          |
+      | '-' | 4          | 2/5        | 18/5          |
+      | '-' | 4          | 5.0 + 3.0i | -1.0 + -3.0i  |
+      | '-' | 4.5        | 5          | -0.5          |
+      | '-' | 4.5        | 5.5        | -1.0          |
+      | '-' | 4.5        | 2/5        | 41/10         |
+      | '-' | 4.5        | 5.0 + 3.0i | -0.5 + -3.0i  |
+      | '-' | 2/5        | 5          | -23/5         |
+      | '-' | 2/5        | 5.5        | -51/10        |
+      | '-' | 2/5        | 2/5        | 0             |
+      | '-' | 2/5        | 5.0 + 3.0i | -23/5 + -3.0i |
+      | '-' | 2.0 + 3.0i | 5          | -3.0 + 3.0i   |
+      | '-' | 2.0 + 3.0i | 5.5        | -3.5 + 3.0i   |
+      | '-' | 2.0 + 3.0i | 2/5        | 8/5 + -3.0i   |
+      | '-' | 2.0 + 3.0i | 5.0 + 3.0i | -3.0          |
+      | '*' | 4          | 5          | 20            |
+      | '*' | 4          | 5.5        | 22.0          |
+      | '*' | 4          | 2/5        | 8/5           |
+      | '*' | 4          | 5.0 + 3.0i | 20.0 + 12.0i  |
+      | '*' | 4.5        | 5          | 22.5          |
+      | '*' | 4.5        | 5.5        | 24.75         |
+      | '*' | 4.5        | 2/5        | 9/5           |
+      | '*' | 4.5        | 5.0 + 3.0i | 22.5 + 13.5i  |
+      | '*' | 2/5        | 5          | 2             |
+      | '*' | 2/5        | 5.5        | 11/5          |
+      | '*' | 2/5        | 2/5        | 4/25          |
+      | '*' | 3/5        | 4.0 + 3.0i | 12/5 + 9/5i   |
+      | '*' | 2.0 + 3.0i | 5          | 10.0 + 15.0i  |
+      | '*' | 2.0 + 3.0i | 5.5        | 11.0 + 16.5i  |
+      | '*' | 2.0 + 3.0i | 2/5        | 4/5 + 6/5i    |
+      | '*' | 2.0 + 3.0i | 5.0 + 3.0i | 1.0 + 21.0i   |
+      | '/' | 4          | 5          | 4/5           |
+      | '/' | 4          | 0.5        | 8             |
+      | '/' | 4          | 2/5        | 10            |
+      | '/' | 4          | 2.0 + 4.0i | 2/5 + -4/5i   |
+      | '/' | 4.5        | 5          | 9/10          |
+      | '/' | 4.5        | 5.5        | 9/11          |
+      | '/' | 4.5        | 2/5        | 45/4          |
+      | '/' | 4.5        | 2.5 + 0.0i | 9/5           |
+      | '/' | 2/5        | 5          | 2/25          |
+      | '/' | 1/5        | 2.5        | 2/25          |
+      | '/' | 2/5        | 4/5        | 1/2           |
+      | '/' | 1/4        | 4.0 + 2.0i | 1/20 + -1/40i |
+      | '/' | 2.0 + 3.0i | 5          | 2/5 + 3/5i    |
+      | '/' | 2.0 + 3.0i | 5.5        | 4/11 + 6/11i  |
+      | '/' | 5.0 + 3.0i | 2/5        | 25/2 + 15/2i  |
+      | '/' | 8.0 + 4.0i | 4.0 + 2.0i | 2             |
 
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6
@@ -53,34 +101,8 @@ Feature: Integer Arithmetic Expressions
     And the difference is 4
     And the quotient is 2
 
-  # A scenario outline (or template) is a scenario that is parameterised
-  # with different values. The outline comes with a set of examples.
-  # The scenario will be executed with each of the provided inputs.
-  Scenario Outline: Adding two integer numbers
-    Given an integer operation '+'
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n1|n2|result|
-      |4|5|9|
-      |5|3|8|
-
-  Scenario Outline: Dividing two integer numbers
-    Given an integer operation '/'
-    When I provide a first number <n1>
-    And I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n1|n2|result|
-      |35|5|7|
-      |7|5|1|
-      |5|7|0|
-
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
-    Given an integer operation <op>
+    Given an operation <op>
     When I provide a first number <n1>
     And I provide a second number <n2>
     Then the operation evaluates to <result>
@@ -93,7 +115,7 @@ Feature: Integer Arithmetic Expressions
       | "/" | 6| 2|     3|
 
   Scenario Outline: Checks the formatting of an equation between two integers parameters
-    Given an integer operation <op>
+    Given an operation <op>
     When I provide a first number <n1>
     When I provide a second number <n2>
     And I provide the notation <notation> to operator 0
@@ -115,7 +137,7 @@ Feature: Integer Arithmetic Expressions
       | "/" | 4| 5|  INFIX|   ( 4 / 5 )|
       
   Scenario Outline: Checks the formatting of an equation composed of multiple equations
-    Given an integer operation <op_0>
+    Given an operation <op_0>
 
     When I provide another integer operation <op_1> to operator 0
     And I provide a first number <arg_10> to operator 1
@@ -140,19 +162,6 @@ Feature: Integer Arithmetic Expressions
     # ((3, 4, 5) +, (5, 4) -, 7) /
 
   # Create new "given an operation ..."
-
-  Scenario Outline: Dividing a number by 0
-    Given an integer operation '/'
-    When I provide a first number <n>
-    When I provide a second number <n2>
-    Then the operation evaluates to <result>
-
-    Examples:
-      |n|n2|result|
-      |0|0|"max"|
-      |5|0|"max"|
-      |-5|0|"min"|
-
 
   Scenario Outline: Providing an expression as a string
     Given I initialise a calculator

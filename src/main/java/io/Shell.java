@@ -2,7 +2,9 @@ package io;
 
 import calculator.Calculator;
 import calculator.Expression;
+import calculator.IllegalConstruction;
 import calculator.parser.CalculatorParser;
+import jdk.jshell.spi.ExecutionControl;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -68,6 +70,11 @@ public class Shell {
                             terminal.writer().println(c.eval(exp));
                         } catch (IllegalArgumentException e) {
                             printError(e.getMessage());
+                            e.printStackTrace(terminal.writer());
+                        } catch (IllegalConstruction e) {
+                            throw new RuntimeException(e);
+                        } catch (ExecutionControl.NotImplementedException e) {
+                            throw new RuntimeException(e);
                         }
                 }
 
