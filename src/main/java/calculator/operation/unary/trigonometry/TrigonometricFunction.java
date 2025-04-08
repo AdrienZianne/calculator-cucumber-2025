@@ -3,6 +3,8 @@ package calculator.operation.unary.trigonometry;
 import calculator.*;
 import calculator.operation.unary.UnaryOperation;
 
+import java.util.Objects;
+
 /**
  * An abstract class representing all trigonometric functions such as sin, cos,
  * tan, atan,...
@@ -66,4 +68,16 @@ public abstract class TrigonometricFunction extends UnaryOperation {
                 + c + ". This has not been implemented yet.");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        TrigonometricFunction that = (TrigonometricFunction) o;
+        return Objects.equals(functionExec, that.functionExec);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), functionExec);
+    }
 }

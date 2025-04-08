@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import calculator.operation.binary.Times;
 import org.junit.jupiter.api.*;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 class TestMyRational {
@@ -60,5 +61,19 @@ class TestMyRational {
         // Integer zero simplification
         MyNumber r3 = MyRational.create(0, 6);
         assertEquals(MyInteger.valueOf(0), r3);
+    }
+
+    @Test
+    void testCreate()
+    {
+        // Test that when trying to give a denominator of 0, an error is returned
+        MyNumber r = MyRational.create(2,0);
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(MyInteger.valueOf(2), MyInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
     }
 }

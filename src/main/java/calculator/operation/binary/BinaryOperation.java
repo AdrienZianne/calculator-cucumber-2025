@@ -7,6 +7,7 @@ import visitor.Evaluator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Operation is an abstract class that represents arithmetic operations,
@@ -160,5 +161,4 @@ public abstract class BinaryOperation extends Operation {
         }
         return result;
     }
-
 }
