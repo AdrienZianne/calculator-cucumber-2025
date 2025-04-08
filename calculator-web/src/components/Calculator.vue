@@ -165,7 +165,6 @@ export default {
      * Method for formatting the input into a beautiful font.
      */
     formatInput() {
-      //TMP
       this.formattedInputText = this.inputText;
       if(this.formattedInputText.includes('*')) this.formattedInputText = this.formattedInputText.replaceAll('*','\\times');
       //(?<!(cos|sin|tan|log)) is a negative lookbehind assertion. 
@@ -227,9 +226,9 @@ export default {
         const requestOptions = {
           method: "POST",
           headers: {}, 
-          body: JSON.stringify({ calculation: this.inputText }) //In GET, we can't put a body.
+          body: JSON.stringify({ input: this.inputText }) //In GET, we can't put a body.
         };
-        fetch("https://aaa.net/api/aaa", requestOptions)
+        fetch("server_ip:8000/calc", requestOptions)
           .then(response => {
               if(!response.ok) return response.json().then(json => Promise.reject(json));       
               else return response.json();
@@ -238,7 +237,7 @@ export default {
             this.isMemory = true;
             this.memoryList.push(this.inputText);
             if(this.memoryList.length > 5) this.memoryRemove(0);
-            this.inputText = data.result;
+            this.inputText = data.answer;
           })
           .catch(error => {
             this.inputText = "";
