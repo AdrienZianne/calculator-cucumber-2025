@@ -2,8 +2,6 @@ package calculator.operation;
 
 import calculator.*;
 import calculator.operation.unary.Inverse;
-import calculator.operation.unary.Negation;
-import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -34,8 +32,6 @@ public class TestInverse {
             }
         } catch (IllegalConstruction e) {
             fail();
-        } catch (ExecutionControl.NotImplementedException e) {
-            throw new RuntimeException(e);
         }
     }
 }

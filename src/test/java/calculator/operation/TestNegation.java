@@ -2,7 +2,6 @@ package calculator.operation;
 
 import calculator.*;
 import calculator.operation.unary.Negation;
-import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,8 +31,6 @@ public class TestNegation {
                 assertEquals(pair.b, calculator.eval(new Negation(pair.a)));
             }
         }
-        catch (IllegalConstruction e) { fail(); } catch (ExecutionControl.NotImplementedException e) {
-            throw new RuntimeException(e);
-        }
+        catch (IllegalConstruction e) { fail(); }
     }
 }

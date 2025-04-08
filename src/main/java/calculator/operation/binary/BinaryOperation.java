@@ -2,10 +2,8 @@ package calculator.operation.binary;
 
 import calculator.*;
 import calculator.operation.BuildOperationFunction;
-import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.Operation;
-import calculator.operation.unary.UnaryOperation;
-import jdk.jshell.spi.ExecutionControl;
+import visitor.Evaluator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,11 +127,38 @@ public abstract class BinaryOperation extends Operation {
     {
         BinaryOperation u;
         try {
-            u = builder.build(new ArrayList<>());
+            ArrayList<Expression> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.add(arg2);
+            u = builder.build(argList);
         } catch (IllegalConstruction e) {
             return new MyErrorNumber(null, e.getMessage());
         }
         return u.op(arg1, arg2);
+    }
+    /**
+     * Creates and calls an operation on the given arguments.
+     * This method is useful in case one wishes not to deal with {@link IllegalConstruction} errors.
+     * Instead, if an error is thrown it will be stored inside a {@link MyErrorNumber} instance.
+     * @param eval An evaluator to use to compute the operation.
+     * @param args The arguments to pass to the binary operator.
+     * @param builder A functional interface used to create the needed operation.
+     * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
+     * @param <T> The {@link BinaryOperation} to create.
+     */
+    public static <T extends BinaryOperation> MyNumber op(Evaluator eval, ArrayList<Expression> args, BuildOperationFunction<T> builder)
+    {
+        BinaryOperation u;
+        MyNumber result;
+
+        try {
+            u = builder.build(args);
+            u.accept(eval);
+            result = eval.getResult();
+        } catch (IllegalConstruction e) {
+            return new MyErrorNumber(null, e.getMessage());
+        }
+        return result;
     }
 
 }

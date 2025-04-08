@@ -355,24 +355,21 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
                                                                                             BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
-        Evaluator v;
+        Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // Checks if the node is a token without any interesting values
+
             if (!(ctx.getChild(i) instanceof TerminalNode)) {
-                v = new Evaluator();
-                try {
-                    visit(ctx.getChild(i)).accept(v);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                } // FIXME : Adrien Fievet should have a look at that
+                visit(ctx.getChild(i)).accept(v);
                 expressions.add(v.getResult());
             }
         }
-        O res = null;
+        O res;
         try {
             res = operation.build(expressions);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
+            // FIXME : We need to find a way to return an operation error in a cleaner way
         }
         return res;
     }
@@ -405,7 +402,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
                     visit(ctx.getChild(i)).accept(v);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } // FIXME : Adrien Fievet should have a look at that
+                } // FIXME : We need to find a way to return an operation error in a cleaner way
                   // We can stop after finding the only expression as this is a unary operation
                 expression = v.getResult();
                 break;
