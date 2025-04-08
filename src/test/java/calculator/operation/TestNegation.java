@@ -25,7 +25,7 @@ public class TestNegation {
         paramResultList.add(new Pair<>(new MyInteger(0), new MyInteger(0)));
         paramResultList.add(new Pair<>(new MyInteger(1), new MyInteger(-1)));
         paramResultList.add(new Pair<>(new MyReal(-3.5), new MyReal(3.5)));
-        paramResultList.add(new Pair<>(new MyComplex(MyInteger.valueOf(-1), MyInteger.valueOf(2)), new MyComplex(MyInteger.valueOf(1), MyInteger.valueOf(-2))));
+        paramResultList.add(new Pair<>(MyComplex.create(MyInteger.valueOf(-1), MyInteger.valueOf(2)), MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(-2))));
         try {
             for (Pair<MyNumber, MyNumber> pair : paramResultList) {
                 assertEquals(pair.b, calculator.eval(new Negation(pair.a)));

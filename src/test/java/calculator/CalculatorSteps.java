@@ -150,12 +150,12 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void whenIProvideAComplex(String s, double real, double imaginary) {
-		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), 0);
+		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
 	public void whenIProvideAComplex(String s, double real, double imaginary, int opIndex) {
-		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), opIndex);
+		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
 	public void addParams(String s, MyNumber number, int opIndex) {
@@ -228,28 +228,28 @@ public class CalculatorSteps {
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(double real, double imaginary)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(binaryOperations.getFirst()).equals(new MyComplex(new MyReal(real), new MyReal(imaginary))));
+		assert (c.eval(binaryOperations.getFirst()).equals(MyComplex.create(new MyReal(real), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, double imaginary)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert (c.eval(binaryOperations.getFirst())
-				.equals(new MyComplex(MyRational.create(realNum, realDen), new MyReal(imaginary))));
+				.equals(MyComplex.create(MyRational.create(realNum, realDen), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(double real, int imagNum, int imagDen)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert (c.eval(binaryOperations.getFirst())
-				.equals(new MyComplex(new MyReal(real), MyRational.create(imagNum, imagDen))));
+				.equals(MyComplex.create(new MyReal(real), MyRational.create(imagNum, imagDen))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, int imagNum, int imagDen)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		assert (c.eval(binaryOperations.getFirst())
-				.equals(new MyComplex(MyRational.create(realNum, realDen), MyRational.create(imagNum, imagDen))));
+				.equals(MyComplex.create(MyRational.create(realNum, realDen), MyRational.create(imagNum, imagDen))));
 	}
 
 	@And("^I provide the notation (.*) to operator (.*)$")

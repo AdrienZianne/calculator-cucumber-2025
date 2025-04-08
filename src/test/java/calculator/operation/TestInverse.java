@@ -23,8 +23,8 @@ public class TestInverse {
         paramResultList.add(new Pair<>(new MyInteger(1), new MyInteger(1)));
         paramResultList
                 .add(new Pair<>(new MyReal(-3.5), MyRational.create(MyInteger.valueOf(-2), MyInteger.valueOf(7))));
-        paramResultList.add(new Pair<>(new MyComplex(MyInteger.valueOf(-1), MyInteger.valueOf(2)),
-                new MyComplex(MyRational.create(-1, 5),
+        paramResultList.add(new Pair<>(MyComplex.create(MyInteger.valueOf(-1), MyInteger.valueOf(2)),
+                MyComplex.create(MyRational.create(-1, 5),
                         MyRational.create(-2, 5))));
         try {
             for (Pair<MyNumber, MyNumber> pair : paramResultList) {
