@@ -2,11 +2,13 @@ package calculator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public class MyReal extends MyNumber {
 
-    public static int PRECISION = 5;
+    public static int PRECISION = 25;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     private final BigDecimal value;
@@ -56,7 +58,9 @@ public class MyReal extends MyNumber {
 
     @Override
     public String toString() {
-        return value.toString();
+        // Change this with settings !
+        NumberFormat scF = new DecimalFormat("0.###E0");
+        return scF.format(value);
     }
 
     @Override
