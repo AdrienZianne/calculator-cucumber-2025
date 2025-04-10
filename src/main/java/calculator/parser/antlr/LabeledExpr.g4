@@ -1,9 +1,16 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: (sumInfix
+expr: ( setting
+    | sumInfix
     | sumPrefix
     | sumPostfix) EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
+
+
+
+setting : 'seed' '(' INT ')'                             #SettingSetSeed
+        | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
+        ;
 
 /* POSTFIX NOTATION */
 
@@ -14,11 +21,29 @@ sumPostfix : productPostfix                                     #SumPostfixProd
 
 productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
+                | unaryPostfix                                  #ProductPostfixTrigo
                 ;
+
+unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
+             | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
+             ;
+
+trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
+             | '(' atomPostfix ')' 'cos'   #TrigoPostfixCos
+             | '(' atomPostfix ')' 'tan'   #TrigoPostfixTan
+             | '(' atomPostfix ')' 'sinh'  #TrigoPostfixSinh
+             | '(' atomPostfix ')' 'cosh'  #TrigoPostfixCosh
+             | '(' atomPostfix ')' 'tanh'  #TrigoPostfixTanh
+             | '(' atomPostfix ')' 'asin'  #TrigoPostfixASin
+             | '(' atomPostfix ')' 'acos'  #TrigoPostfixACos
+             | '(' atomPostfix ')' 'atan'  #TrigoPostfixATan
+             ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
             | complexNumber           #AtomPostfixInt
             ;
+
+
 
 /* PREFIX NOTATION */
 sumPrefix : productPrefix                               #SumPrefixProd
@@ -28,12 +53,27 @@ sumPrefix : productPrefix                               #SumPrefixProd
 
 productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
                 | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
+                | unaryPrefix                                   #ProductPrefixUnary
                 ;
+
+unaryPrefix : trigoPrefix                   #UnaryPrefixTrigo
+             | 'log' '(' atomPrefix ')'     #UnaryPrefixLog
+             ;
+
+trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
+             | 'cos' '(' atomPrefix ')'   #TrigoPrefixCos
+             | 'tan' '(' atomPrefix ')'   #TrigoPrefixTan
+             | 'sinh' '(' atomPrefix ')'  #TrigoPrefixSinh
+             | 'cosh' '(' atomPrefix ')'  #TrigoPrefixCosh
+             | 'tanh' '(' atomPrefix ')'  #TrigoPrefixTanh
+             | 'asin' '(' atomPrefix ')'  #TrigoPrefixASin
+             | 'acos' '(' atomPrefix ')'  #TrigoPrefixACos
+             | 'atan' '(' atomPrefix ')'  #TrigoPrefixATan
+             ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
             | complexNumber   #AtomPrefixInt
             ;
-
 
 /* INFIX NOTATION */
 sumInfix : productInfix             #SumInfixProd
@@ -46,10 +86,26 @@ productInfix: atomInfix             #ProductInfixAtom
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
 
-atomInfix: complexNumber               #AtomInfixInt
-    | '-' sumInfix              #AtomInfixNeg
+atomInfix: unaryInfix           #AtomInfixUnary
+    | complexNumber             #AtomInfixComplex
     | '(' sumInfix ')'          #AtomInfixSum
     ;
+
+unaryInfix: trigoInfix                              #UnaryInfixTrigo
+          | 'log' + '(' + sumInfix +  ')'           #UnaryInfixLog
+          | ('-' sumInfix | '-' '(' sumInfix ')')   #UnaryInfixNegation
+          ;
+
+trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
+             | 'cos' '(' sumInfix ')'   #TrigoInfixCos
+             | 'tan' '(' sumInfix ')'   #TrigoInfixTan
+             | 'sinh' '(' sumInfix ')'  #TrigoInfixSinh
+             | 'cosh' '(' sumInfix ')'  #TrigoInfixCosh
+             | 'tanh' '(' sumInfix ')'  #TrigoInfixTanh
+             | 'asin' '(' sumInfix ')'  #TrigoInfixASin
+             | 'acos' '(' sumInfix ')'  #TrigoInfixACos
+             | 'atan' '(' sumInfix ')'  #TrigoInfixATan
+             ;
 
 /* NUMBER and TOKENS */
 
@@ -62,9 +118,20 @@ complexNumber   : number? 'i'    #ComplexImaginaryNumber
 number: rational                            #NumberRational // Placed first in order to *override* the infix division !
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
-      | '-' number                          #NumberNegation
+      | constant                            #NumberContant
+      | random                              #NumberRandom
+      | '-' number                          #NumberNegation // In case someone wants the negative value of a number
       ;
 
+random : 'rand_int' '(' INT ')'                         #RandomInt
+       | 'rand_real' '(' ')'                            #RandomReal
+       | 'rand_ratio' '(' INT ',' INT ')'               #RandomRatio
+       | 'rand_cmplx' '(' ')'                           #RandomComplex
+       ;
+
+constant: ('pi' | 'PI' | 'Pi' | 'pI' | 'π') #ConstantPi
+        | ('E' | 'e')                       #ConstantEuler
+        ;
 
 rational: INT '/' INT
         ;

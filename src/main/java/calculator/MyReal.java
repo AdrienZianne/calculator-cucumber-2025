@@ -2,10 +2,13 @@ package calculator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public class MyReal extends MyNumber {
-    public static int PRECISION = 5;
+
+    public static int PRECISION = 25;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     private final BigDecimal value;
@@ -16,6 +19,15 @@ public class MyReal extends MyNumber {
 
     public MyReal(String value) {
         this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
+    }
+
+    public static MyReal valueOf(double value) {
+        return new MyReal(value);
+    }
+    public static MyReal toReal(MyRational r) {
+        BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
+        BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
+        return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
     }
 
     public MyReal(BigDecimal value) {
@@ -46,11 +58,18 @@ public class MyReal extends MyNumber {
 
     @Override
     public String toString() {
-        return value.toString();
+        // Change this with settings !
+        NumberFormat scF = new DecimalFormat("0.###E0");
+        return scF.format(value);
     }
 
     @Override
     public boolean isZero() {
         return this.value.equals(BigDecimal.ZERO.setScale(PRECISION, ROUNDING_MODE));
+    }
+
+    @Override
+    public int getSign() {
+        return value.signum();
     }
 }

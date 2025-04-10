@@ -1,5 +1,6 @@
 package calculator;
 
+import calculator.operation.binary.BinaryOperation;
 import visitor.Visitor;
 
 /**
@@ -7,7 +8,7 @@ import visitor.Visitor;
  * which are a special kind of Expressions, just like operations are.
  *
  * @see Expression
- * @see Operation
+ * @see BinaryOperation
  */
 public abstract class MyNumber implements Expression
 {
@@ -28,6 +29,12 @@ public abstract class MyNumber implements Expression
    * @return true if the value is zero, false otherwise.
    */
   public abstract boolean isZero();
+
+  /**
+   * Gets the sign of the number.
+   * @return A number bigger than 0 if the number is positive, 0 if the number is equal to zero and a number less than 0 otherwise.
+   */
+  public abstract int getSign();
 
 
     /**

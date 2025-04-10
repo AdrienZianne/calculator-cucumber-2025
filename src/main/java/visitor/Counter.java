@@ -1,7 +1,7 @@
 package visitor;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
+import calculator.operation.Operation;
 
 import java.util.ArrayList;
 
@@ -48,17 +48,14 @@ public class Counter extends Visitor {
         nbs = 1;
     }
 
-    /** Use the visitor design pattern to visit an operation
-     *
-     * @param o The operation being visited
-     */
-    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    @Override
+    public void visit(Operation o) {
         ArrayList<Integer> argsDepth = new ArrayList<>();
         ArrayList<Integer> argsOps = new ArrayList<>();
         ArrayList<Integer> argsNbs = new ArrayList<>();
 
         //first loop to recursively evaluate each subexpression
-        for(Expression a:o.args) {
+        for(Expression a:o.getArgs()) {
             a.accept(this);
             argsDepth.add(depth);
             argsOps.add(ops);
@@ -72,5 +69,6 @@ public class Counter extends Visitor {
         ops = 1 + argsOps.stream().reduce(0, Integer::sum);
         nbs = argsNbs.stream().reduce(0, Integer::sum);
     }
+
 
 }

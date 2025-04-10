@@ -1,7 +1,17 @@
-package calculator;
+package calculator.operation;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.Calculator;
+import calculator.Expression;
+import calculator.IllegalConstruction;
+import calculator.MyComplex;
+import calculator.MyErrorNumber;
+import calculator.MyInteger;
+import calculator.Notation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Times;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -17,12 +27,13 @@ class TestDivides {
 
 	@BeforeEach
 	void setUp() {
-		  params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
-		  try {
-		  	op = new Divides(params);
+		params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
+		try {
+			op = new Divides(params);
 			op.notation = Notation.INFIX; // reset the notation to infix (which is the default) before each test
-		  }
-		  catch(IllegalConstruction e) { fail(); }
+		} catch (IllegalConstruction e) {
+			fail();
+		}
 	}
 
 	@Test
@@ -44,35 +55,51 @@ class TestDivides {
 
 	@Test
 	void testEquals() {
-		// Two similar expressions, constructed separately (and using different constructors) should be equal
+		// Two similar expressions, constructed separately (and using different
+		// constructors) should be equal
 		List<Expression> p = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
 		try {
 			Divides d = new Divides(p, Notation.INFIX);
 			assertEquals(op, d);
+		} catch (IllegalConstruction e) {
+			fail();
 		}
-		catch(IllegalConstruction e) { fail(); }
 	}
 
 	@SuppressWarnings("ConstantConditions")
 	@Test
 	void testNull() {
-		assertDoesNotThrow(() -> op==null); // Direct way to to test if the null case is handled.
+		assertDoesNotThrow(() -> op == null); // Direct way to to test if the null case is handled.
 	}
 
 	@Test
 	void testHashCode() {
-		// Two similar expressions, constructed separately (and using different constructors) should have the same hashcode
+		// Two similar expressions, constructed separately (and using different
+		// constructors) should have the same hashcode
 		List<Expression> p = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
 		try {
 			Divides e = new Divides(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());
+		} catch (IllegalConstruction e) {
+			fail();
 		}
-		catch(IllegalConstruction e) { fail(); }
 	}
 
 	@Test
 	void testNullParamList() {
 		params = null;
 		assertThrows(IllegalConstruction.class, () -> op = new Divides(params));
+	}
+
+	@Test
+	void testDivideByZero() {
+		Calculator c = new Calculator();
+		List<Expression> p = Arrays.asList(new MyInteger(value1), new MyInteger(0));
+		try {
+			Divides e = new Divides(p, Notation.INFIX);
+			assertEquals(((MyErrorNumber) c.eval(e)).getMessage(), "A rational cannot have a denominator of 0");
+		} catch (IllegalConstruction e) {
+			fail();
+		}
 	}
 }

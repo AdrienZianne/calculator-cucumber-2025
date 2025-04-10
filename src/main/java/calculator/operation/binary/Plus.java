@@ -1,6 +1,6 @@
-package calculator;
+package calculator.operation.binary;
 
-import jdk.jshell.spi.ExecutionControl;
+import calculator.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,21 +11,22 @@ import java.util.List;
  * The class extends an abstract superclass Operation.
  * Other subclasses of Operation represent other arithmetic operations.
  *
- * @see Operation
+ * @see BinaryOperation
  * @see Minus
  * @see Times
  * @see Divides
  */
-public final class Plus extends CommutativeOperation {
+public final class Plus extends CommutativeBinaryOperation {
 
     /**
      * Class constructor specifying a number of Expressions to add.
      *
      * @param elist The list of Expressions to add
-     * @throws IllegalConstruction If an empty list of expressions if passed as parameter
-     * @see #Plus(List<Expression>,Notation)
+     * @throws IllegalConstruction If an empty list of expressions if passed as
+     *                             parameter
+     * @see #Plus(List< Expression >, Notation )
      */
-    public /*constructor*/ Plus(List<Expression> elist) throws IllegalConstruction {
+    public /* constructor */ Plus(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
     }
 
@@ -35,9 +36,10 @@ public final class Plus extends CommutativeOperation {
      *
      * @param elist The list of Expressions to add
      * @param n     The Notation to be used to represent the operation
-     * @throws IllegalConstruction If an empty list of expressions if passed as parameter
+     * @throws IllegalConstruction If an empty list of expressions if passed as
+     *                             parameter
      * @see #Plus(List<Expression>)
-     * @see Operation#Operation(List<Expression>,Notation)
+     * @see BinaryOperation(List<Expression>,Notation)
      */
     public Plus(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
@@ -61,25 +63,27 @@ public final class Plus extends CommutativeOperation {
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyInteger r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+    public MyNumber op(MyComplex l, MyInteger r) {
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyReal r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b).simplify();
+    public MyNumber op(MyComplex l, MyReal r) {
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r), l.getRealImaginaryPair().b);
     }
 
     @Override
-    public MyNumber op(MyComplex l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
-                                 op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b)).simplify();
+    public MyNumber op(MyComplex l, MyComplex r) {
+        return MyComplex.create(op(l.getRealImaginaryPair().a, r.getRealImaginaryPair().a),
+                op(l.getRealImaginaryPair().b, r.getRealImaginaryPair().b));
     }
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
-        return new MyRational(MyInteger.valueOf(l.getNumDenomPair().a.getValue().add(r.getValue().multiply(l.getNumDenomPair().b.getValue()))),
-                              MyInteger.valueOf(l.getNumDenomPair().b.getValue())).simplify();
+        return MyRational.create(
+                MyInteger.valueOf(
+                        l.getNumDenomPair().a.getValue().add(r.getValue().multiply(l.getNumDenomPair().b.getValue()))),
+                MyInteger.valueOf(l.getNumDenomPair().b.getValue()));
     }
 
     @Override
@@ -88,8 +92,8 @@ public final class Plus extends CommutativeOperation {
     }
 
     @Override
-    public MyNumber op(MyRational l, MyComplex r) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        return new MyComplex(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b).simplify();
+    public MyNumber op(MyRational l, MyComplex r) {
+        return MyComplex.create(op(l, r.getRealImaginaryPair().a), r.getRealImaginaryPair().b);
     }
 
     @Override
@@ -97,10 +101,7 @@ public final class Plus extends CommutativeOperation {
         BigInteger lNum = l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().b.getValue());
         BigInteger rNum = r.getNumDenomPair().a.getValue().multiply(l.getNumDenomPair().b.getValue());
 
-        return new MyRational(lNum.add(rNum),
-                              l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()))
-                .simplify();
+        return MyRational.create(lNum.add(rNum),
+                l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
     }
-
-
 }

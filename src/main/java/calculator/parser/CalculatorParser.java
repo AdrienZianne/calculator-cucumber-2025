@@ -5,7 +5,6 @@ import calculator.parser.antlr.ExpressionParser;
 import calculator.parser.antlr.LabeledExprLexer;
 import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 public class CalculatorParser {
     public static Expression parseString(String input) {
@@ -19,17 +18,15 @@ public class CalculatorParser {
         parser.removeErrorListeners();
         parser.addErrorListener(new ThrowingErrorListener());
 
-
         ExpressionParser eval = new ExpressionParser();
         try {
             return eval.visit(parser.expr());
 
-        }catch(ParserError e) {
+        } catch (ParserError e) {
             System.out.println("Parsing error caught: " + e.getMessage());
             return null;
         }
 
     }
-
 
 }

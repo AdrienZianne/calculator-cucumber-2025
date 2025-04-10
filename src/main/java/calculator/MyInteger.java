@@ -1,8 +1,8 @@
 package calculator;
 
-import visitor.Visitor;
-
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public class MyInteger extends MyNumber
@@ -49,11 +49,18 @@ public class MyInteger extends MyNumber
 
     @Override
     public String toString() {
-        return value.toString();
+        // Change this with settings !!!!
+        NumberFormat scf = new DecimalFormat("0.######E0");
+        return scf.format(value);
     }
 
     @Override
     public boolean isZero() {
         return this.value.equals(BigInteger.ZERO);
+    }
+
+    @Override
+    public int getSign() {
+        return value.signum();
     }
 }

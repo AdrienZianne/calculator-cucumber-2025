@@ -166,7 +166,7 @@ Feature: Integer Arithmetic Expressions
   Scenario Outline: Providing an expression as a string
     Given I initialise a calculator
     When I provide an expression as a string <str>
-    Then the expression evaluates to <res>
+    Then the operation evaluates to <res>
 
     Examples:
       |str     |res|
@@ -188,3 +188,16 @@ Feature: Integer Arithmetic Expressions
       |"(30 10) *" | 300 |
       |"(3 2 1) -" | 0 |
       |"(((5, (2, 10)*) +, 5) -,2) /" | 10 |
+
+  Scenario Outline: Test RandomGenerator with seed fix
+    Given I initialise a calculator
+    Given I initialise a seed
+    When I provide an expression as a string <str>
+    Then the operation evaluates to <res>
+
+    Examples:
+      |str                  |res                |
+      |"rand_int(10)"       |3                  |
+      |"rand_real()"        |0.73088            |
+      |"rand_ratio(10, 30)" |3/19               |
+      |"rand_cmplx()"       |0.73088 + 0.73088i |

@@ -1,7 +1,14 @@
-package calculator;
+package calculator.operation;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
+
+import calculator.Expression;
+import calculator.IllegalConstruction;
+import calculator.MyInteger;
+import calculator.Notation;
+import calculator.operation.binary.Plus;
+import calculator.operation.binary.Times;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -33,7 +40,7 @@ class TestPlus {
 	void testConstructor2() {
 		// A Times expression should not be the same as a Plus expression
 		try {
-			assertNotSame(op, new Times(new ArrayList<>()));
+			assertNotSame(new Times(new ArrayList<>()), op);
 		} catch (IllegalConstruction e) {
 			fail();
 		}
