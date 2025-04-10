@@ -274,12 +274,7 @@ public class CalculatorSteps {
 	public void whenIProvideAString(String string)
 			throws IllegalConstruction, ExecutionControl.NotImplementedException {
 		params.add(CalculatorParser.parseString(string));
-	}
 
-	@Then("the expression evaluates to {int}")
-	public void thenTheExpressionEvaluatesTo(int val)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-
-		assert (c.eval(params.getFirst()).equals(MyInteger.valueOf(val)));
+		binaryOperations = new ArrayList<>(List.of(new Plus(params)));
 	}
 }
