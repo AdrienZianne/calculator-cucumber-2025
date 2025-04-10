@@ -10,6 +10,7 @@ import org.jline.reader.impl.LineReaderImpl;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 
@@ -21,14 +22,16 @@ public class Shell {
     private boolean interrupted = false;
     private final Terminal terminal;
     private LineReader reader;
+    private ConfigurableApplicationContext ctx;
 
-    public Shell() throws IOException {
+    public Shell(ConfigurableApplicationContext ctx) throws IOException {
         terminal = TerminalBuilder.terminal();
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer(new StringsCompleter(/* add completion string list here */))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
+        this.ctx = ctx;
     }
 
     /**
@@ -105,5 +108,6 @@ public class Shell {
         terminal.writer().println("Exiting !");
         terminal.flush();
         interrupted = true;
+        ctx.close();
     }
 }

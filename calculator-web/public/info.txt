@@ -1,0 +1,15 @@
+Hello and welcome to the Calculator-cucumber ! <br><br>
+
+You can use your keyboard for simple operations (numbers, (), /, +, *, -, ...) 
+or the one provided by the application (in particular for cos, tan,...).<br><br>
+
+If you're using your computer's keyboard, special operations like cos are therefore 
+performed by enlarging the application's keyboard. You can click Enter when 
+your calculation is complete or click on '=' if you use the application keyboard.<br><br>
+
+The “_____” button is used to add a space.
+AC deletes your entire calculation, and the arrows allow you to move in your calculation.<br><br>
+
+When you make a calculation and submit it, you'll see a memory system. 
+You can delete a specific line from this memory, or delete everything. 
+The memory automatically deletes the first calculation made in the list when it exceeds a size of 5.
