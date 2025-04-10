@@ -3,7 +3,6 @@ package calculator.operation;
 import calculator.Expression;
 import calculator.IllegalConstruction;
 import calculator.Notation;
-import jdk.jshell.spi.ExecutionControl;
 import visitor.Formatter;
 import visitor.Visitor;
 
@@ -59,7 +58,7 @@ public abstract class Operation implements Expression {
      *
      * @param v The visitor object
      */
-    public void accept(Visitor v) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public void accept(Visitor v) {
         for (Expression a : args) {
             a.accept(v);
         }
@@ -69,13 +68,7 @@ public abstract class Operation implements Expression {
 
     @Override
     public String toString() {
-        try {
-            return toString(this.notation);
-        } catch (IllegalConstruction e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionControl.NotImplementedException e) {
-            throw new RuntimeException(e);
-        }
+        return toString(this.notation);
     }
 
     /**
@@ -85,7 +78,7 @@ public abstract class Operation implements Expression {
      * @param n The notation to be used for representing the operation (prefix, infix or postfix)
      * @return The String that is the result of the conversion.
      */
-    public final String toString(Notation n) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public final String toString(Notation n) {
         Formatter formatter = new Formatter(n);
         formatter.visit(this);
         return formatter.getResult();
@@ -143,5 +136,4 @@ public abstract class Operation implements Expression {
     public List<Expression> getArgs() {
         return args;
     }
-
 }

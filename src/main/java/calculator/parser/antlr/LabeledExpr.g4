@@ -92,7 +92,7 @@ atomInfix: unaryInfix           #AtomInfixUnary
     ;
 
 unaryInfix: trigoInfix                              #UnaryInfixTrigo
-          | 'log' sumInfix                          #UnaryInfixLog
+          | 'log' + '(' + sumInfix +  ')'           #UnaryInfixLog
           | ('-' sumInfix | '-' '(' sumInfix ')')   #UnaryInfixNegation
           ;
 

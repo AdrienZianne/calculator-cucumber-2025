@@ -166,7 +166,7 @@ Feature: Integer Arithmetic Expressions
   Scenario Outline: Providing an expression as a string
     Given I initialise a calculator
     When I provide an expression as a string <str>
-    Then the expression evaluates to <res>
+    Then the operation evaluates to <res>
 
     Examples:
       |str     |res|

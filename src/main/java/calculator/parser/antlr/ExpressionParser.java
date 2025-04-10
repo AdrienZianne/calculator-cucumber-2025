@@ -1,8 +1,10 @@
 package calculator.parser.antlr;
 
+
+
 import calculator.*;
-import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
@@ -286,17 +288,17 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitRational(LabeledExprParser.RationalContext ctx) {
         // We suppose that the rational has 3 child : the numerator, the operator `/`
         // and the denominator
-        return new MyRational(Integer.parseInt(ctx.getChild(0).getText()), Integer.parseInt(ctx.getChild(2).getText()))
-                .simplify();
+        return MyRational.create(Integer.parseInt(ctx.getChild(0).getText()),
+                Integer.parseInt(ctx.getChild(2).getText()));
     }
 
     @Override
     public Expression visitComplexImaginaryNumber(LabeledExprParser.ComplexImaginaryNumberContext ctx) {
         if (ctx.getChildCount() == 1) {
-            return new MyComplex(new MyInteger(0), new MyInteger(1));
+            return MyComplex.create(new MyInteger(0), new MyInteger(1));
         }
 
-        return new MyComplex(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
+        return MyComplex.create(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
     }
 
     @Override
@@ -319,8 +321,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitRandomRatio(LabeledExprParser.RandomRatioContext ctx) {
         return RandomGenerator
-                .genRational(new BigInteger(ctx.getChild(2).getText()), new BigInteger(ctx.getChild(4).getText()))
-                .simplify();
+                .genRational(new BigInteger(ctx.getChild(2).getText()), new BigInteger(ctx.getChild(4).getText()));
     }
 
     @Override
@@ -352,26 +353,23 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
-            BuildOperationFunction<O> operation) {
+                                                                                            BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
-        Evaluator v;
+        Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // Checks if the node is a token without any interesting values
+
             if (!(ctx.getChild(i) instanceof TerminalNode)) {
-                v = new Evaluator();
-                try {
-                    visit(ctx.getChild(i)).accept(v);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                } // FIXME : Adrien Fievet should have a look at that
+                visit(ctx.getChild(i)).accept(v);
                 expressions.add(v.getResult());
             }
         }
-        O res = null;
+        O res;
         try {
             res = operation.build(expressions);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
+            // FIXME : We need to find a way to return an operation error in a cleaner way
         }
         return res;
     }
@@ -392,7 +390,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx,
-            BuildUnaryOperationFunction<O> operation) {
+                                                                                          BuildUnaryOperationFunction<O> operation) {
         Expression expression = null;
         Evaluator v;
         // Explore all path to find the argument to pass to the unary operator.
@@ -400,12 +398,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
             // Checks if the node is a token without any interesting values
             if (!(ctx.getChild(i) instanceof TerminalNode)) {
                 v = new Evaluator();
-                try {
-                    visit(ctx.getChild(i)).accept(v);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                } // FIXME : Adrien Fievet should have a look at that
-                  // We can stop after finding the only expression as this is a unary operation
+                visit(ctx.getChild(i)).accept(v);
+                // We can stop after finding the only expression as this is a unary operation
                 expression = v.getResult();
                 break;
             }
@@ -418,6 +412,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
             res = operation.build(expression);
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
+            // FIXME : We need to find a way to return an operation error in a cleaner way
         }
         return res;
     }

@@ -43,13 +43,11 @@ class TestEvaluator {
                 case "+" -> assertEquals(MyInteger.valueOf(value1 + value2), calc.eval(new Plus(params)));
                 case "-" -> assertEquals(MyInteger.valueOf(value1 - value2), calc.eval(new Minus(params)));
                 case "*" -> assertEquals(MyInteger.valueOf(value1 * value2), calc.eval(new Times(params)));
-                case "/" -> assertEquals(new MyRational(value1, value2), calc.eval(new Divides(params)));
+                case "/" -> assertEquals(MyRational.create(value1, value2), calc.eval(new Divides(params)));
                 default -> fail();
             }
         } catch (IllegalConstruction e) {
             fail();
-        } catch (ExecutionControl.NotImplementedException e) {
-            throw new RuntimeException(e);
         }
     }
 }

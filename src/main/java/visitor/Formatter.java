@@ -4,7 +4,6 @@ import calculator.*;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.Operation;
 import calculator.operation.unary.UnaryOperation;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -45,7 +44,7 @@ public class Formatter extends Visitor {
     }
 
     @Override
-    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    public void visit(Operation o) {
         ArrayList<String> stringArgs = new ArrayList<>();
         for(Expression a: o.getArgs()) {
             a.accept(this);
