@@ -50,6 +50,10 @@ public class MyInteger extends MyNumber
     @Override
     public String toString() {
         // Change this with settings !!!!
+        if (true)
+        {
+            return value.toString();
+        }
         NumberFormat scf = new DecimalFormat("0.######E0");
         return scf.format(value);
     }

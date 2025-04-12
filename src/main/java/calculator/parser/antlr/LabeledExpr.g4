@@ -19,13 +19,15 @@ sumPostfix : productPostfix                                     #SumPostfixProd
            | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
            ;
 
-productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
+productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '^'   #ProductPostfixExp
+                | '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
                 | unaryPostfix                                  #ProductPostfixTrigo
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
+             | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
              ;
 
 trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
@@ -51,13 +53,15 @@ sumPrefix : productPrefix                               #SumPrefixProd
            | '-' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixDiff
            ;
 
-productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
-                | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
-                | unaryPrefix                                   #ProductPrefixUnary
+productPrefix   : '^' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
+                | '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
+                | '/' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixDiv
+                | unaryPrefix                                    #ProductPrefixUnary
                 ;
 
-unaryPrefix : trigoPrefix                   #UnaryPrefixTrigo
-             | 'log' '(' atomPrefix ')'     #UnaryPrefixLog
+unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
+             | 'log' '(' atomPrefix ')'      #UnaryPrefixLog
+             | 'sqrt' '(' atomPrefix ')'     #UnaryPrefixSqrt
              ;
 
 trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
@@ -82,6 +86,7 @@ sumInfix : productInfix             #SumInfixProd
     ;
 
 productInfix: atomInfix             #ProductInfixAtom
+    | productInfix '^' atomInfix    #ProductInfixExpo
     | productInfix '*' atomInfix    #ProductInfixMult
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
@@ -91,9 +96,10 @@ atomInfix: unaryInfix           #AtomInfixUnary
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
-unaryInfix: trigoInfix                              #UnaryInfixTrigo
-          | 'log' + '(' + sumInfix +  ')'           #UnaryInfixLog
-          | ('-' sumInfix | '-' '(' sumInfix ')')   #UnaryInfixNegation
+unaryInfix: trigoInfix                                   #UnaryInfixTrigo
+          | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
+          | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
+          | ('-' complexNumber | '-' '(' sumInfix ')')   #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin

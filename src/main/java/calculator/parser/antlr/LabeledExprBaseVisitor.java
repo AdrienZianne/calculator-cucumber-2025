@@ -1,4 +1,4 @@
-// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * @param <T> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
+@SuppressWarnings("CheckReturnValue")
 public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements LabeledExprVisitor<T> {
 	/**
 	 * {@inheritDoc}
@@ -59,6 +60,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitProductPostfixMult(LabeledExprParser.ProductPostfixMultContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -88,6 +96,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -192,6 +207,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -221,6 +243,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -325,6 +354,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -375,6 +411,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

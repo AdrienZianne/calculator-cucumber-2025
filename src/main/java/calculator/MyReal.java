@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class MyReal extends MyNumber {
 
-    public static int PRECISION = 25;
+    public static int PRECISION = 5;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     private final BigDecimal value;
@@ -59,6 +59,10 @@ public class MyReal extends MyNumber {
     @Override
     public String toString() {
         // Change this with settings !
+        if (true)
+        {
+            return value.toString();
+        }
         NumberFormat scF = new DecimalFormat("0.###E0");
         return scF.format(value);
     }

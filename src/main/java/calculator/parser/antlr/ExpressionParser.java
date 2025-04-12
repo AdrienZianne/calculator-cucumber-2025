@@ -8,6 +8,7 @@ import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
+import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -55,6 +56,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.INFIX));
+    }
+
+    @Override
     public Expression visitProductInfixMult(LabeledExprParser.ProductInfixMultContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Times(expressions, Notation.INFIX));
     }
@@ -63,6 +69,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
     }
+
 
     @Override
     public Expression visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) {
@@ -120,6 +127,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.INFIX));
+    }
+
+    @Override
     public Expression visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) {
         // We only need to visit the second child, since the first and third ones are
         // parentheses.
@@ -136,6 +148,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.PREFIX));
     }
 
     @Override
@@ -198,6 +215,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.PREFIX));
     }
 
+    @Override
+    public Expression visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.PREFIX));
+    }
+
     /*
      * _________________________________ POSTFIX _________________________________
      */
@@ -210,6 +232,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.POSTFIX));
     }
 
     @Override
@@ -272,6 +299,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.POSTFIX));
     }
 
+    @Override
+    public Expression visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.POSTFIX));
+    }
+
     /* __________________________________ NUMBER _______________________________ */
 
     @Override
@@ -288,8 +320,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitRational(LabeledExprParser.RationalContext ctx) {
         // We suppose that the rational has 3 child : the numerator, the operator `/`
         // and the denominator
-        return MyRational.create(Integer.parseInt(ctx.getChild(0).getText()),
-                Integer.parseInt(ctx.getChild(2).getText()));
+        return MyRational.create(new BigInteger(ctx.getChild(0).getText()),
+                new BigInteger(ctx.getChild(2).getText()));
     }
 
     @Override

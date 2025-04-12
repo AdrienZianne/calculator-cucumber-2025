@@ -1,4 +1,4 @@
-// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -78,6 +78,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ProductPostfixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPostfixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductPostfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
@@ -137,6 +149,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
@@ -306,6 +330,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ProductPrefixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPrefixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductPrefixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
@@ -365,6 +401,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -534,6 +582,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumInfixProd(LabeledExprParser.SumInfixProdContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ProductInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductInfixAtom}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.
 	 * @param ctx the parse tree
@@ -629,6 +689,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.

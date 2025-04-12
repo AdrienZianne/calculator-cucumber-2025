@@ -1,4 +1,4 @@
-// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -52,6 +52,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductPostfixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductPostfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
@@ -86,6 +93,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
@@ -185,6 +199,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductPrefixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductPrefixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
@@ -219,6 +240,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -318,6 +346,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumInfixProd(LabeledExprParser.SumInfixProdContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductInfixAtom}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.
 	 * @param ctx the parse tree
@@ -373,6 +408,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
