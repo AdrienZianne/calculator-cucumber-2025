@@ -127,6 +127,7 @@ number: rational                            #NumberRational // Placed first in o
       | constant                            #NumberContant
       | random                              #NumberRandom
       | '-' number                          #NumberNegation // In case someone wants the negative value of a number
+      | number ENOTATION                    #NumberENotation
       ;
 
 random : 'rand_int' '(' INT ')'                         #RandomInt
@@ -148,6 +149,7 @@ ADD :   '+' ;
 SUB :   '-' ;
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers
+ENOTATION : ('E'|'e') INT;
 FLOAT :   [0-9]+ '.' [0-9]* ;         // match real
 NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace

@@ -341,6 +341,23 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitNumberENotation(LabeledExprParser.NumberENotationContext ctx) {
+        String powerOfVal = ctx.getChild(1).getText().substring(1);
+
+        // We use the binary operation to deal with any errors there.
+        // Since it isn't the parser's role.
+        MyNumber powerOf = BinaryOperation.op(MyInteger.valueOf(10),
+                                              MyInteger.valueOf(new BigInteger(powerOfVal)),
+                                              Exponent::new);
+
+        MyNumber toPower = (MyNumber) visit(ctx.getChild(0));
+
+        return BinaryOperation.op(toPower, powerOf, Times::new);
+    }
+
+    /* __________________________________ RANDOM NUMBER _______________________________ */
+
+    @Override
     public Expression visitRandomInt(LabeledExprParser.RandomIntContext ctx) {
         return RandomGenerator.genInt(new BigInteger(ctx.INT().getText()));
     }

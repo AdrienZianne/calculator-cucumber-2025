@@ -2,6 +2,7 @@ package calculator.operation.binary;
 
 import calculator.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exponent extends BinaryOperation {

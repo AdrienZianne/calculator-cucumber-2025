@@ -846,6 +846,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberRational}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -857,18 +869,6 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberRational(LabeledExprParser.NumberRationalContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code NumberInt}
-	 * labeled alternative in {@link LabeledExprParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void enterNumberInt(LabeledExprParser.NumberIntContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code NumberInt}
-	 * labeled alternative in {@link LabeledExprParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void exitNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NumberReal}
 	 * labeled alternative in {@link LabeledExprParser#number}.
@@ -882,17 +882,29 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberReal(LabeledExprParser.NumberRealContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberContant}
+	 * Enter a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumberContant(LabeledExprParser.NumberContantContext ctx);
+	void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NumberContant}
+	 * Exit a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberENotation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberENotation(LabeledExprParser.NumberENotationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberENotation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberENotation(LabeledExprParser.NumberENotationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NumberRandom}
 	 * labeled alternative in {@link LabeledExprParser#number}.
@@ -906,17 +918,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberRandom(LabeledExprParser.NumberRandomContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberNegation}
+	 * Enter a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	void enterNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NumberNegation}
+	 * Exit a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	void exitNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code RandomInt}
 	 * labeled alternative in {@link LabeledExprParser#random}.

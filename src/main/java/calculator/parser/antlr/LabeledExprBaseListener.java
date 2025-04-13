@@ -857,6 +857,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -864,18 +876,6 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -893,13 +893,25 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	@Override public void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	@Override public void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberENotation(LabeledExprParser.NumberENotationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberENotation(LabeledExprParser.NumberENotationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -917,13 +929,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	@Override public void exitNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
