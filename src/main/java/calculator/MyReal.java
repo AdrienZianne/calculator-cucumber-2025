@@ -30,6 +30,8 @@ public class MyReal extends MyNumber {
         return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
     }
 
+    public static MyReal toReal(MyInteger i){ return new MyReal(i.getValue().doubleValue()); }
+
     public MyReal(BigDecimal value) {
         this.value = value.setScale(PRECISION, ROUNDING_MODE);
     }

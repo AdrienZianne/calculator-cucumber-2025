@@ -5,7 +5,7 @@ import calculator.*;
 import java.util.List;
 
 public class Exponent extends BinaryOperation {
-    static String SqrtNotImplementedMessage = "The sqrt operation was not yet implemented";
+    static String sqrtNotImplementedMessage = "The sqrt operation was not yet implemented";
 
     public Exponent(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
@@ -25,7 +25,7 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyInteger l, MyRational r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyReal l, MyReal r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
@@ -58,18 +58,18 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyReal l, MyRational r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
-        return null;
+        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
@@ -81,11 +81,12 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyComplex l, MyRational r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
+        // (a/b)^c = (a^c)/(b^c)
         MyNumber num = op(l.getNumDenomPair().a, r);
         MyNumber denom = op(l.getNumDenomPair().b, r);
         return BinaryOperation.op(num, denom, Divides::new);
@@ -94,7 +95,7 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyRational l, MyReal r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 
     @Override
@@ -105,6 +106,6 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyRational l, MyRational r) {
         // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, SqrtNotImplementedMessage);
+        return new MyErrorNumber(this, sqrtNotImplementedMessage);
     }
 }

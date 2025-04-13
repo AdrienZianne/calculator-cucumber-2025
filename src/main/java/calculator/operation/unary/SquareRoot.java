@@ -7,11 +7,25 @@ import calculator.operation.binary.Times;
 
 import java.math.MathContext;
 
+/**
+ * A class used to represent the SquareRoot operation on a number.
+ * Let {@code x} be our expression, the operation will result in {@code sqrt(x)}.
+ */
 public class SquareRoot extends UnaryOperation {
+    /**
+     * The default constructor of the {@link SquareRoot} class.
+     * @param e An expression to apply the sqrt operation to.
+     */
     public SquareRoot(Expression e) throws IllegalConstruction {
         this(e, null);
     }
 
+
+    /**
+     * A constructor of the {@link SquareRoot} class.
+     * @param e An expression to apply the sqrt operation.
+     * @param n The notation to display this operation with.
+     */
     public SquareRoot(Expression e, Notation n) throws IllegalConstruction {
         super(e, n);
         symbol = "sqrt";
@@ -24,6 +38,11 @@ public class SquareRoot extends UnaryOperation {
 
     @Override
     public MyNumber op(MyReal r) {
+        if (r.getSign() < 0)
+        {
+            // sqrt(-a) = sqrt(a * i^2) = sqrt(a) * i
+            return MyComplex.create(ConstantNumber.ZERO, op(UnaryOperation.op(r, Negation::new)));
+        }
         return new MyReal(r.getValue().sqrt(new MathContext(MyReal.PRECISION)));
     }
 
@@ -38,6 +57,6 @@ public class SquareRoot extends UnaryOperation {
 
     @Override
     public MyNumber op(MyComplex c) {
-        return new MyErrorNumber(this, "Complex operations are not supported by the square root operation.");
+        return new MyErrorNumber(this, "Complex operations are not supported by the sqrt operation.");
     }
 }
