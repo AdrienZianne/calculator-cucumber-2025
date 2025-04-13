@@ -149,7 +149,7 @@ ADD :   '+' ;
 SUB :   '-' ;
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers
-ENOTATION : ('E'|'e') INT;
+ENOTATION : ('E'|'e') '-'? INT;
 FLOAT :   [0-9]+ '.' [0-9]* ;         // match real
 NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace

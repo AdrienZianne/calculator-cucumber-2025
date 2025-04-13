@@ -1,6 +1,8 @@
 package calculator.operation.binary;
 
 import calculator.*;
+import calculator.operation.unary.Negation;
+import calculator.operation.unary.UnaryOperation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,12 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) {
+        if (r.getSign() < 0)
+        {
+            // a^(-b) = 1/(a^b)
+            MyNumber negationR = UnaryOperation.op(r, Negation::new);
+            return BinaryOperation.op(ConstantNumber.ONE, op(l, negationR), Divides::new);
+        }
         return MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
     }
 
