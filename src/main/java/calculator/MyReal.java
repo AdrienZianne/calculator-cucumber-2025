@@ -31,7 +31,9 @@ public class MyReal extends MyNumber {
         return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
     }
 
-    public static MyReal toReal(MyInteger i){ return new MyReal(i.getValue().doubleValue()); }
+    public static MyReal toReal(MyInteger i){
+        return new MyReal(new BigDecimal(i.getValue()));
+    }
 
     public MyReal(BigDecimal value) {
         this.value = value.setScale(PRECISION, ROUNDING_MODE);
@@ -84,12 +86,41 @@ public class MyReal extends MyNumber {
      * Checks if the value held can be stored inside a regular int value.
      * @return true if the two following condition are met :
      *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low precision).
-     *  2. The value is between {@code Integer.MAX_VALUE} and {@code Integer.MIN_VALUE}.
+     *  2. The value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}.
      *  false otherwise.
      */
     public boolean isInt() {
-        return value.stripTrailingZeros().scale() <= 0
-           && (value.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE)) <= 0
-                && value.compareTo(BigDecimal.valueOf(Integer.MIN_VALUE)) >= 0);
+        return  value.stripTrailingZeros().scale() <= 0
+                && withinBounds(BigDecimal.valueOf(Integer.MIN_VALUE), BigDecimal.valueOf(Integer.MAX_VALUE));
+    }
+
+
+    /**
+     * Checks if the value held can be stored inside a regular long value.
+     * @return true if the two following condition are met :
+     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low precision).
+     *  2. The value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}.
+     *  false otherwise.
+     */
+    public boolean isLong() {
+        return  value.stripTrailingZeros().scale() <= 0
+                && withinBounds(BigDecimal.valueOf(Long.MIN_VALUE), BigDecimal.valueOf(Long.MAX_VALUE));
+    }
+
+    /**
+     * Checks if the value held can be stored inside a regular double value.
+     * @return true if the following condition is met :
+     *  * The value is between {@code Double.MIN_VALUE} and {@code Double.MAX_VALUE}.
+     *  false otherwise.
+     */
+    public boolean isDouble() {
+        return withinBounds(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
+    }
+
+
+    private boolean withinBounds(BigDecimal min, BigDecimal max)
+    {
+        return value.compareTo(max) <= 0
+                && value.compareTo(min) >= 0;
     }
 }

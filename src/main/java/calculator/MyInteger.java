@@ -71,7 +71,7 @@ public class MyInteger extends MyNumber
 
     /**
      * Checks if the value held can be stored inside a regular int value.
-     * @return true if the value is between {@code Integer.MAX_VALUE} and {@code Integer.MIN_VALUE}, false otherwise.
+     * @return true if the value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}. false otherwise.
      */
     public boolean isInt() {
         return value.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) <= 0
