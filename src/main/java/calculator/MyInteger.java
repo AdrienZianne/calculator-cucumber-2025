@@ -5,6 +5,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
 
+/**
+ * Represent an integer value.
+ */
 public class MyInteger extends MyNumber
 {
     private final BigInteger value;
@@ -18,11 +21,26 @@ public class MyInteger extends MyNumber
         this.value = BigInteger.valueOf(v);
     }
 
+    /**
+     * The default constructor of the {@link MyInteger} class
+     * @param v The value to store in this instance.
+     */
     public MyInteger(BigInteger v) {
         this.value = v;
     }
 
+    /**
+     * Creates a {@link MyInteger} using a {@link BigInteger} instance.
+     * @param v The value to store in this instance
+     * @return The created instance.
+     */
     public static MyInteger valueOf(BigInteger v) {return new MyInteger(v);}
+
+    /**
+     * Creates a {@link MyInteger} using a simple integer.
+     * @param v The value to store in this instance.
+     * @return The created instance.
+     */
     public static MyInteger valueOf(Integer v) {return new MyInteger(v);}
 
     @Override
@@ -30,6 +48,10 @@ public class MyInteger extends MyNumber
         return getValue();
     }
 
+    /**
+     * Gets the stored value.
+     * @return The value stored in this instance.
+     */
     public BigInteger getValue()
     {
         return value;

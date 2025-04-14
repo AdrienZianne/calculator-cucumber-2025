@@ -7,6 +7,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
 
+/**
+ * Represents a real value. Using a fixed PRECISION and ROUNDING_MODE.
+ */
 public class MyReal extends MyNumber {
 
     public static int PRECISION = 5;
@@ -14,36 +17,72 @@ public class MyReal extends MyNumber {
 
     private final BigDecimal value;
 
+    /**
+     * The default constructor of the {@link MyReal} class.
+     * @param value The value to store in this instance.
+     */
     public MyReal(double value) {
         this.value = BigDecimal.valueOf(value).setScale(PRECISION, ROUNDING_MODE);
     }
 
+    /**
+     * The constructor of the {@link MyReal} class.
+     * @param value The value to parse using a {@link BigDecimal} constructor that takes as an input a {@link String} instance.
+     */
     public MyReal(String value) {
         this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
     }
 
+    /**
+     * A constructor of the {@link MyReal} class.
+     * @param value The value to store in this instance.
+     */
+    public MyReal(BigDecimal value) {
+        this.value = value.setScale(PRECISION, ROUNDING_MODE);
+    }
+
+    /**
+     * Creates a {@link MyReal} using a double value.
+     * @param value The value to turn into a {@link MyReal} instance.
+     * @return The created instance.
+     */
     public static MyReal valueOf(double value) {
         return new MyReal(value);
     }
+
+    /**
+     * Turns a {@link MyRational} into a real value.
+     * Beware that this can cause, some information to be lost, depending on the given PRECISION
+     * and ROUNDING_MODE.
+     * @param r The rational to turn into a real value.
+     * @return The real value created.
+     */
     public static MyReal toReal(MyRational r) {
         BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
         BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
         return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
     }
 
+
+    /**
+     * Turns a {@link MyInteger} into a real value. No information will be lost in the traduction.
+     * @param i The integer to turn into a real value.
+     * @return The real value created.
+     */
     public static MyReal toReal(MyInteger i){
         return new MyReal(new BigDecimal(i.getValue()));
     }
 
-    public MyReal(BigDecimal value) {
-        this.value = value.setScale(PRECISION, ROUNDING_MODE);
-    }
 
     @Override
     public Object getObjectValue() {
         return getValue();
     }
 
+    /**
+     * Gets the value stored inside this instance
+     * @return The {@link BigDecimal} instance stored inside this instance.
+     */
     public BigDecimal getValue() {
         return value;
     }
@@ -117,7 +156,12 @@ public class MyReal extends MyNumber {
         return withinBounds(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
     }
 
-
+    /**
+     * Checks if the given value is within the bounds
+     * @param min The min value of the bound
+     * @param max The max value of the bound
+     * @return if the value is part of [min, max]
+     */
     private boolean withinBounds(BigDecimal min, BigDecimal max)
     {
         return value.compareTo(max) <= 0
