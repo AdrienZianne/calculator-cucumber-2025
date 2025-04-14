@@ -1,6 +1,7 @@
 package calculator;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -77,5 +78,18 @@ public class MyReal extends MyNumber {
     @Override
     public int getSign() {
         return value.signum();
+    }
+
+    /**
+     * Checks if the value held can be stored inside a regular int value.
+     * @return true if the two following condition are met :
+     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low precision).
+     *  2. The value is between {@code Integer.MAX_VALUE} and {@code Integer.MIN_VALUE}.
+     *  false otherwise.
+     */
+    public boolean isInt() {
+        return value.stripTrailingZeros().scale() <= 0
+           && (value.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE)) <= 0
+                && value.compareTo(BigDecimal.valueOf(Integer.MIN_VALUE)) >= 0);
     }
 }

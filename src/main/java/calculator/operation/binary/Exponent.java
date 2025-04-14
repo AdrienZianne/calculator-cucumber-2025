@@ -4,7 +4,6 @@ import calculator.*;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Exponent extends BinaryOperation {
@@ -23,18 +22,20 @@ public class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyInteger l, MyInteger r) {
         if (r.getSign() < 0)
-        {
-            // a^(-b) = 1/(a^b)
-            MyNumber negationR = UnaryOperation.op(r, Negation::new);
-            return BinaryOperation.op(ConstantNumber.ONE, op(l, negationR), Divides::new);
-        }
+            return inversePower(l,r);
+        if (!r.isInt())
+            return new MyErrorNumber(this,"The value of the exponent must be " +
+                "a value contained between : " + Integer.MAX_VALUE + " and " + Integer.MIN_VALUE);
         return MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        // l^r
+        // Change r to rational : a/b
+        // = l^(a/b)
+        MyNumber rat = MyRational.toRational(r);
+        return op(l, rat);
     }
 
     @Override
@@ -44,19 +45,26 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        return rationalPower(l,r);
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) {
+        // Check if r is negative
+        if (r.getSign() < 0)
+            return inversePower(l,r);
+
+        if (!r.isInt())
+                return new MyErrorNumber(this,"The value of the exponent must be " +
+                        "a value contained between : " + Integer.MAX_VALUE + " and " + Integer.MIN_VALUE);
+
         return new MyReal(l.getValue().pow(r.getValue().intValue()));
     }
 
     @Override
     public MyNumber op(MyReal l, MyReal r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        MyNumber rat = MyRational.toRational(r);
+        return op(l, rat);
     }
 
     @Override
@@ -66,8 +74,7 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyRational r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        return rationalPower(l, r);
     }
 
     @Override
@@ -77,20 +84,17 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
     }
 
     @Override
     public MyNumber op(MyComplex l, MyComplex r) {
-        // TODO : add later after sqrt operation
         return new MyErrorNumber(this, "The complex exponent was not implemented");
     }
 
     @Override
     public MyNumber op(MyComplex l, MyRational r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
     }
 
     @Override
@@ -103,8 +107,8 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyReal r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        MyNumber rat = MyRational.toRational(r);
+        return op(l, rat);
     }
 
     @Override
@@ -114,7 +118,37 @@ public class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyRational r) {
-        // TODO : add later after sqrt operation
-        return new MyErrorNumber(this, sqrtNotImplementedMessage);
+        // (a/b)^(c/d) = (a^(c/d))/(b^(c/d))
+        MyNumber num = op(l.getNumDenomPair().a, r);
+        MyNumber denom = op(l.getNumDenomPair().b, r);
+        return BinaryOperation.op(num, denom, Divides::new);
+    }
+
+
+    /**
+     * Let the following equation {@code a^(-b)}. Then the following equation will be returned {@code 1/(a^b)}
+     * @param a The number to power.
+     * @param n The exponent of {@code a} that is negative. In the above example, {@code n = -b}.
+     * @return The result of {@code a^n}.
+     */
+    private MyNumber inversePower(MyNumber a, MyNumber n) {
+        // a^(-b) = 1/(a^b)
+        MyNumber negationR = UnaryOperation.op(n, Negation::new);
+        return BinaryOperation.op(ConstantNumber.ONE, op(a, negationR), Divides::new);
+    }
+
+    /**
+     * Let the following equation be {@code x^(a/b)}. Then the following equation will be returned {@code root(x^a,b)}.
+     * @param x The number to power.
+     * @param r The exponent of {@code x} that is a rational. In the above example, {@code x = a/b}.
+     * @return The result of {@code l^r}.
+     */
+    private MyNumber rationalPower(MyNumber x, MyRational r) {
+        // Check if r is negative
+        if (r.getSign() < 0)
+            return inversePower(x,r);
+        // l^(a/b) = root(x^a, b)
+        MyNumber lPowerA = op(x, r.getNumDenomPair().a);
+        return BinaryOperation.op(lPowerA, r.getNumDenomPair().b, NthRoot::new);
     }
 }

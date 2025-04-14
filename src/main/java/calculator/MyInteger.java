@@ -67,4 +67,14 @@ public class MyInteger extends MyNumber
     public int getSign() {
         return value.signum();
     }
+
+
+    /**
+     * Checks if the value held can be stored inside a regular int value.
+     * @return true if the value is between {@code Integer.MAX_VALUE} and {@code Integer.MIN_VALUE}, false otherwise.
+     */
+    public boolean isInt() {
+        return value.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) <= 0
+                && value.compareTo(BigInteger.valueOf(Integer.MIN_VALUE)) >= 0;
+    }
 }
