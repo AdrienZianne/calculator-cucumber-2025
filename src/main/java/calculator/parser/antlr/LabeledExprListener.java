@@ -78,6 +78,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SumPostfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumPostfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductPostfixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
@@ -330,6 +342,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SumPrefixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumPrefixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductPrefixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
@@ -545,6 +569,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SumInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.

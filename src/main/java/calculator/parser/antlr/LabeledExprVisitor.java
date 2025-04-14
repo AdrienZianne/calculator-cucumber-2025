@@ -52,6 +52,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SumPostfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductPostfixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
 	 * @param ctx the parse tree
@@ -199,6 +206,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SumPrefixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductPrefixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
@@ -324,6 +338,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.

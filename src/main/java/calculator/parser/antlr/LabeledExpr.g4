@@ -17,6 +17,7 @@ setting : 'seed' '(' INT ')'                             #SettingSetSeed
 sumPostfix : productPostfix                                     #SumPostfixProd
            | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
            | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
+           | '('atomPostfix (','? atomPostfix)* ')' 'root'      #SumPostfixRoot
            ;
 
 productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '^'   #ProductPostfixExp
@@ -48,9 +49,10 @@ atomPostfix : sumPostfix                #AtomPostfixSum
 
 
 /* PREFIX NOTATION */
-sumPrefix : productPrefix                               #SumPrefixProd
-           | '+' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixSum
-           | '-' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixDiff
+sumPrefix : productPrefix                                   #SumPrefixProd
+           | '+' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixSum
+           | '-' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixDiff
+           | 'root' '('atomPrefix (','? atomPrefix)* ')'    #SumPrefixRoot
            ;
 
 productPrefix   : '^' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
@@ -80,9 +82,10 @@ atomPrefix  : sumPrefix         #AtomPrefixSum
             ;
 
 /* INFIX NOTATION */
-sumInfix : productInfix             #SumInfixProd
-    | sumInfix '+' productInfix     #SumInfixAdd
-    | sumInfix '-' productInfix     #SumInfixDiff
+sumInfix : productInfix                             #SumInfixProd
+    | sumInfix '+' productInfix                     #SumInfixAdd
+    | sumInfix '-' productInfix                     #SumInfixDiff
+    | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
     ;
 
 productInfix: atomInfix             #ProductInfixAtom

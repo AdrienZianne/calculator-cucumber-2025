@@ -56,6 +56,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
+    }
+
+    @Override
     public Expression visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.INFIX));
     }
@@ -138,6 +143,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return ctx.getChild(1).accept(this);
     }
 
+
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -148,6 +154,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.PREFIX));
     }
 
     @Override
@@ -232,6 +243,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.POSTFIX));
     }
 
     @Override

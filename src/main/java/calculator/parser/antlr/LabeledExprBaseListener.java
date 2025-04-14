@@ -89,6 +89,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -341,6 +353,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -552,6 +576,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
