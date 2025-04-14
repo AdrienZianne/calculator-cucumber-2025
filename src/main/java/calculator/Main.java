@@ -3,8 +3,6 @@ package calculator;
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
 import java.io.IOException;
-import java.util.List;
-import calculator.parser.CalculatorParser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -20,8 +18,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author tommens
  */
 @SpringBootApplication(scanBasePackages = "io")
-@ComponentScan({"io"})
-@EntityScan({"io"})
+@ComponentScan({ "io" })
+@EntityScan({ "io" })
 public class Main {
 
 	/**
@@ -46,5 +44,4 @@ public class Main {
 					exception.getMessage());
 		}
 	}
-
 }
