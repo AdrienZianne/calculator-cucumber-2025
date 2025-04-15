@@ -31,6 +31,62 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SettingGetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingSetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingGetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingSetScNotInt}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingSetScNotBool}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingGetScNot}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingSetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingGetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree

@@ -7,7 +7,6 @@ import calculator.operation.unary.UnaryOperation;
 import java.util.List;
 
 public class Exponent extends BinaryOperation {
-    static String sqrtNotImplementedMessage = "The sqrt operation was not yet implemented";
 
     public Exponent(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);

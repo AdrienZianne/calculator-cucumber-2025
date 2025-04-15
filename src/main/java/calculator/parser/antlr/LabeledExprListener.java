@@ -42,6 +42,102 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingGetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetScNotInt}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetScNotInt}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetScNotBool}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetScNotBool}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetScNot}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetScNot}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree

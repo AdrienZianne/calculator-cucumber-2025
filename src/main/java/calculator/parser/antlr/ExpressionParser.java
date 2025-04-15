@@ -12,6 +12,7 @@ import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
@@ -42,6 +43,25 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) {
         RandomGenerator.resetSeed();
         return null;
+    }
+
+    public Expression visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) {
+        if (RandomGenerator.getSeed() == null) {
+            System.out.println("No seed is currently defined.");
+            return null;
+        }
+        return MyInteger.valueOf(RandomGenerator.getSeed());
+    }
+
+    @Override
+    public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
+        Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
+        return null;
+    }
+
+    private boolean parseBool(ParseTree ctx)
+    {
+        return Boolean.parseBoolean(ctx.getText());
     }
 
     /* _________________________________ INFIX _________________________________ */

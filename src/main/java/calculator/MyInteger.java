@@ -72,12 +72,13 @@ public class MyInteger extends MyNumber
     @Override
     public String toString() {
         // Change this with settings !!!!
-        if (true)
+        if (Configuration.usesScientificNotation())
         {
-            return value.toString();
+            NumberFormat scf = new DecimalFormat("0." + "#".repeat(Configuration.getScientificNotationPrecision()) + "E0");
+            return scf.format(value);
         }
-        NumberFormat scf = new DecimalFormat("0.######E0");
-        return scf.format(value);
+        // #000 means that we expect four digits (before the dot) and after adding another we shift everything
+        return value.toString();
     }
 
     @Override

@@ -3,7 +3,7 @@ package calculator;
 /**
  * Class used to store popular constant values.
  */
-public class ConstantNumber {
+public final class ConstantNumber {
     /**
      * Represents PI as an instance of the {@link MyReal} class : 3.14159...
      * The precision depends on the given precision of the {@link MyReal} class.

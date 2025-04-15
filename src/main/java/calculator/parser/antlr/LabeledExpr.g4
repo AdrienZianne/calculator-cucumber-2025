@@ -10,7 +10,16 @@ expr: ( setting
 
 setting : 'seed' '(' INT ')'                             #SettingSetSeed
         | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
+        | 'seed'                                         #SettingGetSeed
+        | 'realPre' '(' INT ')'                          #SettingSetRealPrecision
+        | 'realPre'                                      #SettingGetRealPrecision
+        | 'scNot' '(' INT ')'                            #SettingSetScNotInt
+        | 'scNot' '(' BOOL ')'                           #SettingSetScNotBool
+        | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
+        | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg
+        | 'useDeg'                                       #SettingGetUseDeg
         ;
+
 
 /* POSTFIX NOTATION */
 
@@ -150,6 +159,7 @@ MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
 ADD :   '+' ;
 SUB :   '-' ;
+BOOL :   'true'|'false' ;                      // match booleans
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers
 ENOTATION : ('E'|'e') '-'? INT;
