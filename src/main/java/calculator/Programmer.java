@@ -151,9 +151,13 @@ public class Programmer {
         }
 
         String res = "";
-        while (oldRealNum > 0) {
-            res = chars.charAt(oldRealNum % newBase) + res;
-            oldRealNum = (int) (oldRealNum / newBase);
+        if (oldRealNum == 0) {
+            res = "0";
+        } else {
+            while (oldRealNum > 0) {
+                res = chars.charAt(oldRealNum % newBase) + res;
+                oldRealNum = (int) (oldRealNum / newBase);
+            }
         }
 
         return res;
