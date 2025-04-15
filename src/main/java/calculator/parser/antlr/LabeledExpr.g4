@@ -111,7 +111,7 @@ atomInfix: unaryInfix           #AtomInfixUnary
 unaryInfix: trigoInfix                                   #UnaryInfixTrigo
           | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
           | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
-          | ('-' complexNumber | '-' '(' sumInfix ')')   #UnaryInfixNegation
+          |  '-' '(' sumInfix ')'   #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
