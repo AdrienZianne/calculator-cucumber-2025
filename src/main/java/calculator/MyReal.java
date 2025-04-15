@@ -24,6 +24,7 @@ public class MyReal extends MyNumber {
     public static MyReal valueOf(double value) {
         return new MyReal(value);
     }
+
     public static MyReal toReal(MyRational r) {
         BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
         BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
@@ -59,6 +60,9 @@ public class MyReal extends MyNumber {
     @Override
     public String toString() {
         // Change this with settings !
+        if (true) {
+            return value.toString();
+        }
         NumberFormat scF = new DecimalFormat("0.###E0");
         return scF.format(value);
     }

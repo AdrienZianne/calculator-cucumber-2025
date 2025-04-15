@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.Collections;
+
 /**
  * Programmer
  * This class represents numbers of different bases.
@@ -10,18 +12,29 @@ package calculator;
 public class Programmer {
     /**
      * The list of characters used to represent numbers.
+     * Bases from 1 to 32 inclusive are permitted.
      */
-    private static String chars = "0123456789abcdefghijklmnopqrst";
+    private static String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
 
     /**
      * The value on a certain basis.
      */
-    private String num = "";
+    public final String realNum;
 
     /**
      * The number base.
      */
-    private int base = 0;
+    public final int base;
+
+    /**
+     * The binary representation of numbers.
+     */
+    public final String binaryNum;
+
+    /**
+     * The prefix used for the known bases, i.e. binary, octal and hexadecimal.
+     */
+    public final String prefix;
 
     /**
      * The class constructor. It checks that the value only uses characters
@@ -32,25 +45,15 @@ public class Programmer {
      */
     public Programmer(String num, int base) {
         if (checkBase(num, base)) {
-            this.num = num;
+            this.realNum = num.toUpperCase();
             this.base = base;
-        }
-    }
-
-    /**
-     * The class constructor. It checks that the value only uses characters
-     * corresponding to its base.
-     * 
-     * @param numBase Value and base written as a single string with an underscore
-     *                to separate them.
-     */
-    public Programmer(String numBase) {
-        String[] parse = numBase.split("_");
-        if (parse.length == 2) {
-            if (checkBase(parse[0], Integer.parseInt(parse[1]))) {
-                this.num = parse[0];
-                this.base = Integer.parseInt(parse[1]);
-            }
+            this.binaryNum = conversionToBaseN(2);
+            this.prefix = getPrefix();
+        } else {
+            this.realNum = "";
+            this.base = 0;
+            this.binaryNum = "";
+            this.prefix = null;
         }
     }
 
@@ -72,39 +75,23 @@ public class Programmer {
     }
 
     /**
-     * Create a value from negation by inverting each of the values, 0->1 and 1->0.
+     * Method for finding the prefix to use according to the base value.
      * 
-     * @return The negation of value.
+     * @return The prefix according to the base.
      */
-    public Programmer negation() {
-        String res = "";
-        for (int i = 0; i < num.length(); i++) {
-            if (logicValue(i)) {
-                res = res + "0";
-            } else {
-
-                res = res + "1";
-            }
+    private String getPrefix() {
+        switch (base) {
+            case 2:
+                return "0b";
+            case 8:
+                return "0o";
+            case 10:
+                return "";
+            case 16:
+                return "0x";
+            default:
+                return null;
         }
-        return new Programmer(res, 2);
-    }
-
-    /**
-     * Method for creating a value from the current value by cutting off the
-     * beginning of a certain size.
-     * 
-     * @param size The size of the remaining value. If the size is negative, the
-     *             same number is returned.
-     * @return The truncated value
-     */
-    public Programmer trunk(int size) {
-        if (size >= num.length()) {
-            return new Programmer("", 2);
-        }
-        if (size <= 0) {
-            return new Programmer(num, 2);
-        }
-        return new Programmer(num.substring(num.length() - size), 2);
     }
 
     /**
@@ -114,10 +101,74 @@ public class Programmer {
      * @return The truth value of the symbol.
      */
     public boolean logicValue(int index) {
-        if (index >= num.length()) {
+        if (index >= binaryNum.length()) {
             return false;
         }
-        return num.charAt(num.length() - index - 1) == '1';
+        return binaryNum.charAt(binaryNum.length() - index - 1) == '1';
+    }
+
+    /**
+     * Method for converting any number from any base to base 10.
+     * 
+     * @return A value in base 10.
+     */
+    private String conversionToBase10() {
+        if (base == 10) {
+            return realNum;
+        }
+        if (base == 1) {
+            return "" + realNum.length();
+        }
+
+        double newRealNum = 0.0;
+        for (int i = realNum.length() - 1; i >= 0; i--) {
+            double digit = ((int) chars.indexOf(realNum.charAt(i)) * Math.pow(base, realNum.length() - i - 1));
+            newRealNum = newRealNum + digit;
+        }
+
+        return "" + ((int) newRealNum);
+    }
+
+    /**
+     * Method of converting any number from any base to a requested base.
+     * This method uses base-10 notation.
+     * 
+     * @param newBase The new base.
+     * @return The new value according to the new base.
+     */
+    private String conversionToBaseN(int newBase) {
+        if (base == newBase) {
+            return realNum;
+        }
+        if (newBase == 10) {
+            return conversionToBase10();
+        }
+
+        int oldRealNum = Integer.parseInt(conversionToBase10());
+
+        if (newBase == 1) {
+            return String.join("", Collections.nCopies(oldRealNum, "0"));
+        }
+
+        String res = "";
+        while (oldRealNum > 0) {
+            res = chars.charAt(oldRealNum % newBase) + res;
+            oldRealNum = (int) (oldRealNum / newBase);
+        }
+
+        return res;
+    }
+
+    /**
+     * Method used to create a Programmer object using the current value and a new
+     * base.
+     * 
+     * @param newBase The new base.
+     * 
+     * @return A Programmer object with the converted value in the new base.
+     */
+    public Programmer newBase(int newBase) {
+        return new Programmer(conversionToBaseN(newBase), newBase);
     }
 
     /**
@@ -126,25 +177,7 @@ public class Programmer {
      * @return The size of the value.
      */
     public int length() {
-        return num.length();
-    }
-
-    /**
-     * Method that returns a copy of the value.
-     * 
-     * @return The value.
-     */
-    public String getNum() {
-        return new String(num);
-    }
-
-    /**
-     * Method that returns the base used for the value.
-     * 
-     * @return The base.
-     */
-    public int getBase() {
-        return base;
+        return binaryNum.length();
     }
 
     /**
@@ -154,10 +187,13 @@ public class Programmer {
      * @return True if both values are equivalent, false otherwise.
      */
     public boolean equals(Programmer n) {
-        return num.equals(n.getNum());
+        return binaryNum.equals(n.binaryNum);
     }
 
     public String toString() {
-        return num + "_" + base;
+        if (prefix != null) {
+            return prefix + realNum;
+        }
+        return realNum + "_" + base;
     }
 }

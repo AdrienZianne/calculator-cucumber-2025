@@ -37,15 +37,15 @@ public class ProgrammerOperation {
      *         parameter.
      */
     private static Programmer applyLogicOperation(Programmer l, Programmer r, LogicOperation operation) {
-        String res = "";
-        for (int i = 0; i < Math.max(l.length(), r.length()); i++) {
+        String newValue = "";
+        for (int i = Math.max(l.length(), r.length()) - 1; i >= 0; i--) {
             if (operation.apply(l.logicValue(i), r.logicValue(i))) {
-                res += "1";
+                newValue += "1";
             } else {
-                res += "0";
+                newValue += "0";
             }
         }
-        return new Programmer(res, 2);
+        return (new Programmer(newValue, 2)).newBase(Math.max(l.base, r.base));
     }
 
     /**
@@ -135,7 +135,10 @@ public class ProgrammerOperation {
      * @return A new value.
      */
     public static Programmer shiftLeft(Programmer n, int shift) {
-        return new Programmer(n.getNum() + String.join("", Collections.nCopies(shift, "0")), 2).trunk(n.length());
+        return ProgrammerOperation
+                .trunk(new Programmer(n.binaryNum + String.join("", Collections.nCopies(shift, "0")), 2),
+                        n.length())
+                .newBase(n.base);
     }
 
     /**
@@ -148,7 +151,50 @@ public class ProgrammerOperation {
      */
     public static Programmer shiftRight(Programmer n, int shift) {
         int length = n.length();
-        String res = String.join("", Collections.nCopies(shift, "0")) + n.getNum();
-        return new Programmer(res.substring(0, length), 2);
+        String res = String.join("", Collections.nCopies(shift, "0")) + n.binaryNum;
+        return new Programmer(res.substring(0, length), 2)
+                .newBase(n.base);
+    }
+
+    /**
+     * Create a value from negation by inverting each of the values, 0->1 and 1->0.
+     * 
+     * @return The negation of value.
+     */
+    public static Programmer negation(Programmer n) {
+        String newValue = "";
+        for (int i = n.length() - 1; i >= 0; i--) {
+            if (n.logicValue(i)) {
+                newValue = newValue + "0";
+            } else {
+                newValue = newValue + "1";
+            }
+        }
+
+        Programmer res = new Programmer(newValue, 2)
+                .newBase(n.base);
+        return res;
+    }
+
+    /**
+     * Method for creating a value from the current value by cutting off the
+     * beginning of a certain size.
+     * 
+     * @param size The size of the remaining value. If the size is negative, the
+     *             same number is returned.
+     * @return The truncated value
+     */
+    public static Programmer trunk(Programmer n, int size) {
+        Programmer res = null;
+        if (size >= n.length()) {
+            res = new Programmer("", 2);
+        } else if (size <= 0) {
+            res = new Programmer(n.binaryNum, 2);
+        } else {
+
+            res = new Programmer(n.binaryNum.substring(n.length() - size), 2);
+        }
+        return res
+                .newBase(n.base);
     }
 }

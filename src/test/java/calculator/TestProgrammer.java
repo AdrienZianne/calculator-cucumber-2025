@@ -1,6 +1,8 @@
 package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import org.junit.jupiter.api.*;
 
@@ -13,26 +15,38 @@ import org.junit.jupiter.api.*;
  * {@link ProgrammerOperation}
  */
 public class TestProgrammer {
-
     /**
      * Method for testing different value constructors.
      */
-    @Test
-    void testCreateProgrammer() {
-        Programmer p = new Programmer("1010", 2);
-        assertEquals(p.getNum(), "1010");
-        assertEquals(p.getBase(), 2);
-        assertEquals(p.toString(), "1010_2");
-        p = new Programmer("1010_2");
-        assertEquals(p.toString(), "1010_2");
+    @ParameterizedTest
+    @CsvSource({
+            "00000, 1, 101, 00000_1",
+            "1010, 2, 1010, 0b1010",
+            "123, 5, 100110, 123_5",
+            "1464, 8, 1100110100, 0o1464",
+            "123, 10, 1111011, 123",
+            "1A45E, 16, 11010010001011110, 0x1A45E",
+    })
+    void testCreateProgrammer(String num, int base, String binaryNum, String string) {
+        Programmer p = new Programmer(num, base);
+        assertEquals(p.realNum, num);
+        assertEquals(p.base, base);
+        assertEquals(p.binaryNum, binaryNum);
+        assertEquals(p.toString(), string);
     }
 
     /**
      * A method for testing the truth values of the different symbols of a number.
      */
-    @Test
-    void testLogicValue() {
-        Programmer p = new Programmer("1010", 2);
+    @ParameterizedTest
+    @CsvSource({
+            "1010, 2",
+            "12, 8",
+            "10, 10",
+            "A, 16",
+    })
+    void testLogicValue(String num, int base) {
+        Programmer p = new Programmer(num, base);
         assertTrue(!p.logicValue(0));
         assertTrue(p.logicValue(1));
         assertTrue(!p.logicValue(2));
@@ -41,44 +55,52 @@ public class TestProgrammer {
     }
 
     /**
-     * Method for testing the creation of the negation of a value.
-     */
-    @Test
-    void testNegation() {
-        Programmer p = new Programmer("1010_2");
-        assertEquals(p.negation(), "0101_2");
-    }
-
-    /**
-     * Method for testing the creation of value truncation.
-     */
-    @Test
-    void testTrunk() {
-        Programmer p = new Programmer("111010_2");
-        assertEquals(p.trunk(2).toString(), "1010_2");
-        assertEquals(p.trunk(6).toString(), "_2");
-        assertEquals(p.trunk(-3).toString(), "111010_2");
-    }
-
-    /**
      * Method for testing the size of a value.
      */
-    @Test
-    void testLength() {
-        Programmer p = new Programmer("1010_2");
-        assertEquals(p.length(), "1010_2".length());
+    @ParameterizedTest
+    @CsvSource({
+            "1010, 2",
+            "12, 8",
+            "10, 10",
+            "A, 16",
+    })
+    void testLength(String num, int base) {
+        Programmer p = new Programmer(num, base);
+        assertEquals(p.length(), 4);
     }
 
     /**
      * Method for testing the comparison between two values.
      */
-    @Test
-    void testEquals() {
-        Programmer p1 = new Programmer("1010", 2);
-        Programmer p2 = new Programmer("1010_2");
-        Programmer p3 = new Programmer("0110100", 2);
+    @ParameterizedTest
+    @CsvSource({
+            "1010, 2, 12, 8",
+            "10, 10, A, 16",
+    })
+    void testEquals(String num1, int base1, String num2, int base2) {
+        Programmer p1 = new Programmer(num1, base1);
+        Programmer p2 = new Programmer(num2, base2);
+        Programmer p3 = new Programmer(num1 + "00", base1);
         assertTrue(p1.equals(p2));
         assertTrue(!p1.equals(p3));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0000000000, 1, 1010, 2",
+            "1010, 2, 1010, 2",
+            "1010, 2, 12, 8",
+            "1010, 2, 10, 10",
+            "1010, 2, A, 16",
+            "12, 8, 10, 10",
+            "12, 8, A, 16",
+            "10, 10, A, 16"
+    })
+    void testConversion(String num1, int base1, String num2, int base2) {
+        Programmer p = new Programmer(num1, base1);
+        assertTrue(p.newBase(base2).equals(new Programmer(num2, base2)));
+        p = new Programmer(num2, base2);
+        assertTrue(p.newBase(base1).equals(new Programmer(num1, base1)));
     }
 
     /**
@@ -86,17 +108,21 @@ public class TestProgrammer {
      */
     @Test
     void testOperations() {
-        Programmer p1 = new Programmer("0001010_2");
-        Programmer p2 = new Programmer("1011100_2");
-        assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0001000_2");
-        assertEquals(ProgrammerOperation.or(p1, p2).toString(), "1011110_2");
-        assertEquals(ProgrammerOperation.nand(p1, p2).toString(), "1110111_2");
-        assertEquals(ProgrammerOperation.nor(p1, p2).toString(), "0100001_2");
-        assertEquals(ProgrammerOperation.implication(p1, p2).toString(), "1111101_2");
-        assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0101001_2");
-        assertEquals(ProgrammerOperation.shiftLeft(p1, 2).toString(), "0101000_2");
-        assertEquals(ProgrammerOperation.shiftLeft(p2, 2).toString(), "1110000_2");
-        assertEquals(ProgrammerOperation.shiftRight(p1, 2).toString(), "0000010_2");
-        assertEquals(ProgrammerOperation.shiftRight(p2, 2).toString(), "0010111_2");
+        Programmer p1 = new Programmer("0001010", 2);
+        Programmer p2 = new Programmer("134", 8);
+        assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0o10");
+        assertEquals(ProgrammerOperation.or(p1, p2).toString(), "0o136");
+        assertEquals(ProgrammerOperation.nand(p1, p2).toString(), "0o167");
+        assertEquals(ProgrammerOperation.nor(p1, p2).toString(), "0o41");
+        assertEquals(ProgrammerOperation.implication(p1, p2).toString(), "0o175");
+        assertEquals(ProgrammerOperation.equivalence(p1, p2).toString(), "0o51");
+        assertEquals(ProgrammerOperation.shiftLeft(p1, 2).toString(), "0b0101000");
+        assertEquals(ProgrammerOperation.shiftLeft(p2, 2).toString(), "0o160");
+        assertEquals(ProgrammerOperation.shiftRight(p1, 2).toString(), "0b0000010");
+        assertEquals(ProgrammerOperation.shiftRight(p2, 2).toString(), "0o27");
+        assertEquals(ProgrammerOperation.negation(p1).toString(), "0b1110101");
+        assertEquals(ProgrammerOperation.trunk(p1, 4).toString(), "0b1010");
+        assertEquals(ProgrammerOperation.trunk(p1, 10).toString(), "0b");
+        assertEquals(ProgrammerOperation.trunk(p1, -3).toString(), "0b0001010");
     }
 }

@@ -5,8 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
 
-public class MyInteger extends MyNumber
-{
+public class MyInteger extends MyNumber {
     private final BigInteger value;
 
     /**
@@ -22,22 +21,27 @@ public class MyInteger extends MyNumber
         this.value = v;
     }
 
-    public static MyInteger valueOf(BigInteger v) {return new MyInteger(v);}
-    public static MyInteger valueOf(Integer v) {return new MyInteger(v);}
+    public static MyInteger valueOf(BigInteger v) {
+        return new MyInteger(v);
+    }
+
+    public static MyInteger valueOf(Integer v) {
+        return new MyInteger(v);
+    }
 
     @Override
     public Object getObjectValue() {
         return getValue();
     }
 
-    public BigInteger getValue()
-    {
+    public BigInteger getValue() {
         return value;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
         MyInteger myInteger = (MyInteger) o;
         return value.equals(myInteger.value);
     }
@@ -50,6 +54,9 @@ public class MyInteger extends MyNumber
     @Override
     public String toString() {
         // Change this with settings !!!!
+        if (true) {
+            return value.toString();
+        }
         NumberFormat scf = new DecimalFormat("0.######E0");
         return scf.format(value);
     }
