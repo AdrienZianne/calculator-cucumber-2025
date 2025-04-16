@@ -157,11 +157,11 @@ public class ProgrammerOperation {
     }
 
     /**
-     * Create a value from negation by inverting each of the values, 0->1 and 1->0.
+     * Create a value from not by inverting each of the values, 0->1 and 1->0.
      * 
-     * @return The negation of value.
+     * @return The not of value.
      */
-    public static Programmer negation(Programmer n) {
+    public static Programmer not(Programmer n) {
         String newValue = "";
         for (int i = n.length() - 1; i >= 0; i--) {
             if (n.logicValue(i)) {

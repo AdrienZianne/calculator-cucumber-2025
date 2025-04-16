@@ -120,7 +120,7 @@ public class TestProgrammer {
         assertEquals(ProgrammerOperation.shiftLeft(p2, 2).toString(), "0o160");
         assertEquals(ProgrammerOperation.shiftRight(p1, 2).toString(), "0b0000010");
         assertEquals(ProgrammerOperation.shiftRight(p2, 2).toString(), "0o27");
-        assertEquals(ProgrammerOperation.negation(p1).toString(), "0b1110101");
+        assertEquals(ProgrammerOperation.not(p1).toString(), "0b1110101");
         assertEquals(ProgrammerOperation.trunk(p1, 4).toString(), "0b1010");
         assertEquals(ProgrammerOperation.trunk(p1, 10).toString(), "0b");
         assertEquals(ProgrammerOperation.trunk(p1, -3).toString(), "0b0001010");
