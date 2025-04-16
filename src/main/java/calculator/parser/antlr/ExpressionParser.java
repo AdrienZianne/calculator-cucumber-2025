@@ -54,6 +54,22 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) {
+        try {
+            Configuration.setRealPrecision(Integer.parseInt(ctx.getChild(2).getText()));
+        }
+        catch (NumberFormatException e) {
+            System.out.println("The given value cannot be converted to an int.");
+        }
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) {
+        return MyInteger.valueOf(Configuration.getRealPrecision());
+    }
+
+    @Override
     public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
         Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
         return null;
