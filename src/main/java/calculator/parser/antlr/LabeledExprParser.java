@@ -4199,7 +4199,7 @@ public class LabeledExprParser extends Parser {
 				setState(551);
 				match(SUB);
 				setState(552);
-				number(2);
+				number(1);
 				}
 				break;
 			}
@@ -4216,7 +4216,7 @@ public class LabeledExprParser extends Parser {
 					_localctx = new NumberENotationContext(new NumberContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_number);
 					setState(555);
-					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(556);
 					match(ENOTATION);
 					}
@@ -4595,7 +4595,7 @@ public class LabeledExprParser extends Parser {
 	private boolean number_sempred(NumberContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 5:
-			return precpred(_ctx, 1);
+			return precpred(_ctx, 2);
 		}
 		return true;
 	}
@@ -4985,11 +4985,11 @@ public class LabeledExprParser extends Parser {
 		"\u0006\u0012\uffff\uffff\u0000\u0222\u022a\u0003*\u0015\u0000\u0223\u022a"+
 		"\u0005(\u0000\u0000\u0224\u022a\u0005*\u0000\u0000\u0225\u022a\u0003("+
 		"\u0014\u0000\u0226\u022a\u0003&\u0013\u0000\u0227\u0228\u0005%\u0000\u0000"+
-		"\u0228\u022a\u0003$\u0012\u0002\u0229\u0221\u0001\u0000\u0000\u0000\u0229"+
+		"\u0228\u022a\u0003$\u0012\u0001\u0229\u0221\u0001\u0000\u0000\u0000\u0229"+
 		"\u0223\u0001\u0000\u0000\u0000\u0229\u0224\u0001\u0000\u0000\u0000\u0229"+
 		"\u0225\u0001\u0000\u0000\u0000\u0229\u0226\u0001\u0000\u0000\u0000\u0229"+
 		"\u0227\u0001\u0000\u0000\u0000\u022a\u022f\u0001\u0000\u0000\u0000\u022b"+
-		"\u022c\n\u0001\u0000\u0000\u022c\u022e\u0005)\u0000\u0000\u022d\u022b"+
+		"\u022c\n\u0002\u0000\u0000\u022c\u022e\u0005)\u0000\u0000\u022d\u022b"+
 		"\u0001\u0000\u0000\u0000\u022e\u0231\u0001\u0000\u0000\u0000\u022f\u022d"+
 		"\u0001\u0000\u0000\u0000\u022f\u0230\u0001\u0000\u0000\u0000\u0230%\u0001"+
 		"\u0000\u0000\u0000\u0231\u022f\u0001\u0000\u0000\u0000\u0232\u0233\u0005"+

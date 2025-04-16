@@ -386,7 +386,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
                                               MyInteger.valueOf(new BigInteger(powerOfVal)),
                                               Exponent::new);
 
-        MyNumber toPower = (MyNumber) visit(ctx.getChild(0));
+        MyNumber toPower =  (MyNumber) visit(ctx.getChild(0));
 
         return BinaryOperation.op(toPower, powerOf, Times::new);
     }
