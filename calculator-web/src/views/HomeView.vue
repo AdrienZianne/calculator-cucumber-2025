@@ -21,18 +21,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     min-width: 100vw;
+    height: 100vh;
 }
 
-@media(min-width: 0px) and (max-width: 1366px)
+/* @media(min-width: 0px) and (max-width: 1366px)
 {
   .home{
     flex-direction: column;
-    min-width: 180vw;
     height: 50vh;
   }
   h1{
-    min-width: 180vw;
   }
   .calculator{
     margin-top: 100px;
@@ -44,15 +44,17 @@ export default {
   .calculator{
     margin-top: 200px;
   }
-}
+} */
 
 h1 {
   font-size: 30px;
   color: #333;
-  position: absolute; 
-  top: 0; 
   text-align: center;
   background-color: #deebee;
   width: 100%;
+}
+
+.calculator {
+  margin: auto;
 }
 </style>

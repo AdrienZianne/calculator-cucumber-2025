@@ -262,6 +262,7 @@ export default {
   padding: 20px;
   border-radius: 10px;  
   box-shadow: 4px 8px 19px 1px rgba(0,0,0,0.5);
+  gap: 10px;
 }
 
 textarea {
@@ -279,8 +280,10 @@ textarea {
 }
 
 .calculator-keyboard {
-  display: flex; 
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: wrap;
+  width: 100%;
 }
 
 .keyboard {
@@ -290,15 +293,23 @@ textarea {
   padding: 6px;
 }
 
+@media only screen and (max-width: 650px) {
+
+  .keyboard, .keyboard-expand {
+    width: 100%;
+  }
+}
+
 .keyboard-expand {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
+  grid-template-columns: repeat(3, 1fr); 
   grid-gap: 5px;
   padding: 6px;
   grid-auto-rows: 50px; 
 }
 
 button {
+  width: auto;
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
