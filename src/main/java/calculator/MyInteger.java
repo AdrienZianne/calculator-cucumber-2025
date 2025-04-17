@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -71,14 +72,7 @@ public class MyInteger extends MyNumber
 
     @Override
     public String toString() {
-        // Change this with settings !!!!
-        if (Configuration.usesScientificNotation())
-        {
-            NumberFormat scf = new DecimalFormat("0." + "#".repeat(Configuration.getScientificNotationPrecision()) + "E0");
-            return scf.format(value);
-        }
-        // #000 means that we expect four digits (before the dot) and after adding another we shift everything
-        return value.toString();
+        return Configuration.getNotation(new BigDecimal(value));
     }
 
     @Override

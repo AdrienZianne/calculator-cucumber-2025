@@ -5,6 +5,7 @@ package calculator.parser.antlr;
 import calculator.*;
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
+import calculator.operation.Operation;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
@@ -16,6 +17,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -72,6 +74,19 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
         Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
+        return null;
+    }
+
+
+    @Override
+    public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
+        System.out.println(Configuration.getScientificNotationPrecision());
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
+        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()), Integer.parseInt(ctx.getChild(4).getText()));
         return null;
     }
 
@@ -403,7 +418,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
                                               Exponent::new);
 
         MyNumber toPower =  (MyNumber) visit(ctx.getChild(0));
-
+        // eval the operation
         return BinaryOperation.op(toPower, powerOf, Times::new);
     }
 

@@ -43,7 +43,7 @@ class TestMyReal {
 
     @Test
     void testToString() {
-        assertEquals(BigDecimal.valueOf(value).setScale(MyReal.PRECISION, MyReal.ROUNDING_MODE).toString(),
+        assertEquals(BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(), MyReal.ROUNDING_MODE).toString(),
                     number.toString());
     }
 

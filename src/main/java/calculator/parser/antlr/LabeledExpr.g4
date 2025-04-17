@@ -13,7 +13,7 @@ setting : 'seed' '(' INT ')'                             #SettingSetSeed
         | 'seed'                                         #SettingGetSeed
         | 'realPre' '(' INT ')'                          #SettingSetRealPrecision
         | 'realPre'                                      #SettingGetRealPrecision
-        | 'scNot' '(' INT ')'                            #SettingSetScNotInt
+        | 'scNot' '(' INT ',' INT ')'                            #SettingSetScNotInt
         | 'scNot' '(' BOOL ')'                           #SettingSetScNotBool
         | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
         | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg

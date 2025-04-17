@@ -43,7 +43,7 @@ public class SquareRoot extends UnaryOperation {
             // sqrt(-a) = sqrt(a * i^2) = sqrt(a) * i
             return MyComplex.create(ConstantNumber.ZERO, op(UnaryOperation.op(r, Negation::new)));
         }
-        return new MyReal(r.getValue().sqrt(new MathContext(MyReal.PRECISION)));
+        return new MyReal(r.getValue().sqrt(new MathContext(Configuration.getRealPrecision())));
     }
 
     @Override

@@ -1,7 +1,11 @@
 package calculator;
 
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * A class used to store every static value considered as a setting. It cannot be instantiated.
@@ -50,23 +54,27 @@ public final class Configuration {
 
     /*__________________________________________________________________ Scientific Notation Options */
     private static boolean useScientificNotation = false;
-    private static int scientificNotationPrecision = 20;
+    private static int scNotationMaxLeft = 10;
+    private static int scNotationMaxRight = 10;
+
+    private static DecimalFormat eNotation = new DecimalFormat("0.###E0", new DecimalFormatSymbols(Locale.UK));
 
     /**
      * Get the current precision of the scientific notation.
      * @return The current precision.
      */
-    public static int getScientificNotationPrecision() {
-        return scientificNotationPrecision;
+    public static String getScientificNotationPrecision() {
+        return scNotationMaxLeft + "digits <-0.-> " + scNotationMaxRight + "digits";
     }
 
     /**
      * Sets the current precision of the scientific notation.
-     * @param scientificNotationPrecision The new precision to use.
+     * @param scNotationMaxLeft The new precision to use.
      */
-    public static void setScientificNotationPrecision(int scientificNotationPrecision) {
-        if (scientificNotationPrecision <= 0) return;
-        Configuration.scientificNotationPrecision = scientificNotationPrecision;
+    public static void setScientificNotationPrecision(int scNotationMaxLeft, int scNotationMaxRight) {
+        if (scNotationMaxLeft <= 0) return;
+        Configuration.scNotationMaxLeft = scNotationMaxLeft;
+        Configuration.scNotationMaxRight = scNotationMaxRight;
     }
 
     /**
@@ -83,6 +91,24 @@ public final class Configuration {
      */
     public static void setUseScientificNotation(boolean useScientificNotation) {
         Configuration.useScientificNotation = useScientificNotation;
+    }
+
+
+    public static String getNotation(BigDecimal r)
+    {
+        if (!useScientificNotation) return r.stripTrailingZeros().toPlainString();
+        r = r.abs();
+
+        // Zero is a special case
+        if (r.compareTo(BigDecimal.ZERO) == 0) return "0";
+
+        // Check if eNotation is needed
+        // If it has more digits than allowed on the left side of zero
+        if (r.compareTo(new BigDecimal("1" + "0".repeat(scNotationMaxLeft))) > 0) return eNotation.format(r);
+        // If it has more digits than allowed on the right side of zero
+        if (r.compareTo(new BigDecimal("0." + "0".repeat(scNotationMaxRight-1) + "1")) < 0) return eNotation.format(r);
+        // If not we return the default string value.
+        return r.stripTrailingZeros().toPlainString();
     }
 
     /*__________________________________________________________________ Trigonometric Options */

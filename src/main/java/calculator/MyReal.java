@@ -4,15 +4,16 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
- * Represents a real value. Using a fixed PRECISION and ROUNDING_MODE.
+ * Represents a real value. Using a fixed Configuration.getRealPrecision() and ROUNDING_MODE.
  */
 public class MyReal extends MyNumber {
 
-    public static int PRECISION = 5;
     public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     private final BigDecimal value;
@@ -22,7 +23,7 @@ public class MyReal extends MyNumber {
      * @param value The value to store in this instance.
      */
     public MyReal(double value) {
-        this.value = BigDecimal.valueOf(value).setScale(PRECISION, ROUNDING_MODE);
+        this.value = BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
     }
 
     /**
@@ -30,7 +31,7 @@ public class MyReal extends MyNumber {
      * @param value The value to parse using a {@link BigDecimal} constructor that takes as an input a {@link String} instance.
      */
     public MyReal(String value) {
-        this.value = new BigDecimal(value).setScale(PRECISION, ROUNDING_MODE);
+        this.value = new BigDecimal(value).setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
     }
 
     /**
@@ -38,7 +39,7 @@ public class MyReal extends MyNumber {
      * @param value The value to store in this instance.
      */
     public MyReal(BigDecimal value) {
-        this.value = value.setScale(PRECISION, ROUNDING_MODE);
+        this.value = value.setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
     }
 
     /**
@@ -52,7 +53,7 @@ public class MyReal extends MyNumber {
 
     /**
      * Turns a {@link MyRational} into a real value.
-     * Beware that this can cause, some information to be lost, depending on the given PRECISION
+     * Beware that this can cause, some information to be lost, depending on the given Configuration.getRealPrecision()
      * and ROUNDING_MODE.
      * @param r The rational to turn into a real value.
      * @return The real value created.
@@ -60,7 +61,7 @@ public class MyReal extends MyNumber {
     public static MyReal toReal(MyRational r) {
         BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
         BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
-        return new MyReal(enumerator.divide(denom, PRECISION, ROUNDING_MODE));
+        return new MyReal(enumerator.divide(denom, Configuration.getRealPrecision(), ROUNDING_MODE));
     }
 
 
@@ -102,18 +103,12 @@ public class MyReal extends MyNumber {
 
     @Override
     public String toString() {
-        // Change this with settings !
-        if (true)
-        {
-            return value.toString();
-        }
-        NumberFormat scF = new DecimalFormat("0.###E0");
-        return scF.format(value);
+        return Configuration.getNotation(value);
     }
 
     @Override
     public boolean isZero() {
-        return this.value.equals(BigDecimal.ZERO.setScale(PRECISION, ROUNDING_MODE));
+        return this.value.equals(BigDecimal.ZERO.setScale(Configuration.getRealPrecision(), ROUNDING_MODE));
     }
 
     @Override
@@ -124,7 +119,7 @@ public class MyReal extends MyNumber {
     /**
      * Checks if the value held can be stored inside a regular int value.
      * @return true if the two following condition are met :
-     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low precision).
+     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low Configuration.getRealPrecision()).
      *  2. The value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}.
      *  false otherwise.
      */
@@ -137,7 +132,7 @@ public class MyReal extends MyNumber {
     /**
      * Checks if the value held can be stored inside a regular long value.
      * @return true if the two following condition are met :
-     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low precision).
+     *  1. The decimal part displayed is only consisting of zeroes (be careful that this might be because of a low Configuration.getRealPrecision()).
      *  2. The value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}.
      *  false otherwise.
      */
