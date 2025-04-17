@@ -205,12 +205,13 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>${antlr4.version}</version>
                 <configuration>
-                    <sourceDirectory>src/main/java</sourceDirectory>
-                    <outputDirectory>src/main/java</outputDirectory>
+                    <outputDirectory>src/main/java/calculator/parser/antlr</outputDirectory>
                     <arguments>
                         <argument>-visitor</argument>
-                        <argument>calculator/parser/antlr/LabeledExpr.g4</argument>
-                        <!-- <argument>-listener</argument> -->
+                        <argument>LabeledExpr.g4</argument>
+                        <argument>LabeledProgrammer.g4</argument>
+                        <argument>-package</argument>
+                        <argument>calculator.parser.antlr</argument>
                     </arguments>
                 </configuration>
                 <executions>

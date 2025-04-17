@@ -1,8 +1,8 @@
-package calculator.parser.antlr;
+package calculator.parser;
 
-
-
+import calculator.parser.antlr.*;
 import calculator.*;
+
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
+import calculator.Expression;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -353,7 +354,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
-                                                                                            BuildOperationFunction<O> operation) {
+            BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
@@ -390,7 +391,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx,
-                                                                                          BuildUnaryOperationFunction<O> operation) {
+            BuildUnaryOperationFunction<O> operation) {
         Expression expression = null;
         Evaluator v;
         // Explore all path to find the argument to pass to the unary operator.
