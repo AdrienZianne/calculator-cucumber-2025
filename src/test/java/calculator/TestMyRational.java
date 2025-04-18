@@ -76,4 +76,31 @@ class TestMyRational {
         r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
         assertEquals(MyErrorNumber.class, r.getClass());
     }
+
+    @Test
+    void testToRational()
+    {
+        MyNumber r = MyRational.toRational(MyReal.valueOf(0.333));
+        assertEquals(MyRational.create(333,1000), r);
+
+        r = MyRational.toRational(MyReal.valueOf(3));
+        assertEquals(MyInteger.valueOf(3), r);
+
+        r = MyRational.toRational(MyReal.valueOf(0.5));
+        assertEquals(MyRational.create(4,8), r);
+    }
+
+    @Test
+    void testGetSign()
+    {
+        MyRational r = (MyRational) MyRational.create(2,3);
+
+        assertEquals(1, r.getSign());
+        r = (MyRational) MyRational.create(-2,3);
+
+        assertEquals(-1, r.getSign());
+        r = (MyRational) MyRational.create(2,-3);
+
+        assertEquals(-1, r.getSign());
+    }
 }
