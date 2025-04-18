@@ -151,6 +151,26 @@ class TestMyReal {
     }
 
     @Test
+    void testValueOf()
+    {
+        assertEquals(new MyInteger(2), MyInteger.valueOf(2));
+    }
+
+    @Test
+    void testToReal()
+    {
+        MyReal r = MyReal.toReal(MyInteger.valueOf(1));
+        assertEquals(MyReal.valueOf(1), r);
+
+        Configuration.setRealPrecision(3);
+        r = MyReal.toReal((MyRational) MyRational.create(MyInteger.valueOf(1),MyInteger.valueOf(3)));
+        assertEquals(MyReal.valueOf(0.333), r);
+
+        r = MyReal.toReal((MyRational) MyRational.create(MyInteger.valueOf(2),MyInteger.valueOf(3)));
+        assertEquals(MyReal.valueOf(0.6667), r);
+    }
+
+    @Test
     void testToString() {
         assertEquals(BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(), Configuration.getRealRoundingMode()).stripTrailingZeros().toString(),
                     number.toString());

@@ -93,7 +93,7 @@ public class MyReal extends MyNumber {
         if (o == null || getClass() != o.getClass())
             return false;
         MyReal myReal = (MyReal) o;
-        return Objects.equals(value, myReal.value);
+        return Objects.equals(value.stripTrailingZeros(), myReal.value.stripTrailingZeros());
     }
 
     @Override
