@@ -76,7 +76,6 @@ public class MyRational extends MyNumber {
         if (denominator == 0) {
             return createErrorNumber(new MyInteger(numerator), new MyInteger(denominator));
         }
-        System.out.println("1numerator : " + numerator + " denominator : " + denominator);
         return new MyRational(numerator, denominator).simplify();
     }
 
@@ -107,15 +106,6 @@ public class MyRational extends MyNumber {
      */
     public static MyNumber create(BigInteger numerator, BigInteger denominator) {
         return create(new MyInteger(numerator), new MyInteger(denominator));
-    }
-
-    /**
-     * Constructsa rational with a denominator set to 1.
-     * 
-     * @param number The numerator of the rational number.
-     */
-    public MyRational(Integer number) {
-        this.numDenomPair = new Pair<>(new MyInteger(number), new MyInteger(1));
     }
 
     public static MyNumber toRational(MyReal real) {

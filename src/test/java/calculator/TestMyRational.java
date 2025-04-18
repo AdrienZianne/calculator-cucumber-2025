@@ -103,4 +103,21 @@ class TestMyRational {
 
         assertEquals(-1, r.getSign());
     }
+
+
+    @Test
+    void testErrorNumbers()
+    {
+        MyNumber r = MyRational.create(2,0);
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(MyInteger.valueOf(2), MyInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.toRational(MyReal.valueOf(0.5));
+        assertEquals(MyRational.create(4,8), r);
+    }
 }
