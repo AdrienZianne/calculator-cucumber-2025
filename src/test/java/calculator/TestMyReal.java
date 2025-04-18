@@ -4,6 +4,7 @@ package calculator;
 import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.operation.binary.Times;
+import io.cucumber.java.eo.Do;
 import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
@@ -15,6 +16,10 @@ class TestMyReal {
     interface TestIsFunction{
         boolean isValue(MyReal r);
     }
+     @BeforeEach
+     void setup() {
+        Configuration.setRealPrecision(5);
+     }
 
     private final double value =8.5;
     private MyReal number;
@@ -71,6 +76,21 @@ class TestMyReal {
         maxMinValue(BigDecimal.valueOf(Long.MAX_VALUE),
                     BigDecimal.valueOf(Long.MIN_VALUE),
                     MyReal::isLong);
+    }
+
+    @Test
+    void testIsDouble()
+    {
+        Configuration.setRealPrecision(3);
+        MyReal r = new MyReal(BigDecimal.valueOf(0.01));
+        assertTrue(r.isDouble());
+
+        r = new MyReal(BigDecimal.valueOf(Double.MAX_VALUE));
+        assertTrue(r.isDouble());
+
+        r = new MyReal(BigDecimal.valueOf(Double.MAX_VALUE).add(BigDecimal.ONE));
+        assertFalse(r.isDouble());
+
     }
 
     @Test
