@@ -19,9 +19,9 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * @author tommens
  */
-//@SpringBootApplication(scanBasePackages = "io")
-//@ComponentScan({"io"})
-//@EntityScan({"io"})
+@SpringBootApplication(scanBasePackages = "io")
+@ComponentScan({"io"})
+@EntityScan({"io"})
 public class Main {
 
 	/**
@@ -32,12 +32,12 @@ public class Main {
 	 * @param args Command-line parameters are not used in this version
 	 */
 	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-		//ConfigurableApplicationContext ctx = SpringApplication.run(Main.class);
+		ConfigurableApplicationContext ctx = SpringApplication.run(Main.class);
 
 		Calculator c = new Calculator();
 
 		try {
-			Shell shell = new Shell(null);
+			Shell shell = new Shell(ctx);
 			shell.loop(c);
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
