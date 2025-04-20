@@ -37,21 +37,34 @@ class TestMyComplex {
 
     @Test
     void testToString() {
-        assertEquals(imaginary + " + " + real + "i", number.toString());
+        assertEquals(imaginary + " + " + real + " i", number.toString());
     }
 
     @Test
     void testIsZero()
     {
-        MyComplex c = (MyComplex) MyComplex.create(MyInteger.valueOf(0), MyInteger.valueOf(0));
-        assertTrue(c.isZero());
+        // It isn't really possible to get a zero
     }
 
     @Test
-    void testSimplify()
+    void testCreate()
     {
-        MyNumber c = MyComplex.create(new MyInteger(1), new MyInteger(0));
+        MyNumber c = MyComplex.create(MyInteger.valueOf(5), MyInteger.valueOf(0));
+        assertEquals(new MyInteger(5), c);
 
-        assertEquals(new MyInteger(1), c);
+        c = MyComplex.create(new MyInteger(2), MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(5)));
+        assertEquals(MyComplex.create(MyInteger.valueOf(-3), MyInteger.valueOf(1)), c);
+
+        c = MyComplex.create(MyComplex.create(MyInteger.valueOf(4), MyInteger.valueOf(2)), MyInteger.valueOf(5));
+        assertEquals(MyComplex.create(MyInteger.valueOf(4), MyInteger.valueOf(7)), c);
+
+        c = MyComplex.create(MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(2)), MyComplex.create(MyInteger.valueOf(3), MyInteger.valueOf(4)));
+        assertEquals(MyComplex.create(MyInteger.valueOf(-3), MyInteger.valueOf(5)), c);
+
+        c = MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(2));
+        assertEquals(MyComplex.class, c.getClass());
+        MyComplex cc = (MyComplex) c;
+        assertEquals(MyInteger.valueOf(1), cc.getRealImaginaryPair().a);
+        assertEquals(MyInteger.valueOf(2), cc.getRealImaginaryPair().b);
     }
 }
