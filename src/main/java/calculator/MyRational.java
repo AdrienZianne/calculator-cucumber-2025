@@ -23,6 +23,8 @@ public class MyRational extends MyNumber {
         this.numDenomPair = simplifyNumDenom(numerator, denominator);
     }
 
+
+
     /**
      * The constructor of the {@link MyRational} class.
      * 

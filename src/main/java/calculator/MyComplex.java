@@ -16,6 +16,14 @@ public class MyComplex extends MyNumber {
         this.realImaginaryPair = new Pair<>(n1, n2);
     }
 
+
+    /**
+     * Shortcut function for the {@link #create(MyNumber, MyNumber)} method.
+     * @param n1 The first argument to turn into a {@link MyInteger}.
+     * @param n2 The second argument to turn into a {@link MyInteger}.
+     * @return The result of the function with the two {@link MyInteger} instance.
+     */
+    public static MyNumber create(int n1, int n2) {return create(MyInteger.valueOf(n1), MyInteger.valueOf(n2));}
     /**
      * Create a complex number of the form : {@code (n1) + (n2)i}. <p></p>
      * And simplifies it if possible.

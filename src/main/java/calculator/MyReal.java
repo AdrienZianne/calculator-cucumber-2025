@@ -90,8 +90,10 @@ public class MyReal extends MyNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass())
+        if (o == null || (getClass() != o.getClass() && !(o instanceof MyInteger)))
             return false;
+
+        if (o instanceof MyInteger i) {return this.equals(toReal(i));}
         MyReal myReal = (MyReal) o;
         return Objects.equals(value.stripTrailingZeros(), myReal.value.stripTrailingZeros());
     }

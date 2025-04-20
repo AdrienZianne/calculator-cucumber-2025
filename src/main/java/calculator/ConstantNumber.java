@@ -16,12 +16,12 @@ public final class ConstantNumber {
     public static final MyReal EULER = new MyReal(Math.E);
 
     /**
-     * Represents the value "one" of the {@link MyInteger} class : 1
+     * Represents the value "zero" of the {@link MyInteger} class : 0
      */
     public static final MyInteger ZERO = new MyInteger(0);
 
     /**
-     * Represents the value "zero" of the {@link MyInteger} class : 0
+     * Represents the value "one" of the {@link MyInteger} class : 1
      */
     public static final MyInteger ONE = new MyInteger(1);
 

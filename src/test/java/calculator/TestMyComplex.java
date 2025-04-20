@@ -52,6 +52,9 @@ class TestMyComplex {
         MyNumber c = MyComplex.create(MyInteger.valueOf(5), MyInteger.valueOf(0));
         assertEquals(new MyInteger(5), c);
 
+        c = MyComplex.create(5,2);
+        assertEquals(MyComplex.create(MyInteger.valueOf(5), MyInteger.valueOf(2)), c);
+
         c = MyComplex.create(new MyInteger(2), MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(5)));
         assertEquals(MyComplex.create(MyInteger.valueOf(-3), MyInteger.valueOf(1)), c);
 

@@ -60,7 +60,10 @@ public class MyInteger extends MyNumber
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || (getClass() != o.getClass() && !(o instanceof MyReal)))
+            return false;
+
+        if (o instanceof MyReal r) {return r.equals(MyReal.toReal(this));}
         MyInteger myInteger = (MyInteger) o;
         return value.equals(myInteger.value);
     }

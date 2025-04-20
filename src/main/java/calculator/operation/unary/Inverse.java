@@ -1,10 +1,7 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
-import calculator.operation.binary.Plus;
+import calculator.operation.binary.*;
 
 import java.util.List;
 
@@ -54,9 +51,9 @@ public class Inverse extends UnaryOperation {
     @Override
     public MyNumber op(MyComplex c) {
         // Denom : a^2 + b^2
-        MyNumber denom = BinaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().a, c.getRealImaginaryPair().a, Times::new),
-                                            BinaryOperation.op(c.getRealImaginaryPair().b, c.getRealImaginaryPair().b, Times::new),
-                                            Plus::new);
+        MyNumber denom = BinaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().a, MyInteger.valueOf(2), Exponent::new),
+                BinaryOperation.op(c.getRealImaginaryPair().b, MyInteger.valueOf(2), Exponent::new),
+                Plus::new);
 
         return MyComplex.create(BinaryOperation.op(c.getRealImaginaryPair().a, denom, Divides::new),
                 UnaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().b, denom, Divides::new), Negation::new));
