@@ -1,8 +1,6 @@
 package calculator.operation.unary.trigonometry;
 
-import calculator.Expression;
-import calculator.IllegalConstruction;
-import calculator.Notation;
+import calculator.*;
 
 /**
  * A class used to represent the tangent operation on a number.
@@ -30,4 +28,8 @@ public class Tangent extends TrigonometricFunction {
     }
 
 
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        return null;
+    }
 }

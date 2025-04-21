@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.ArrayList;
 
+import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
 
 /**
@@ -110,6 +111,19 @@ public class MyRational extends MyNumber {
         return create(new MyInteger(numerator), new MyInteger(denominator));
     }
 
+    /**
+     * Method for creating a MyRational object using denominator checks.
+     *
+     * @param numerator
+     * @param denominator
+     *
+     * @return A rational if it could be created correctly or an error number
+     *         because the rational could not be created.
+     */
+    public static MyNumber create(MyReal numerator, MyReal denominator) {
+        return BinaryOperation.op(numerator, denominator, Divides::new);
+    }
+
     public static MyNumber toRational(MyReal real) {
         int denom = (int) Math.pow(10, real.getValue().scale());
         int num = (int) (real.getValue().doubleValue() * denom);
@@ -175,9 +189,18 @@ public class MyRational extends MyNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass())
+        if (o == null || getClass() != o.getClass() && (o instanceof MyComplex))
             return false;
-        MyRational that = (MyRational) o;
+
+        MyRational that = (MyRational) switch (o)
+        {
+            case MyReal r : yield MyRational.toRational(r);
+            case MyRational r : yield r;
+            case MyInteger i : yield create(i, i);
+            default: yield  null;
+        };
+
+        if (that == null) return false;
         return Objects.equals(numDenomPair, that.numDenomPair);
     }
 

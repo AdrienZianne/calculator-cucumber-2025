@@ -75,6 +75,14 @@ class TestMyRational {
 
         r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
         assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(MyReal.valueOf(2), MyReal.valueOf(2));
+        assertEquals(MyInteger.valueOf(1), r);
+
+        r = MyRational.create(MyReal.valueOf(2), MyReal.valueOf(3));
+        assertEquals(MyRational.class, r.getClass());
+        MyRational rr = (MyRational) r;
+        assertEquals(new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)), rr.getNumDenomPair());
     }
 
     @Test

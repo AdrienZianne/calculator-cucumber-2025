@@ -90,10 +90,12 @@ public class MyReal extends MyNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || (getClass() != o.getClass() && !(o instanceof MyInteger)))
+        if (o == null || (getClass() != o.getClass()
+                && !(o instanceof MyInteger) && !(o instanceof MyRational)))
             return false;
 
         if (o instanceof MyInteger i) {return this.equals(toReal(i));}
+        if (o instanceof MyRational r) {return r.equals(MyRational.toRational(this));}
         MyReal myReal = (MyReal) o;
         return Objects.equals(value.stripTrailingZeros(), myReal.value.stripTrailingZeros());
     }
@@ -145,12 +147,12 @@ public class MyReal extends MyNumber {
 
     /**
      * Checks if the value held can be stored inside a regular double value.
-     * @return true if the following condition is met :
-     *  * The value is between {@code Double.MIN_VALUE} and {@code Double.MAX_VALUE}.
+     * @return true if the value can be turned into a double without losing any informations.
      *  false otherwise.
      */
     public boolean isDouble() {
-        return withinBounds(BigDecimal.valueOf(Double.MIN_VALUE), BigDecimal.valueOf(Double.MAX_VALUE));
+        double valD = value.doubleValue();
+        return (valD != Double.POSITIVE_INFINITY) && (valD != Double.NEGATIVE_INFINITY);
     }
 
     /**

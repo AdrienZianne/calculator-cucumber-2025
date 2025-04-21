@@ -34,7 +34,7 @@ public class TestSquareRoot extends TestUnaryOperation {
     public void testMyRational() throws Exception {
         SquareRoot root = new SquareRoot(MyRational.toRational(MyReal.valueOf(6.6)));
         assertEquals(MyRational.toRational(MyReal.valueOf(2.569)), calculator.eval(root));
-        
+
         root = new SquareRoot(MyRational.toRational(MyReal.valueOf(-6.6)));
         assertEquals(MyComplex.create(ConstantNumber.ZERO, MyRational.toRational(MyReal.valueOf(2.569))), calculator.eval(root));
 

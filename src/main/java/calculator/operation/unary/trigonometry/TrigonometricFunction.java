@@ -14,6 +14,7 @@ public abstract class TrigonometricFunction extends UnaryOperation {
      * An interface used to store the function to call when applying a trigonometric
      * function.
      */
+    @FunctionalInterface
     public interface TrigonometricFuncExec {
         /**
          * Applies the trigonometric function to the given parameter. For example :
@@ -43,6 +44,14 @@ public abstract class TrigonometricFunction extends UnaryOperation {
         this.functionExec = funcExec;
     }
 
+
+    /**
+     * Checks if the real value can be processed by the function.
+     * @param nb The instance to check.
+     * @return An instance of the {@link MyErrorNumber} class if the value is not supported. {@code null} otherwise.
+     */
+    public abstract MyNumber isNotInBound(MyReal nb);
+
     @Override
     public MyNumber op(MyInteger i) {
         return op(MyReal.valueOf(i.getValue().doubleValue()));
@@ -55,8 +64,16 @@ public abstract class TrigonometricFunction extends UnaryOperation {
 
     @Override
     public MyNumber op(MyReal r) {
-        // Will make us lose some information
-        MyReal res = MyReal.valueOf(functionExec.apply(r.getValue().doubleValue()));
+        // Check if the value can be applied.
+        MyNumber err = isNotInBound(r);
+        if (err != null) {return err;}
+
+        if (!r.isDouble()) return new MyErrorNumber(this, "The given argument is not a valid double : " + r.getValue());
+
+        Double resDouble = functionExec.apply(r.getValue().doubleValue());
+        if (resDouble.equals(Double.POSITIVE_INFINITY) || resDouble.equals(Double.NEGATIVE_INFINITY)) {return new MyErrorNumber(this, "The given argument results in an infinite number ");}
+
+        MyReal res = MyReal.valueOf(resDouble);
         return MyRational.toRational(res);
     }
 
