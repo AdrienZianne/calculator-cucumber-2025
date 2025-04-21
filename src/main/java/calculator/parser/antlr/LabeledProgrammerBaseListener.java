@@ -160,18 +160,6 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterNumberBool(LabeledProgrammerParser.NumberBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -208,6 +196,18 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberHexa(LabeledProgrammerParser.NumberHexaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -215,6 +215,18 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumberHexa(LabeledProgrammerParser.NumberHexaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

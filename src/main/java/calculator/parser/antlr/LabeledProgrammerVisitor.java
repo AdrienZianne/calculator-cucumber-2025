@@ -95,13 +95,6 @@ public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperationNor(LabeledProgrammerParser.OperationNorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NumberDefault}
-	 * labeled alternative in {@link LabeledProgrammerParser#number}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code NumberBool}
 	 * labeled alternative in {@link LabeledProgrammerParser#number}.
 	 * @param ctx the parse tree
@@ -123,10 +116,24 @@ public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberOctal(LabeledProgrammerParser.NumberOctalContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NumberDecimal}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberHexa}
 	 * labeled alternative in {@link LabeledProgrammerParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumberHexa(LabeledProgrammerParser.NumberHexaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberDefault}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
 }

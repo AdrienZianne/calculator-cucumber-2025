@@ -36,6 +36,8 @@ public class Programmer {
      */
     public final String prefix;
 
+    public static boolean convention = true;
+
     /**
      * The class constructor. It checks that the value only uses characters
      * corresponding to its base.
@@ -44,7 +46,7 @@ public class Programmer {
      * @param base The base.
      */
     public Programmer(String num, int base) {
-        if (checkBase(num, base)) {
+        if (checkBase(num.toUpperCase(), base)) {
             this.realNum = num.toUpperCase();
             this.base = base;
             this.binaryNum = conversionToBaseN(2);
@@ -144,6 +146,7 @@ public class Programmer {
             return conversionToBase10();
         }
 
+        // FIXME number of more than 10 digits causes an error.
         int oldRealNum = Integer.parseInt(conversionToBase10());
 
         if (newBase == 1) {
@@ -195,7 +198,7 @@ public class Programmer {
     }
 
     public String toString() {
-        if (prefix != null) {
+        if (convention && prefix != null) {
             return prefix + realNum;
         }
         return realNum + "_" + base;

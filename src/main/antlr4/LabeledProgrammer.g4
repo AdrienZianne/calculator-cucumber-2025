@@ -1,31 +1,42 @@
 grammar LabeledProgrammer;
 
-operation : number                         #OperationNumber
-		  | '(' operation ')'                #OperationPrio
-		  | operation AND number           #OperationAnd
-		  | operation OR number            #OperationOr
-		  | NOT number                     #OperationNot
-		  | operation 'nand' number          #OperationNand
-		  | operation 'nor' number           #OperationNor
-		  | operation 'impl' number          #OperationImpl
-		  | operation 'equiv' number         #OperationEquiv
-		  | operation '<<' INT               #OperationLshift
-		  | operation '>>' INT               #OperationRshift
+operation : '(' operation ')'                #OperationPrio
+		  | operation AND operation          #OperationAnd
+		  | operation OR operation           #OperationOr
+		  | NOT operation                    #OperationNot
+		  | operation 'nand' operation       #OperationNand
+		  | operation 'nor' operation        #OperationNor
+		  | operation 'impl' operation       #OperationImpl
+		  | operation 'equiv' operation      #OperationEquiv
+		  | operation LSHIFT INT             #OperationLshift
+		  | operation RSHIFT INT             #OperationRshift
 		  | 'conv' '(' operation ',' INT ')' #OperationConv
+		  | number                           #OperationNumber
 		  ;
 
-number : VALUE '_' INT #NumberDefault
-	   | BOOL          #NumberBool
-	   | '0b' VALUE    #NumberBinary
-	   | '0o' VALUE    #NumberOctal
-	   | '0x' VALUE    #NumberHexa
+number : BOOL                            #NumberBool
+	   | BINARY_LITERAL                  #NumberBinary
+	   | OCTAL_LITERAL                   #NumberOctal
+	   | INT                 #NumberDecimal
+	   | HEXA_LITERAL                    #NumberHexa
+       | (INT | ALPHABET | BOTH) '_' INT #NumberDefault
 	   ;
 
-AND : 'and' | '&' ; // match and
-OR : 'or' | '|' ; // match or
+BOOL : 'T' | 't' | 'F' | 'f' ; // match bool
+
+AND : 'and' | '&' | '&&' ; // match and
+OR : 'or' | '|' | '||'; // match or
 NOT : 'not' | '-' ; // match or
-INT :   [0-9]+ ; // match integers
-VALUE :   [0-9a-vA-V]+ ; // match value
-BOOL :   'T' | 't' | 'F' | 'f' ; // match bool
+LSHIFT : 'ls' | '<' | '<<' ; // match left shift
+RSHIFT : 'rs' | '>' | '>>' ; // match right shift
+
+BINARY_LITERAL : '0b' (INT | ALPHABET | BOTH) ;
+OCTAL_LITERAL : '0o' (INT | ALPHABET | BOTH) ;
+HEXA_LITERAL : '0x' (INT | ALPHABET | BOTH) ;
+
+INT : [0-9]+ ; // match integers
+ALPHABET : [a-vA-V]+ ; // match alphabet
+BOTH : (INT | ALPHABET)+ ; // match both
+
 NEWLINE :'\r'? '\n' ; // return newlines to parser (is end-statement signal)
-WS  :   [ \t]+ -> skip ; // toss out whitespace
+WS : [ \t]+ -> skip ; // toss out whitespace

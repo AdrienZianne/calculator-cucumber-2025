@@ -152,18 +152,6 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 */
 	void exitOperationNor(LabeledProgrammerParser.OperationNorContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberDefault}
-	 * labeled alternative in {@link LabeledProgrammerParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void enterNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code NumberDefault}
-	 * labeled alternative in {@link LabeledProgrammerParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void exitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code NumberBool}
 	 * labeled alternative in {@link LabeledProgrammerParser#number}.
 	 * @param ctx the parse tree
@@ -200,6 +188,18 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 */
 	void exitNumberOctal(LabeledProgrammerParser.NumberOctalContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberDecimal}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberDecimal}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberHexa}
 	 * labeled alternative in {@link LabeledProgrammerParser#number}.
 	 * @param ctx the parse tree
@@ -211,4 +211,16 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberHexa(LabeledProgrammerParser.NumberHexaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberDefault}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberDefault}
+	 * labeled alternative in {@link LabeledProgrammerParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx);
 }
