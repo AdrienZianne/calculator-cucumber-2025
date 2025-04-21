@@ -2,13 +2,11 @@ package calculator.operation.unary;
 
 
 import calculator.*;
-import calculator.operation.TestUnaryOperation;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestInverse extends TestUnaryOperation {
-    private final Calculator calculator = new Calculator();
 
     @Test
     @Override

@@ -1,12 +1,10 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.TestUnaryOperation;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSquareRoot extends TestUnaryOperation {
-    private final Calculator calculator = new Calculator();
 
     @Test
     @Override

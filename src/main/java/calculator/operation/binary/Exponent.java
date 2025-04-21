@@ -25,7 +25,14 @@ public class Exponent extends BinaryOperation {
         if (!r.isInt())
             return new MyErrorNumber(this,"The value of the exponent must be " +
                 "a value contained between : " + Integer.MAX_VALUE + " and " + Integer.MIN_VALUE);
-        return MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
+        MyNumber res = null;
+        try {
+            res = MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
+        }
+        catch (ArithmeticException e) {
+            return new MyErrorNumber(this, "The resulting value would overflow the MyInteger supported range");
+        }
+        return res;
     }
 
     @Override

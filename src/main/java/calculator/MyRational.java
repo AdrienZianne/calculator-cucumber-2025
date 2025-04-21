@@ -196,7 +196,7 @@ public class MyRational extends MyNumber {
         {
             case MyReal r : yield MyRational.toRational(r);
             case MyRational r : yield r;
-            case MyInteger i : yield create(i, i);
+            case MyInteger i : yield new MyRational(i, i);
             default: yield  null;
         };
 

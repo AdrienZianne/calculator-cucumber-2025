@@ -2,7 +2,6 @@ package calculator.operation.unary;
 
 import calculator.*;
 import calculator.operation.BuildUnaryOperationFunction;
-import calculator.operation.TestUnaryOperation;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
 import calculator.operation.unary.trigonometry.*;
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TestTrigonometricFunction extends TestUnaryOperation {
-    private final Calculator calculator = new Calculator();
 
     public static ArrayList<TrigonometricFunction.TrigonometricFuncExec> trigoMathFunctions;
     public static ArrayList<BuildUnaryOperationFunction<TrigonometricFunction>> trigoClasses;

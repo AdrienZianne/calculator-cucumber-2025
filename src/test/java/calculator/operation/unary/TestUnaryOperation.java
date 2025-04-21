@@ -1,11 +1,11 @@
-package calculator.operation;
+package calculator.operation.unary;
 
 import calculator.Calculator;
 import org.junit.jupiter.api.Test;
 
 public abstract class TestUnaryOperation {
 
-    private Calculator calculator = new Calculator();
+    public final Calculator calculator = new Calculator();
 
     @Test
     public abstract void testInteger() throws Exception;

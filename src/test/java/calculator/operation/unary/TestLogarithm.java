@@ -1,8 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.TestUnaryOperation;
-import io.cucumber.java.eo.Do;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class TestLogarithm extends TestUnaryOperation {
-    private final Calculator calculator = new Calculator();
 
     @BeforeEach
     void setup()

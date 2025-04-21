@@ -118,9 +118,11 @@ public class NthRoot extends BinaryOperation {
 
     private MyNumber nthRoot(MyReal r, MyReal rootIndex) {
         // Checks if the root index is a valid index.
+        if (rootIndex.getSign() < 0)
+            return new MyErrorNumber(this, "The value of the index must be positive");
         if (!rootIndex.isLong())
             return new MyErrorNumber(this,"The value of the index must be " +
-                    "an integer contained between : " + Long.MIN_VALUE + " and " + Long.MAX_VALUE);
+                    "an integer smaller than " + Long.MAX_VALUE);
 
         if (!r.isDouble())
             return new MyErrorNumber(this, "The value of the expression to apply the operation must be"

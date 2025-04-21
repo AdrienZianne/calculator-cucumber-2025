@@ -21,6 +21,14 @@ public class MyInteger extends MyNumber
     public MyInteger(int v) {
         this.value = BigInteger.valueOf(v);
     }
+    /**
+     * Constructor method
+     *
+     * @param v The long value to be contained in the object
+     */
+    public MyInteger(long v) {
+        this.value = BigInteger.valueOf(v);
+    }
 
     /**
      * The default constructor of the {@link MyInteger} class
@@ -43,6 +51,13 @@ public class MyInteger extends MyNumber
      * @return The created instance.
      */
     public static MyInteger valueOf(Integer v) {return new MyInteger(v);}
+
+    /**
+     * Creates a {@link MyInteger} using a simple long.
+     * @param v The value to store in this instance.
+     * @return The created instance.
+     */
+    public static MyInteger valueOf(Long v) {return new MyInteger(v);}
 
     @Override
     public Object getObjectValue() {
