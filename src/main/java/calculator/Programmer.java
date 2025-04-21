@@ -42,6 +42,8 @@ public class Programmer {
      */
     public static boolean convention = true;
 
+    public static boolean logicalSymbol = true;
+
     /**
      * The class constructor. It checks that the value only uses characters
      * corresponding to its base.
@@ -200,6 +202,13 @@ public class Programmer {
     }
 
     /**
+     * Method for changing the display mode of logic symbols.
+     */
+    public void switchLogicalSymbol() {
+        logicalSymbol = !logicalSymbol;
+    }
+
+    /**
      * Method that compares the current value with another.
      * 
      * @param n The other value to compare.
@@ -210,7 +219,16 @@ public class Programmer {
     }
 
     public String toString() {
-        if (convention && prefix != null) {
+        if (logicalSymbol && base == 10) {
+            if (binaryNum.equals("1")) {
+                return "T";
+            } else if (binaryNum.equals("0")) {
+                return "F";
+            }
+        }
+        if (convention && prefix != null)
+
+        {
             return prefix + realNum;
         }
         return realNum + "_" + base;
