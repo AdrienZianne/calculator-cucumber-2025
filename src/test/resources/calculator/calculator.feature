@@ -202,9 +202,9 @@ Feature: Integer Arithmetic Expressions
       |"rand_ratio(10, 30)" |3/19               |
       |"rand_cmplx()"       |0.73088 + 0.73088i |
 
-      Scenario Outline: Test Programmer Parser
-      When I provide a programmer expression as a string <expr>
-      Then the result of programmer is <res>
+  Scenario Outline: Test Programmer Parser
+    When I provide a programmer expression as a string <expr>
+    Then the result of programmer is <res>
 
       Examples:
       |expr               |res       |

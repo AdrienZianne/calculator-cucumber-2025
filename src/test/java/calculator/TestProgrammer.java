@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import calculator.Programmer.ProgrammerException;
+
 import org.junit.jupiter.api.*;
 
 /**
@@ -27,12 +29,25 @@ public class TestProgrammer {
             "123, 10, 1111011, 123",
             "1A45E, 16, 11010010001011110, 0x1A45E",
     })
-    void testCreateProgrammer(String num, int base, String binaryNum, String string) {
+    void testCreateProgrammer(String num, int base, String binaryNum, String string) throws ProgrammerException {
         Programmer p = new Programmer(num, base);
         assertEquals(p.realNum, num);
         assertEquals(p.base, base);
         assertEquals(p.binaryNum, binaryNum);
         assertEquals(p.toString(), string);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "101010, 1",
+            "123, 2",
+            "123456, 0",
+            "123456, 100",
+    })
+    void testCreateError(String num, int base) {
+        assertThrows(ProgrammerException.class, () -> {
+            new Programmer(num, base);
+        });
     }
 
     /**
@@ -45,7 +60,7 @@ public class TestProgrammer {
             "10, 10",
             "A, 16",
     })
-    void testLogicValue(String num, int base) {
+    void testLogicValue(String num, int base) throws ProgrammerException {
         Programmer p = new Programmer(num, base);
         assertTrue(!p.logicValue(0));
         assertTrue(p.logicValue(1));
@@ -64,7 +79,7 @@ public class TestProgrammer {
             "10, 10",
             "A, 16",
     })
-    void testLength(String num, int base) {
+    void testLength(String num, int base) throws ProgrammerException {
         Programmer p = new Programmer(num, base);
         assertEquals(p.length(), 4);
     }
@@ -77,7 +92,7 @@ public class TestProgrammer {
             "1010, 2, 12, 8",
             "10, 10, A, 16",
     })
-    void testEquals(String num1, int base1, String num2, int base2) {
+    void testEquals(String num1, int base1, String num2, int base2) throws ProgrammerException {
         Programmer p1 = new Programmer(num1, base1);
         Programmer p2 = new Programmer(num2, base2);
         Programmer p3 = new Programmer(num1 + "00", base1);
@@ -96,7 +111,7 @@ public class TestProgrammer {
             "12, 8, A, 16",
             "10, 10, A, 16"
     })
-    void testConversion(String num1, int base1, String num2, int base2) {
+    void testConversion(String num1, int base1, String num2, int base2) throws ProgrammerException {
         Programmer p = new Programmer(num1, base1);
         assertTrue(p.newBase(base2).equals(new Programmer(num2, base2)));
         p = new Programmer(num2, base2);
@@ -107,7 +122,7 @@ public class TestProgrammer {
      * Method for testing various logical operations on values.
      */
     @Test
-    void testOperations() {
+    void testOperations() throws ProgrammerException {
         Programmer p1 = new Programmer("0001010", 2);
         Programmer p2 = new Programmer("134", 8);
         assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0o10");

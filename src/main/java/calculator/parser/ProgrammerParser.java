@@ -4,6 +4,7 @@ import calculator.parser.antlr.*;
 
 import calculator.Programmer;
 import calculator.ProgrammerOperation;
+import calculator.Programmer.ProgrammerException;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.
@@ -18,35 +19,59 @@ public class ProgrammerParser extends LabeledProgrammerBaseVisitor<Programmer> {
 
     @Override
     public Programmer visitNumberDefault(LabeledProgrammerParser.NumberDefaultContext ctx) {
-        return new Programmer(ctx.getChild(0).getText(), Integer.parseInt(ctx.getChild(2).getText()));
+        try {
+            return new Programmer(ctx.getChild(0).getText(), Integer.parseInt(ctx.getChild(2).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitNumberBool(LabeledProgrammerParser.NumberBoolContext ctx) {
-        if (ctx.getChild(0).getText().equals("T") || ctx.getChild(0).getText().equals("t")) {
-            return new Programmer("1".toString(), 10);
+        try {
+            if (ctx.getChild(0).getText().equals("T") || ctx.getChild(0).getText().equals("t")) {
+                return new Programmer("1".toString(), 10);
+            }
+            return new Programmer("0".toString(), 10);
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
         }
-        return new Programmer("0".toString(), 10);
     }
 
     @Override
     public Programmer visitNumberBinary(LabeledProgrammerParser.NumberBinaryContext ctx) {
-        return new Programmer(ctx.getChild(0).getText().substring(2), 2);
+        try {
+            return new Programmer(ctx.getChild(0).getText().substring(2), 2);
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitNumberOctal(LabeledProgrammerParser.NumberOctalContext ctx) {
-        return new Programmer(ctx.getChild(0).getText().substring(2), 8);
+        try {
+            return new Programmer(ctx.getChild(0).getText().substring(2), 8);
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitNumberDecimal(LabeledProgrammerParser.NumberDecimalContext ctx) {
-        return new Programmer(ctx.getChild(0).getText(), 10);
+        try {
+            return new Programmer(ctx.getChild(0).getText(), 10);
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitNumberHexa(LabeledProgrammerParser.NumberHexaContext ctx) {
-        return new Programmer(ctx.getChild(0).getText().substring(2), 16);
+        try {
+            return new Programmer(ctx.getChild(0).getText().substring(2), 16);
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     /*
@@ -60,51 +85,91 @@ public class ProgrammerParser extends LabeledProgrammerBaseVisitor<Programmer> {
 
     @Override
     public Programmer visitOperationAnd(LabeledProgrammerParser.OperationAndContext ctx) {
-        return ProgrammerOperation.and(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.and(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationOr(LabeledProgrammerParser.OperationOrContext ctx) {
-        return ProgrammerOperation.or(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.or(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationNot(LabeledProgrammerParser.OperationNotContext ctx) {
-        return ProgrammerOperation.not(visit(ctx.getChild(1)));
+        try {
+            return ProgrammerOperation.not(visit(ctx.getChild(1)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationNand(LabeledProgrammerParser.OperationNandContext ctx) {
-        return ProgrammerOperation.nand(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.nand(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationNor(LabeledProgrammerParser.OperationNorContext ctx) {
-        return ProgrammerOperation.nor(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.nor(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx) {
-        return ProgrammerOperation.implication(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.implication(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationEquiv(LabeledProgrammerParser.OperationEquivContext ctx) {
-        return ProgrammerOperation.equivalence(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        try {
+            return ProgrammerOperation.equivalence(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationLshift(LabeledProgrammerParser.OperationLshiftContext ctx) {
-        return ProgrammerOperation.shiftLeft(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        try {
+            return ProgrammerOperation.shiftLeft(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) {
-        return ProgrammerOperation.shiftRight(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        try {
+            return ProgrammerOperation.shiftRight(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
     public Programmer visitOperationConv(LabeledProgrammerParser.OperationConvContext ctx) {
-        return visit(ctx.getChild(2)).newBase(Integer.parseInt(ctx.getChild(4).getText()));
+        try {
+            return visit(ctx.getChild(2)).newBase(Integer.parseInt(ctx.getChild(4).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 }

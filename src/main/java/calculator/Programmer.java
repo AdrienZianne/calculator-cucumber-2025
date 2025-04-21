@@ -11,6 +11,20 @@ import java.util.Collections;
  */
 public class Programmer {
     /**
+     * ProgrammerException
+     * Class used to represent a number creation error.
+     * This is necessary because no error can be thrown into the parser.
+     * 
+     * An error number is represented by a base of 0 and contains the error message
+     * in realNum.
+     */
+    public static class ProgrammerException extends Exception {
+        public ProgrammerException(String message) {
+            super(message);
+        }
+    }
+
+    /**
      * The list of characters used to represent numbers.
      * Bases from 1 to 32 inclusive are permitted.
      */
@@ -42,6 +56,10 @@ public class Programmer {
      */
     public static boolean convention = true;
 
+    /**
+     * When the variable is true and the value is a decimal, the values 0 and 1 are
+     * replaced by F and T.
+     */
     public static boolean logicalSymbol = true;
 
     /**
@@ -51,18 +69,35 @@ public class Programmer {
      * @param num  The value.
      * @param base The base.
      */
-    public Programmer(String num, int base) {
-        if (checkBase(num.toUpperCase(), base)) {
-            this.realNum = num.toUpperCase();
-            this.base = base;
-            this.binaryNum = conversionToBaseN(2);
-            this.prefix = getPrefix();
-        } else {
-            this.realNum = "";
-            this.base = 0;
-            this.binaryNum = "";
-            this.prefix = null;
+    public Programmer(String num, int base) throws ProgrammerException {
+        if (base <= 0 || base > chars.length()) {
+            throw new ProgrammerException(
+                    "Error: A value of " + base + " is not allowed as a base. The base must be between 1 and 32.");
+
         }
+        checkBase(num.toUpperCase(), base);
+
+        this.realNum = num.toUpperCase();
+        this.base = base;
+        this.binaryNum = conversionToBaseN(2);
+        this.prefix = getPrefix();
+    }
+
+    /**
+     * This constructor is used to create an error number, which represents an
+     * error.
+     * 
+     * We can't throw an error because of the way the parser works.
+     * 
+     * @param error explanation of the error.
+     * 
+     *              {@link ProgrammerOperation}
+     */
+    public Programmer(String error) {
+        this.realNum = error;
+        this.base = 0;
+        this.binaryNum = "";
+        this.prefix = null;
     }
 
     /**
@@ -73,13 +108,13 @@ public class Programmer {
      * @param base The base.
      * @return True if the value is correct according to the base otherwise false.
      */
-    private boolean checkBase(String num, int base) {
+    private void checkBase(String num, int base) throws ProgrammerException {
         for (int i = 0; i < num.length(); i++) {
             if (!chars.substring(0, base).contains(num.substring(i, i + 1))) {
-                return false;
+                throw new ProgrammerException(
+                        "Error: The " + num.substring(i, i + 1) + " symbol is not allowed in base " + base + ".");
             }
         }
-        return true;
     }
 
     /**
@@ -108,7 +143,11 @@ public class Programmer {
      * @param index The position of the desired symbol.
      * @return The truth value of the symbol.
      */
-    public boolean logicValue(int index) {
+    public boolean logicValue(int index) throws ProgrammerException {
+        if (binaryNum.isEmpty()) {
+            throw new ProgrammerException(realNum);
+        }
+
         if (index >= binaryNum.length()) {
             return false;
         }
@@ -180,7 +219,7 @@ public class Programmer {
      * 
      * @return A Programmer object with the converted value in the new base.
      */
-    public Programmer newBase(int newBase) {
+    public Programmer newBase(int newBase) throws ProgrammerException {
         return new Programmer(conversionToBaseN(newBase), newBase);
     }
 
@@ -194,21 +233,6 @@ public class Programmer {
     }
 
     /**
-     * Method used to change the state of the convention mode to enable or disable
-     * it.
-     */
-    public void switchConvention() {
-        convention = !convention;
-    }
-
-    /**
-     * Method for changing the display mode of logic symbols.
-     */
-    public void switchLogicalSymbol() {
-        logicalSymbol = !logicalSymbol;
-    }
-
-    /**
      * Method that compares the current value with another.
      * 
      * @param n The other value to compare.
@@ -219,6 +243,10 @@ public class Programmer {
     }
 
     public String toString() {
+        // Base 0 means that there has been an error when creating the number.
+        if (base == 0) {
+            return realNum;
+        }
         if (logicalSymbol && base == 10) {
             if (binaryNum.equals("1")) {
                 return "T";

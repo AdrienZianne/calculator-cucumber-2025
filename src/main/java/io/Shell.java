@@ -24,7 +24,7 @@ public class Shell {
     private final Terminal terminal;
     private LineReader reader;
     private ConfigurableApplicationContext ctx;
-    private boolean mod = false;
+    private boolean mod = true;
 
     public Shell(ConfigurableApplicationContext ctx) throws IOException {
         terminal = TerminalBuilder.terminal();

@@ -2,6 +2,8 @@ package calculator;
 
 import java.util.Collections;
 
+import calculator.Programmer.ProgrammerException;
+
 /**
  * LogicOperation
  * This functional interface allows you to use lambdas functions.
@@ -36,7 +38,8 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    private static Programmer applyLogicOperation(Programmer l, Programmer r, LogicOperation operation) {
+    private static Programmer applyLogicOperation(Programmer l, Programmer r, LogicOperation operation)
+            throws ProgrammerException {
         String newValue = "";
         for (int i = Math.max(l.length(), r.length()) - 1; i >= 0; i--) {
             if (operation.apply(l.logicValue(i), r.logicValue(i))) {
@@ -57,7 +60,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer and(Programmer l, Programmer r) {
+    public static Programmer and(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> left && right);
     }
 
@@ -70,7 +73,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer or(Programmer l, Programmer r) {
+    public static Programmer or(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> left || right);
     }
 
@@ -83,7 +86,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer nand(Programmer l, Programmer r) {
+    public static Programmer nand(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> !left || !right);
     }
 
@@ -96,7 +99,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer nor(Programmer l, Programmer r) {
+    public static Programmer nor(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> !left && !right);
     }
 
@@ -109,7 +112,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer implication(Programmer l, Programmer r) {
+    public static Programmer implication(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> !left || (left && right));
     }
 
@@ -122,7 +125,7 @@ public class ProgrammerOperation {
      * @return The value resulting from the operation on the two values passed in
      *         parameter.
      */
-    public static Programmer equivalence(Programmer l, Programmer r) {
+    public static Programmer equivalence(Programmer l, Programmer r) throws ProgrammerException {
         return applyLogicOperation(l, r, (left, right) -> left == right);
     }
 
@@ -134,7 +137,7 @@ public class ProgrammerOperation {
      * @param shift The offset to be performed.
      * @return A new value.
      */
-    public static Programmer shiftLeft(Programmer n, int shift) {
+    public static Programmer shiftLeft(Programmer n, int shift) throws ProgrammerException {
         return ProgrammerOperation
                 .trunk(new Programmer(n.binaryNum + String.join("", Collections.nCopies(shift, "0")), 2),
                         n.length())
@@ -149,7 +152,7 @@ public class ProgrammerOperation {
      * @param shift The offset to be performed.
      * @return A new value.
      */
-    public static Programmer shiftRight(Programmer n, int shift) {
+    public static Programmer shiftRight(Programmer n, int shift) throws ProgrammerException {
         int length = n.length();
         String res = String.join("", Collections.nCopies(shift, "0")) + n.binaryNum;
         return new Programmer(res.substring(0, length), 2)
@@ -161,7 +164,7 @@ public class ProgrammerOperation {
      * 
      * @return The not of value.
      */
-    public static Programmer not(Programmer n) {
+    public static Programmer not(Programmer n) throws ProgrammerException {
         String newValue = "";
         for (int i = n.length() - 1; i >= 0; i--) {
             if (n.logicValue(i)) {
@@ -184,7 +187,7 @@ public class ProgrammerOperation {
      *             same number is returned.
      * @return The truncated value
      */
-    public static Programmer trunk(Programmer n, int size) {
+    public static Programmer trunk(Programmer n, int size) throws ProgrammerException {
         Programmer res = null;
         if (size >= n.length()) {
             res = new Programmer("", 2);
