@@ -36,6 +36,10 @@ public class Programmer {
      */
     public final String prefix;
 
+    /**
+     * When this variable is true, the notation conventions are activated.
+     * For example, 10_2 -> 0b10.
+     */
     public static boolean convention = true;
 
     /**
@@ -185,6 +189,14 @@ public class Programmer {
      */
     public int length() {
         return binaryNum.length();
+    }
+
+    /**
+     * Method used to change the state of the convention mode to enable or disable
+     * it.
+     */
+    public void switchConvention() {
+        convention = !convention;
     }
 
     /**
