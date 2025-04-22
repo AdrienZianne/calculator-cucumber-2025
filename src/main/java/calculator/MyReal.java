@@ -152,6 +152,7 @@ public class MyReal extends MyNumber {
      */
     public boolean isDouble() {
         double valD = value.doubleValue();
+        System.out.println("this: " + this + " | v: " + valD);
         return (valD != Double.POSITIVE_INFINITY) && (valD != Double.NEGATIVE_INFINITY);
     }
 
