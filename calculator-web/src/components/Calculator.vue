@@ -57,16 +57,17 @@
 <script>
 import Alert from '@/components/Alert.vue';
 import VueMathjax from 'vue-mathjax-next';
+import GlobalMethods from './GlobalMethods.vue';
 
 export default {
-  components: {Alert, VueMathjax},
+  components: {Alert, VueMathjax, GlobalMethods},
   data() {
     return {
       inputText: '',
       formattedInputText: '',
       isExpandKeyboard : false,
       isMemory : false,
-      authorizedKeys : [..."0123456789.()/*+-_".split(''), "Shift", "Backspace",
+      authorizedKeys : [..."0123456789.()/*+-".split(''), "Shift", "Backspace",
       "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " ", ","],
       inputId : document.getElementById('inputId'),
       memoryList : [],
@@ -83,25 +84,7 @@ export default {
         "tan",
         "sqrt",
         "PI",
-        ",",
-        "_",
-        "not",
-        "nand",
-        "nor",
-        "and",
-        "or",
-        "impl",
-        "equiv",
-        "<",
-        ">",
-        "ls",
-        "rs",
-        "conv",
-        "&",
-        "randi",
-        "randre",
-        "randra",
-        "randc"
+        ","
       ],
     };
   },
@@ -111,16 +94,13 @@ export default {
      * @param key What we want to write.
      */
     addKey(key) {
-      let i = inputId.selectionStart;
-      this.inputText = this.inputText.slice(0, i) + key + this.inputText.slice(i);
-      inputId.focus();
-      setTimeout(() => inputId.setSelectionRange(i+key.length, i+key.length));
+      this.inputText = GlobalMethods.addKey(key, this.inputText, inputId);
       this.formatInput();
     },
     /**
      * Method for deleting the last key entered in the textarea.
      */
-    removeOneKey() {
+     removeOneKey() {
       this.inputText = this.inputText.slice(0, -1);
       this.formatInput();
     },
@@ -128,12 +108,7 @@ export default {
      * Method for deleting a character at the current index.
      */
     removeASpecificKey() {
-      let i = inputId.selectionStart;
-      let tmp = this.inputText.split('');
-      tmp.splice(i-1, 1);
-      this.inputText = tmp.join('');
-      inputId.focus();
-      setTimeout(() => inputId.setSelectionRange(i-1, i-1));
+      this.inputText = GlobalMethods.removeASpecificKey(this.inputText, inputId);
       this.formatInput();
     },
     /**
@@ -142,7 +117,7 @@ export default {
      * 
      * @param character the character to delete.
      */
-    removeSpecificWord(character){
+     removeSpecificWord(character){
       if (character == 'Enter') this.removeOneKey();
       else if (character != 'Dead'){
         //management of ^ or ¨ or ` spam.
@@ -201,16 +176,11 @@ export default {
     },
     /**Method for moving the cursor left.*/
     moveCursorLeft(){ 
-      //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
-      let cursorPosition = inputId.selectionStart;
-      inputId.focus();
-      if(cursorPosition != 0) inputId.setSelectionRange(cursorPosition-1, cursorPosition-1);
+      GlobalMethods.moveCursorLeft(inputId);
     },
     /**Method for moving the cursor right.*/
     moveCursorRight(){
-      let cursorPosition = inputId.selectionStart;
-      inputId.focus();
-      inputId.setSelectionRange(cursorPosition+1, cursorPosition+1);
+      GlobalMethods.moveCursorRight(inputId);
     },
     /**
      * Method for returning to a specific input.
@@ -233,8 +203,9 @@ export default {
      * @param i The index.
      */
     memoryRemove(i){
-      this.memoryList.splice(i, 1);
-      if(this.memoryList.length == 0) this.isMemory = false;
+      let res = GlobalMethods.memoryRemove(i, this.memoryList);
+      this.isMemory = res.isMemory;
+      this.memoryList = res.memoryList;
     },
     /**
      * Method for handling API requests.
@@ -242,10 +213,6 @@ export default {
     replyRequest(){
       if(this.inputText != "")
       {
-        this.inputText = this.inputText.replaceAll("randi","rand_int");
-        this.inputText = this.inputText.replaceAll("randre","rand_real");
-        this.inputText = this.inputText.replaceAll("randra","rand_ratio");
-        this.inputText = this.inputText.replaceAll("randc","rand_cmplx");
         const requestOptions = {
           method: "POST",
           headers: {
@@ -260,9 +227,9 @@ export default {
               else return response.json();
           })
           .then(data => {
-            this.isMemory = true;
-            this.memoryList.push(this.inputText);
-            if(this.memoryList.length > 5) this.memoryRemove(0);
+            let res = GlobalMethods.memoryUpdate(this.memoryList, this.inputText);
+            this.isMemory = res.isMemory;
+            this.memoryList = res.memoryList;
             this.inputText = data.answer;
             this.formatInput();
           })
@@ -324,7 +291,7 @@ textarea {
 
 .keyboard-expand {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); 
+  grid-template-columns: repeat(3, 1fr); 
   grid-gap: 5px;
   padding: 6px;
   grid-auto-rows: 50px; 
