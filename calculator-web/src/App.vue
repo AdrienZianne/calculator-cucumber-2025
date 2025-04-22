@@ -4,13 +4,14 @@
 </script>
 
 <template>
-  <!-- <header>
+   <header>
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <router-link to="/pro">Programmer</router-link>
       </nav>
     </div>
-  </header> -->
+  </header> 
 
   <RouterView />
 </template>

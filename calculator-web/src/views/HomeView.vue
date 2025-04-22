@@ -26,26 +26,6 @@ export default {
     height: 100vh;
 }
 
-/* @media(min-width: 0px) and (max-width: 1366px)
-{
-  .home{
-    flex-direction: column;
-    height: 50vh;
-  }
-  h1{
-  }
-  .calculator{
-    margin-top: 100px;
-  }
-}
-
-@media(min-width: 0px) and (max-width: 1366px) and (orientation: landscape) 
-{
-  .calculator{
-    margin-top: 200px;
-  }
-} */
-
 h1 {
   font-size: 30px;
   color: #333;

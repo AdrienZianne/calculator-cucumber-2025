@@ -13,16 +13,3 @@ AC deletes your entire calculation, and the arrows allow you to move in your cal
 When you make a calculation and submit it, you'll see a memory system. 
 You can delete a specific line from this memory, or delete everything. 
 The memory automatically deletes the first calculation made in the list when it exceeds a size of 5.<br><br>
-
-randi, randre, randra and randc are respectively random generators. 
-randi takes one argument, which is the maximum value of the generated integer.
-randre and randc take no arguments.
-randra takes two arguments, the maximum value of the first number and the second.<br><br>
-
-You can also perform basic conversions using _2,_8,_16, for example.<br><br>
-
-Logical operations are possible with not, and (&), impl...<br><br>
-
-equiv is used to check whether two values are equivalent (returns 1 or 0).<br><br>
-
-<,>, rs, ls are used for offsets and conv is used to convert to different bases.

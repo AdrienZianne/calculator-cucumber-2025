@@ -47,8 +47,8 @@
       </div>
     </div>
 
-    <!--This button allows to display the third part of the keyboard.-->
     <button @click="gapButton" class="gapButton">__________</button>
+    <!--This button allows to display the third part of the keyboard.-->
     <button @click="expandKeyboard" v-if="!isExpandKeyboard">Expand Keyboard</button>
     <button @click="expandKeyboard" v-if="isExpandKeyboard">Reduce Keyboard</button>
   </div>
