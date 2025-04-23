@@ -98,13 +98,6 @@ export default {
       this.formatInput();
     },
     /**
-     * Method for deleting the last key entered in the textarea.
-     */
-     removeOneKey() {
-      this.inputText = this.inputText.slice(0, -1);
-      this.formatInput();
-    },
-    /**
      * Method for deleting a character at the current index.
      */
     removeASpecificKey() {
@@ -118,14 +111,9 @@ export default {
      * @param character the character to delete.
      */
      removeSpecificWord(character){
-      if (character == 'Enter') this.removeOneKey();
-      else if (character != 'Dead'){
-        //management of ^ or ¨ or ` spam.
-        inputId.blur();
-        this.inputText = this.inputText.replaceAll(character, '');  
-        inputId.focus();
-        this.formattedInputText = this.formattedInputText.replaceAll(character, '');
-      }
+      let res = GlobalMethods.removeSpecificWord(character, this.inputText, inputId, this.formattedInputText);
+      this.inputText = res.inputText;
+      this.formattedInputText = res.formattedInputText;
     },
     /**Method for deleting the entire entry in the textaera.*/
     clearAll() {

@@ -39,10 +39,10 @@
           <button v-for="op in operations" :op="op" @click="addKey(op)">
             {{ op }}
           </button>
+          <button @click="removeASpecificKey">⌫</button>
+          <button @click="clearAll">AC</button>
           <button @click="moveCursorLeft">←</button>
           <button @click="moveCursorRight">→</button>
-          <button @click="clearAll">AC</button>
-          <button @click="removeASpecificKey">⌫</button>
           <button @click="replyRequest">=</button>
         </div>
       </div>
@@ -65,16 +65,16 @@
         inputId : document.getElementById('inputId'),
         memoryList : [],
         authorizedKeys : [
-          ..."0123456789.abcdefghijklmnopqrstuvwx()_".split('')
+          ..."0123456789.abcdefghijklmnopqrstuvx()_<>".split('')
         ],
         numbers: [
-          ..."0123456789.".split('')
+          ..."0123456789".split('')
         ],
         letters : [
-          ..."abcdefghijklmnopqrstuvwx".split('')
+          ..."abcdefghijklmnopqrstuvx".split('')
         ],
         operations: [
-          ...",_()".split(''),
+          ..."_()".split(''),
           "randi",
           "randre",
           "randra",
@@ -83,15 +83,13 @@
           "nand",
           "nor",
           "and",
-          "&",
+          "xor",
           "or",
           "impl",
           "equiv",
+          "conv",
           "<",
-          ">",
-          "ls",
-          "rs",
-          "conv"
+          ">"
         ]
       };
     },
@@ -102,12 +100,6 @@
        */
       addKey(key) {
         this.inputText = GlobalMethods.addKey(key, this.inputText, inputId);
-      },
-      /**
-       * Method for deleting the last key entered in the textarea.
-       */
-       removeOneKey() {
-        this.inputText = this.inputText.slice(0, -1);
       },
       /**
        * Method for deleting a character at the current index.
@@ -121,14 +113,9 @@
        * 
        * @param character the character to delete.
        */
-       removeSpecificWord(character){
-        if (character == 'Enter') this.removeOneKey();
-        else if (character != 'Dead'){
-          //management of ^ or ¨ or ` spam.
-          inputId.blur();
-          this.inputText = this.inputText.replaceAll(character, '');  
-          inputId.focus();
-        }
+      removeSpecificWord(character){
+        let res = GlobalMethods.removeSpecificWord(character, this.inputText, inputId);
+        this.inputText = res.inputText;
       },
       /**Method for deleting the entire entry in the textaera.*/
       clearAll() {
@@ -256,7 +243,7 @@
   
   .keyboard1 {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
+    grid-template-columns: repeat(3, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
     grid-gap: 5px;
     padding: 6px;
   }
