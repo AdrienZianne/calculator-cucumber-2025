@@ -1,6 +1,5 @@
 <script setup>
-//import { RouterLink, RouterView } from 'vue-router'
-//import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -18,7 +17,7 @@
 
 <style scoped> 
 
-/*De base https://vuejs.org/guide/quick-start.html*/
+/*https://vuejs.org/guide/quick-start.html*/
 header {
   line-height: 1.5;
   max-height: 100vh;

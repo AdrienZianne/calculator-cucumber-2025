@@ -83,6 +83,7 @@ export default {
         "sin",
         "tan",
         "sqrt",
+        "root",
         "PI",
         ","
       ],
@@ -92,6 +93,7 @@ export default {
     /**
      * Method for adding a key in the textarea.
      * @param key What we want to write.
+     * @see GlobalMethods.vue
      */
     addKey(key) {
       this.inputText = GlobalMethods.addKey(key, this.inputText, inputId);
@@ -99,6 +101,7 @@ export default {
     },
     /**
      * Method for deleting a character at the current index.
+     * @see GlobalMethods.vue
      */
     removeASpecificKey() {
       this.inputText = GlobalMethods.removeASpecificKey(this.inputText, inputId);
@@ -109,6 +112,7 @@ export default {
      * The case where enter is pressed is also managed.
      * 
      * @param character the character to delete.
+     * @see GlobalMethods.vue
      */
      removeSpecificWord(character){
       let res = GlobalMethods.removeSpecificWord(character, this.inputText, inputId, this.formattedInputText);
@@ -162,11 +166,15 @@ export default {
       if(this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt','\\sqrt');
       if(this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI','\\pi');
     },
-    /**Method for moving the cursor left.*/
+    /**Method for moving the cursor left.
+     * @see GlobalMethods.vue
+    */
     moveCursorLeft(){ 
       GlobalMethods.moveCursorLeft(inputId);
     },
-    /**Method for moving the cursor right.*/
+    /**Method for moving the cursor right.
+     * @see GlobalMethods.vue
+    */
     moveCursorRight(){
       GlobalMethods.moveCursorRight(inputId);
     },
@@ -189,6 +197,7 @@ export default {
     /**
      * Method that removes an element from the list at a particular index.
      * @param i The index.
+     * @see GlobalMethods.vue
      */
     memoryRemove(i){
       let res = GlobalMethods.memoryRemove(i, this.memoryList);
@@ -197,6 +206,7 @@ export default {
     },
     /**
      * Method for handling API requests.
+     * @see GlobalMethods.vue
      */
     replyRequest(){
       if(this.inputText != "")
@@ -233,42 +243,7 @@ export default {
 </script>
 
 <style scoped>
-.calculator-container {
-  display: flex;
-  flex-direction: column;  
-  padding: 20px;
-  border-radius: 10px;  
-  box-shadow: 4px 8px 19px 1px rgba(0,0,0,0.5);
-  gap: 10px;
-}
-
-textarea {
-  resize: none;
-  width: 100% !important;
-  height: 50px !important; 
-  margin-bottom: 15px;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-.calculator-memory{
-  display: grid;
-}
-
-.calculator-keyboard {
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: wrap;
-  width: 100%;
-}
-
-.keyboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
-  grid-gap: 5px;
-  padding: 6px;
-}
+@import '@/assets/sharedcalculator.css';
 
 @media only screen and (max-width: 650px) {
 
@@ -277,72 +252,18 @@ textarea {
   }
 }
 
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
+    grid-gap: 5px;
+    padding: 6px;
+  }
+
 .keyboard-expand {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   grid-gap: 5px;
   padding: 6px;
   grid-auto-rows: 50px; 
-}
-
-button {
-  width: auto;
-  padding: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #deebee;
-  border: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #c1d6f6;
-}
-
-.memory-button{
-  background-color: #f5f6f5;
-  min-width: 360px; 
-  max-width: 360px; 
-  overflow-wrap: break-word;
-  margin-bottom: 10px;
-}
-
-.memory-button:hover {
-  background-color: #ceefce;
-}
-
-.memory-button-expand{
-  min-width: 550px; 
-  max-width: 550px;
-}
-
-.memory-clear-button {
-  margin-bottom: 10px;
-}
-
-.memory-clear-button:hover {
-  background-color: #940909;
-}
-
-.delete-button {
-  background: none;
-  font-size: 20px; 
-  cursor: pointer; 
-}
-
-.delete-button::after{
-  content: '✖️';
-}
-
-.delete-button:hover{
-  background: none;
-}
-
-.delete-button:hover::after {
-  content: '❌';
-}
-
-.gapButton{
-  margin-bottom: 5px;
 }
 </style>

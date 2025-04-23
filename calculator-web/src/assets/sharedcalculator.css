@@ -1,0 +1,90 @@
+.calculator-container {
+    display: flex;
+    flex-direction: column;  
+    padding: 20px;
+    border-radius: 10px;  
+    box-shadow: 4px 8px 19px 1px rgba(0,0,0,0.5);
+    gap: 10px;
+  }
+  
+  textarea {
+    resize: none;
+    width: 100% !important;
+    height: 50px !important; 
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .calculator-memory{
+    display: grid;
+  }
+  
+  .calculator-keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: wrap;
+    width: 100%;
+  }
+
+  button {
+    width: auto;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #deebee;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #c1d6f6;
+  }
+  
+  .memory-button{
+    background-color: #f5f6f5;
+    min-width: 320px; 
+    max-width: 320px; 
+    overflow-wrap: break-word;
+    margin-bottom: 10px;
+  }
+  
+  .memory-button:hover {
+    background-color: #ceefce;
+  }
+  
+  .memory-button-expand{
+    min-width: 500px; 
+    max-width: 500px;
+  }
+  
+  .memory-clear-button {
+    margin-bottom: 10px;
+  }
+  
+  .memory-clear-button:hover {
+    background-color: #940909;
+  }
+  
+  .delete-button {
+    background: none;
+    font-size: 20px; 
+    cursor: pointer; 
+  }
+  
+  .delete-button::after{
+    content: '✖️';
+  }
+  
+  .delete-button:hover{
+    background: none;
+  }
+  
+  .delete-button:hover::after {
+    content: '❌';
+  }
+  
+  .gapButton{
+    margin-bottom: 5px;
+  }

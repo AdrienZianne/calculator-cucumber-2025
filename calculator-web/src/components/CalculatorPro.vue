@@ -23,19 +23,19 @@
       <!--Three divs representing the three parts of the keyboard. 
       The calculator-keyboard div allows you to place the keyboard parts side by side.-->
       <div class="calculator-keyboard" >
-        <div class="keyboard1">
+        <div class="keyboard keyboard1">
           <button class="ink1" v-for="number in numbers" :number="number" @click="addKey(number)">
             {{ number }}
           </button>
         </div>
 
-        <div class="keyboard2">
+        <div class="keyboard keyboard2">
           <button v-for="letter in letters" :letter="letter" @click="addKey(letter)">
             {{ letter }}
           </button>
         </div>
   
-        <div class="keyboard3">
+        <div class="keyboard keyboard3">
           <button v-for="op in operations" :op="op" @click="addKey(op)">
             {{ op }}
           </button>
@@ -97,12 +97,14 @@
       /**
        * Method for adding a key in the textarea.
        * @param key What we want to write.
+       * @see GlobalMethods.vue
        */
       addKey(key) {
         this.inputText = GlobalMethods.addKey(key, this.inputText, inputId);
       },
       /**
        * Method for deleting a character at the current index.
+       * @see GlobalMethods.vue
        */
       removeASpecificKey() {
         this.inputText = GlobalMethods.removeASpecificKey(this.inputText, inputId);
@@ -112,6 +114,7 @@
        * The case where enter is pressed is also managed.
        * 
        * @param character the character to delete.
+       * @see GlobalMethods.vue
        */
       removeSpecificWord(character){
         let res = GlobalMethods.removeSpecificWord(character, this.inputText, inputId);
@@ -133,17 +136,21 @@
         //without a timer, remove is not applied correctly.
         //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
         let word = event.key;
-        this.inputText= this.inputText.replaceAll("^","");
-        this.inputText= this.inputText.replaceAll("¨","");
-        this.inputText= this.inputText.replaceAll("`","");
+        if(this.inputText.includes('^')) this.inputText= this.inputText.replaceAll("^","");
+        if(this.inputText.includes('¨')) this.inputText= this.inputText.replaceAll("¨","");
+        if(this.inputText.includes('`')) this.inputText= this.inputText.replaceAll("`","");
         if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5);        
         if (word == "Enter" || word == "=") this.replyRequest();   
       },
-      /**Method for moving the cursor left.*/
+      /**Method for moving the cursor left.
+       * @see GlobalMethods.vue
+      */
       moveCursorLeft(){ 
         GlobalMethods.moveCursorLeft(inputId);
       },
-      /**Method for moving the cursor right.*/
+      /**Method for moving the cursor right.
+       * @see GlobalMethods.vue
+      */
       moveCursorRight(){
         GlobalMethods.moveCursorRight(inputId);
       },
@@ -165,6 +172,7 @@
       /**
        * Method that removes an element from the list at a particular index.
        * @param i The index.
+       * @see GlobalMethods.vue
        */
       memoryRemove(i){
         let res = GlobalMethods.memoryRemove(i, this.memoryList);
@@ -173,14 +181,15 @@
       },
       /**
        * Method for handling API requests.
+       * @see GlobalMethods.vue
        */
       replyRequest(){
         if(this.inputText != "")
         {
-          this.inputText = this.inputText.replaceAll("randi","rand_int");
-          this.inputText = this.inputText.replaceAll("randre","rand_real");
-          this.inputText = this.inputText.replaceAll("randra","rand_ratio");
-          this.inputText = this.inputText.replaceAll("randc","rand_cmplx");
+          if(this.inputText.includes('randi')) this.inputText = this.inputText.replaceAll("randi","rand_int");
+          if(this.inputText.includes('randre')) this.inputText = this.inputText.replaceAll("randre","rand_real");
+          if(this.inputText.includes('randra')) this.inputText = this.inputText.replaceAll("randra","rand_ratio");
+          if(this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc","rand_cmplx");
           const requestOptions = {
             method: "POST",
             headers: {
@@ -211,41 +220,16 @@
   </script>
   
   <style scoped>
-  .calculator-container {
-    display: flex;
-    flex-direction: column;  
-    padding: 20px;
-    border-radius: 10px;  
-    box-shadow: 4px 8px 19px 1px rgba(0,0,0,0.5);
-    gap: 10px;
-  }
+  @import '@/assets/sharedcalculator.css';
   
-  textarea {
-    resize: none;
-    width: 100% !important;
-    height: 50px !important; 
-    margin-bottom: 15px;
-    font-size: 18px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  
-  .calculator-memory{
+  .keyboard {
     display: grid;
-  }
-  
-  .calculator-keyboard {
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: wrap;
-    width: 100%;
-  }
-  
-  .keyboard1 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
     grid-gap: 5px;
     padding: 6px;
+  }
+
+  .keyboard1 {
+    grid-template-columns: repeat(3, 1fr); /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
   }
 
   .ink1{
@@ -253,72 +237,10 @@
   }
 
   .keyboard2 {
-    display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-gap: 5px;
-    padding: 6px;
   }
 
   .keyboard3 {
-    display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    grid-gap: 5px;
-    padding: 6px;
-  }
-  
-  button {
-    width: auto;
-    padding: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #deebee;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #c1d6f6;
-  }
-  
-  .memory-button{
-    background-color: #f5f6f5;
-    min-width: 360px; 
-    max-width: 360px; 
-    overflow-wrap: break-word;
-    margin-bottom: 10px;
-  }
-  
-  .memory-button:hover {
-    background-color: #ceefce;
-  }
-
-  .memory-clear-button {
-    margin-bottom: 10px;
-  }
-  
-  .memory-clear-button:hover {
-    background-color: #940909;
-  }
-  
-  .delete-button {
-    background: none;
-    font-size: 20px; 
-    cursor: pointer; 
-  }
-  
-  .delete-button::after{
-    content: '✖️';
-  }
-  
-  .delete-button:hover{
-    background: none;
-  }
-  
-  .delete-button:hover::after {
-    content: '❌';
-  }
-  
-  .gapButton{
-    margin-bottom: 5px;
   }
   </style>

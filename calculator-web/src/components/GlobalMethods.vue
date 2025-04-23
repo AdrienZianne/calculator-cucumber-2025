@@ -101,8 +101,8 @@
      */
      removeSpecificWord(character, inputText, inputId, formattedInputText){
       if (character == 'Enter') {
-        inputText = inputText.slice(0, -1);
-        if(formattedInputText != undefined) formattedInputText = formattedInputText.slice(0, -1);
+        inputText = inputText.replaceAll("\n", "");
+        if(formattedInputText != undefined) formattedInputText = formattedInputText.replaceAll("\n", "");
       }
       else if (character != 'Dead'){
         //management of ^ or ¨ or ` spam.
