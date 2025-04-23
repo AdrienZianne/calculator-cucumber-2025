@@ -1,7 +1,8 @@
 <script>
   export default {
     /**
-     * Method for adding a key in the textarea.
+     * Method for adding a key in a textarea.
+     * 
      * @param key What we want to write.
      * @param inputText The text where to add key.
      * @param inputId To retrieve the different textaera indexes.
@@ -31,9 +32,9 @@
       setTimeout(() => inputId.setSelectionRange(i-1, i-1));
       return inputText;
     },
-    /**Method for moving the cursor left.
-     * @param inputId To retrieve the different textaera indexes.
+    /**Method for moving the cursor left in a textarea.
      * 
+     * @param inputId To retrieve the different textaera indexes.
     */
     moveCursorLeft(inputId){ 
       //https://www.geeksforgeeks.org/how-to-place-cursor-position-at-end-of-text-in-text-input-field-using-javascript/
@@ -41,7 +42,8 @@
       inputId.focus();
       if(cursorPosition != 0) inputId.setSelectionRange(cursorPosition-1, cursorPosition-1);
     },
-    /**Method for moving the cursor right.
+    /**Method for moving the cursor right in a textarea.
+     * 
      * @param inputId To retrieve the different textaera indexes.
     */
     moveCursorRight(inputId){
@@ -50,11 +52,12 @@
       inputId.setSelectionRange(cursorPosition+1, cursorPosition+1);
     },
     /**
-     * Method for updating the memoryList.
-     * @param inputText The text to push on memory.
+     * Method for updating the memoryList when a request is sent from one of the calculators.
+     * 
+     * @param inputText The text to push on the memoryList.
      * @param memoryList The current memory list.
      * 
-     * @return memoryList modified and isMemory if the memory needs to be activated.
+     * @return memoryList modified and isMemory to know if memory needs to be activated.
      */
     memoryUpdate(memoryList, inputText){
       memoryList.push(inputText);
@@ -72,7 +75,8 @@
       }
     },
     /**
-     * Method that removes an element from the list at a particular index.
+     * Method that removes an element from the memoryList at a particular index.
+     * 
      * @param i The index.
      * @param memoryList The current memory list.
      * 
@@ -88,7 +92,7 @@
       }
     },
     /**
-     * Method used to remove a specific character from the textarea.
+     * Method used to remove a specific character from a textarea.
      * The case where enter is pressed is also managed.
      * 
      * @param character the character to delete.

@@ -12,14 +12,13 @@ export default {
   methods: {
     /**
      * Method that creates a pop-up explaining the application.
+     * 
      * @param data The text to display.
      */
     display(data) {
         Alert.infoManagement(data);
     },
-    /**
-     * Method that loads text from the file.
-     */
+    /** Method that loads text from the file. */
     accessFile() {
       if(this.isCalculatorPro) {
         fetch('/public/infopro.txt') 

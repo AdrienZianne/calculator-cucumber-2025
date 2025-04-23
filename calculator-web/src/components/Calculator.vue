@@ -92,6 +92,7 @@ export default {
   methods: {
     /**
      * Method for adding a key in the textarea.
+     * 
      * @param key What we want to write.
      * @see GlobalMethods.vue
      */
@@ -101,6 +102,7 @@ export default {
     },
     /**
      * Method for deleting a character at the current index.
+     * 
      * @see GlobalMethods.vue
      */
     removeASpecificKey() {
@@ -109,7 +111,6 @@ export default {
     },
     /**
      * Method used to remove a specific character from the textarea.
-     * The case where enter is pressed is also managed.
      * 
      * @param character the character to delete.
      * @see GlobalMethods.vue
@@ -144,7 +145,7 @@ export default {
       let word = event.key;
       //There is always ^number not only ^.
       let number = ["^1", "^2", "^3", "^4", "^5", "^6", "^7", "^8", "^9","^10"];
-      if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5);        
+      if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word));        
       if (word == "Enter" || word == "=") this.replyRequest();   
     },
     /**
@@ -167,12 +168,14 @@ export default {
       if(this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI','\\pi');
     },
     /**Method for moving the cursor left.
+     * 
      * @see GlobalMethods.vue
     */
     moveCursorLeft(){ 
       GlobalMethods.moveCursorLeft(inputId);
     },
     /**Method for moving the cursor right.
+     * 
      * @see GlobalMethods.vue
     */
     moveCursorRight(){
@@ -180,6 +183,7 @@ export default {
     },
     /**
      * Method for returning to a specific input.
+     * 
      * @param memory The input we want to reuse.
      */
     memoryBack(memory)
@@ -187,15 +191,14 @@ export default {
       this.inputText = memory;
       this.formatInput();
     },
-    /**
-     * Method for deleting memory.
-     */
+    /** Method for deleting memory. */
     memoryClear(){
       this.isMemory = false;
       this.memoryList = [];
     },
     /**
      * Method that removes an element from the list at a particular index.
+     * 
      * @param i The index.
      * @see GlobalMethods.vue
      */
@@ -206,6 +209,7 @@ export default {
     },
     /**
      * Method for handling API requests.
+     * 
      * @see GlobalMethods.vue
      */
     replyRequest(){

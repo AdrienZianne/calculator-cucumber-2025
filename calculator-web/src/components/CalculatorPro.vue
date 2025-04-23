@@ -96,6 +96,7 @@
     methods: {
       /**
        * Method for adding a key in the textarea.
+       * 
        * @param key What we want to write.
        * @see GlobalMethods.vue
        */
@@ -104,6 +105,7 @@
       },
       /**
        * Method for deleting a character at the current index.
+       * 
        * @see GlobalMethods.vue
        */
       removeASpecificKey() {
@@ -111,7 +113,6 @@
       },
       /**
        * Method used to remove a specific character from the textarea.
-       * The case where enter is pressed is also managed.
        * 
        * @param character the character to delete.
        * @see GlobalMethods.vue
@@ -129,26 +130,29 @@
         this.addKey(" ");
       },
       /**
-     * Method for filtering keyboard entries.
-     * @param event Event linked to the key pressed on the keyboard.
-     */
-    forbiddenKeys(event) {
+      * Method for filtering keyboard entries.
+      * 
+      * @param event Event linked to the key pressed on the keyboard.
+      */
+      forbiddenKeys(event) {
         //without a timer, remove is not applied correctly.
         //https://stackoverflow.com/questions/42511311/vuejs-on-input-run-a-function-but-with-a-delay
         let word = event.key;
         if(this.inputText.includes('^')) this.inputText= this.inputText.replaceAll("^","");
         if(this.inputText.includes('¨')) this.inputText= this.inputText.replaceAll("¨","");
         if(this.inputText.includes('`')) this.inputText= this.inputText.replaceAll("`","");
-        if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word), 5);        
+        if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word));        
         if (word == "Enter" || word == "=") this.replyRequest();   
       },
       /**Method for moving the cursor left.
+       * 
        * @see GlobalMethods.vue
       */
       moveCursorLeft(){ 
         GlobalMethods.moveCursorLeft(inputId);
       },
       /**Method for moving the cursor right.
+       * 
        * @see GlobalMethods.vue
       */
       moveCursorRight(){
@@ -156,21 +160,21 @@
       },
       /**
        * Method for returning to a specific input.
+       * 
        * @param memory The input we want to reuse.
        */
       memoryBack(memory)
       {
         this.inputText = memory;
       },
-      /**
-       * Method for deleting memory.
-       */
+      /** Method for deleting memory. */
       memoryClear(){
         this.isMemory = false;
         this.memoryList = [];
       },
       /**
        * Method that removes an element from the list at a particular index.
+       * 
        * @param i The index.
        * @see GlobalMethods.vue
        */
@@ -181,6 +185,7 @@
       },
       /**
        * Method for handling API requests.
+       * 
        * @see GlobalMethods.vue
        */
       replyRequest(){
