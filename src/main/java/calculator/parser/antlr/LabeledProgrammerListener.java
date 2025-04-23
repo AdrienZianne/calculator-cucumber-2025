@@ -8,17 +8,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface LabeledProgrammerListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code OperationImpl}
+	 * Enter a parse tree produced by the {@code OperationXor}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	void enterOperationXor(LabeledProgrammerParser.OperationXorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code OperationImpl}
+	 * Exit a parse tree produced by the {@code OperationXor}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	void exitOperationXor(LabeledProgrammerParser.OperationXorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code OperationEquiv}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
@@ -44,18 +44,6 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 */
 	void exitOperationAnd(LabeledProgrammerParser.OperationAndContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code OperationPrio}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code OperationPrio}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code OperationNand}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
@@ -67,18 +55,6 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperationNand(LabeledProgrammerParser.OperationNandContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code OperationNot}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code OperationNot}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code OperationConv}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
@@ -104,18 +80,6 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 */
 	void exitOperationNumber(LabeledProgrammerParser.OperationNumberContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code OperationRshift}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code OperationRshift}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code OperationLshift}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
@@ -139,6 +103,54 @@ public interface LabeledProgrammerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperationOr(LabeledProgrammerParser.OperationOrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OperationImpl}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OperationImpl}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OperationPrio}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OperationPrio}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OperationNot}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OperationNot}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OperationRshift}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OperationRshift}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code OperationNor}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.

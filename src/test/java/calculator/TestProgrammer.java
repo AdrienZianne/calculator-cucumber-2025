@@ -127,6 +127,7 @@ public class TestProgrammer {
         Programmer p2 = new Programmer("134", 8);
         assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0o10");
         assertEquals(ProgrammerOperation.or(p1, p2).toString(), "0o136");
+        assertEquals(ProgrammerOperation.xor(p1, p2).toString(), "0o126");
         assertEquals(ProgrammerOperation.nand(p1, p2).toString(), "0o167");
         assertEquals(ProgrammerOperation.nor(p1, p2).toString(), "0o41");
         assertEquals(ProgrammerOperation.implication(p1, p2).toString(), "0o175");

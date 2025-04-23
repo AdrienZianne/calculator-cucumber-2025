@@ -11,12 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code OperationImpl}
+	 * Visit a parse tree produced by the {@code OperationXor}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	T visitOperationXor(LabeledProgrammerParser.OperationXorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code OperationEquiv}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
@@ -32,26 +32,12 @@ public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperationAnd(LabeledProgrammerParser.OperationAndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code OperationPrio}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code OperationNand}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOperationNand(LabeledProgrammerParser.OperationNandContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code OperationNot}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code OperationConv}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
@@ -67,13 +53,6 @@ public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperationNumber(LabeledProgrammerParser.OperationNumberContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code OperationRshift}
-	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code OperationLshift}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
 	 * @param ctx the parse tree
@@ -87,6 +66,34 @@ public interface LabeledProgrammerVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOperationOr(LabeledProgrammerParser.OperationOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OperationImpl}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OperationPrio}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OperationNot}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperationNot(LabeledProgrammerParser.OperationNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OperationRshift}
+	 * labeled alternative in {@link LabeledProgrammerParser#operation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code OperationNor}
 	 * labeled alternative in {@link LabeledProgrammerParser#operation}.

@@ -17,10 +17,10 @@ public class LabeledProgrammerParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		BOOL=10, AND=11, OR=12, NOT=13, LSHIFT=14, RSHIFT=15, BINARY_LITERAL=16, 
-		OCTAL_LITERAL=17, HEXA_LITERAL=18, INT=19, ALPHABET=20, BOTH=21, NEWLINE=22, 
-		WS=23;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, BOOL=8, LSHIFT=9, 
+		RSHIFT=10, NOT=11, AND=12, OR=13, XOR=14, IMPL=15, EQUIV=16, BINARY_LITERAL=17, 
+		OCTAL_LITERAL=18, HEXA_LITERAL=19, INT=20, ALPHABET=21, BOTH=22, NEWLINE=23, 
+		WS=24;
 	public static final int
 		RULE_operation = 0, RULE_number = 1;
 	private static String[] makeRuleNames() {
@@ -32,16 +32,15 @@ public class LabeledProgrammerParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "'nand'", "'nor'", "'impl'", "'equiv'", "'conv'", 
-			"','", "'_'"
+			null, "'('", "')'", "'conv'", "','", "'nand'", "'nor'", "'_'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, "BOOL", "AND", 
-			"OR", "NOT", "LSHIFT", "RSHIFT", "BINARY_LITERAL", "OCTAL_LITERAL", "HEXA_LITERAL", 
-			"INT", "ALPHABET", "BOTH", "NEWLINE", "WS"
+			null, null, null, null, null, null, null, null, "BOOL", "LSHIFT", "RSHIFT", 
+			"NOT", "AND", "OR", "XOR", "IMPL", "EQUIV", "BINARY_LITERAL", "OCTAL_LITERAL", 
+			"HEXA_LITERAL", "INT", "ALPHABET", "BOTH", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -106,25 +105,26 @@ public class LabeledProgrammerParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class OperationImplContext extends OperationContext {
+	public static class OperationXorContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
 		}
 		public OperationContext operation(int i) {
 			return getRuleContext(OperationContext.class,i);
 		}
-		public OperationImplContext(OperationContext ctx) { copyFrom(ctx); }
+		public TerminalNode XOR() { return getToken(LabeledProgrammerParser.XOR, 0); }
+		public OperationXorContext(OperationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationImpl(this);
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationXor(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationImpl(this);
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationXor(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationImpl(this);
+			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationXor(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -135,6 +135,7 @@ public class LabeledProgrammerParser extends Parser {
 		public OperationContext operation(int i) {
 			return getRuleContext(OperationContext.class,i);
 		}
+		public TerminalNode EQUIV() { return getToken(LabeledProgrammerParser.EQUIV, 0); }
 		public OperationEquivContext(OperationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -173,25 +174,6 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class OperationPrioContext extends OperationContext {
-		public OperationContext operation() {
-			return getRuleContext(OperationContext.class,0);
-		}
-		public OperationPrioContext(OperationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationPrio(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationPrio(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationPrio(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class OperationNandContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -211,26 +193,6 @@ public class LabeledProgrammerParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationNand(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class OperationNotContext extends OperationContext {
-		public TerminalNode NOT() { return getToken(LabeledProgrammerParser.NOT, 0); }
-		public OperationContext operation() {
-			return getRuleContext(OperationContext.class,0);
-		}
-		public OperationNotContext(OperationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationNot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationNot(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -270,27 +232,6 @@ public class LabeledProgrammerParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationNumber(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class OperationRshiftContext extends OperationContext {
-		public OperationContext operation() {
-			return getRuleContext(OperationContext.class,0);
-		}
-		public TerminalNode RSHIFT() { return getToken(LabeledProgrammerParser.RSHIFT, 0); }
-		public TerminalNode INT() { return getToken(LabeledProgrammerParser.INT, 0); }
-		public OperationRshiftContext(OperationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationRshift(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationRshift(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationRshift(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -335,6 +276,89 @@ public class LabeledProgrammerParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationOr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OperationImplContext extends OperationContext {
+		public List<OperationContext> operation() {
+			return getRuleContexts(OperationContext.class);
+		}
+		public OperationContext operation(int i) {
+			return getRuleContext(OperationContext.class,i);
+		}
+		public TerminalNode IMPL() { return getToken(LabeledProgrammerParser.IMPL, 0); }
+		public OperationImplContext(OperationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationImpl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationImpl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationImpl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OperationPrioContext extends OperationContext {
+		public OperationContext operation() {
+			return getRuleContext(OperationContext.class,0);
+		}
+		public OperationPrioContext(OperationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationPrio(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationPrio(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationPrio(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OperationNotContext extends OperationContext {
+		public TerminalNode NOT() { return getToken(LabeledProgrammerParser.NOT, 0); }
+		public OperationContext operation() {
+			return getRuleContext(OperationContext.class,0);
+		}
+		public OperationNotContext(OperationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationNot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationNot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationNot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OperationRshiftContext extends OperationContext {
+		public OperationContext operation() {
+			return getRuleContext(OperationContext.class,0);
+		}
+		public TerminalNode RSHIFT() { return getToken(LabeledProgrammerParser.RSHIFT, 0); }
+		public TerminalNode INT() { return getToken(LabeledProgrammerParser.INT, 0); }
+		public OperationRshiftContext(OperationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).enterOperationRshift(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledProgrammerListener ) ((LabeledProgrammerListener)listener).exitOperationRshift(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledProgrammerVisitor ) return ((LabeledProgrammerVisitor<? extends T>)visitor).visitOperationRshift(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -393,34 +417,34 @@ public class LabeledProgrammerParser extends Parser {
 				match(T__1);
 				}
 				break;
+			case T__2:
+				{
+				_localctx = new OperationConvContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(9);
+				match(T__2);
+				setState(10);
+				match(T__0);
+				setState(11);
+				operation(0);
+				setState(12);
+				match(T__3);
+				setState(13);
+				match(INT);
+				setState(14);
+				match(T__1);
+				}
+				break;
 			case NOT:
 				{
 				_localctx = new OperationNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(9);
-				match(NOT);
-				setState(10);
-				operation(9);
-				}
-				break;
-			case T__6:
-				{
-				_localctx = new OperationConvContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(11);
-				match(T__6);
-				setState(12);
-				match(T__0);
-				setState(13);
-				operation(0);
-				setState(14);
-				match(T__7);
-				setState(15);
-				match(INT);
 				setState(16);
-				match(T__1);
+				match(NOT);
+				setState(17);
+				operation(9);
 				}
 				break;
 			case BOOL:
@@ -442,7 +466,7 @@ public class LabeledProgrammerParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(47);
+			setState(50);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -450,7 +474,7 @@ public class LabeledProgrammerParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(45);
+					setState(48);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
@@ -458,11 +482,11 @@ public class LabeledProgrammerParser extends Parser {
 						_localctx = new OperationAndContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(21);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(22);
 						match(AND);
 						setState(23);
-						operation(12);
+						operation(9);
 						}
 						break;
 					case 2:
@@ -470,89 +494,101 @@ public class LabeledProgrammerParser extends Parser {
 						_localctx = new OperationOrContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(24);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(25);
 						match(OR);
 						setState(26);
-						operation(11);
+						operation(8);
 						}
 						break;
 					case 3:
 						{
-						_localctx = new OperationNandContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationXorContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(27);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(28);
-						match(T__2);
+						match(XOR);
 						setState(29);
-						operation(9);
+						operation(7);
 						}
 						break;
 					case 4:
 						{
-						_localctx = new OperationNorContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationNandContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(30);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(31);
-						match(T__3);
+						match(T__4);
 						setState(32);
-						operation(8);
+						operation(6);
 						}
 						break;
 					case 5:
 						{
-						_localctx = new OperationImplContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationNorContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(33);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(34);
-						match(T__4);
+						match(T__5);
 						setState(35);
-						operation(7);
+						operation(5);
 						}
 						break;
 					case 6:
 						{
-						_localctx = new OperationEquivContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationImplContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(36);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(37);
-						match(T__5);
+						match(IMPL);
 						setState(38);
-						operation(6);
+						operation(4);
 						}
 						break;
 					case 7:
 						{
-						_localctx = new OperationLshiftContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationEquivContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(39);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(40);
-						match(LSHIFT);
+						match(EQUIV);
 						setState(41);
-						match(INT);
+						operation(3);
 						}
 						break;
 					case 8:
 						{
-						_localctx = new OperationRshiftContext(new OperationContext(_parentctx, _parentState));
+						_localctx = new OperationLshiftContext(new OperationContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_operation);
 						setState(42);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(43);
-						match(RSHIFT);
+						match(LSHIFT);
 						setState(44);
+						match(INT);
+						}
+						break;
+					case 9:
+						{
+						_localctx = new OperationRshiftContext(new OperationContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_operation);
+						setState(45);
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						setState(46);
+						match(RSHIFT);
+						setState(47);
 						match(INT);
 						}
 						break;
 					}
 					} 
 				}
-				setState(49);
+				setState(52);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -693,14 +729,14 @@ public class LabeledProgrammerParser extends Parser {
 		enterRule(_localctx, 2, RULE_number);
 		int _la;
 		try {
-			setState(58);
+			setState(61);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new NumberBoolContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(50);
+				setState(53);
 				match(BOOL);
 				}
 				break;
@@ -708,7 +744,7 @@ public class LabeledProgrammerParser extends Parser {
 				_localctx = new NumberBinaryContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(51);
+				setState(54);
 				match(BINARY_LITERAL);
 				}
 				break;
@@ -716,7 +752,7 @@ public class LabeledProgrammerParser extends Parser {
 				_localctx = new NumberOctalContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(52);
+				setState(55);
 				match(OCTAL_LITERAL);
 				}
 				break;
@@ -724,7 +760,7 @@ public class LabeledProgrammerParser extends Parser {
 				_localctx = new NumberDecimalContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(53);
+				setState(56);
 				match(INT);
 				}
 				break;
@@ -732,7 +768,7 @@ public class LabeledProgrammerParser extends Parser {
 				_localctx = new NumberHexaContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(54);
+				setState(57);
 				match(HEXA_LITERAL);
 				}
 				break;
@@ -740,7 +776,7 @@ public class LabeledProgrammerParser extends Parser {
 				_localctx = new NumberDefaultContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(55);
+				setState(58);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << ALPHABET) | (1L << BOTH))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -750,9 +786,9 @@ public class LabeledProgrammerParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(56);
-				match(T__8);
-				setState(57);
+				setState(59);
+				match(T__6);
+				setState(60);
 				match(INT);
 				}
 				break;
@@ -779,45 +815,48 @@ public class LabeledProgrammerParser extends Parser {
 	private boolean operation_sempred(OperationContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 11);
-		case 1:
-			return precpred(_ctx, 10);
-		case 2:
 			return precpred(_ctx, 8);
-		case 3:
+		case 1:
 			return precpred(_ctx, 7);
-		case 4:
+		case 2:
 			return precpred(_ctx, 6);
-		case 5:
+		case 3:
 			return precpred(_ctx, 5);
-		case 6:
+		case 4:
 			return precpred(_ctx, 4);
-		case 7:
+		case 5:
 			return precpred(_ctx, 3);
+		case 6:
+			return precpred(_ctx, 2);
+		case 7:
+			return precpred(_ctx, 11);
+		case 8:
+			return precpred(_ctx, 10);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31?\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32B\4\2\t\2\4\3\t"+
 		"\3\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\26"+
 		"\n\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
-		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\60\n\2\f\2\16\2\63\13\2\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\5\3=\n\3\3\3\2\3\2\4\2\4\2\3\3\2\25\27\2L\2\25\3"+
-		"\2\2\2\4<\3\2\2\2\6\7\b\2\1\2\7\b\7\3\2\2\b\t\5\2\2\2\t\n\7\4\2\2\n\26"+
-		"\3\2\2\2\13\f\7\17\2\2\f\26\5\2\2\13\r\16\7\t\2\2\16\17\7\3\2\2\17\20"+
-		"\5\2\2\2\20\21\7\n\2\2\21\22\7\25\2\2\22\23\7\4\2\2\23\26\3\2\2\2\24\26"+
-		"\5\4\3\2\25\6\3\2\2\2\25\13\3\2\2\2\25\r\3\2\2\2\25\24\3\2\2\2\26\61\3"+
-		"\2\2\2\27\30\f\r\2\2\30\31\7\r\2\2\31\60\5\2\2\16\32\33\f\f\2\2\33\34"+
-		"\7\16\2\2\34\60\5\2\2\r\35\36\f\n\2\2\36\37\7\5\2\2\37\60\5\2\2\13 !\f"+
-		"\t\2\2!\"\7\6\2\2\"\60\5\2\2\n#$\f\b\2\2$%\7\7\2\2%\60\5\2\2\t&\'\f\7"+
-		"\2\2\'(\7\b\2\2(\60\5\2\2\b)*\f\6\2\2*+\7\20\2\2+\60\7\25\2\2,-\f\5\2"+
-		"\2-.\7\21\2\2.\60\7\25\2\2/\27\3\2\2\2/\32\3\2\2\2/\35\3\2\2\2/ \3\2\2"+
-		"\2/#\3\2\2\2/&\3\2\2\2/)\3\2\2\2/,\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2\61"+
-		"\62\3\2\2\2\62\3\3\2\2\2\63\61\3\2\2\2\64=\7\f\2\2\65=\7\22\2\2\66=\7"+
-		"\23\2\2\67=\7\25\2\28=\7\24\2\29:\t\2\2\2:;\7\13\2\2;=\7\25\2\2<\64\3"+
-		"\2\2\2<\65\3\2\2\2<\66\3\2\2\2<\67\3\2\2\2<8\3\2\2\2<9\3\2\2\2=\5\3\2"+
-		"\2\2\6\25/\61<";
+		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\63\n\2\f\2\16\2\66\13\2"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3@\n\3\3\3\2\3\2\4\2\4\2\3\3\2\26\30"+
+		"\2P\2\25\3\2\2\2\4?\3\2\2\2\6\7\b\2\1\2\7\b\7\3\2\2\b\t\5\2\2\2\t\n\7"+
+		"\4\2\2\n\26\3\2\2\2\13\f\7\5\2\2\f\r\7\3\2\2\r\16\5\2\2\2\16\17\7\6\2"+
+		"\2\17\20\7\26\2\2\20\21\7\4\2\2\21\26\3\2\2\2\22\23\7\r\2\2\23\26\5\2"+
+		"\2\13\24\26\5\4\3\2\25\6\3\2\2\2\25\13\3\2\2\2\25\22\3\2\2\2\25\24\3\2"+
+		"\2\2\26\64\3\2\2\2\27\30\f\n\2\2\30\31\7\16\2\2\31\63\5\2\2\13\32\33\f"+
+		"\t\2\2\33\34\7\17\2\2\34\63\5\2\2\n\35\36\f\b\2\2\36\37\7\20\2\2\37\63"+
+		"\5\2\2\t !\f\7\2\2!\"\7\7\2\2\"\63\5\2\2\b#$\f\6\2\2$%\7\b\2\2%\63\5\2"+
+		"\2\7&\'\f\5\2\2\'(\7\21\2\2(\63\5\2\2\6)*\f\4\2\2*+\7\22\2\2+\63\5\2\2"+
+		"\5,-\f\r\2\2-.\7\13\2\2.\63\7\26\2\2/\60\f\f\2\2\60\61\7\f\2\2\61\63\7"+
+		"\26\2\2\62\27\3\2\2\2\62\32\3\2\2\2\62\35\3\2\2\2\62 \3\2\2\2\62#\3\2"+
+		"\2\2\62&\3\2\2\2\62)\3\2\2\2\62,\3\2\2\2\62/\3\2\2\2\63\66\3\2\2\2\64"+
+		"\62\3\2\2\2\64\65\3\2\2\2\65\3\3\2\2\2\66\64\3\2\2\2\67@\7\n\2\28@\7\23"+
+		"\2\29@\7\24\2\2:@\7\26\2\2;@\7\25\2\2<=\t\2\2\2=>\7\t\2\2>@\7\26\2\2?"+
+		"\67\3\2\2\2?8\3\2\2\2?9\3\2\2\2?:\3\2\2\2?;\3\2\2\2?<\3\2\2\2@\5\3\2\2"+
+		"\2\6\25\62\64?";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

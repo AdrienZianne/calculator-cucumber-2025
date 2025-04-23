@@ -79,8 +79,44 @@ public class ProgrammerParser extends LabeledProgrammerBaseVisitor<Programmer> {
      */
 
     @Override
+    public Programmer visitOperationConv(LabeledProgrammerParser.OperationConvContext ctx) {
+        try {
+            return visit(ctx.getChild(2)).newBase(Integer.parseInt(ctx.getChild(4).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
+    }
+
+    @Override
+    public Programmer visitOperationLshift(LabeledProgrammerParser.OperationLshiftContext ctx) {
+        try {
+            return ProgrammerOperation.shiftLeft(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
+    }
+
+    @Override
+    public Programmer visitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) {
+        try {
+            return ProgrammerOperation.shiftRight(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
+    }
+
+    @Override
     public Programmer visitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx) {
         return visit(ctx.getChild(1));
+    }
+
+    @Override
+    public Programmer visitOperationNot(LabeledProgrammerParser.OperationNotContext ctx) {
+        try {
+            return ProgrammerOperation.not(visit(ctx.getChild(1)));
+        } catch (ProgrammerException e) {
+            return new Programmer(e.getMessage());
+        }
     }
 
     @Override
@@ -102,9 +138,9 @@ public class ProgrammerParser extends LabeledProgrammerBaseVisitor<Programmer> {
     }
 
     @Override
-    public Programmer visitOperationNot(LabeledProgrammerParser.OperationNotContext ctx) {
+    public Programmer visitOperationXor(LabeledProgrammerParser.OperationXorContext ctx) {
         try {
-            return ProgrammerOperation.not(visit(ctx.getChild(1)));
+            return ProgrammerOperation.xor(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
         } catch (ProgrammerException e) {
             return new Programmer(e.getMessage());
         }
@@ -141,33 +177,6 @@ public class ProgrammerParser extends LabeledProgrammerBaseVisitor<Programmer> {
     public Programmer visitOperationEquiv(LabeledProgrammerParser.OperationEquivContext ctx) {
         try {
             return ProgrammerOperation.equivalence(visit(ctx.getChild(0)), visit(ctx.getChild(2)));
-        } catch (ProgrammerException e) {
-            return new Programmer(e.getMessage());
-        }
-    }
-
-    @Override
-    public Programmer visitOperationLshift(LabeledProgrammerParser.OperationLshiftContext ctx) {
-        try {
-            return ProgrammerOperation.shiftLeft(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
-        } catch (ProgrammerException e) {
-            return new Programmer(e.getMessage());
-        }
-    }
-
-    @Override
-    public Programmer visitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) {
-        try {
-            return ProgrammerOperation.shiftRight(visit(ctx.getChild(0)), Integer.parseInt(ctx.getChild(2).getText()));
-        } catch (ProgrammerException e) {
-            return new Programmer(e.getMessage());
-        }
-    }
-
-    @Override
-    public Programmer visitOperationConv(LabeledProgrammerParser.OperationConvContext ctx) {
-        try {
-            return visit(ctx.getChild(2)).newBase(Integer.parseInt(ctx.getChild(4).getText()));
         } catch (ProgrammerException e) {
             return new Programmer(e.getMessage());
         }

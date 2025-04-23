@@ -16,13 +16,13 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperationImpl(LabeledProgrammerParser.OperationImplContext ctx) { }
+	@Override public void enterOperationXor(LabeledProgrammerParser.OperationXorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx) { }
+	@Override public void exitOperationXor(LabeledProgrammerParser.OperationXorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -52,18 +52,6 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOperationNand(LabeledProgrammerParser.OperationNandContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -71,18 +59,6 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperationNand(LabeledProgrammerParser.OperationNandContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOperationNot(LabeledProgrammerParser.OperationNotContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperationNot(LabeledProgrammerParser.OperationNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -112,18 +88,6 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOperationLshift(LabeledProgrammerParser.OperationLshiftContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -143,6 +107,54 @@ public class LabeledProgrammerBaseListener implements LabeledProgrammerListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperationOr(LabeledProgrammerParser.OperationOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperationImpl(LabeledProgrammerParser.OperationImplContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperationImpl(LabeledProgrammerParser.OperationImplContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperationPrio(LabeledProgrammerParser.OperationPrioContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperationNot(LabeledProgrammerParser.OperationNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperationNot(LabeledProgrammerParser.OperationNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperationRshift(LabeledProgrammerParser.OperationRshiftContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

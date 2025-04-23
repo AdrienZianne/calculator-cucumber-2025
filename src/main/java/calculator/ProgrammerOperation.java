@@ -78,6 +78,19 @@ public class ProgrammerOperation {
     }
 
     /**
+     * Method used to create a new value from the logical XOR operation between two
+     * values.
+     * 
+     * @param l A value.
+     * @param r A value.
+     * @return The value resulting from the operation on the two values passed in
+     *         parameter.
+     */
+    public static Programmer xor(Programmer l, Programmer r) throws ProgrammerException {
+        return applyLogicOperation(l, r, (left, right) -> (left && !right) || (!left && right));
+    }
+
+    /**
      * Method used to create a new value from the logical NAND operation between two
      * values.
      * 

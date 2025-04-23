@@ -219,8 +219,10 @@ Feature: Integer Arithmetic Expressions
       |"1 and 0"          | "0"      |
       |"1 or 0"           | "1"      | # The vertical bar symbol causes an error with cucumber in cucumber syntax.
       |"0 or 0"           | "0"      |
+      |"1 xor 1"          | "0"      |
+      |"1 xor 0"          | "1"      |
       |"not 1"            | "0"      |
-      |"-f"               | "1"      |
+      |"!f"               | "1"      |
       |"1 nand 1"         | "0"      |
       |"1 nand 0"         | "1"      |
       |"1 nor 1"          | "0"      |
