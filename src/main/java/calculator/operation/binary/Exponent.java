@@ -140,6 +140,7 @@ public class Exponent extends BinaryOperation {
     private MyNumber inversePower(MyNumber a, MyNumber n) {
         // a^(-b) = 1/(a^b)
         MyNumber negationR = UnaryOperation.op(n, Negation::new);
+
         return BinaryOperation.op(ConstantNumber.ONE, op(a, negationR), Divides::new);
     }
 

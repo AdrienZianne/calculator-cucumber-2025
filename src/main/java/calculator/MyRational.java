@@ -1,11 +1,13 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.ArrayList;
 
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
+import calculator.operation.binary.Times;
 
 /**
  * Represents a rational number.
@@ -125,8 +127,8 @@ public class MyRational extends MyNumber {
     }
 
     public static MyNumber toRational(MyReal real) {
-        int denom = (int) Math.pow(10, real.getValue().scale());
-        int num = (int) (real.getValue().doubleValue() * denom);
+        BigInteger denom = BigInteger.TEN.pow(real.getValue().scale());
+        BigInteger num = real.getValue().multiply(new BigDecimal(denom)).toBigInteger();
         return new MyRational(num, denom).simplify();
     }
 

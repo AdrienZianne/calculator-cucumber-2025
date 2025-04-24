@@ -1,10 +1,15 @@
 package calculator.operation.unary;
 
 import calculator.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSquareRoot extends TestUnaryOperation {
+    @BeforeEach
+    public void setup() {
+        Configuration.setRealPrecision(5);
+    }
 
     @Test
     @Override
@@ -20,21 +25,22 @@ public class TestSquareRoot extends TestUnaryOperation {
     @Override
     public void testMyReal() throws Exception {
         SquareRoot root = new SquareRoot(MyReal.valueOf(6.6));
-        assertEquals(MyReal.valueOf(2.569), calculator.eval(root));
+        assertEquals(MyReal.valueOf(2.56905), calculator.eval(root));
 
         root = new SquareRoot(MyReal.valueOf(-3.4));
-        assertEquals(MyComplex.create(ConstantNumber.ZERO, MyReal.valueOf(1.8439)), calculator.eval(root));
+        assertEquals(MyComplex.create(ConstantNumber.ZERO, MyReal.valueOf(1.84391)), calculator.eval(root));
 
     }
 
     @Test
     @Override
     public void testMyRational() throws Exception {
+        Configuration.setRealPrecision(5);
         SquareRoot root = new SquareRoot(MyRational.toRational(MyReal.valueOf(6.6)));
-        assertEquals(MyRational.toRational(MyReal.valueOf(2.569)), calculator.eval(root));
+        assertEquals(MyRational.toRational(MyReal.valueOf(2.56904)), calculator.eval(root));
 
         root = new SquareRoot(MyRational.toRational(MyReal.valueOf(-6.6)));
-        assertEquals(MyComplex.create(ConstantNumber.ZERO, MyRational.toRational(MyReal.valueOf(2.569))), calculator.eval(root));
+        assertEquals(MyComplex.create(ConstantNumber.ZERO, MyRational.toRational(MyReal.valueOf(2.56904))), calculator.eval(root));
 
     }
 

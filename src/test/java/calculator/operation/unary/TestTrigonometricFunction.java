@@ -72,7 +72,6 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
                 }
                 else
                 {
-                    //System.out.println(resD);
                     assertEquals(MyReal.valueOf(resD), calculator.eval(trigoClasses.get(i).build(nb)));
                 }
             }

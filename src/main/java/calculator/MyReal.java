@@ -94,9 +94,15 @@ public class MyReal extends MyNumber {
                 && !(o instanceof MyInteger) && !(o instanceof MyRational)))
             return false;
 
+        MyReal myReal;
         if (o instanceof MyInteger i) {return this.equals(toReal(i));}
-        if (o instanceof MyRational r) {return r.equals(MyRational.toRational(this));}
-        MyReal myReal = (MyReal) o;
+        if (o instanceof MyRational r) {
+            myReal = toReal(r);
+        }
+        else
+        {
+            myReal = (MyReal) o;
+        }
         return Objects.equals(value.stripTrailingZeros(), myReal.value.stripTrailingZeros());
     }
 
@@ -152,8 +158,10 @@ public class MyReal extends MyNumber {
      */
     public boolean isDouble() {
         double valD = value.doubleValue();
-        System.out.println("this: " + this + " | v: " + valD);
-        return (valD != Double.POSITIVE_INFINITY) && (valD != Double.NEGATIVE_INFINITY);
+       return     (valD != Double.POSITIVE_INFINITY)
+                && (valD != Double.NEGATIVE_INFINITY)
+                &&
+                !(BigDecimal.valueOf(Double.MAX_VALUE).compareTo(value) < 0);
     }
 
     /**

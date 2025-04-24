@@ -49,7 +49,7 @@ public class SquareRoot extends UnaryOperation {
         {
             return check;
         }
-        return new MyReal(r.getValue().sqrt(new MathContext(Configuration.getRealPrecision())));
+        return new MyReal(r.getValue().sqrt(new MathContext(Configuration.getRealPrecision()+1, Configuration.getRealRoundingMode())));
     }
 
     @Override
