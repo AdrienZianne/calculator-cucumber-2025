@@ -4,8 +4,16 @@ import calculator.*;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
+import java.math.BigInteger;
 import java.util.List;
 
+
+
+/**
+ * A class used to represent the exponentiation of a number.
+ * Let {@code x} be our expression and {@code n} be the value of the exponent, the operation will result in {@code x^n}.
+ * Note that the value of an integer exponent must be contained between {@code 0} and {@code 999999999}.
+ */
 public class Exponent extends BinaryOperation {
 
     public Exponent(List<Expression> elist) throws IllegalConstruction {
@@ -59,11 +67,10 @@ public class Exponent extends BinaryOperation {
         // Check if r is negative
         if (r.getSign() < 0)
             return inversePower(l,r);
-
-        if (!r.isInt())
-                return new MyErrorNumber(this,"The value of the exponent must be " +
-                        "a value contained between : " + Integer.MAX_VALUE + " and " + Integer.MIN_VALUE);
-
+        // 999999999 because this is the max value of the pow function from BigInteger
+        if (!r.isInt() || r.getValue().compareTo(BigInteger.valueOf(999999999)) > 0)
+                return new MyErrorNumber(this,"The absolute value of an exponent must be " +
+                        "contained between : " + 0 + " and " + 999999999 + ", inclusive");
         return new MyReal(l.getValue().pow(r.getValue().intValue()));
     }
 

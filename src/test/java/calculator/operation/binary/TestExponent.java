@@ -1,7 +1,6 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import calculator.operation.unary.UnaryOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,13 +67,33 @@ public class TestExponent extends TestBinaryOperation{
     @Test
     @Override
     public void TestMyRealMyInteger() {
+        MyNumber exp = op(MyReal.valueOf(0.5), MyInteger.valueOf(2));
+        assertEquals(MyReal.valueOf(0.25), exp);
 
+        exp = op(MyReal.valueOf(0.5), MyInteger.valueOf(-2));
+        assertEquals(MyReal.valueOf(4), exp);
+
+        exp = op(MyReal.valueOf(0.5), MyInteger.valueOf(0));
+        assertEquals(MyReal.valueOf(1), exp);
+
+        exp = op(MyReal.valueOf(0.5), MyInteger.valueOf(1));
+        assertEquals(MyReal.valueOf(0.5), exp);
+
+        exp = op(MyReal.valueOf(2.5), MyInteger.valueOf(9999999999999L));
+        assertEquals(MyErrorNumber.class, exp.getClass());
     }
 
     @Test
     @Override
     public void TestMyRealMyReal() {
+        MyNumber exp = op(MyReal.valueOf(2.5), MyReal.valueOf(2.5));
+        assertEquals(MyReal.valueOf(9.88212), exp);
 
+        exp = op(MyReal.valueOf(2.5), MyReal.valueOf(-2.5));
+        assertEquals(MyReal.valueOf(0.101193), exp);
+
+        exp = op(MyReal.valueOf(2.5), MyReal.valueOf(Integer.MAX_VALUE));
+        assertEquals(MyErrorNumber.class, exp.getClass());
     }
 
     @Test
@@ -87,6 +106,13 @@ public class TestExponent extends TestBinaryOperation{
     @Test
     @Override
     public void TestMyRealMyRational() {
+        MyNumber exp = op(MyReal.valueOf(2.5), MyRational.create(2,4));
+        assertEquals(MyReal.valueOf(1.58114), exp);
+
+        exp = op(MyReal.valueOf(2.5), MyRational.create(-2,4));
+        assertEquals(MyReal.valueOf(0.632456), exp);
+        exp = op(MyReal.valueOf(-2.5), MyRational.create(-2,4));
+        assertEquals(MyComplex.create(ConstantNumber.ZERO,MyReal.valueOf(-0.632456)), exp);
 
     }
 
@@ -121,25 +147,43 @@ public class TestExponent extends TestBinaryOperation{
     @Test
     @Override
     public void TestMyRationalMyInteger() {
+        MyNumber exp = op(MyRational.create(1,2), MyInteger.valueOf(2));
+        assertEquals(MyRational.create(1,4), exp);
 
+        exp = op(MyRational.create(2,3), MyInteger.valueOf(2));
+        assertEquals(MyRational.create(4,9), exp);
+
+        exp = op(MyRational.create(-2,3), MyInteger.valueOf(2));
+        assertEquals(MyRational.create(4,9), exp);
+
+        exp = op(MyRational.create(2,-3), MyInteger.valueOf(2));
+        assertEquals(MyRational.create(4,9), exp);
     }
 
     @Test
     @Override
     public void TestMyRationalMyReal() {
+        MyNumber exp = op(MyRational.create(1,2), MyReal.valueOf(2));
+        assertEquals(MyRational.create(1,4), exp);
 
+        exp = op(MyRational.create(1,2), MyReal.valueOf(2.5));
+        assertEquals(MyReal.valueOf(0.176777), exp);
+        exp = op(MyRational.create(1,2), MyReal.valueOf(-2.5));
+        assertEquals(MyReal.valueOf(5.65685), exp);
     }
 
     @Test
     @Override
     public void TestMyRationalMyComplex() {
-
+        MyNumber exp = op(MyRational.create(1,2), MyComplex.create(1,2));
+        assertEquals(MyErrorNumber.class, exp.getClass());
     }
 
     @Test
     @Override
     public void TestMyRationalMyRational() {
-
+        MyNumber exp = op(MyRational.create(10,3), MyRational.create(21,5));
+        assertEquals(MyReal.valueOf(157.06908), exp);
     }
 
     private MyNumber op(MyNumber a, MyNumber b) {
