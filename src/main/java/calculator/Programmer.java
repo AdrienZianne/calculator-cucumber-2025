@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.Collections;
 
 /**
@@ -75,6 +76,7 @@ public class Programmer {
                     "Error: A value of " + base + " is not allowed as a base. The base must be between 1 and 32.");
 
         }
+
         checkBase(num.toUpperCase(), base);
 
         this.realNum = num.toUpperCase();
@@ -167,13 +169,15 @@ public class Programmer {
             return "" + realNum.length();
         }
 
-        double newRealNum = 0.0;
+        BigInteger newRealNum = new BigInteger("0");
         for (int i = realNum.length() - 1; i >= 0; i--) {
-            double digit = ((int) chars.indexOf(realNum.charAt(i)) * Math.pow(base, realNum.length() - i - 1));
-            newRealNum = newRealNum + digit;
+            BigInteger multiplier = new BigInteger("" + chars.indexOf(realNum.charAt(i)));
+            BigInteger base_exponential_value = new BigInteger("" + base).pow(realNum.length() - i - 1);
+            BigInteger digit = multiplier.multiply(base_exponential_value);
+            newRealNum = newRealNum.add(new BigInteger("" + digit));
         }
 
-        return "" + ((int) newRealNum);
+        return newRealNum.toString();
     }
 
     /**
@@ -191,20 +195,31 @@ public class Programmer {
             return conversionToBase10();
         }
 
-        // FIXME number of more than 10 digits causes an error.
-        int oldRealNum = Integer.parseInt(conversionToBase10());
+        BigInteger oldRealNum = new BigInteger(conversionToBase10());
 
         if (newBase == 1) {
-            return String.join("", Collections.nCopies(oldRealNum, "0"));
+            try {
+                return String.join("", Collections.nCopies(oldRealNum.intValueExact(), "0"));
+            } catch (ArithmeticException error) {
+                // If you can't convert the BigInteger to an integer without losing information,
+                // then you need to loop.
+                StringBuilder result = new StringBuilder();
+                for (BigInteger i = BigInteger.ZERO; i.compareTo(oldRealNum) < 0; i = i.add(BigInteger.ONE)) {
+                    result.append("0");
+                }
+                return result.toString();
+            }
         }
 
         String res = "";
-        if (oldRealNum == 0) {
+        if (oldRealNum.toString().equals("0")) {
             res = "0";
         } else {
-            while (oldRealNum > 0) {
-                res = chars.charAt(oldRealNum % newBase) + res;
-                oldRealNum = (int) (oldRealNum / newBase);
+            while (oldRealNum.compareTo(new BigInteger("0")) == 1) {
+                BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
+                        newBase));
+                res = chars.charAt(divideAndRemainder[1].intValue()) + res;
+                oldRealNum = divideAndRemainder[0];
             }
         }
 

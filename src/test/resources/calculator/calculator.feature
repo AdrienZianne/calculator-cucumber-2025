@@ -229,8 +229,8 @@ Feature: Integer Arithmetic Expressions
       |"1 nor 0"          | "0"      |
       |"0 impl 0"         | "1"      |
       |"0 impl 1"         | "1"      |
-      |"1 impl 0"         | "0"      |
-      |"1 impl 1"         | "1"      |
+      |"1 => 0"           | "0"      |
+      |"1 -> 1"           | "1"      |
       |"1 equiv 1"        | "1"      |
       |"1 equiv 0"        | "0"      |
       |"0 equiv 0"        | "1"      |
