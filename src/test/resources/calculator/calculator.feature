@@ -201,3 +201,46 @@ Feature: Integer Arithmetic Expressions
       |"rand_real()"        |0.73088            |
       |"rand_ratio(10, 30)" |3/19               |
       |"rand_cmplx()"       |0.73088 + 0.73088i |
+
+  Scenario Outline: Test Programmer Parser
+    When I provide a programmer expression as a string <expr>
+    Then the result of programmer is <res>
+
+      Examples:
+      |expr               |res       |
+      |"0_1"              | "0_1"    |
+      |"t"                | "1"      |
+      |"F"                | "0"      |
+      |"1010_2"           | "0b1010" |
+      |"4324_8"           | "0o4324" |
+      |"10"               | "10"     |
+      |"13Ac_16"          | "0x13AC" |
+      |"1 & 1"            | "1"      |
+      |"1 and 0"          | "0"      |
+      |"1 or 0"           | "1"      | # The vertical bar symbol causes an error with cucumber in cucumber syntax.
+      |"0 or 0"           | "0"      |
+      |"1 xor 1"          | "0"      |
+      |"1 xor 0"          | "1"      |
+      |"not 1"            | "0"      |
+      |"!f"               | "1"      |
+      |"1 nand 1"         | "0"      |
+      |"1 nand 0"         | "1"      |
+      |"1 nor 1"          | "0"      |
+      |"1 nor 0"          | "0"      |
+      |"0 impl 0"         | "1"      |
+      |"0 impl 1"         | "1"      |
+      |"1 => 0"           | "0"      |
+      |"1 -> 1"           | "1"      |
+      |"1 equiv 1"        | "1"      |
+      |"1 equiv 0"        | "0"      |
+      |"0 equiv 0"        | "1"      |
+      |"0b010 < 1"        | "0b100"  |
+      |"0b010 ls 2"       | "0b000"  |
+      |"0b010 > 1"        | "0b001"  |
+      |"0b010 rs 2"       | "0b000"  |
+      |"conv(0b1010, 10)" | "10"     |
+      |"conv(00000_1, 8)" | "0o5"    |
+      |"conv(12, 2)"      | "0b1100" |
+      |"0 and 0 or 1"     | "1"      |
+      |"0 and (0 or 1)"   | "0"      |
+

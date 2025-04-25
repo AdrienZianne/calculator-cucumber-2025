@@ -9,8 +9,7 @@ import java.util.Objects;
 /**
  * Represent an integer value.
  */
-public class MyInteger extends MyNumber
-{
+public class MyInteger extends MyNumber {
     private final BigInteger value;
 
     /**
@@ -21,6 +20,7 @@ public class MyInteger extends MyNumber
     public MyInteger(int v) {
         this.value = BigInteger.valueOf(v);
     }
+
     /**
      * Constructor method
      *
@@ -32,6 +32,7 @@ public class MyInteger extends MyNumber
 
     /**
      * The default constructor of the {@link MyInteger} class
+     * 
      * @param v The value to store in this instance.
      */
     public MyInteger(BigInteger v) {
@@ -40,24 +41,33 @@ public class MyInteger extends MyNumber
 
     /**
      * Creates a {@link MyInteger} using a {@link BigInteger} instance.
+     * 
      * @param v The value to store in this instance
      * @return The created instance.
      */
-    public static MyInteger valueOf(BigInteger v) {return new MyInteger(v);}
+    public static MyInteger valueOf(BigInteger v) {
+        return new MyInteger(v);
+    }
 
     /**
      * Creates a {@link MyInteger} using a simple integer.
+     * 
      * @param v The value to store in this instance.
      * @return The created instance.
      */
-    public static MyInteger valueOf(Integer v) {return new MyInteger(v);}
+    public static MyInteger valueOf(Integer v) {
+        return new MyInteger(v);
+    }
 
     /**
      * Creates a {@link MyInteger} using a simple long.
+     * 
      * @param v The value to store in this instance.
      * @return The created instance.
      */
-    public static MyInteger valueOf(Long v) {return new MyInteger(v);}
+    public static MyInteger valueOf(Long v) {
+        return new MyInteger(v);
+    }
 
     @Override
     public Object getObjectValue() {
@@ -66,10 +76,10 @@ public class MyInteger extends MyNumber
 
     /**
      * Gets the stored value.
+     * 
      * @return The value stored in this instance.
      */
-    public BigInteger getValue()
-    {
+    public BigInteger getValue() {
         return value;
     }
 
@@ -78,7 +88,9 @@ public class MyInteger extends MyNumber
         if (o == null || (getClass() != o.getClass() && !(o instanceof MyReal)))
             return false;
 
-        if (o instanceof MyReal r) {return r.equals(MyReal.toReal(this));}
+        if (o instanceof MyReal r) {
+            return r.equals(MyReal.toReal(this));
+        }
         MyInteger myInteger = (MyInteger) o;
         return value.equals(myInteger.value);
     }
@@ -103,10 +115,11 @@ public class MyInteger extends MyNumber
         return value.signum();
     }
 
-
     /**
      * Checks if the value held can be stored inside a regular int value.
-     * @return true if the value is between {@code Integer.MIN_VALUE} and {@code Integer.MAX_VALUE}. false otherwise.
+     * 
+     * @return true if the value is between {@code Integer.MIN_VALUE} and
+     *         {@code Integer.MAX_VALUE}. false otherwise.
      */
     public boolean isInt() {
         return value.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) <= 0

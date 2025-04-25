@@ -1,11 +1,10 @@
-package calculator.parser.antlr;
+package calculator.parser;
 
-
-
+import calculator.parser.antlr.*;
 import calculator.*;
+
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
-import calculator.operation.Operation;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
@@ -17,7 +16,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
-import java.math.BigDecimal;
+import calculator.Expression;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -59,8 +58,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) {
         try {
             Configuration.setRealPrecision(Integer.parseInt(ctx.getChild(2).getText()));
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("The given value cannot be converted to an int.");
         }
         return null;
@@ -77,7 +75,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return null;
     }
 
-
     @Override
     public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
         System.out.println(Configuration.getScientificNotationPrecision());
@@ -86,12 +83,12 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
 
     @Override
     public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
-        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()), Integer.parseInt(ctx.getChild(4).getText()));
+        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()),
+                Integer.parseInt(ctx.getChild(4).getText()));
         return null;
     }
 
-    private boolean parseBool(ParseTree ctx)
-    {
+    private boolean parseBool(ParseTree ctx) {
         return Boolean.parseBoolean(ctx.getText());
     }
 
@@ -125,7 +122,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
     }
-
 
     @Override
     public Expression visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) {
@@ -193,7 +189,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         // parentheses.
         return ctx.getChild(1).accept(this);
     }
-
 
     /* _________________________________ PREFIX _________________________________ */
 
@@ -414,15 +409,18 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         // We use the binary operation to deal with any errors there.
         // Since it isn't the parser's role.
         MyNumber powerOf = BinaryOperation.op(MyInteger.valueOf(10),
-                                              MyInteger.valueOf(new BigInteger(powerOfVal)),
-                                              Exponent::new);
+                MyInteger.valueOf(new BigInteger(powerOfVal)),
+                Exponent::new);
 
-        MyNumber toPower =  (MyNumber) visit(ctx.getChild(0));
+        MyNumber toPower = (MyNumber) visit(ctx.getChild(0));
         // eval the operation
         return BinaryOperation.op(toPower, powerOf, Times::new);
     }
 
-    /* __________________________________ RANDOM NUMBER _______________________________ */
+    /*
+     * __________________________________ RANDOM NUMBER
+     * _______________________________
+     */
 
     @Override
     public Expression visitRandomInt(LabeledExprParser.RandomIntContext ctx) {
@@ -469,7 +467,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
-                                                                                            BuildOperationFunction<O> operation) {
+            BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
@@ -506,7 +504,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx,
-                                                                                          BuildUnaryOperationFunction<O> operation) {
+            BuildUnaryOperationFunction<O> operation) {
         Expression expression = null;
         Evaluator v;
         // Explore all path to find the argument to pass to the unary operator.

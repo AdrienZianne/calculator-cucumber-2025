@@ -11,11 +11,10 @@
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
-
         <lombok.version>1.18.38</lombok.version>
         <jline.version>3.26.2</jline.version>
         <spring.version>3.4.4</spring.version>
-        <antlr4.version>4.13.2</antlr4.version>
+        <antlr4.version>4.9.1</antlr4.version>
         <slf4j.version>2.0.6</slf4j.version>
         <logback.version>1.4.5</logback.version>
         <java.version>24</java.version>
@@ -205,12 +204,13 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>${antlr4.version}</version>
                 <configuration>
-                    <sourceDirectory>src/main/java</sourceDirectory>
-                    <outputDirectory>src/main/java</outputDirectory>
+                    <outputDirectory>src/main/java/calculator/parser/antlr</outputDirectory>
                     <arguments>
                         <argument>-visitor</argument>
-                        <argument>calculator/parser/antlr/LabeledExpr.g4</argument>
-                        <!-- <argument>-listener</argument> -->
+                        <argument>LabeledExpr.g4</argument>
+                        <argument>LabeledProgrammer.g4</argument>
+                        <argument>-package</argument>
+                        <argument>calculator.parser.antlr</argument>
                     </arguments>
                 </configuration>
                 <executions>
