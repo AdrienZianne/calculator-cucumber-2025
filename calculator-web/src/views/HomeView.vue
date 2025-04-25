@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>Calculator-cucumber</h1>
     <Calculator class="calculator"/>
     <Info/>
   </div>

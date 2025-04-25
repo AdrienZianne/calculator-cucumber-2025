@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-      <h1>Calculator-cucumber-programmer</h1>
       <Calculator class="calculator"/>
       <Info isCalculatorPro/>
     </div>
