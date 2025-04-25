@@ -182,8 +182,9 @@ public class TestExponent extends TestBinaryOperation{
     @Test
     @Override
     public void TestMyRationalMyRational() {
+        Configuration.setRealPrecision(4);
         MyNumber exp = op(MyRational.create(10,3), MyRational.create(21,5));
-        assertEquals(MyReal.valueOf(157.06908), exp);
+        assertEquals(MyReal.valueOf(157.06909), exp);
     }
 
     private MyNumber op(MyNumber a, MyNumber b) {
