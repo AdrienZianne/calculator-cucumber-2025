@@ -1,4 +1,4 @@
-// Generated from LabeledProgrammer.g4 by ANTLR 4.9.1
+// Generated from LabeledProgrammer.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class LabeledProgrammerParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -94,6 +94,7 @@ public class LabeledProgrammerParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationContext extends ParserRuleContext {
 		public OperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -105,6 +106,7 @@ public class LabeledProgrammerParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationXorContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -128,6 +130,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationEquivContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -151,6 +154,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationAndContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -174,6 +178,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationNandContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -196,6 +201,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationConvContext extends OperationContext {
 		public OperationContext operation() {
 			return getRuleContext(OperationContext.class,0);
@@ -216,6 +222,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationNumberContext extends OperationContext {
 		public NumberContext number() {
 			return getRuleContext(NumberContext.class,0);
@@ -235,6 +242,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationLshiftContext extends OperationContext {
 		public OperationContext operation() {
 			return getRuleContext(OperationContext.class,0);
@@ -256,6 +264,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationOrContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -279,6 +288,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationImplContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -302,6 +312,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationPrioContext extends OperationContext {
 		public OperationContext operation() {
 			return getRuleContext(OperationContext.class,0);
@@ -321,6 +332,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationNotContext extends OperationContext {
 		public TerminalNode NOT() { return getToken(LabeledProgrammerParser.NOT, 0); }
 		public OperationContext operation() {
@@ -341,6 +353,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationRshiftContext extends OperationContext {
 		public OperationContext operation() {
 			return getRuleContext(OperationContext.class,0);
@@ -362,6 +375,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OperationNorContext extends OperationContext {
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -605,6 +619,7 @@ public class LabeledProgrammerParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberContext extends ParserRuleContext {
 		public NumberContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -616,6 +631,7 @@ public class LabeledProgrammerParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberHexaContext extends NumberContext {
 		public TerminalNode HEXA_LITERAL() { return getToken(LabeledProgrammerParser.HEXA_LITERAL, 0); }
 		public NumberHexaContext(NumberContext ctx) { copyFrom(ctx); }
@@ -633,6 +649,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberDefaultContext extends NumberContext {
 		public List<TerminalNode> INT() { return getTokens(LabeledProgrammerParser.INT); }
 		public TerminalNode INT(int i) {
@@ -655,6 +672,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberOctalContext extends NumberContext {
 		public TerminalNode OCTAL_LITERAL() { return getToken(LabeledProgrammerParser.OCTAL_LITERAL, 0); }
 		public NumberOctalContext(NumberContext ctx) { copyFrom(ctx); }
@@ -672,6 +690,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberBoolContext extends NumberContext {
 		public TerminalNode BOOL() { return getToken(LabeledProgrammerParser.BOOL, 0); }
 		public NumberBoolContext(NumberContext ctx) { copyFrom(ctx); }
@@ -689,6 +708,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberDecimalContext extends NumberContext {
 		public TerminalNode INT() { return getToken(LabeledProgrammerParser.INT, 0); }
 		public NumberDecimalContext(NumberContext ctx) { copyFrom(ctx); }
@@ -706,6 +726,7 @@ public class LabeledProgrammerParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NumberBinaryContext extends NumberContext {
 		public TerminalNode BINARY_LITERAL() { return getToken(LabeledProgrammerParser.BINARY_LITERAL, 0); }
 		public NumberBinaryContext(NumberContext ctx) { copyFrom(ctx); }
@@ -778,7 +799,7 @@ public class LabeledProgrammerParser extends Parser {
 				{
 				setState(58);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << ALPHABET) | (1L << BOTH))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 7340032L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -837,26 +858,50 @@ public class LabeledProgrammerParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32B\4\2\t\2\4\3\t"+
-		"\3\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\26"+
-		"\n\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
-		"\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\7\2\63\n\2\f\2\16\2\66\13\2"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3@\n\3\3\3\2\3\2\4\2\4\2\3\3\2\26\30"+
-		"\2P\2\25\3\2\2\2\4?\3\2\2\2\6\7\b\2\1\2\7\b\7\3\2\2\b\t\5\2\2\2\t\n\7"+
-		"\4\2\2\n\26\3\2\2\2\13\f\7\5\2\2\f\r\7\3\2\2\r\16\5\2\2\2\16\17\7\6\2"+
-		"\2\17\20\7\26\2\2\20\21\7\4\2\2\21\26\3\2\2\2\22\23\7\r\2\2\23\26\5\2"+
-		"\2\13\24\26\5\4\3\2\25\6\3\2\2\2\25\13\3\2\2\2\25\22\3\2\2\2\25\24\3\2"+
-		"\2\2\26\64\3\2\2\2\27\30\f\n\2\2\30\31\7\16\2\2\31\63\5\2\2\13\32\33\f"+
-		"\t\2\2\33\34\7\17\2\2\34\63\5\2\2\n\35\36\f\b\2\2\36\37\7\20\2\2\37\63"+
-		"\5\2\2\t !\f\7\2\2!\"\7\7\2\2\"\63\5\2\2\b#$\f\6\2\2$%\7\b\2\2%\63\5\2"+
-		"\2\7&\'\f\5\2\2\'(\7\21\2\2(\63\5\2\2\6)*\f\4\2\2*+\7\22\2\2+\63\5\2\2"+
-		"\5,-\f\r\2\2-.\7\13\2\2.\63\7\26\2\2/\60\f\f\2\2\60\61\7\f\2\2\61\63\7"+
-		"\26\2\2\62\27\3\2\2\2\62\32\3\2\2\2\62\35\3\2\2\2\62 \3\2\2\2\62#\3\2"+
-		"\2\2\62&\3\2\2\2\62)\3\2\2\2\62,\3\2\2\2\62/\3\2\2\2\63\66\3\2\2\2\64"+
-		"\62\3\2\2\2\64\65\3\2\2\2\65\3\3\2\2\2\66\64\3\2\2\2\67@\7\n\2\28@\7\23"+
-		"\2\29@\7\24\2\2:@\7\26\2\2;@\7\25\2\2<=\t\2\2\2=>\7\t\2\2>@\7\26\2\2?"+
-		"\67\3\2\2\2?8\3\2\2\2?9\3\2\2\2?:\3\2\2\2?;\3\2\2\2?<\3\2\2\2@\5\3\2\2"+
-		"\2\6\25\62\64?";
+		"\u0004\u0001\u0018@\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0003\u0000\u0014\b\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0000\u0005\u00001\b\u0000\n\u0000\f\u00004\t\u0000\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0003\u0001>\b\u0001\u0001\u0001\u0000\u0001\u0000"+
+		"\u0002\u0000\u0002\u0000\u0001\u0001\u0000\u0014\u0016N\u0000\u0013\u0001"+
+		"\u0000\u0000\u0000\u0002=\u0001\u0000\u0000\u0000\u0004\u0005\u0006\u0000"+
+		"\uffff\uffff\u0000\u0005\u0006\u0005\u0001\u0000\u0000\u0006\u0007\u0003"+
+		"\u0000\u0000\u0000\u0007\b\u0005\u0002\u0000\u0000\b\u0014\u0001\u0000"+
+		"\u0000\u0000\t\n\u0005\u0003\u0000\u0000\n\u000b\u0005\u0001\u0000\u0000"+
+		"\u000b\f\u0003\u0000\u0000\u0000\f\r\u0005\u0004\u0000\u0000\r\u000e\u0005"+
+		"\u0014\u0000\u0000\u000e\u000f\u0005\u0002\u0000\u0000\u000f\u0014\u0001"+
+		"\u0000\u0000\u0000\u0010\u0011\u0005\u000b\u0000\u0000\u0011\u0014\u0003"+
+		"\u0000\u0000\t\u0012\u0014\u0003\u0002\u0001\u0000\u0013\u0004\u0001\u0000"+
+		"\u0000\u0000\u0013\t\u0001\u0000\u0000\u0000\u0013\u0010\u0001\u0000\u0000"+
+		"\u0000\u0013\u0012\u0001\u0000\u0000\u0000\u00142\u0001\u0000\u0000\u0000"+
+		"\u0015\u0016\n\b\u0000\u0000\u0016\u0017\u0005\f\u0000\u0000\u00171\u0003"+
+		"\u0000\u0000\t\u0018\u0019\n\u0007\u0000\u0000\u0019\u001a\u0005\r\u0000"+
+		"\u0000\u001a1\u0003\u0000\u0000\b\u001b\u001c\n\u0006\u0000\u0000\u001c"+
+		"\u001d\u0005\u000e\u0000\u0000\u001d1\u0003\u0000\u0000\u0007\u001e\u001f"+
+		"\n\u0005\u0000\u0000\u001f \u0005\u0005\u0000\u0000 1\u0003\u0000\u0000"+
+		"\u0006!\"\n\u0004\u0000\u0000\"#\u0005\u0006\u0000\u0000#1\u0003\u0000"+
+		"\u0000\u0005$%\n\u0003\u0000\u0000%&\u0005\u000f\u0000\u0000&1\u0003\u0000"+
+		"\u0000\u0004\'(\n\u0002\u0000\u0000()\u0005\u0010\u0000\u0000)1\u0003"+
+		"\u0000\u0000\u0003*+\n\u000b\u0000\u0000+,\u0005\t\u0000\u0000,1\u0005"+
+		"\u0014\u0000\u0000-.\n\n\u0000\u0000./\u0005\n\u0000\u0000/1\u0005\u0014"+
+		"\u0000\u00000\u0015\u0001\u0000\u0000\u00000\u0018\u0001\u0000\u0000\u0000"+
+		"0\u001b\u0001\u0000\u0000\u00000\u001e\u0001\u0000\u0000\u00000!\u0001"+
+		"\u0000\u0000\u00000$\u0001\u0000\u0000\u00000\'\u0001\u0000\u0000\u0000"+
+		"0*\u0001\u0000\u0000\u00000-\u0001\u0000\u0000\u000014\u0001\u0000\u0000"+
+		"\u000020\u0001\u0000\u0000\u000023\u0001\u0000\u0000\u00003\u0001\u0001"+
+		"\u0000\u0000\u000042\u0001\u0000\u0000\u00005>\u0005\b\u0000\u00006>\u0005"+
+		"\u0011\u0000\u00007>\u0005\u0012\u0000\u00008>\u0005\u0014\u0000\u0000"+
+		"9>\u0005\u0013\u0000\u0000:;\u0007\u0000\u0000\u0000;<\u0005\u0007\u0000"+
+		"\u0000<>\u0005\u0014\u0000\u0000=5\u0001\u0000\u0000\u0000=6\u0001\u0000"+
+		"\u0000\u0000=7\u0001\u0000\u0000\u0000=8\u0001\u0000\u0000\u0000=9\u0001"+
+		"\u0000\u0000\u0000=:\u0001\u0000\u0000\u0000>\u0003\u0001\u0000\u0000"+
+		"\u0000\u0004\u001302=";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
