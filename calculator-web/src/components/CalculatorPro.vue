@@ -20,7 +20,7 @@
         <!--https://github.com/justforuse/vue-mathjax-next-->
         <textarea v-model="inputText" @paste.prevent id="inputId" @keydown="forbiddenKeys"
           placeholder="You can write here..."></textarea>
-        <vue-mathjax :formula="`$$` + inputText + `$$`"></vue-mathjax>
+          <div v-katex="`$$` + inputText + `$$`"></div>
       </div>
 
       <!--Three divs representing the three parts of the keyboard. 
