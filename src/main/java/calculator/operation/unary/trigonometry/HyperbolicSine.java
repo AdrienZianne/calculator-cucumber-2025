@@ -1,8 +1,6 @@
 package calculator.operation.unary.trigonometry;
 
-import calculator.Expression;
-import calculator.IllegalConstruction;
-import calculator.Notation;
+import calculator.*;
 
 /**
  * A class used to represent the hyperbolic sine operation on a number.
@@ -27,5 +25,10 @@ public class HyperbolicSine extends TrigonometricFunction {
     public HyperbolicSine(Expression argument, Notation notation) throws IllegalConstruction {
         super(argument, notation, Math::sinh);
         this.symbol = "sinh";
+    }
+
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        return null;
     }
 }

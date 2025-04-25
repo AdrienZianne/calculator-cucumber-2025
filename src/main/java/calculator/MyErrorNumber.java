@@ -43,6 +43,6 @@ public class MyErrorNumber extends MyNumber{
 
     @Override
     public String toString() {
-        return "<error:" + "op : "+ operation + " | context :" + message + ">";
+        return "<error | " + "op : "+ operation + " | context : " + message + ">";
     }
 }

@@ -29,4 +29,8 @@ public class Sinus extends TrigonometricFunction {
     }
 
 
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        return null; // Accepts all real values
+    }
 }

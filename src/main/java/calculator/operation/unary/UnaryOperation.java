@@ -4,6 +4,8 @@ import calculator.*;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.Operation;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +21,8 @@ public abstract class UnaryOperation extends Operation {
      * @throws IllegalConstruction
      */
     public UnaryOperation(Expression argument, Notation notation) throws IllegalConstruction {
-        super(List.of(argument), notation);
+        super(Collections.singletonList(argument), notation);
+        if (argument == null) {throw new IllegalConstruction();}
     }
 
     public MyNumber op(MyNumber a) {

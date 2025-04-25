@@ -1,4 +1,4 @@
-package calculator.operation;
+package calculator.operation.binary;
 
 import calculator.*;
 import calculator.operation.unary.Inverse;

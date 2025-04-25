@@ -1,4 +1,4 @@
-// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@SuppressWarnings("CheckReturnValue")
 public class LabeledExprBaseListener implements LabeledExprListener {
 	/**
 	 * {@inheritDoc}
@@ -52,6 +53,102 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -83,6 +180,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,6 +264,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -316,6 +449,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPrefixMult(LabeledExprParser.ProductPrefixMultContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -371,6 +528,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -508,6 +677,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -539,6 +720,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSumInfixProd(LabeledExprParser.SumInfixProdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -635,6 +828,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -784,6 +989,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -791,18 +1008,6 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumberRational(LabeledExprParser.NumberRationalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -820,13 +1025,25 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	@Override public void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumberContant(LabeledExprParser.NumberContantContext ctx) { }
+	@Override public void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberENotation(LabeledExprParser.NumberENotationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberENotation(LabeledExprParser.NumberENotationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -844,13 +1061,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	@Override public void enterNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx) { }
+	@Override public void exitNumberInt(LabeledExprParser.NumberIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

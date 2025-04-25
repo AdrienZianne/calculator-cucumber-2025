@@ -1,10 +1,13 @@
 package calculator;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.ArrayList;
 
+import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
+import calculator.operation.binary.Times;
 
 /**
  * Represents a rational number.
@@ -22,6 +25,8 @@ public class MyRational extends MyNumber {
     private MyRational(Integer numerator, Integer denominator) {
         this.numDenomPair = simplifyNumDenom(numerator, denominator);
     }
+
+
 
     /**
      * The constructor of the {@link MyRational} class.
@@ -76,7 +81,6 @@ public class MyRational extends MyNumber {
         if (denominator == 0) {
             return createErrorNumber(new MyInteger(numerator), new MyInteger(denominator));
         }
-        System.out.println("1numerator : " + numerator + " denominator : " + denominator);
         return new MyRational(numerator, denominator).simplify();
     }
 
@@ -110,17 +114,21 @@ public class MyRational extends MyNumber {
     }
 
     /**
-     * Constructsa rational with a denominator set to 1.
-     * 
-     * @param number The numerator of the rational number.
+     * Method for creating a MyRational object using denominator checks.
+     *
+     * @param numerator
+     * @param denominator
+     *
+     * @return A rational if it could be created correctly or an error number
+     *         because the rational could not be created.
      */
-    public MyRational(Integer number) {
-        this.numDenomPair = new Pair<>(new MyInteger(number), new MyInteger(1));
+    public static MyNumber create(MyReal numerator, MyReal denominator) {
+        return BinaryOperation.op(numerator, denominator, Divides::new);
     }
 
     public static MyNumber toRational(MyReal real) {
-        int denom = (int) Math.pow(10, real.getValue().scale());
-        int num = (int) (real.getValue().doubleValue() * denom);
+        BigInteger denom = BigInteger.TEN.pow(real.getValue().scale());
+        BigInteger num = real.getValue().multiply(new BigDecimal(denom)).toBigInteger();
         return new MyRational(num, denom).simplify();
     }
 
@@ -183,9 +191,18 @@ public class MyRational extends MyNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass())
+        if (o == null || getClass() != o.getClass() && (o instanceof MyComplex))
             return false;
-        MyRational that = (MyRational) o;
+
+        MyRational that = (MyRational) switch (o)
+        {
+            case MyReal r : yield MyRational.toRational(r);
+            case MyRational r : yield r;
+            case MyInteger i : yield new MyRational(i, i);
+            default: yield  null;
+        };
+
+        if (that == null) return false;
         return Objects.equals(numDenomPair, that.numDenomPair);
     }
 

@@ -1,21 +1,17 @@
-package calculator.operation;
+package calculator.operation.binary;
 
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.Expression;
 import calculator.MyInteger;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Minus;
-import calculator.operation.binary.Plus;
 import org.junit.jupiter.api.*;
 import visitor.Counter;
 
 import java.util.Arrays;
 import java.util.List;
 
-class TestBinaryOperation {
+class TestOperation {
 
 	private BinaryOperation o;
 	private BinaryOperation o2;
@@ -65,5 +61,8 @@ class TestBinaryOperation {
 		}
 		assertEquals(Integer.valueOf(6), c.getNbs());
 	}
+
+
+	
 
 }

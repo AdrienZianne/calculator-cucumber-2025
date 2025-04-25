@@ -42,7 +42,6 @@ public class Logarithm extends UnaryOperation {
         MyErrorNumber check = checkValidity(r);
         if (check != null)
             return check;
-        // Will make us lose some information
         MyReal res = MyReal.valueOf(Math.log(r.getValue().doubleValue()));
         return MyRational.toRational(res);
     }
@@ -70,6 +69,8 @@ public class Logarithm extends UnaryOperation {
                     "Tried to apply the log operation on an expression that resulted in the following negative value : "
                             + nb);
         }
+        if (nb instanceof MyReal r && !r.isDouble()) return new MyErrorNumber(this, "The given real number cannot be converted to a double: " + nb);
+
         return null;
     }
 }

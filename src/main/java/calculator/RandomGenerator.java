@@ -21,6 +21,14 @@ public abstract class RandomGenerator {
     }
 
     /**
+     * Gets the seed used to generate numbers.
+     * @return The seed used.
+     */
+    public static Integer getSeed() {
+        return seed;
+    }
+
+    /**
      * Deactivates seed.
      */
     public static void resetSeed() {

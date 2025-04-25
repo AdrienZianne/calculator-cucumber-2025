@@ -1,4 +1,4 @@
-// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.9.1
+// Generated from calculator/parser/antlr/LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -42,6 +42,102 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingGetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetSeed}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetRealPrecision}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetScNotInt}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetScNotInt}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetScNotBool}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetScNotBool}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetScNot}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetScNot}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingSetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetUseDeg}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
@@ -77,6 +173,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SumPostfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumPostfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ProductPostfixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPostfixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ProductPostfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
@@ -137,6 +257,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPostfixLog(LabeledExprParser.UnaryPostfixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
@@ -306,6 +438,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SumPrefixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumPrefixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ProductPrefixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductPrefixExp}
+	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ProductPrefixMult}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
 	 * @param ctx the parse tree
@@ -365,6 +521,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPrefixLog(LabeledExprParser.UnaryPrefixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -498,6 +666,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SumInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SumInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
 	 * @param ctx the parse tree
@@ -533,6 +713,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSumInfixProd(LabeledExprParser.SumInfixProdContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ProductInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ProductInfixAtom}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.
@@ -629,6 +821,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryInfixLog(LabeledExprParser.UnaryInfixLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixSqrt}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
@@ -774,6 +978,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitComplexRealNumber(LabeledExprParser.ComplexRealNumberContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberContant}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberRational}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -785,18 +1001,6 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumberRational(LabeledExprParser.NumberRationalContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code NumberInt}
-	 * labeled alternative in {@link LabeledExprParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void enterNumberInt(LabeledExprParser.NumberIntContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code NumberInt}
-	 * labeled alternative in {@link LabeledExprParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void exitNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NumberReal}
 	 * labeled alternative in {@link LabeledExprParser#number}.
@@ -810,17 +1014,29 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberReal(LabeledExprParser.NumberRealContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberContant}
+	 * Enter a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumberContant(LabeledExprParser.NumberContantContext ctx);
+	void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NumberContant}
+	 * Exit a parse tree produced by the {@code NumberNegation}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumberContant(LabeledExprParser.NumberContantContext ctx);
+	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NumberENotation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberENotation(LabeledExprParser.NumberENotationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberENotation}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberENotation(LabeledExprParser.NumberENotationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code NumberRandom}
 	 * labeled alternative in {@link LabeledExprParser#number}.
@@ -834,17 +1050,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberRandom(LabeledExprParser.NumberRandomContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NumberNegation}
+	 * Enter a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	void enterNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NumberNegation}
+	 * Exit a parse tree produced by the {@code NumberInt}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumberNegation(LabeledExprParser.NumberNegationContext ctx);
+	void exitNumberInt(LabeledExprParser.NumberIntContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code RandomInt}
 	 * labeled alternative in {@link LabeledExprParser#random}.

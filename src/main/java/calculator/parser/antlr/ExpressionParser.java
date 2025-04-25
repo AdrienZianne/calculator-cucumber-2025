@@ -5,15 +5,19 @@ package calculator.parser.antlr;
 import calculator.*;
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
+import calculator.operation.Operation;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Logarithm;
 import calculator.operation.unary.Negation;
+import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -43,6 +47,54 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return null;
     }
 
+    public Expression visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) {
+        if (RandomGenerator.getSeed() == null) {
+            System.out.println("No seed is currently defined.");
+            return null;
+        }
+        return MyInteger.valueOf(RandomGenerator.getSeed());
+    }
+
+    @Override
+    public Expression visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) {
+        try {
+            Configuration.setRealPrecision(Integer.parseInt(ctx.getChild(2).getText()));
+        }
+        catch (NumberFormatException e) {
+            System.out.println("The given value cannot be converted to an int.");
+        }
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) {
+        return MyInteger.valueOf(Configuration.getRealPrecision());
+    }
+
+    @Override
+    public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
+        Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
+        return null;
+    }
+
+
+    @Override
+    public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
+        System.out.println(Configuration.getScientificNotationPrecision());
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
+        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()), Integer.parseInt(ctx.getChild(4).getText()));
+        return null;
+    }
+
+    private boolean parseBool(ParseTree ctx)
+    {
+        return Boolean.parseBoolean(ctx.getText());
+    }
+
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {
@@ -55,6 +107,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.INFIX));
+    }
+
+    @Override
     public Expression visitProductInfixMult(LabeledExprParser.ProductInfixMultContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Times(expressions, Notation.INFIX));
     }
@@ -63,6 +125,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
     }
+
 
     @Override
     public Expression visitUnaryInfixNegation(LabeledExprParser.UnaryInfixNegationContext ctx) {
@@ -120,11 +183,17 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.INFIX));
+    }
+
+    @Override
     public Expression visitAtomInfixSum(LabeledExprParser.AtomInfixSumContext ctx) {
         // We only need to visit the second child, since the first and third ones are
         // parentheses.
         return ctx.getChild(1).accept(this);
     }
+
 
     /* _________________________________ PREFIX _________________________________ */
 
@@ -136,6 +205,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPrefixDiff(LabeledExprParser.SumPrefixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.PREFIX));
     }
 
     @Override
@@ -198,6 +277,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.PREFIX));
     }
 
+    @Override
+    public Expression visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.PREFIX));
+    }
+
     /*
      * _________________________________ POSTFIX _________________________________
      */
@@ -210,6 +294,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPostfixDiff(LabeledExprParser.SumPostfixDiffContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Minus(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.POSTFIX));
     }
 
     @Override
@@ -272,6 +366,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Logarithm(expression, Notation.POSTFIX));
     }
 
+    @Override
+    public Expression visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.POSTFIX));
+    }
+
     /* __________________________________ NUMBER _______________________________ */
 
     @Override
@@ -288,8 +387,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitRational(LabeledExprParser.RationalContext ctx) {
         // We suppose that the rational has 3 child : the numerator, the operator `/`
         // and the denominator
-        return MyRational.create(Integer.parseInt(ctx.getChild(0).getText()),
-                Integer.parseInt(ctx.getChild(2).getText()));
+        return MyRational.create(new BigInteger(ctx.getChild(0).getText()),
+                new BigInteger(ctx.getChild(2).getText()));
     }
 
     @Override
@@ -307,6 +406,23 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         // negation to an atomic value
         return parseToUnaryOperator(ctx, expressions -> new Negation(expressions, Notation.INFIX));
     }
+
+    @Override
+    public Expression visitNumberENotation(LabeledExprParser.NumberENotationContext ctx) {
+        String powerOfVal = ctx.getChild(1).getText().substring(1);
+
+        // We use the binary operation to deal with any errors there.
+        // Since it isn't the parser's role.
+        MyNumber powerOf = BinaryOperation.op(MyInteger.valueOf(10),
+                                              MyInteger.valueOf(new BigInteger(powerOfVal)),
+                                              Exponent::new);
+
+        MyNumber toPower =  (MyNumber) visit(ctx.getChild(0));
+        // eval the operation
+        return BinaryOperation.op(toPower, powerOf, Times::new);
+    }
+
+    /* __________________________________ RANDOM NUMBER _______________________________ */
 
     @Override
     public Expression visitRandomInt(LabeledExprParser.RandomIntContext ctx) {

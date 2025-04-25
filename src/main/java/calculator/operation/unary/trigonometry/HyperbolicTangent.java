@@ -1,8 +1,6 @@
 package calculator.operation.unary.trigonometry;
 
-import calculator.Expression;
-import calculator.IllegalConstruction;
-import calculator.Notation;
+import calculator.*;
 
 /**
  * A class used to represent the hyperbolic tangent operation on a number.
@@ -27,5 +25,10 @@ public class HyperbolicTangent extends TrigonometricFunction {
     public HyperbolicTangent(Expression argument, Notation notation) throws IllegalConstruction {
         super(argument, notation, Math::tanh);
         this.symbol = "tanh";
+    }
+
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        return null;
     }
 }

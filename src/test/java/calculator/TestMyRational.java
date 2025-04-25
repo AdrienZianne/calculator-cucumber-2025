@@ -75,5 +75,57 @@ class TestMyRational {
 
         r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
         assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(MyReal.valueOf(2), MyReal.valueOf(2));
+        assertEquals(MyInteger.valueOf(1), r);
+
+        r = MyRational.create(MyReal.valueOf(2), MyReal.valueOf(3));
+        assertEquals(MyRational.class, r.getClass());
+        MyRational rr = (MyRational) r;
+        assertEquals(new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)), rr.getNumDenomPair());
+    }
+
+    @Test
+    void testToRational()
+    {
+        MyNumber r = MyRational.toRational(MyReal.valueOf(0.333));
+        assertEquals(MyRational.create(333,1000), r);
+
+        r = MyRational.toRational(MyReal.valueOf(3));
+        assertEquals(MyInteger.valueOf(3), r);
+
+        r = MyRational.toRational(MyReal.valueOf(0.5));
+        assertEquals(MyRational.create(4,8), r);
+    }
+
+    @Test
+    void testGetSign()
+    {
+        MyRational r = (MyRational) MyRational.create(2,3);
+
+        assertEquals(1, r.getSign());
+        r = (MyRational) MyRational.create(-2,3);
+
+        assertEquals(-1, r.getSign());
+        r = (MyRational) MyRational.create(2,-3);
+
+        assertEquals(-1, r.getSign());
+    }
+
+
+    @Test
+    void testErrorNumbers()
+    {
+        MyNumber r = MyRational.create(2,0);
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(MyInteger.valueOf(2), MyInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.create(BigInteger.valueOf(2), BigInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, r.getClass());
+
+        r = MyRational.toRational(MyReal.valueOf(0.5));
+        assertEquals(MyRational.create(4,8), r);
     }
 }

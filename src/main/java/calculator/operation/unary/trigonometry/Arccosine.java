@@ -1,8 +1,8 @@
 package calculator.operation.unary.trigonometry;
 
-import calculator.Expression;
-import calculator.IllegalConstruction;
-import calculator.Notation;
+import calculator.*;
+
+import java.math.BigDecimal;
 
 /**
  * A class used to represent the arc cosine operation on a number.
@@ -29,4 +29,10 @@ public class Arccosine extends TrigonometricFunction {
     }
 
 
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        if (nb.getValue().abs().compareTo(BigDecimal.valueOf(1)) > 0)
+            return new MyErrorNumber(this, "The argument must be between -1 and 1 inclusive.");
+        return null;
+    }
 }

@@ -10,22 +10,34 @@ expr: ( setting
 
 setting : 'seed' '(' INT ')'                             #SettingSetSeed
         | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
+        | 'seed'                                         #SettingGetSeed
+        | 'realPre' '(' INT ')'                          #SettingSetRealPrecision
+        | 'realPre'                                      #SettingGetRealPrecision
+        | 'scNot' '(' INT ',' INT ')'                            #SettingSetScNotInt
+        | 'scNot' '(' BOOL ')'                           #SettingSetScNotBool
+        | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
+        | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg
+        | 'useDeg'                                       #SettingGetUseDeg
         ;
+
 
 /* POSTFIX NOTATION */
 
 sumPostfix : productPostfix                                     #SumPostfixProd
            | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
            | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
+           | '('atomPostfix (','? atomPostfix)* ')' 'root'      #SumPostfixRoot
            ;
 
-productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
+productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '^'   #ProductPostfixExp
+                | '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
                 | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
                 | unaryPostfix                                  #ProductPostfixTrigo
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
+             | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
              ;
 
 trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
@@ -46,18 +58,21 @@ atomPostfix : sumPostfix                #AtomPostfixSum
 
 
 /* PREFIX NOTATION */
-sumPrefix : productPrefix                               #SumPrefixProd
-           | '+' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixSum
-           | '-' '('atomPrefix (','? atomPrefix)* ')'   #SumPrefixDiff
+sumPrefix : productPrefix                                   #SumPrefixProd
+           | '+' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixSum
+           | '-' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixDiff
+           | 'root' '('atomPrefix (','? atomPrefix)* ')'    #SumPrefixRoot
            ;
 
-productPrefix  : '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
-                | '/' '(' atomPrefix (','? atomPrefix)* ')'     #ProductPrefixDiv
-                | unaryPrefix                                   #ProductPrefixUnary
+productPrefix   : '^' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
+                | '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
+                | '/' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixDiv
+                | unaryPrefix                                    #ProductPrefixUnary
                 ;
 
-unaryPrefix : trigoPrefix                   #UnaryPrefixTrigo
-             | 'log' '(' atomPrefix ')'     #UnaryPrefixLog
+unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
+             | 'log' '(' atomPrefix ')'      #UnaryPrefixLog
+             | 'sqrt' '(' atomPrefix ')'     #UnaryPrefixSqrt
              ;
 
 trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
@@ -76,12 +91,14 @@ atomPrefix  : sumPrefix         #AtomPrefixSum
             ;
 
 /* INFIX NOTATION */
-sumInfix : productInfix             #SumInfixProd
-    | sumInfix '+' productInfix     #SumInfixAdd
-    | sumInfix '-' productInfix     #SumInfixDiff
+sumInfix : productInfix                             #SumInfixProd
+    | sumInfix '+' productInfix                     #SumInfixAdd
+    | sumInfix '-' productInfix                     #SumInfixDiff
+    | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
     ;
 
 productInfix: atomInfix             #ProductInfixAtom
+    | productInfix '^' atomInfix    #ProductInfixExpo
     | productInfix '*' atomInfix    #ProductInfixMult
     | productInfix '/' atomInfix    #ProductInfixDiv
     ;
@@ -91,9 +108,10 @@ atomInfix: unaryInfix           #AtomInfixUnary
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
-unaryInfix: trigoInfix                              #UnaryInfixTrigo
-          | 'log' + '(' + sumInfix +  ')'           #UnaryInfixLog
-          | ('-' sumInfix | '-' '(' sumInfix ')')   #UnaryInfixNegation
+unaryInfix: trigoInfix                                   #UnaryInfixTrigo
+          | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
+          | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
+          | '-' sumInfix   #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
@@ -120,6 +138,7 @@ number: rational                            #NumberRational // Placed first in o
       | FLOAT                               #NumberReal
       | constant                            #NumberContant
       | random                              #NumberRandom
+      | number ENOTATION                    #NumberENotation
       | '-' number                          #NumberNegation // In case someone wants the negative value of a number
       ;
 
@@ -140,8 +159,10 @@ MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
 ADD :   '+' ;
 SUB :   '-' ;
+BOOL :   'true'|'false' ;                      // match booleans
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers
+ENOTATION : ('E'|'e') '-'? INT;
 FLOAT :   [0-9]+ '.' [0-9]* ;         // match real
 NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace

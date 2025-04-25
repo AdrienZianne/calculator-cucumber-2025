@@ -1,8 +1,6 @@
 package calculator.operation.unary.trigonometry;
 
-import calculator.Expression;
-import calculator.IllegalConstruction;
-import calculator.Notation;
+import calculator.*;
 
 /**
  * A class used to represent the cosinus operation on a number.
@@ -29,4 +27,8 @@ public class Cosinus extends TrigonometricFunction {
     }
 
 
+    @Override
+    public MyNumber isNotInBound(MyReal nb) {
+        return null; // all reals are accepted
+    }
 }
