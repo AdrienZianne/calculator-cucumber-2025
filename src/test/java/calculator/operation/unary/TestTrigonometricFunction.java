@@ -50,6 +50,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     @Test
     @Override
     public void testInteger() throws Exception {
+        Configuration.setUseDegrees(false);
         ArrayList<MyInteger> toTry = new ArrayList<>();
 
         toTry.add(new MyInteger(1));
@@ -81,6 +82,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     @Test
     @Override
     public void testMyReal() throws Exception {
+        Configuration.setUseDegrees(false);
         ArrayList<MyReal> toTry = new ArrayList<>();
 
         toTry.add(MyReal.valueOf(1.5));
@@ -109,6 +111,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     @Test
     @Override
     public void testMyRational() throws Exception {
+        Configuration.setUseDegrees(false);
         ArrayList<MyRational> toTry = new ArrayList<>();
 
         toTry.add((MyRational) BinaryOperation.op(ConstantNumber.PI, MyInteger.valueOf(2), Divides::new));
@@ -135,9 +138,115 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     @Override
     public void testMyComplex() throws Exception {
         MyComplex nb = (MyComplex) MyComplex.create(1,1);
-        for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
-            // The result was supposed to be an error
-            assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+        boolean[] values = new boolean[] {true, false};
+        for (int i = 0; i < values.length; i++) {
+            Configuration.setUseDegrees(values[i]);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+    }
+
+    @Test
+    public void testIntegerDeg() throws Exception {
+        Configuration.setUseDegrees(true);
+        ArrayList<MyInteger> toTry = new ArrayList<>();
+
+        toTry.add(new MyInteger(90));
+        toTry.add(new MyInteger(0));
+        toTry.add(new MyInteger(-90));
+        toTry.add(new MyInteger(100));
+        toTry.add(new MyInteger(-250));
+        toTry.add(new MyInteger(Integer.MAX_VALUE));
+        toTry.add(new MyInteger(Integer.MIN_VALUE));
+
+        for (MyInteger nb : toTry)
+        {
+            for (int i = 0; i < trigoClasses.size(); i++) {
+                TrigonometricFunction.TrigonometricFuncExec exec = trigoMathFunctions.get(i);
+                double val = Math.toRadians(nb.getValue().doubleValue());
+                Double resD = exec.apply(val);
+                // If the result was supposed to be an error
+                if (resD.isInfinite() || resD.isNaN())
+                {
+                    assertEquals(MyErrorNumber.class, calculator.eval(trigoClasses.get(i).build(nb)).getClass());
+                }
+                else
+                {
+                    assertEquals(MyReal.valueOf(resD), calculator.eval(trigoClasses.get(i).build(nb)));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testMyRealDeg() throws Exception {
+        Configuration.setUseDegrees(true);
+        ArrayList<MyReal> toTry = new ArrayList<>();
+
+        toTry.add(MyReal.valueOf(200.250));
+        toTry.add(MyReal.valueOf(0));
+        toTry.add(MyReal.valueOf(-100.25));
+        toTry.add(ConstantNumber.PI);
+
+        for (MyReal nb : toTry)
+        {
+            for (int i = 0; i < trigoClasses.size(); i++) {
+                TrigonometricFunction.TrigonometricFuncExec exec = trigoMathFunctions.get(i);
+                double val = Math.toRadians(nb.getValue().doubleValue());
+                Double resD = exec.apply(val);
+
+                // If the result was supposed to be an error
+                if (resD.isInfinite() || resD.isNaN())
+                {
+                    assertEquals(MyErrorNumber.class, calculator.eval(trigoClasses.get(i).build(nb)).getClass());
+                }
+                else
+                {
+                    assertEquals(MyReal.valueOf(resD), calculator.eval(trigoClasses.get(i).build(nb)));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testMyRationalDeg() throws Exception {
+        Configuration.setUseDegrees(true);
+        ArrayList<MyRational> toTry = new ArrayList<>();
+
+        toTry.add((MyRational) BinaryOperation.op(ConstantNumber.PI, MyInteger.valueOf(2), Divides::new));
+        toTry.add((MyRational) MyRational.create(ConstantNumber.PI, MyReal.valueOf(2)));
+        for (MyRational nb : toTry)
+        {
+            for (int i = 0; i < trigoClasses.size(); i++) {
+                TrigonometricFunction.TrigonometricFuncExec exec = trigoMathFunctions.get(i);
+                double val = Math.toRadians(MyReal.toReal(nb).getValue().doubleValue());
+                Double resD = exec.apply(val);
+                // If the result was supposed to be an error
+                if (resD.isInfinite() || resD.isNaN())
+                {
+                    assertEquals(MyErrorNumber.class, calculator.eval(trigoClasses.get(i).build(nb)).getClass());
+                }
+                else
+                {
+                    assertEquals(MyReal.valueOf(resD), calculator.eval(trigoClasses.get(i).build(nb)));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testMyComplexDeg() throws Exception {
+        Configuration.setUseDegrees(true);
+        MyComplex nb = (MyComplex) MyComplex.create(1,1);
+        boolean[] values = new boolean[] {true, false};
+        for (int i = 0; i < values.length; i++) {
+            Configuration.setUseDegrees(values[i]);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
         }
     }
 }

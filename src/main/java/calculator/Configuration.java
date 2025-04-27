@@ -116,4 +116,12 @@ public final class Configuration {
     private static boolean useDegrees = true;
 
 
+    public static boolean isUsingDegrees() {
+        return useDegrees;
+    }
+
+    public static void setUseDegrees(boolean useDegrees) {
+        Configuration.useDegrees = useDegrees;
+    }
+
 }
