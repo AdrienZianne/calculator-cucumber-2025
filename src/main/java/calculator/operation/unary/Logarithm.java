@@ -5,8 +5,6 @@ import calculator.*;
 /**
  * A class used to represent the logarithmic value of an expression.
  * Let {@code x} be our expression, the operation will result in {@code log(x)}.
- * Will throw an {@link IllegalConstruction} when applying a logarithm operation
- * on a number that is zero.
  */
 public class Logarithm extends UnaryOperation {
 
@@ -21,7 +19,7 @@ public class Logarithm extends UnaryOperation {
     }
 
     /**
-     * A constructor of the {@link Negation} class.
+     * A constructor of the {@link Logarithm} class.
      * 
      * @param argument The argument to apply the logarithm operation to.
      * @param notation The notation to display this operation with.
