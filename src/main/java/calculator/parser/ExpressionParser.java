@@ -88,6 +88,18 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return null;
     }
 
+    @Override
+    public Expression visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) {
+        System.out.println(Configuration.isUsingDegrees());
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) {
+        Configuration.setUseDegrees(parseBool(ctx.getChild(2)));
+        return null;
+    }
+
     private boolean parseBool(ParseTree ctx) {
         return Boolean.parseBoolean(ctx.getText());
     }
