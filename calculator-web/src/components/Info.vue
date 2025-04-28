@@ -6,26 +6,40 @@
 import Alert from '@/components/Alert.vue';
 export default {
   components: {Alert},
+  props:{
+      isCalculatorPro : Boolean
+  },
   methods: {
     /**
      * Method that creates a pop-up explaining the application.
+     * 
      * @param data The text to display.
      */
     display(data) {
         Alert.infoManagement(data);
     },
-    /**
-     * Method that loads text from the file.
-     */
+    /** Method that loads text from the file. */
     accessFile() {
-      fetch('/public/info.txt') 
-        .then(response => response.text()) 
-        .then(data => {
-          this.display(data);
-        })
-        .catch(error => {
-          Alert.errorManagement(error);
-        });
+      if(this.isCalculatorPro) {
+        fetch('/public/infopro.txt') 
+          .then(response => response.text()) 
+          .then(data => {
+            this.display(data);
+          })
+          .catch(error => {
+            Alert.errorManagement(error);
+          });
+      }
+      else {
+        fetch('/public/info.txt') 
+          .then(response => response.text()) 
+          .then(data => {
+            this.display(data);
+          })
+          .catch(error => {
+            Alert.errorManagement(error);
+          });
+      }
     }
   }
 };
