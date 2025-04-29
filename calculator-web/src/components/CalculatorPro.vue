@@ -201,7 +201,6 @@ export default {
         if (this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc", "rand_cmplx");
         if (this.inputText.includes('radtodeg')) this.inputText = this.inputText.replaceAll("radtodeg", "radToDeg");
         if (this.inputText.includes('degtorad')) this.inputText = this.inputText.replaceAll("degtorad", "degToRad");
-        console.log(this.inputText);
         const requestOptions = {
           method: "POST",
           headers: {
