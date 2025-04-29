@@ -1,8 +1,13 @@
 package calculator.operation.unary.trigonometry;
 
 import calculator.*;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Times;
 import calculator.operation.unary.UnaryOperation;
+import org.apache.tomcat.util.bcel.Const;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -65,12 +70,15 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     @Override
     public MyNumber op(MyReal r) {
         // Check if the value can be applied.
-        MyNumber err = isNotInBound(r);
+        double val = r.getValue().doubleValue();
+        if (Configuration.isUsingDegrees()) val = Math.toRadians(val);
+        MyNumber err = isNotInBound(MyReal.valueOf(val));
         if (err != null) {return err;}
 
         if (!r.isDouble()) return new MyErrorNumber(this, "The given argument is not a valid double : " + r.getValue());
 
-        Double resDouble = functionExec.apply(r.getValue().doubleValue());
+        Double resDouble = functionExec.apply(val);
+
         if (resDouble.equals(Double.POSITIVE_INFINITY) || resDouble.equals(Double.NEGATIVE_INFINITY)) {return new MyErrorNumber(this, "The given argument results in an infinite number ");}
 
         MyReal res = MyReal.valueOf(resDouble);

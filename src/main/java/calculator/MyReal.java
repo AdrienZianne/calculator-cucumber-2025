@@ -28,6 +28,10 @@ public class MyReal extends MyNumber {
         this.value = BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
     }
 
+    public MyReal(double value, int precision) {
+        this.value = BigDecimal.valueOf(value).setScale(precision, ROUNDING_MODE);
+    }
+
     /**
      * The constructor of the {@link MyReal} class.
      * 

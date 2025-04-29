@@ -40,15 +40,17 @@ unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
              ;
 
-trigoPostfix : '(' atomPostfix ')' 'sin'   #TrigoPostfixSin
-             | '(' atomPostfix ')' 'cos'   #TrigoPostfixCos
-             | '(' atomPostfix ')' 'tan'   #TrigoPostfixTan
-             | '(' atomPostfix ')' 'sinh'  #TrigoPostfixSinh
-             | '(' atomPostfix ')' 'cosh'  #TrigoPostfixCosh
-             | '(' atomPostfix ')' 'tanh'  #TrigoPostfixTanh
-             | '(' atomPostfix ')' 'asin'  #TrigoPostfixASin
-             | '(' atomPostfix ')' 'acos'  #TrigoPostfixACos
-             | '(' atomPostfix ')' 'atan'  #TrigoPostfixATan
+trigoPostfix : '(' atomPostfix ')' 'sin'       #TrigoPostfixSin
+             | '(' atomPostfix ')' 'cos'       #TrigoPostfixCos
+             | '(' atomPostfix ')' 'tan'       #TrigoPostfixTan
+             | '(' atomPostfix ')' 'sinh'      #TrigoPostfixSinh
+             | '(' atomPostfix ')' 'cosh'      #TrigoPostfixCosh
+             | '(' atomPostfix ')' 'tanh'      #TrigoPostfixTanh
+             | '(' atomPostfix ')' 'asin'      #TrigoPostfixASin
+             | '(' atomPostfix ')' 'acos'      #TrigoPostfixACos
+             | '(' atomPostfix ')' 'atan'      #TrigoPostfixATan
+             | '(' atomPostfix ')' 'degToRad'  #TrigoPostfixDegToRad
+             | '(' atomPostfix ')' 'radToDeg'  #TrigoPostfixRadToDeg
              ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
@@ -75,15 +77,17 @@ unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
              | 'sqrt' '(' atomPrefix ')'     #UnaryPrefixSqrt
              ;
 
-trigoPrefix  : 'sin' '(' atomPrefix ')'   #TrigoPrefixSin
-             | 'cos' '(' atomPrefix ')'   #TrigoPrefixCos
-             | 'tan' '(' atomPrefix ')'   #TrigoPrefixTan
-             | 'sinh' '(' atomPrefix ')'  #TrigoPrefixSinh
-             | 'cosh' '(' atomPrefix ')'  #TrigoPrefixCosh
-             | 'tanh' '(' atomPrefix ')'  #TrigoPrefixTanh
-             | 'asin' '(' atomPrefix ')'  #TrigoPrefixASin
-             | 'acos' '(' atomPrefix ')'  #TrigoPrefixACos
-             | 'atan' '(' atomPrefix ')'  #TrigoPrefixATan
+trigoPrefix  : 'sin' '(' atomPrefix ')'       #TrigoPrefixSin
+             | 'cos' '(' atomPrefix ')'       #TrigoPrefixCos
+             | 'tan' '(' atomPrefix ')'       #TrigoPrefixTan
+             | 'sinh' '(' atomPrefix ')'      #TrigoPrefixSinh
+             | 'cosh' '(' atomPrefix ')'      #TrigoPrefixCosh
+             | 'tanh' '(' atomPrefix ')'      #TrigoPrefixTanh
+             | 'asin' '(' atomPrefix ')'      #TrigoPrefixASin
+             | 'acos' '(' atomPrefix ')'      #TrigoPrefixACos
+             | 'atan' '(' atomPrefix ')'      #TrigoPrefixATan
+             | 'degToRad' '(' atomPrefix ')'  #TrigoPrefixDegToRad
+             | 'radToDeg' '(' atomPrefix ')'  #TrigoPrefixRadToDeg
              ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
@@ -114,15 +118,17 @@ unaryInfix: trigoInfix                                   #UnaryInfixTrigo
           | '-' sumInfix   #UnaryInfixNegation
           ;
 
-trigoInfix   : 'sin' '(' sumInfix ')'   #TrigoInfixSin
-             | 'cos' '(' sumInfix ')'   #TrigoInfixCos
-             | 'tan' '(' sumInfix ')'   #TrigoInfixTan
-             | 'sinh' '(' sumInfix ')'  #TrigoInfixSinh
-             | 'cosh' '(' sumInfix ')'  #TrigoInfixCosh
-             | 'tanh' '(' sumInfix ')'  #TrigoInfixTanh
-             | 'asin' '(' sumInfix ')'  #TrigoInfixASin
-             | 'acos' '(' sumInfix ')'  #TrigoInfixACos
-             | 'atan' '(' sumInfix ')'  #TrigoInfixATan
+trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
+             | 'cos' '(' sumInfix ')'       #TrigoInfixCos
+             | 'tan' '(' sumInfix ')'       #TrigoInfixTan
+             | 'sinh' '(' sumInfix ')'      #TrigoInfixSinh
+             | 'cosh' '(' sumInfix ')'      #TrigoInfixCosh
+             | 'tanh' '(' sumInfix ')'      #TrigoInfixTanh
+             | 'asin' '(' sumInfix ')'      #TrigoInfixASin
+             | 'acos' '(' sumInfix ')'      #TrigoInfixACos
+             | 'atan' '(' sumInfix ')'      #TrigoInfixATan
+             | 'degToRad' '(' sumInfix ')'  #TrigoInfixDegToRad
+             | 'radToDeg' '(' sumInfix ')'  #TrigoInfixRadToDeg
              ;
 
 /* NUMBER and TOKENS */

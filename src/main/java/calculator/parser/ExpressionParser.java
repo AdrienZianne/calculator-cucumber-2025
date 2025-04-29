@@ -1,15 +1,12 @@
 package calculator.parser;
 
+import calculator.operation.unary.*;
 import calculator.parser.antlr.*;
 import calculator.*;
 
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
-import calculator.operation.unary.Logarithm;
-import calculator.operation.unary.Negation;
-import calculator.operation.unary.SquareRoot;
-import calculator.operation.unary.UnaryOperation;
 import calculator.operation.unary.trigonometry.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -85,6 +82,18 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
         Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()),
                 Integer.parseInt(ctx.getChild(4).getText()));
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) {
+        System.out.println(Configuration.isUsingDegrees());
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) {
+        Configuration.setUseDegrees(parseBool(ctx.getChild(2)));
         return null;
     }
 
@@ -190,6 +199,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return ctx.getChild(1).accept(this);
     }
 
+    @Override
+    public Expression visitTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new DegreeToRadian(expression, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.INFIX));
+    }
+
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -275,6 +294,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new DegreeToRadian(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.PREFIX));
     }
 
     /*
@@ -366,6 +395,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new SquareRoot(expression, Notation.POSTFIX));
     }
 
+    @Override
+    public Expression visitTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new DegreeToRadian(expression, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.POSTFIX));
+    }
+
     /* __________________________________ NUMBER _______________________________ */
 
     @Override
@@ -418,8 +457,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     /*
-     * __________________________________ RANDOM NUMBER
-     * _______________________________
+     * __________________________________ RANDOM NUMBER _______________________________
      */
 
     @Override

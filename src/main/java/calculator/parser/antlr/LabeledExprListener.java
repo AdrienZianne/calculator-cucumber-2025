@@ -378,6 +378,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPostfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPostfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code AtomPostfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
@@ -641,6 +665,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoPrefixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoPrefixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomPrefixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
@@ -953,6 +1001,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrigoInfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrigoInfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
