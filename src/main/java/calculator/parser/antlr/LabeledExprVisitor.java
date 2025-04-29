@@ -87,6 +87,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SettingSetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SettingGetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree

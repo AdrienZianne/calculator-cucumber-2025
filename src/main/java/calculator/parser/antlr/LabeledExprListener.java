@@ -138,6 +138,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingSetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingSetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SettingGetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingGetDisplayReal}
+	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree

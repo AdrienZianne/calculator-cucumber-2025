@@ -186,6 +186,8 @@ public class MyRational extends MyNumber {
 
     @Override
     public String toString() {
+        if (Configuration.isUsingRealNotation())
+            return MyReal.toReal(this).toString();
         return numDenomPair.a + "/" + numDenomPair.b;
     }
 

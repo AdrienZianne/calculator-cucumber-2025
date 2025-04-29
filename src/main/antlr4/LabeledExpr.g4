@@ -18,6 +18,8 @@ setting : 'seed' '(' INT ')'                             #SettingSetSeed
         | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
         | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg
         | 'useDeg'                                       #SettingGetUseDeg
+        | 'displayReal' '(' BOOL ')'                          #SettingSetDisplayReal
+        | 'displayReal'                                       #SettingGetDisplayReal
         ;
 
 

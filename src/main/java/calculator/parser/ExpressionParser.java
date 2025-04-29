@@ -74,7 +74,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
 
     @Override
     public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
-        System.out.println(Configuration.getScientificNotationPrecision());
+        if (!Configuration.usesScientificNotation()) System.out.println("Scientific Notation is set to false.");
+        else System.out.println(Configuration.getScientificNotationPrecision());
         return null;
     }
 
@@ -94,6 +95,18 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) {
         Configuration.setUseDegrees(parseBool(ctx.getChild(2)));
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx) {
+        System.out.println(Configuration.isUsingRealNotation());
+        return null;
+    }
+
+    @Override
+    public Expression visitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx) {
+        Configuration.setUseRealNotation(parseBool(ctx.getChild(2)));
         return null;
     }
 
