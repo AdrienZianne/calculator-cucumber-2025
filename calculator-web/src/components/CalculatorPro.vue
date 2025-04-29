@@ -91,6 +91,8 @@ export default {
         "impl",
         "equiv",
         "conv",
+        "radtodeg",
+        "degtorad",
         ..."_()".split(''),
         "<",
         ">"
@@ -197,6 +199,9 @@ export default {
         if (this.inputText.includes('randre')) this.inputText = this.inputText.replaceAll("randre", "rand_real");
         if (this.inputText.includes('randra')) this.inputText = this.inputText.replaceAll("randra", "rand_ratio");
         if (this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc", "rand_cmplx");
+        if (this.inputText.includes('radtodeg')) this.inputText = this.inputText.replaceAll("radtodeg", "radToDeg");
+        if (this.inputText.includes('degtorad')) this.inputText = this.inputText.replaceAll("degtorad", "degToRad");
+        console.log(this.inputText);
         const requestOptions = {
           method: "POST",
           headers: {
