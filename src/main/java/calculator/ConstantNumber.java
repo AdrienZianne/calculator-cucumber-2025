@@ -8,12 +8,12 @@ public final class ConstantNumber {
      * Represents PI as an instance of the {@link MyReal} class : 3.14159...
      * The precision depends on the given precision of the {@link MyReal} class.
      */
-    public static final MyReal PI = new MyReal(Math.PI);
+    public static final MyReal PI = new MyReal(Math.PI, 10);
     /**
      * Represents Euler's number as an instance of the {@link MyReal} class : 2.71828 ...
      * The precision depends on the given precision of the {@link MyReal} class.
      */
-    public static final MyReal EULER = new MyReal(Math.E);
+    public static final MyReal EULER = new MyReal(Math.E, 10);
 
     /**
      * Represents the value "zero" of the {@link MyInteger} class : 0

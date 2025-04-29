@@ -51,8 +51,8 @@ public class RadianToDegree extends UnaryOperation {
     }
 
     private static MyNumber degToRadian(MyNumber og) {
-        MyNumber nb = BinaryOperation.op(og, MyInteger.valueOf(180), Times::new);
-        return BinaryOperation.op(nb, ConstantNumber.PI, Divides::new);
+        MyNumber nb = BinaryOperation.op(MyInteger.valueOf(180), ConstantNumber.PI, Divides::new);
+        return BinaryOperation.op(og, nb, Times::new);
     }
 
 }
