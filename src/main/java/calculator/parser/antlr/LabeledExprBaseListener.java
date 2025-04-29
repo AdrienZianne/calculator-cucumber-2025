@@ -149,6 +149,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}

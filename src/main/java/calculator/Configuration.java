@@ -53,6 +53,7 @@ public final class Configuration {
     }
 
     /*__________________________________________________________________ Scientific Notation Options */
+    private static boolean useRealNotation = false;
     private static boolean useScientificNotation = false;
     private static int scNotationMaxLeft = 10;
     private static int scNotationMaxRight = 10;
@@ -93,6 +94,22 @@ public final class Configuration {
         Configuration.useScientificNotation = useScientificNotation;
     }
 
+    /**
+     * If set to true, then when displaying a {@link MyRational} instance it will be displayed as a {@link MyReal} instance.
+     * Else, the rational will be simply displayed.
+     * @param useRealNotation a boolean value
+     */
+    public static void setUseRealNotation(boolean useRealNotation) {
+        Configuration.useRealNotation = useRealNotation;
+    }
+
+    /**
+     * If returns true, then when displaying a {@link MyRational} instance it will be displayed as a {@link MyReal} instance.
+     * Else, the rational will be simply displayed.
+     */
+    public static boolean isUsingRealNotation() {
+        return useRealNotation;
+    }
 
     public static String getNotation(BigDecimal r)
     {
