@@ -227,6 +227,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrigoPostfixATan(LabeledExprParser.TrigoPostfixATanContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPostfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AtomPostfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
@@ -380,6 +394,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoPrefixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomPrefixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
@@ -562,6 +590,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixDegToRad}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrigoInfixRadToDeg}
+	 * labeled alternative in {@link LabeledExprParser#trigoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.

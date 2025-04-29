@@ -389,6 +389,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoPostfixDegToRad(LabeledExprParser.TrigoPostfixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -648,6 +672,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrigoPrefixATan(LabeledExprParser.TrigoPrefixATanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoPrefixDegToRad(LabeledExprParser.TrigoPrefixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoPrefixRadToDeg(LabeledExprParser.TrigoPrefixRadToDegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -960,6 +1008,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrigoInfixATan(LabeledExprParser.TrigoInfixATanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoInfixDegToRad(LabeledExprParser.TrigoInfixDegToRadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
