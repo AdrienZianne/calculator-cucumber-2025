@@ -24,16 +24,13 @@ public class Shell {
     private boolean interrupted = false;
     private final Terminal terminal;
     private LineReader reader;
-    private ConfigurableApplicationContext ctx;
-
-    public Shell(ConfigurableApplicationContext ctx) throws IOException {
+    public Shell() throws IOException {
         terminal = TerminalBuilder.terminal();
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer(new StringsCompleter(/* add completion string list here */))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
-        this.ctx = ctx;
     }
 
     /**
@@ -111,6 +108,5 @@ public class Shell {
         terminal.writer().println("Exiting !");
         terminal.flush();
         interrupted = true;
-        ctx.close();
     }
 }
