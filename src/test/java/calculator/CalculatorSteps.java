@@ -61,7 +61,7 @@ public class CalculatorSteps {
 
 	@Given("I initialise a seed")
 	public void givenIInitialiseASeed() {
-		RandomGenerator.setSeed(1);
+		Configuration.setSeed(1);
 	}
 
 	@Given("an operation {string}")

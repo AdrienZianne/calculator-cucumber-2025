@@ -37,6 +37,12 @@ public class TestProgrammer {
         assertEquals(p.toString(), string);
     }
 
+    /**
+     * Method used to test whether an error is triggered when an unauthorized number
+     * is created.
+     * There are two possible errors: either the number uses symbols not authorized
+     * by the database, or the database is invalid.
+     */
     @ParameterizedTest
     @CsvSource({
             "101010, 1",
@@ -100,6 +106,9 @@ public class TestProgrammer {
         assertTrue(!p1.equals(p3));
     }
 
+    /**
+     * Method for testing whether the conversion between different databases works.
+     */
     @ParameterizedTest
     @CsvSource({
             "0000000000, 1, 1010, 2",
