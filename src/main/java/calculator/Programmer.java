@@ -258,7 +258,7 @@ public class Programmer {
                 return "F";
             }
         }
-        if (Configuration.getConvention() && prefix != null)
+        if (Configuration.getBaseNotationConvention() && prefix != null)
 
         {
             return prefix + realNum;

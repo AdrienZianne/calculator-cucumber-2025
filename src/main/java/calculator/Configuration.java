@@ -203,7 +203,7 @@ public final class Configuration {
      * When this variable is true, the notation conventions are activated.
      * For example, 10_2 -> 0b10.
      */
-    private static boolean convention = true;
+    private static boolean baseNotationConvention = true;
 
     /**
      * When the variable is true and the value is a decimal, the values 0 and 1 are
@@ -216,8 +216,8 @@ public final class Configuration {
      * 
      * @return True if conventions are to be displayed, False otherwise.
      */
-    public static boolean getConvention() {
-        return convention;
+    public static boolean getBaseNotationConvention() {
+        return baseNotationConvention;
     }
 
     /**
@@ -225,8 +225,8 @@ public final class Configuration {
      * 
      * @param value True if conventions are to be displayed, False otherwise.
      */
-    public static void setConvention(boolean value) {
-        convention = value;
+    public static void setBaseNotationConvention(boolean value) {
+        baseNotationConvention = value;
     }
 
     /**
