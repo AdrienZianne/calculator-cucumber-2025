@@ -3,7 +3,6 @@ package calculator.operation.binary;
 import calculator.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

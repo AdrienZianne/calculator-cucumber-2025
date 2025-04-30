@@ -1,13 +1,12 @@
 package calculator;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.ArrayList;
-
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Represents a rational number.
@@ -115,7 +114,7 @@ public class MyRational extends MyNumber {
 
     /**
      * Method for creating a MyRational object using denominator checks.
-     *
+
      * @param numerator
      * @param denominator
      *
@@ -129,7 +128,7 @@ public class MyRational extends MyNumber {
     public static MyNumber toRational(MyReal real) {
         BigInteger denom = BigInteger.TEN.pow(real.getValue().scale());
         BigInteger num = real.getValue().multiply(new BigDecimal(denom)).toBigInteger();
-        return new MyRational(num, denom).simplify();
+        return create(num, denom);
     }
 
     @Override
@@ -153,7 +152,9 @@ public class MyRational extends MyNumber {
      * @return The simplified number.
      *         Either another instance of {@link MyRational}.
      *         Or if the new denominator is equal to 1 or the enumerator is equal to
-     *         0, then it returns an {@link MyInteger} instance.
+     *         0, then it returns an {@link MyInteger} instance. And if the domain in the {@link Configuration} is
+     *         set to  {@link  calculator.Configuration.Domain#NATURAL}
+     *         then it will return an instance of {@link MyInteger} with the rounded value.
      */
     private MyNumber simplify() {
         Pair<MyInteger, MyInteger> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a.getValue(),

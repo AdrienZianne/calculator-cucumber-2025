@@ -2,12 +2,13 @@ package calculator;
 
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
-import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+
+import java.io.IOException;
 
 /**
  * A very simple calculator in Java

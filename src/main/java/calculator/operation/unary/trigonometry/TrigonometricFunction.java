@@ -1,13 +1,8 @@
 package calculator.operation.unary.trigonometry;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
 import calculator.operation.unary.UnaryOperation;
-import org.apache.tomcat.util.bcel.Const;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**

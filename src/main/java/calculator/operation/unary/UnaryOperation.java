@@ -4,9 +4,7 @@ import calculator.*;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.Operation;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Class used to implement unary operations.

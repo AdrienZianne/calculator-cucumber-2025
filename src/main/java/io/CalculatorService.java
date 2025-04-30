@@ -4,7 +4,6 @@ import calculator.Expression;
 import calculator.IllegalConstruction;
 import calculator.parser.CalculatorParser;
 import jdk.jshell.spi.ExecutionControl;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import visitor.Evaluator;

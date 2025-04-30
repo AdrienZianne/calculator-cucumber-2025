@@ -1,9 +1,14 @@
 package calculator.parser;
 
-import calculator.parser.antlr.*;
-import calculator.*;
-
-import org.antlr.v4.runtime.*;
+import calculator.Expression;
+import calculator.Programmer;
+import calculator.parser.antlr.LabeledExprLexer;
+import calculator.parser.antlr.LabeledExprParser;
+import calculator.parser.antlr.LabeledProgrammerLexer;
+import calculator.parser.antlr.LabeledProgrammerParser;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 public class CalculatorParser {
     public static Expression parseString(String input) {

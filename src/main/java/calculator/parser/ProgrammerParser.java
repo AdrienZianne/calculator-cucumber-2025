@@ -1,10 +1,10 @@
 package calculator.parser;
 
-import calculator.parser.antlr.*;
-
 import calculator.Programmer;
-import calculator.ProgrammerOperation;
 import calculator.Programmer.ProgrammerException;
+import calculator.ProgrammerOperation;
+import calculator.parser.antlr.LabeledProgrammerBaseVisitor;
+import calculator.parser.antlr.LabeledProgrammerParser;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.

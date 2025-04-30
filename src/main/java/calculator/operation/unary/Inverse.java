@@ -1,9 +1,10 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.*;
-
-import java.util.List;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Exponent;
+import calculator.operation.binary.Plus;
 
 /**
  * A class used to represent the inversion of an expression.

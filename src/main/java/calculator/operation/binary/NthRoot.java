@@ -1,7 +1,6 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import calculator.operation.unary.Negation;
 import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 
