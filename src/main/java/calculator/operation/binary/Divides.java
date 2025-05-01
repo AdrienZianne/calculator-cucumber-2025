@@ -49,11 +49,17 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
+        if (r.equals(ConstantNumber.ZERO)) {return new MyErrorNumber(this, "This operation results in a division by zero error");}
+
         return MyRational.create(l.getValue(), r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
         MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
     }
@@ -70,12 +76,19 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) {
+
         return MyRational.create(l.getValue().multiply(r.getNumDenomPair().b.getValue()),
                 r.getNumDenomPair().a.getValue());
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) {
+        MyNumber err = isUndefined(l, r);
+
+        if (r.equals(MyInteger.valueOf(0)) && l.getSign() > 0) {return new MyInfinity(true);}
+        if (r.equals(MyInteger.valueOf(0)) && l.getSign() < 0) {return new MyInfinity(false);}
+
+        if (err != null) {return err;}
         // To not lose any information we just divide them as rationals and integers
         MyNumber lRatio = MyRational.toRational(l);
         return op(lRatio, r);
@@ -83,6 +96,12 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyReal r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
+
+        if (l.equals(MyReal.valueOf(1)) && r.equals(MyReal.valueOf(0))) {return new MyInfinity(true);}
+        if (l.equals(MyReal.valueOf(-1)) && r.equals(MyReal.valueOf(0))) {return new MyInfinity(false);}
+
         // To not lose any information we just divide them as rationals
         MyNumber lRatio = MyRational.toRational(l);
         MyNumber rRatio = MyRational.toRational(r);
@@ -109,8 +128,9 @@ public final class Divides extends BinaryOperation {
     public MyNumber op(MyComplex l, MyComplex r) {
         // Denominator : c^2 + d^2
         MyNumber denom = BinaryOperation.op(
-                BinaryOperation.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a, Times::new), // fixme : use pow instead !
-                BinaryOperation.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b, Times::new), Plus::new);
+                BinaryOperation.op(r.getRealImaginaryPair().a, MyInteger.valueOf(2), Exponent::new),
+                BinaryOperation.op(r.getRealImaginaryPair().b, MyInteger.valueOf(2), Exponent::new),
+                Plus::new);
 
         // Real part: ac + bd
         MyNumber real = BinaryOperation.op(
@@ -167,10 +187,32 @@ public final class Divides extends BinaryOperation {
                                 Negation::new);
 
         // Denominator :
-        MyNumber aTimes2PlusbTimes2 = BinaryOperation.op(BinaryOperation.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a, Times::new),
-                                                         BinaryOperation.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b, Times::new),
-                                                         Plus::new); // FIXME we should be using pow
-                                                                                   // operations !
+        MyNumber aTimes2PlusbTimes2 = BinaryOperation.op(BinaryOperation.op(r.getRealImaginaryPair().a, MyInteger.valueOf(2), Exponent::new),
+                                                         BinaryOperation.op(r.getRealImaginaryPair().b, MyInteger.valueOf(2), Exponent::new),
+                                                         Plus::new);
+
         return MyComplex.create(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
+    }
+
+
+
+    private MyNumber checkSpecialCases(MyNumber num, MyNumber denom) {
+        /*
+        0.0 / 0.0 is a NaN (an undefined number);
+        1.0/0.0 is +infinity
+            (while 1/0 in the integer domain should report a division by zero error);
+        -1.0/0.0 is -infinity
+            (while -1/0 in the integer domain should report a division by zero error);
+        taking the square root of a negative real number is a NaN,
+        While it results in an imaginary number in the complex number domain;
+        Taking the logarithm of a negative value is not allowed, and so on.
+
+         */
+        return null;
+    }
+
+    private MyNumber isUndefined(MyNumber num, MyNumber denom) {
+        if (num.isZero() && denom.isZero()) return new MyUndefinedNumber(this);
+        return null;
     }
 }

@@ -178,7 +178,7 @@ public class MyReal extends MyNumber {
         return (valD != Double.POSITIVE_INFINITY)
                 && (valD != Double.NEGATIVE_INFINITY)
                 &&
-                !(BigDecimal.valueOf(Double.MAX_VALUE).compareTo(value) < 0);
+                (BigDecimal.valueOf(Double.MAX_VALUE).compareTo(value) >= 0);
     }
 
     /**

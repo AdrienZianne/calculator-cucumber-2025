@@ -1,17 +1,13 @@
 // Generated from LabeledExpr.g4 by ANTLR 4.13.2
 package calculator.parser.antlr;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class LabeledExprParser extends Parser {
@@ -3497,8 +3493,8 @@ public class LabeledExprParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class UnaryInfixNegationContext extends UnaryInfixContext {
 		public TerminalNode SUB() { return getToken(LabeledExprParser.SUB, 0); }
-		public SumInfixContext sumInfix() {
-			return getRuleContext(SumInfixContext.class,0);
+		public ProductInfixContext productInfix() {
+			return getRuleContext(ProductInfixContext.class,0);
 		}
 		public UnaryInfixNegationContext(UnaryInfixContext ctx) { copyFrom(ctx); }
 		@Override
@@ -3728,7 +3724,7 @@ public class LabeledExprParser extends Parser {
 				setState(511);
 				match(SUB);
 				setState(512);
-				sumInfix(0);
+				productInfix(0);
 				}
 				break;
 			default:
@@ -4328,8 +4324,8 @@ public class LabeledExprParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class NumberNegationContext extends NumberContext {
 		public TerminalNode SUB() { return getToken(LabeledExprParser.SUB, 0); }
-		public NumberContext number() {
-			return getRuleContext(NumberContext.class,0);
+		public ComplexNumberContext complexNumber() {
+			return getRuleContext(ComplexNumberContext.class,0);
 		}
 		public NumberNegationContext(NumberContext ctx) { copyFrom(ctx); }
 		@Override
@@ -4478,7 +4474,7 @@ public class LabeledExprParser extends Parser {
 				setState(585);
 				match(SUB);
 				setState(586);
-				number(1);
+				complexNumber();
 				}
 				break;
 			}
@@ -5248,7 +5244,7 @@ public class LabeledExprParser extends Parser {
 		"\u0001\u0000\u0000\u0000\u01fb\u01fc\u0001\u0000\u0000\u0000\u01fc\u01fd"+
 		"\u0001\u0000\u0000\u0000\u01fd\u01fe\u0005\u0003\u0000\u0000\u01fe\u0202"+
 		"\u0001\u0000\u0000\u0000\u01ff\u0200\u0005(\u0000\u0000\u0200\u0202\u0003"+
-		"\u0018\f\u0000\u0201\u01dc\u0001\u0000\u0000\u0000\u0201\u01de\u0001\u0000"+
+		"\u001a\r\u0000\u0201\u01dc\u0001\u0000\u0000\u0000\u0201\u01de\u0001\u0000"+
 		"\u0000\u0000\u0201\u01ef\u0001\u0000\u0000\u0000\u0201\u01ff\u0001\u0000"+
 		"\u0000\u0000\u0202\u001f\u0001\u0000\u0000\u0000\u0203\u0204\u0005\u000e"+
 		"\u0000\u0000\u0204\u0205\u0005\u0002\u0000\u0000\u0205\u0206\u0003\u0018"+
@@ -5290,29 +5286,29 @@ public class LabeledExprParser extends Parser {
 		"\u0242#\u0001\u0000\u0000\u0000\u0243\u0244\u0006\u0012\uffff\uffff\u0000"+
 		"\u0244\u024c\u0003*\u0015\u0000\u0245\u024c\u0005+\u0000\u0000\u0246\u024c"+
 		"\u0005-\u0000\u0000\u0247\u024c\u0003(\u0014\u0000\u0248\u024c\u0003&"+
-		"\u0013\u0000\u0249\u024a\u0005(\u0000\u0000\u024a\u024c\u0003$\u0012\u0001"+
-		"\u024b\u0243\u0001\u0000\u0000\u0000\u024b\u0245\u0001\u0000\u0000\u0000"+
-		"\u024b\u0246\u0001\u0000\u0000\u0000\u024b\u0247\u0001\u0000\u0000\u0000"+
-		"\u024b\u0248\u0001\u0000\u0000\u0000\u024b\u0249\u0001\u0000\u0000\u0000"+
-		"\u024c\u0251\u0001\u0000\u0000\u0000\u024d\u024e\n\u0002\u0000\u0000\u024e"+
-		"\u0250\u0005,\u0000\u0000\u024f\u024d\u0001\u0000\u0000\u0000\u0250\u0253"+
-		"\u0001\u0000\u0000\u0000\u0251\u024f\u0001\u0000\u0000\u0000\u0251\u0252"+
-		"\u0001\u0000\u0000\u0000\u0252%\u0001\u0000\u0000\u0000\u0253\u0251\u0001"+
-		"\u0000\u0000\u0000\u0254\u0255\u0005\u001a\u0000\u0000\u0255\u0256\u0005"+
-		"\u0002\u0000\u0000\u0256\u0257\u0005+\u0000\u0000\u0257\u0265\u0005\u0003"+
-		"\u0000\u0000\u0258\u0259\u0005\u001b\u0000\u0000\u0259\u025a\u0005\u0002"+
-		"\u0000\u0000\u025a\u0265\u0005\u0003\u0000\u0000\u025b\u025c\u0005\u001c"+
-		"\u0000\u0000\u025c\u025d\u0005\u0002\u0000\u0000\u025d\u025e\u0005+\u0000"+
-		"\u0000\u025e\u025f\u0005\u0007\u0000\u0000\u025f\u0260\u0005+\u0000\u0000"+
-		"\u0260\u0265\u0005\u0003\u0000\u0000\u0261\u0262\u0005\u001d\u0000\u0000"+
-		"\u0262\u0263\u0005\u0002\u0000\u0000\u0263\u0265\u0005\u0003\u0000\u0000"+
-		"\u0264\u0254\u0001\u0000\u0000\u0000\u0264\u0258\u0001\u0000\u0000\u0000"+
-		"\u0264\u025b\u0001\u0000\u0000\u0000\u0264\u0261\u0001\u0000\u0000\u0000"+
-		"\u0265\'\u0001\u0000\u0000\u0000\u0266\u0269\u0007\u0000\u0000\u0000\u0267"+
-		"\u0269\u0007\u0001\u0000\u0000\u0268\u0266\u0001\u0000\u0000\u0000\u0268"+
-		"\u0267\u0001\u0000\u0000\u0000\u0269)\u0001\u0000\u0000\u0000\u026a\u026b"+
-		"\u0005+\u0000\u0000\u026b\u026c\u0005&\u0000\u0000\u026c\u026d\u0005+"+
-		"\u0000\u0000\u026d+\u0001\u0000\u0000\u0000;0>[afot}\u0082\u0088\u008d"+
+		"\u0013\u0000\u0249\u024a\u0005(\u0000\u0000\u024a\u024c\u0003\"\u0011"+
+		"\u0000\u024b\u0243\u0001\u0000\u0000\u0000\u024b\u0245\u0001\u0000\u0000"+
+		"\u0000\u024b\u0246\u0001\u0000\u0000\u0000\u024b\u0247\u0001\u0000\u0000"+
+		"\u0000\u024b\u0248\u0001\u0000\u0000\u0000\u024b\u0249\u0001\u0000\u0000"+
+		"\u0000\u024c\u0251\u0001\u0000\u0000\u0000\u024d\u024e\n\u0002\u0000\u0000"+
+		"\u024e\u0250\u0005,\u0000\u0000\u024f\u024d\u0001\u0000\u0000\u0000\u0250"+
+		"\u0253\u0001\u0000\u0000\u0000\u0251\u024f\u0001\u0000\u0000\u0000\u0251"+
+		"\u0252\u0001\u0000\u0000\u0000\u0252%\u0001\u0000\u0000\u0000\u0253\u0251"+
+		"\u0001\u0000\u0000\u0000\u0254\u0255\u0005\u001a\u0000\u0000\u0255\u0256"+
+		"\u0005\u0002\u0000\u0000\u0256\u0257\u0005+\u0000\u0000\u0257\u0265\u0005"+
+		"\u0003\u0000\u0000\u0258\u0259\u0005\u001b\u0000\u0000\u0259\u025a\u0005"+
+		"\u0002\u0000\u0000\u025a\u0265\u0005\u0003\u0000\u0000\u025b\u025c\u0005"+
+		"\u001c\u0000\u0000\u025c\u025d\u0005\u0002\u0000\u0000\u025d\u025e\u0005"+
+		"+\u0000\u0000\u025e\u025f\u0005\u0007\u0000\u0000\u025f\u0260\u0005+\u0000"+
+		"\u0000\u0260\u0265\u0005\u0003\u0000\u0000\u0261\u0262\u0005\u001d\u0000"+
+		"\u0000\u0262\u0263\u0005\u0002\u0000\u0000\u0263\u0265\u0005\u0003\u0000"+
+		"\u0000\u0264\u0254\u0001\u0000\u0000\u0000\u0264\u0258\u0001\u0000\u0000"+
+		"\u0000\u0264\u025b\u0001\u0000\u0000\u0000\u0264\u0261\u0001\u0000\u0000"+
+		"\u0000\u0265\'\u0001\u0000\u0000\u0000\u0266\u0269\u0007\u0000\u0000\u0000"+
+		"\u0267\u0269\u0007\u0001\u0000\u0000\u0268\u0266\u0001\u0000\u0000\u0000"+
+		"\u0268\u0267\u0001\u0000\u0000\u0000\u0269)\u0001\u0000\u0000\u0000\u026a"+
+		"\u026b\u0005+\u0000\u0000\u026b\u026c\u0005&\u0000\u0000\u026c\u026d\u0005"+
+		"+\u0000\u0000\u026d+\u0001\u0000\u0000\u0000;0>[afot}\u0082\u0088\u008d"+
 		"\u0092\u009b\u00a0\u00a9\u00ae\u00b5\u00c2\u00fb\u00ff\u0106\u010b\u0114"+
 		"\u0119\u0122\u0127\u012c\u0132\u0137\u0140\u0145\u014e\u0153\u0159\u0166"+
 		"\u019f\u01a3\u01ac\u01b1\u01b6\u01be\u01c0\u01cf\u01d1\u01da\u01e0\u01e5"+

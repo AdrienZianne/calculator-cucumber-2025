@@ -49,6 +49,10 @@ public abstract class BinaryOperation extends Operation {
         if (b instanceof MyErrorNumber e) {
             return e; // Simply pass the error upwards
         }
+        if (a instanceof MyUndefinedNumber nan)
+        {
+            return new MyErrorNumber(this, "Tried to use an operation on NaN: " + nan);
+        }
         if (a instanceof MyInteger l)
         {
             if (b instanceof MyInteger r) { return op(l,r); }

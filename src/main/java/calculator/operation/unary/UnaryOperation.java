@@ -30,6 +30,7 @@ public abstract class UnaryOperation extends Operation {
             case MyRational rr -> op(rr);
             case MyComplex c -> op(c);
             case MyErrorNumber e -> e; // Simply pass the error up.
+            case MyUndefinedNumber nan -> new MyErrorNumber(this, "Tried to apply an operation on a undefined number: " + nan);
             default -> new MyErrorNumber(this, "The given operation is not implemented yet for the " +
                     "given MyNumber subclass: " + a.getClass());
         };

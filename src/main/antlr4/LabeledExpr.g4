@@ -117,7 +117,7 @@ atomInfix: unaryInfix           #AtomInfixUnary
 unaryInfix: trigoInfix                                   #UnaryInfixTrigo
           | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
           | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
-          | '-' sumInfix   #UnaryInfixNegation
+          | '-' productInfix   #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
@@ -147,7 +147,7 @@ number: rational                            #NumberRational // Placed first in o
       | constant                            #NumberContant
       | random                              #NumberRandom
       | number ENOTATION                    #NumberENotation
-      | '-' number                          #NumberNegation // In case someone wants the negative value of a number
+      | '-' complexNumber                   #NumberNegation // In case someone wants the negative value of a number
       ;
 
 random : 'rand_int' '(' INT ')'                         #RandomInt

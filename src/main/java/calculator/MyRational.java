@@ -2,6 +2,7 @@ package calculator;
 
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
+import org.apache.tomcat.util.bcel.Const;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -61,9 +62,13 @@ public class MyRational extends MyNumber {
         params.add(numerator);
         params.add(denominator);
         try {
-            return new MyErrorNumber(new Divides(params), "A rational cannot have a denominator of 0");
+            Divides divides = new Divides(params);
+            if (numerator.equals(ConstantNumber.ZERO)) {
+                return new MyUndefinedNumber(divides);
+            }
+            return new MyErrorNumber(divides, "The operation results in a division by zero error");
         } catch (IllegalConstruction e) {
-            return new MyErrorNumber(null, "A rational cannot have a denominator of 0");
+            return new MyErrorNumber(null, "The operation results in a division by zero error");
         }
     }
 
@@ -152,8 +157,7 @@ public class MyRational extends MyNumber {
      * @return The simplified number.
      *         Either another instance of {@link MyRational}.
      *         Or if the new denominator is equal to 1 or the enumerator is equal to
-     *         0, then it returns an {@link MyInteger} instance. And if the domain in the {@link Configuration} is
-     *         set to  {@link  calculator.Configuration.Domain#NATURAL}
+     *         0, then it returns an {@link MyInteger} instance.
      *         then it will return an instance of {@link MyInteger} with the rounded value.
      */
     private MyNumber simplify() {
@@ -223,4 +227,5 @@ public class MyRational extends MyNumber {
     public int getSign() {
         return this.numDenomPair.a.getSign() * this.numDenomPair.b.getSign();
     }
+
 }

@@ -11,16 +11,6 @@ import java.util.Locale;
  * A class used to store every static value considered as a setting. It cannot be instantiated.
  */
 public final class Configuration {
-    public enum Domain {
-        REAL("ℝ"),
-        NATURAL("ℕ"),
-        COMPLEX("ℂ");
-
-        public final String symbol;
-
-        Domain(String symbol) {this.symbol = symbol;}
-    }
-
     private Configuration() {
         // Prevents any instantiation of this "static" class
     }
@@ -151,20 +141,4 @@ public final class Configuration {
         Configuration.useDegrees = useDegrees;
     }
 
-
-    /*__________________________________________________________________ Math domain */
-
-    private static Domain domain = Domain.NATURAL;
-
-    /**
-     * Sets the new domain for which {@link calculator.operation.Operation} and {@link MyNumber} classes are abiding with.
-     * @param domain The new domain to work with.
-     */
-    public static void setDomain(Domain domain) {Configuration.domain = domain;}
-
-    /**
-     * Gets the current domain which all {@link calculator.operation.Operation} and {@link MyNumber} classes are abiding with.
-     * @return The current domain.s
-     */
-    public static Domain getDomain() {return domain;}
 }
