@@ -53,6 +53,13 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSettingsOption(LabeledSettingsParser.SettingsOptionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SettingsResetSeed}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InfoMode}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree

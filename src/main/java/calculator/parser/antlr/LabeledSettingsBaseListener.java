@@ -89,6 +89,18 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInfoMode(LabeledSettingsParser.InfoModeContext ctx) { }
 	/**
 	 * {@inheritDoc}

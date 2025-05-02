@@ -60,6 +60,13 @@ public class LabeledSettingsBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitInfoMode(LabeledSettingsParser.InfoModeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -80,6 +80,18 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 */
 	void exitSettingsOption(LabeledSettingsParser.SettingsOptionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingsResetSeed}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingsResetSeed}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code InfoMode}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree

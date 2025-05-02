@@ -1,11 +1,12 @@
 grammar LabeledSettings;
 
-setting : QUIT        #SettingsQuit
-        | HELP        #SettingsHelp
-        | LISTOPTIONS #SettingsListOptions
-        | INFO info   #SettingsInfoOptions
-        | CLEAR       #SettingsClear
-        | option      #SettingsOption
+setting : QUIT         #SettingsQuit
+        | HELP         #SettingsHelp
+        | LISTOPTIONS  #SettingsListOptions
+        | INFO info    #SettingsInfoOptions
+        | CLEAR        #SettingsClear
+        | option       #SettingsOption
+		| 'reset_seed' #SettingsResetSeed
         ;
 
 info : MODE                       #InfoMode
@@ -22,12 +23,12 @@ info : MODE                       #InfoMode
      ;
 
 option : MODE '=' modes                        #OptionMode
-       | 'real_precision' '=' INT              #OptionRealPrecision
+       | 'real_precision' '=' UINT             #OptionRealPrecision
        | 'real_rounding_mode' '=' roundingmode #OptionRoundingMode
        | 'use_real_notation' '=' BOOL          #OptionUseRealNotation
        | 'use_scientific_notation' '=' BOOL    #OptionUseScientificNotation
-       | 'sc_notation_max_left' '=' INT        #OptionScNotationMaxLeft
-       | 'sc_notation_max_right' '=' INT       #OptionScNotationMaxRight
+       | 'sc_notation_max_left' '=' UINT       #OptionScNotationMaxLeft
+       | 'sc_notation_max_right' '=' UINT      #OptionScNotationMaxRight
        | 'use_degrees' '=' BOOL                #OptionUseDegrees
        | 'seed' '=' INT                        #OptionSeed
        | 'base_notation_convention' '=' BOOL   #OptionBaseNotationConvention
@@ -55,8 +56,9 @@ INFO : 'i' | 'info' ; // match info
 CLEAR : 'c' | 'clear' ; // match clear
 MODE : 'm' | 'mode' ; // match mode
 
-INT : [0-9]+ ; // match integers
-BOOL : 't' | 'true' | 'f' | 'false' ; // match boolean
+INT : '-'? UINT ; // match integers
+UINT : [0-9]+ ; // match integers
+BOOL : 'true' | 'false' ; // match boolean
 ARITHMETIC : 'a' | 'arithmetic' ; // match mode arithmetic
 PROGRAMMER : 'p' | 'programmer' ; // match mode programmer
 

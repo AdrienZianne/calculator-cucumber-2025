@@ -16,8 +16,44 @@ public final class Configuration {
     }
 
     /*
+     * __________________________________________________________________Mode
+     */
+
+    /**
+     * Mode
+     * Enumeration to list the different calculator modes.
+     */
+    public enum Mode {
+        ARITHMETIC, PROGRAMMER
+    }
+
+    /**
+     * Attribute containing the current mode used by the calculator.
+     */
+    private static Mode mode = Mode.ARITHMETIC;
+
+    /**
+     * Method for changing the calculator mode.
+     * 
+     * @param mode The desired mode.
+     */
+    public static void setMode(Mode mode) {
+        Configuration.mode = mode;
+    }
+
+    /**
+     * A method of finding out the current mode used by the calculator.
+     * 
+     * @return The current mode.
+     */
+    public static Mode getMode() {
+        return mode;
+    }
+
+    /*
      * __________________________________________________________________Real_Precision
      */
+
     private static int realPrecision = 5;
     private static RoundingMode realRoundingMode = RoundingMode.HALF_UP;
 
@@ -62,12 +98,49 @@ public final class Configuration {
     /*
      * __________________________________________________________________Scientific_Notation_Options
      */
+
     private static boolean useRealNotation = false;
     private static boolean useScientificNotation = false;
     private static int scNotationMaxLeft = 10;
     private static int scNotationMaxRight = 10;
 
     private static DecimalFormat eNotation = new DecimalFormat("0.###E0", new DecimalFormatSymbols(Locale.UK));
+
+    /**
+     * Get the current precision of left-hand scientific notation.
+     * 
+     * @return The current precision.
+     */
+    public static int getScNotationMaxLeft() {
+        return scNotationMaxLeft;
+    }
+
+    /**
+     * Sets the current precision of left-hand scientific notation.
+     * 
+     * @param scNotationMaxLeft The new precision to use.
+     */
+    public static void setScNotationMaxLeft(int value) {
+        scNotationMaxLeft = value;
+    }
+
+    /**
+     * Get the current precision of right-hand scientific notation.
+     * 
+     * @return The current precision.
+     */
+    public static int getScNotationMaxRight() {
+        return scNotationMaxRight;
+    }
+
+    /**
+     * Sets the current precision of right-hand scientific notation.
+     * 
+     * @param scNotationMaxLeft The new precision to use.
+     */
+    public static void setScNotationMaxRight(int value) {
+        scNotationMaxRight = value;
+    }
 
     /**
      * Get the current precision of the scientific notation.
@@ -153,12 +226,25 @@ public final class Configuration {
      * __________________________________________________________________Trigonometric_Options
      */
 
+    /**
+     * Attribute that lets you know whether you're working on degrees or radians.
+     */
     private static boolean useDegrees = true;
 
+    /**
+     * A method that lets you know whether you're working on degrees or not.
+     * 
+     * @return Preference.
+     */
     public static boolean isUsingDegrees() {
         return useDegrees;
     }
 
+    /**
+     * Method for choosing whether to work on degrees or not.
+     * 
+     * @param useDegrees The choice.
+     */
     public static void setUseDegrees(boolean useDegrees) {
         Configuration.useDegrees = useDegrees;
     }
