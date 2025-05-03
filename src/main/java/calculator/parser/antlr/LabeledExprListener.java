@@ -1098,6 +1098,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitNumberRational(LabeledExprParser.NumberRationalContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code NumberInfinity}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberInfinity(LabeledExprParser.NumberInfinityContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NumberInfinity}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberInfinity(LabeledExprParser.NumberInfinityContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NumberReal}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -1229,6 +1241,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InfinityPositive}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 */
+	void enterInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InfinityPositive}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 */
+	void exitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InfinityNegative}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 */
+	void enterInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InfinityNegative}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 */
+	void exitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree

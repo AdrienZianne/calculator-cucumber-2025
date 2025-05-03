@@ -145,6 +145,7 @@ number: rational                            #NumberRational // Placed first in o
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
       | constant                            #NumberContant
+      | infinity                            #NumberInfinity
       | random                              #NumberRandom
       | number ENOTATION                    #NumberENotation
       | '-' complexNumber                   #NumberNegation // In case someone wants the negative value of a number
@@ -158,6 +159,10 @@ random : 'rand_int' '(' INT ')'                         #RandomInt
 
 constant: ('pi' | 'PI' | 'Pi' | 'pI' | 'π') #ConstantPi
         | ('E' | 'e')                       #ConstantEuler
+        ;
+
+infinity: '+'? 'inf'                        #InfinityPositive
+        | '-' 'inf'                         #InfinityNegative
         ;
 
 rational: INT '/' INT

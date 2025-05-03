@@ -1109,6 +1109,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNumberInfinity(LabeledExprParser.NumberInfinityContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberInfinity(LabeledExprParser.NumberInfinityContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumberReal(LabeledExprParser.NumberRealContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1236,6 +1248,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConstantEuler(LabeledExprParser.ConstantEulerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

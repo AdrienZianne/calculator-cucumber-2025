@@ -647,6 +647,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumberRational(LabeledExprParser.NumberRationalContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NumberInfinity}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberInfinity(LabeledExprParser.NumberInfinityContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NumberReal}
 	 * labeled alternative in {@link LabeledExprParser#number}.
 	 * @param ctx the parse tree
@@ -723,6 +730,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InfinityPositive}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InfinityNegative}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree

@@ -447,6 +447,15 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) {
+        return new MyInfinity(true);
+    }
+    @Override
+    public Expression visitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx) {
+        return new MyInfinity(false);
+    }
+
+    @Override
     public Expression visitNumberNegation(LabeledExprParser.NumberNegationContext ctx) {
         // We are using infix as that is a special operation, this is simply applying a
         // negation to an atomic value
