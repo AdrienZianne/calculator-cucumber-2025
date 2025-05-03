@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the logarithmic value of an expression.
  * Let {@code x} be our expression, the operation will result in {@code log(x)}.
  */
-public class Logarithm extends UnaryOperation {
+public final class Logarithm extends UnaryOperation {
 
     /**
      * The default constructor of the {@link Logarithm} class.
@@ -56,6 +56,14 @@ public class Logarithm extends UnaryOperation {
         if (check != null)
             return check;
         return new MyErrorNumber(this, "Tried to apply the log operation on the following complex value: " + c);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        MyErrorNumber check = checkValidity(i);
+        if (check != null)
+            return check;
+        return new MyInfinity(true);
     }
 
     private MyErrorNumber checkValidity(MyNumber nb) {

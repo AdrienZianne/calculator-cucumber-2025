@@ -50,4 +50,13 @@ public class TestSquareRoot extends TestUnaryOperation {
         SquareRoot root = new SquareRoot(MyComplex.create(1,1));
         assertEquals(MyErrorNumber.class, calculator.eval(root).getClass());
     }
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        SquareRoot op = new SquareRoot(new MyInfinity(true));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+        op = new SquareRoot(new MyInfinity(false));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
 }

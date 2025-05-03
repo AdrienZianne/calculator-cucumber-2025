@@ -89,6 +89,11 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyErrorNumber(this, "Tried to apply a trigonometric function on infinity");
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the sinus operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code sin(x)}.
  */
-public class Sinus extends TrigonometricFunction {
+public final class Sinus extends TrigonometricFunction {
     /**
      * A constructor of the {@link Sinus} class.     
      * @param expression An expression to apply the sinus operation to.

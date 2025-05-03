@@ -46,4 +46,14 @@ public class TestRadianToDegree extends TestUnaryOperation{
         RadianToDegree op = new RadianToDegree(MyComplex.create(1,1));
         assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
     }
+
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        RadianToDegree op = new RadianToDegree(new MyInfinity(true));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+        op = new RadianToDegree(new MyInfinity(false));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
 }

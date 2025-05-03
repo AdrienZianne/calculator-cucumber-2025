@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the tangent operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code tan(x)}.
  */
-public class Tangent extends TrigonometricFunction {
+public final class Tangent extends TrigonometricFunction {
     /**
      * A constructor of the {@link Tangent} class.     
      * @param expression An expression to apply the tan operation to.

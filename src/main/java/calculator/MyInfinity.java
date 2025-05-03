@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.Objects;
+
 /**
  * Represents the infinity number. Either positive or negative.
  */
@@ -50,5 +52,17 @@ public class MyInfinity extends MyNumber {
     @Override
     public String toString() {
         return (isPositive ? "+" : "-") + "inf";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MyInfinity that = (MyInfinity) o;
+        return isPositive == that.isPositive;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(isPositive);
     }
 }

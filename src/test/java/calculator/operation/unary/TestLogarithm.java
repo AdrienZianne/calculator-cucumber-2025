@@ -74,4 +74,10 @@ public class TestLogarithm extends TestUnaryOperation {
         Logarithm inv = new Logarithm(MyComplex.create(1, 2));
         assertEquals(MyErrorNumber.class, calculator.eval(inv).getClass());
     }
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+
+    }
 }

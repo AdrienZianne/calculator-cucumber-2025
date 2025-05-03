@@ -42,4 +42,13 @@ public class TestDegreeToRadian extends TestUnaryOperation{
         DegreeToRadian op = new DegreeToRadian(MyComplex.create(1,1));
         assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
     }
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        DegreeToRadian op = new DegreeToRadian(new MyInfinity(true));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+        op = new DegreeToRadian(new MyInfinity(false));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
 }
