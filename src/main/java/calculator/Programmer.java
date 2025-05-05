@@ -242,7 +242,7 @@ public class Programmer {
      * @param n The other value to compare.
      * @return True if both values are equivalent, false otherwise.
      */
-    public boolean equals(Programmer n) {
+    public boolean isEquals(Programmer n) {
         return binaryNum.equals(n.binaryNum);
     }
 
