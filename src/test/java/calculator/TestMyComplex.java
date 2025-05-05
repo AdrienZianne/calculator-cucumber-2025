@@ -40,11 +40,6 @@ class TestMyComplex {
         assertEquals(imaginary + " + " + real + " i", number.toString());
     }
 
-    @Test
-    void testIsZero()
-    {
-        // It isn't really possible to get a zero
-    }
 
     @Test
     void testCreate()
