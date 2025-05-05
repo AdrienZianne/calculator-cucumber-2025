@@ -2,11 +2,9 @@ package calculator;
 
 import io.Shell;
 import jdk.jshell.spi.ExecutionControl;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-
 import calculator.parser.CalculatorParser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,15 +21,16 @@ import org.springframework.context.annotation.ComponentScan;
  * @author tommens
  */
 @SpringBootApplication(scanBasePackages = "io")
-@ComponentScan({"io"})
-@EntityScan({"io"})
+@ComponentScan({ "io" })
+@EntityScan({ "io" })
 public class Main {
 
 	/**
 	 * This is the main method of the application.
-	 * It provides examples of how to use it to construct and evaluate arithmetic expressions.
+	 * It provides examples of how to use it to construct and evaluate arithmetic
+	 * expressions.
 	 *
-	 * @param args	Command-line parameters are not used in this version
+	 * @param args Command-line parameters are not used in this version
 	 */
 	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
 
@@ -49,6 +48,5 @@ public class Main {
                 System.out.println("cannot create operations without parameters: " + exception.getMessage());
             }
         }
-	}
-
+	  }
 }

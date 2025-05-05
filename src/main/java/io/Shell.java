@@ -2,9 +2,8 @@ package io;
 
 import calculator.Calculator;
 import calculator.Expression;
-import calculator.IllegalConstruction;
+import calculator.Programmer;
 import calculator.parser.CalculatorParser;
-import jdk.jshell.spi.ExecutionControl;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -24,6 +23,10 @@ public class Shell {
     private boolean interrupted = false;
     private final Terminal terminal;
     private LineReader reader;
+  
+    private ConfigurableApplicationContext ctx;
+    private boolean mod = true;
+  
     public Shell() throws IOException {
         terminal = TerminalBuilder.terminal();
         reader = LineReaderBuilder.builder()
@@ -35,7 +38,8 @@ public class Shell {
 
     /**
      * Print error in the console
-     * @param err   The error message sent to the user
+     * 
+     * @param err The error message sent to the user
      */
     private void printError(String err) {
         terminal.writer().println("\033[31m" + "ERROR : " + err + "\033[0m");
@@ -61,23 +65,21 @@ public class Shell {
                     case "!c":
                         clear();
                         break;
+                    case "!m":
+                        mod = !mod;
+                        break;
                     default:
-                        try {
-                            Expression exp = CalculatorParser.parseString(line);
-                            terminal.writer().println(c.eval(exp));
-                        } catch (IllegalArgumentException e) {
-                            printError(e.getMessage());
-                            e.printStackTrace(terminal.writer());
-                        } catch (IllegalConstruction e) {
-                            throw new RuntimeException(e);
-                        } catch (ExecutionControl.NotImplementedException e) {
-                            throw new RuntimeException(e);
+                        // FIXME It's temporary
+                        if (mod) {
+                            modArithmetic(c, line);
+
+                        } else {
+                            modProgrammer(line);
                         }
                 }
 
                 reader.getHistory().add(line);
-            }
-            catch (UserInterruptException e) {
+            } catch (UserInterruptException e) {
                 exit();
             }
         }
@@ -96,17 +98,42 @@ public class Shell {
     private void displayHelp() {
         terminal.writer().println("""
                 \033[1mCalculator Cucumber 2025\033[0m
-                
+
                 \t!h : Display this message
                 \t!c : Clear the screen
                 \t!q : Quit the application
-                """
-        );
+                """);
     }
 
     private void exit() {
         terminal.writer().println("Exiting !");
         terminal.flush();
         interrupted = true;
+    }
+
+    private void modArithmetic(Calculator c, String line) {
+        try {
+            Expression exp = CalculatorParser.parseString(line);
+            if (exp == null)
+                System.out.println("[DEBUG] : Result was null, returning");
+            else
+                terminal.writer().println(c.eval(exp));
+        } catch (IllegalArgumentException e) {
+            printError(e.getMessage());
+            e.printStackTrace(terminal.writer());
+        }
+    }
+
+    private void modProgrammer(String line) {
+        try {
+            Programmer exp = CalculatorParser.parseProgrammer(line);
+            if (exp == null)
+                System.out.println("[DEBUG] : Result was null, returning");
+            else
+                terminal.writer().println(exp);
+        } catch (IllegalArgumentException e) {
+            printError(e.getMessage());
+            e.printStackTrace(terminal.writer());
+        }
     }
 }

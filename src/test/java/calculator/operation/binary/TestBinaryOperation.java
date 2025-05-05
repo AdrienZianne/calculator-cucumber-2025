@@ -1,0 +1,30 @@
+package calculator.operation.binary;
+
+import calculator.*;
+
+public abstract class TestBinaryOperation {
+
+    public final Calculator calculator = new Calculator();
+
+    public abstract void TestMyIntegerMyInteger();
+    public abstract void TestMyIntegerMyReal();
+    public abstract void TestMyIntegerMyComplex();
+    public abstract void TestMyIntegerMyRational();
+
+    public abstract void TestMyRealMyInteger();
+    public abstract void TestMyRealMyReal();
+    public abstract void TestMyRealMyComplex();
+    public abstract void TestMyRealMyRational();
+
+    public abstract void TestMyComplexMyInteger();
+    public abstract void TestMyComplexMyReal();
+    public abstract void TestMyComplexMyComplex();
+    public abstract void TestMyComplexMyRational();
+
+    public abstract void TestMyRationalMyInteger();
+    public abstract void TestMyRationalMyReal();
+    public abstract void TestMyRationalMyComplex();
+    public abstract void TestMyRationalMyRational();
+
+
+}

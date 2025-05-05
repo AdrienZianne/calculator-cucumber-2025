@@ -29,7 +29,8 @@ public class Pair<T,E>
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pair<?, ?> pair = (Pair<?, ?>) o;
-        return Objects.equals(a, pair.a) && Objects.equals(b, pair.b);
+
+        return a.equals(pair.a) && b.equals(pair.b);
     }
 
     @Override
