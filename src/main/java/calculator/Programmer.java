@@ -204,7 +204,7 @@ public class Programmer {
         if (oldRealNum.toString().equals("0")) {
             res = "0";
         } else {
-            while (oldRealNum.compareTo(new BigInteger("0")) == 1) {
+            while (oldRealNum.compareTo(new BigInteger("0")) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
                 res = chars.charAt(divideAndRemainder[1].intValue()) + res;
