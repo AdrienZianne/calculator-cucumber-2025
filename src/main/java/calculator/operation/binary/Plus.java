@@ -104,4 +104,30 @@ public final class Plus extends CommutativeBinaryOperation {
         return MyRational.create(lNum.add(rNum),
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
     }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        if (l.isPositive() == r.isPositive()) {return new MyInfinity(l.isPositive());}
+        return new MyUndefinedNumber(this);
+    }
 }

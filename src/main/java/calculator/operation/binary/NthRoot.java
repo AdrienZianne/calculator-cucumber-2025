@@ -4,6 +4,8 @@ import calculator.*;
 import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
  * Let {@code x} be our expression and {@code n} be the value of the index, the operation will result in {@code n√(x)}.
  * Note that the symbol used for the {@link String} representation of this operation is simply {@code "root"}.
  */
-public class NthRoot extends BinaryOperation {
+public final class NthRoot extends BinaryOperation {
     public NthRoot(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
     }
@@ -129,12 +131,71 @@ public class NthRoot extends BinaryOperation {
 
         long n = rootIndex.getValue().intValue();
         double x = r.getValue().doubleValue();
-        if (n == 0 || n == 1) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (n <= 1) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
 
         // If n == 2 then this is a square root operation
         if (n == 2) return UnaryOperation.op(r, SquareRoot::new);
 
         return MyReal.valueOf(Math.pow(x, 1./n));
+    }
+
+    @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        if (l.isZero()) return new MyUndefinedNumber(this);
+        return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        if (l.isZero()) return new MyUndefinedNumber(this);
+        return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        if (l.isZero()) return new MyUndefinedNumber(this);
+        return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        if (r.getValue().abs().compareTo(BigInteger.ONE) <= 0) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        return infOp(l);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        if (r.getValue().abs().equals(BigDecimal.ONE) || r.getValue().equals(BigDecimal.ZERO))
+            return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        return infOp(l);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return getIndexComplexErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        if (r.isZero()) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        return infOp(l);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
+    }
+
+    private MyNumber infOp(MyInfinity l) {
+        if (l.isPositive())
+            return new MyInfinity(true);
+        else
+            return new MyUndefinedNumber(this);
     }
 
     private MyErrorNumber getIndexErrorText(String numberType) {

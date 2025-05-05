@@ -20,6 +20,9 @@ public class TestExponent extends TestBinaryOperation{
         exp = op(MyInteger.valueOf(10), MyInteger.valueOf(0));
         assertEquals(ConstantNumber.ONE, exp);
 
+        exp = op(MyInteger.valueOf(0), MyInteger.valueOf(0));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
         exp = op(MyInteger.valueOf(2), MyInteger.valueOf(10));
         assertEquals(MyInteger.valueOf(1024), exp);
 
@@ -185,6 +188,123 @@ public class TestExponent extends TestBinaryOperation{
         Configuration.setRealPrecision(4);
         MyNumber exp = op(MyRational.create(10,3), MyRational.create(21,5));
         assertEquals(MyReal.valueOf(157.06909), exp);
+    }
+
+    @Test
+    @Override
+    public void TestMyIntegerMyInfinity() {
+        MyNumber exp = op(MyInteger.valueOf(2), new MyInfinity(true));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(MyInteger.valueOf(2), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyInteger.valueOf(-2), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
+        exp = op(MyInteger.valueOf(-2), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+    }
+
+    @Test
+    @Override
+    public void TestMyRealMyInfinity() {
+        MyNumber exp = op(MyReal.valueOf(0.5), new MyInfinity(true));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyReal.valueOf(0.5), new MyInfinity(false));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(MyReal.valueOf(-0.5), new MyInfinity(true));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyReal.valueOf(-0.5), new MyInfinity(false));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
+        // _____
+
+        exp = op(MyReal.valueOf(1.5), new MyInfinity(true));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(MyReal.valueOf(1.5), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyReal.valueOf(-1.5), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
+        exp = op(MyReal.valueOf(-1.5), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+    }
+
+    @Test
+    @Override
+    public void TestMyComplexMyInfinity() {
+        MyNumber exp = op(MyComplex.create(1,1), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyRationalMyInfinity() {
+        MyNumber exp = op(MyRational.create(1,2), new MyInfinity(true));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyRational.create(1,2), new MyInfinity(false));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(MyRational.create(-1,2), new MyInfinity(true));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyRational.create(-1,2), new MyInfinity(false));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
+        // _____
+
+        exp = op(MyRational.create(3,2), new MyInfinity(true));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(MyRational.create(3,2), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+
+        exp = op(MyRational.create(-3,2), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
+
+        exp = op(MyRational.create(-3,2), new MyInfinity(false));
+        assertEquals(ConstantNumber.ZERO, exp);
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyInteger() {
+        MyNumber exp = op(new MyInfinity(true), MyInteger.valueOf(3));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(new MyInfinity(false), MyInteger.valueOf(1));
+        assertEquals(new MyInfinity(false), exp);
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyReal() {
+
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyComplex() {
+
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyRational() {
+
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyInfinity() {
+
     }
 
     private MyNumber op(MyNumber a, MyNumber b) {

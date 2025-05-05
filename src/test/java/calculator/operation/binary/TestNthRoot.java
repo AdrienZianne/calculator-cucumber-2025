@@ -52,6 +52,7 @@ public class TestNthRoot extends TestBinaryOperation{
         assertEquals(MyErrorNumber.class, res.getClass());
 
     }
+
     @Test
     @Override
     public void TestMyRealMyInteger() {
@@ -165,6 +166,51 @@ public class TestNthRoot extends TestBinaryOperation{
     public void TestMyRationalMyRational() {
         MyNumber res = op(MyRational.create(1,2), MyRational.create(1,2));
         assertEquals(MyErrorNumber.class, res.getClass());
+    }
+
+    @Override
+    public void TestMyIntegerMyInfinity() {
+
+    }
+
+    @Override
+    public void TestMyRealMyInfinity() {
+
+    }
+
+    @Override
+    public void TestMyComplexMyInfinity() {
+
+    }
+
+    @Override
+    public void TestMyRationalMyInfinity() {
+
+    }
+
+    @Override
+    public void TestMyInfinityMyInteger() {
+
+    }
+
+    @Override
+    public void TestMyInfinityMyReal() {
+
+    }
+
+    @Override
+    public void TestMyInfinityMyComplex() {
+
+    }
+
+    @Override
+    public void TestMyInfinityMyRational() {
+
+    }
+
+    @Override
+    public void TestMyInfinityMyInfinity() {
+
     }
 
     private MyNumber op(MyNumber a, MyNumber b) {

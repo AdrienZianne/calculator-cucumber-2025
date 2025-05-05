@@ -36,6 +36,8 @@ public abstract class BinaryOperation extends Operation {
         super(elist, n);
     }
 
+
+
     /**
      * Applies an operation to two numbers and returns it's results.
      * @param a an instance of a {@link MyNumber} subclass
@@ -53,12 +55,14 @@ public abstract class BinaryOperation extends Operation {
         {
             return new MyErrorNumber(this, "Tried to use an operation on NaN: " + nan);
         }
+
         if (a instanceof MyInteger l)
         {
-            if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
             if (b instanceof MyComplex r) { return op(l,r); }
+            if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
+            if (b instanceof MyInfinity r) { return op(l,r); }
         }
         if (a instanceof MyReal l)
         {
@@ -66,6 +70,7 @@ public abstract class BinaryOperation extends Operation {
             if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
+            if (b instanceof MyInfinity r) { return op(l,r); }
         }
         if (a instanceof MyRational l)
         {
@@ -73,6 +78,7 @@ public abstract class BinaryOperation extends Operation {
             if (b instanceof MyComplex r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyReal r) { return op(l,r); }
+            if (b instanceof MyInfinity r) { return op(l,r); }
         }
         if (a instanceof MyComplex l)
         {
@@ -80,31 +86,66 @@ public abstract class BinaryOperation extends Operation {
             if (b instanceof MyReal r) { return op(l,r); }
             if (b instanceof MyInteger r) { return op(l,r); }
             if (b instanceof MyRational r) { return op(l,r); }
+            if (b instanceof MyInfinity r) { return op(l,r); }
+        }
+        if (a instanceof MyInfinity l)
+        {
+            if (b instanceof MyComplex r) { return op(l,r); }
+            if (b instanceof MyReal r) { return op(l,r); }
+            if (b instanceof MyInteger r) { return op(l,r); }
+            if (b instanceof MyRational r) { return op(l,r); }
+            if (b instanceof MyInfinity r) { return op(l,r); }
         }
         return new MyErrorNumber(this,"The given operation is not implemented yet for the " +
                 "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
         // Error : Not implemented
     }
 
+/*
+    private <T extends MyNumber> MyNumber genericSwitch(T l, MyNumber b)
+    {
+        if (b instanceof MyInteger r) { return op(l,r); }
+        if (b instanceof MyReal r) { return op(l,r); }
+        if (b instanceof MyComplex r) { return op(l,r); }
+        if (b instanceof MyRational r) { return op(l,r); }
+        if (b instanceof MyInfinity r) { return op(l,r); }
+        return new MyErrorNumber(this,"The given operation is not implemented yet for the " +
+                "given MyNumber subclasses pair: " + l.getClass() + " and " + b.getClass());
+    }
+ */
+
+
+
     public abstract MyNumber op(MyInteger l, MyInteger r);
     public abstract MyNumber op(MyInteger l, MyReal r);
     public abstract MyNumber op(MyInteger l, MyComplex r);
     public abstract MyNumber op(MyInteger l, MyRational r);
+    public abstract MyNumber op(MyInteger l, MyInfinity r);
 
     public abstract MyNumber op(MyReal l, MyInteger r);
     public abstract MyNumber op(MyReal l, MyReal r);
     public abstract MyNumber op(MyReal l, MyComplex r);
     public abstract MyNumber op(MyReal l, MyRational r);
+    public abstract MyNumber op(MyReal l, MyInfinity r);
 
     public abstract MyNumber op(MyComplex l, MyInteger r);
     public abstract MyNumber op(MyComplex l, MyReal r);
     public abstract MyNumber op(MyComplex l, MyComplex r);
     public abstract MyNumber op(MyComplex l, MyRational r);
+    public abstract MyNumber op(MyComplex l, MyInfinity r);
 
     public abstract MyNumber op(MyRational l, MyInteger r);
     public abstract MyNumber op(MyRational l, MyReal r);
     public abstract MyNumber op(MyRational l, MyComplex r);
     public abstract MyNumber op(MyRational l, MyRational r);
+    public abstract MyNumber op(MyRational l, MyInfinity r);
+
+    public abstract MyNumber op(MyInfinity l, MyInteger r);
+    public abstract MyNumber op(MyInfinity l, MyReal r);
+    public abstract MyNumber op(MyInfinity l, MyComplex r);
+    public abstract MyNumber op(MyInfinity l, MyRational r);
+    public abstract MyNumber op(MyInfinity l, MyInfinity r);
+
 
 
     // the operation itself is specified in the subclasses

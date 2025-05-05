@@ -4,6 +4,7 @@ import calculator.*;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Let {@code x} be our expression and {@code n} be the value of the exponent, the operation will result in {@code x^n}.
  * Note that the value of an integer exponent must be contained between {@code 0} and {@code 999999999}.
  */
-public class Exponent extends BinaryOperation {
+public final class Exponent extends BinaryOperation {
 
     public Exponent(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
@@ -33,6 +34,8 @@ public class Exponent extends BinaryOperation {
         if (!r.isInt())
             return new MyErrorNumber(this,"The value of the exponent must be " +
                 "a value contained between : " + Integer.MAX_VALUE + " and " + Integer.MIN_VALUE);
+        if (l.isZero() && r.isZero()) return new MyUndefinedNumber(this);
+
         MyNumber res = null;
         try {
             res = MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
@@ -48,6 +51,7 @@ public class Exponent extends BinaryOperation {
         // l^r
         // Change r to rational : a/b
         // = l^(a/b)
+
         MyNumber rat = MyRational.toRational(r);
         return op(l, rat);
     }
@@ -137,6 +141,88 @@ public class Exponent extends BinaryOperation {
         return BinaryOperation.op(num, denom, Divides::new);
     }
 
+    @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        if (l.equals(ConstantNumber.ONE)) return new MyUndefinedNumber(this);
+
+        if (l.isZero())
+        {
+            if (r.isPositive()) return MyInteger.valueOf(0);
+            else return new MyUndefinedNumber(this);
+        }
+        if (l.isZero() && r.isPositive()) return MyInteger.valueOf(0);
+        if (l.getSign() <= 0 && r.isPositive()) return new MyUndefinedNumber(this);
+        if (r.isPositive()) return new MyInfinity(l.getSign() > 0);
+
+        return new MyInteger(0);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        if (l.equals(MyReal.valueOf(1))) return new MyUndefinedNumber(this);
+        if (l.equals(MyReal.valueOf(0))) return MyInteger.valueOf(0);
+
+        return op(MyRational.toRational(l), r);
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        if (!r.isPositive()) return MyInteger.valueOf(0);
+
+        return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        MyInteger num = l.getNumDenomPair().a;
+        MyInteger denom = l.getNumDenomPair().b;
+
+        // if the rational is contained btw -1 and 1
+        if (num.getValue().abs().compareTo(denom.getValue().abs()) < 0) {
+            if (l.getSign() > 0) {
+                if (r.isPositive()) return MyInteger.valueOf(0);
+                return new MyInfinity(true);
+            }
+            if (r.isPositive()) return MyInteger.valueOf(0);
+            return new MyUndefinedNumber(this);
+        }
+        if (l.getSign() > 0) {
+            if (r.isPositive()) return new MyInfinity(true);
+            return MyInteger.valueOf(0);
+        }
+        if (r.isPositive()) return new MyUndefinedNumber(this);
+        return new MyInteger(0);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return infiniteValue(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return infiniteValue(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return infiniteValue(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return infiniteValue(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
+    }
+
+    private MyNumber infiniteValue(MyInfinity l, MyNumber r) {
+        if (r.equals(ConstantNumber.ZERO)) return new MyUndefinedNumber(this);
+        return new MyInfinity(l.isPositive());
+    }
 
     /**
      * Let the following equation {@code a^(-b)}. Then the following equation will be returned {@code 1/(a^b)}
@@ -158,6 +244,7 @@ public class Exponent extends BinaryOperation {
      * @return The result of {@code l^r}.
      */
     private MyNumber rationalPower(MyNumber x, MyRational r) {
+        if (x.isZero() && r.isZero()) return new MyUndefinedNumber(this);
         // Check if r is negative
         if (r.getSign() < 0)
             return inversePower(x,r);

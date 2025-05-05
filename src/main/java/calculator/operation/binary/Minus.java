@@ -107,7 +107,6 @@ public final class Minus extends BinaryOperation {
     }
 
     // Redefine some "non commutative" expressions
-
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
         return new MyReal(new BigDecimal(l.getValue()).subtract(r.getValue()));
@@ -145,6 +144,52 @@ public final class Minus extends BinaryOperation {
     public MyNumber diffByComplex(MyNumber l, MyComplex r) {
         return MyComplex.create(op(l, r.getRealImaginaryPair().a),
                 op(new MyInteger(0), r.getRealImaginaryPair().b)); // This should be negated !!
+    }
+
+
+    @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        return new MyInfinity(!r.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        return new MyInfinity(!r.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        return new MyInfinity(!r.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        return new MyInfinity(!r.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
     }
 
 }

@@ -103,4 +103,37 @@ public final class Times extends CommutativeBinaryOperation {
         return MyRational.create(l.getNumDenomPair().a.getValue().multiply(r.getNumDenomPair().a.getValue()),
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
     }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return infinityTimesNumber(l,r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return infinityTimesNumber(l,r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return infinityTimesNumber(l,r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyInfinity(l.isPositive() && r.isPositive());
+    }
+
+
+    private MyNumber infinityTimesNumber(MyInfinity l, MyNumber r)
+    {
+        if (r.isZero()) return new MyUndefinedNumber(this);
+
+        return new MyInfinity(l.isPositive() && (r.getSign() > 0));
+    }
 }

@@ -179,6 +179,55 @@ public final class Divides extends BinaryOperation {
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue()));
     }
 
+    @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
+    }
+
+    private MyNumber divInfinity(MyInfinity l, MyNumber r) {
+        return new MyInfinity(l.isPositive() && (r.getSign() > 0));
+    }
+
     public MyNumber divByComplex(MyNumber l, MyComplex r) {
         // c / (a + bi) = (ac - bci) / (a^2 + b^2)
         // numerator :
