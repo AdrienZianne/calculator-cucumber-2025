@@ -34,7 +34,7 @@ public class ProgrammerSteps {
      */
     @Then("the result of programmer is {string}")
     public void thenTheResultProgrammer(String val) {
-        Programmer.logicalSymbol = false;
+        Configuration.setLogicalSymbol(false);
         assertEquals(res.toString(), val);
     }
 }

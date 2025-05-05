@@ -6,35 +6,10 @@ import java.util.Random;
 /**
  * The purpose of this class is to generate random numbers for different types.
  * The seed can be chosen to have a deterministic output.
+ * It is configured in Configuration.
+ * {@link Configuration}
  */
 public abstract class RandomGenerator {
-    /**
-     * The seed used for number generation, if not defined then not used.
-     */
-    private static Integer seed = null;
-
-    /**
-     * Set the seed for use in future generations.
-     */
-    public static void setSeed(int customSeed) {
-        seed = customSeed;
-    }
-
-    /**
-     * Gets the seed used to generate numbers.
-     * @return The seed used.
-     */
-    public static Integer getSeed() {
-        return seed;
-    }
-
-    /**
-     * Deactivates seed.
-     */
-    public static void resetSeed() {
-        seed = null;
-    }
-
     /**
      * This method generates a random integer number between 0 and the maximum
      * specified in the parameter.
@@ -43,7 +18,7 @@ public abstract class RandomGenerator {
      * @return The randomly generated number.
      */
     public static MyInteger genInt(BigInteger max) {
-        Random rand = seed == null ? new Random() : new Random(seed);
+        Random rand = Configuration.getSeed() == null ? new Random() : new Random(Configuration.getSeed());
         BigInteger res;
         do {
             res = new BigInteger(max.bitLength(), rand);
@@ -57,7 +32,7 @@ public abstract class RandomGenerator {
      * @return The randomly generated number.
      */
     public static MyReal genReal() {
-        Random rand = seed == null ? new Random() : new Random(seed);
+        Random rand = Configuration.getSeed() == null ? new Random() : new Random(Configuration.getSeed());
         return new MyReal(rand.nextDouble());
     }
 

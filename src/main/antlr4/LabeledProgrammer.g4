@@ -18,7 +18,7 @@ operation : '(' operation ')'                #OperationPrio
 number : BOOL                            #NumberBool
 	   | BINARY_LITERAL                  #NumberBinary
 	   | OCTAL_LITERAL                   #NumberOctal
-	   | INT                 #NumberDecimal
+	   | INT                             #NumberDecimal
 	   | HEXA_LITERAL                    #NumberHexa
        | (INT | ALPHABET | BOTH) '_' INT #NumberDefault
 	   ;
