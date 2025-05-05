@@ -1,7 +1,6 @@
 package calculator;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -19,8 +18,7 @@ public abstract class RandomGenerator {
      * @return The randomly generated number.
      */
     public static MyInteger genInt(BigInteger max) {
-        SecureRandom rand = new SecureRandom();
-        if (Configuration.getSeed() != null) rand.setSeed(Configuration.getSeed());
+        Random rand = Configuration.getSeed() == null ? new Random() : new Random(Configuration.getSeed());
         BigInteger res;
         do {
             res = new BigInteger(max.bitLength(), rand);
@@ -34,8 +32,7 @@ public abstract class RandomGenerator {
      * @return The randomly generated number.
      */
     public static MyReal genReal() {
-        SecureRandom rand = new SecureRandom();
-        if (Configuration.getSeed() != null) rand.setSeed(Configuration.getSeed());
+        Random rand = Configuration.getSeed() == null ? new Random() : new Random(Configuration.getSeed());
         return new MyReal(rand.nextDouble());
     }
 
