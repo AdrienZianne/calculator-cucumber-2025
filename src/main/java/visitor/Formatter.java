@@ -1,14 +1,16 @@
 package visitor;
 
 import calculator.*;
-import jdk.jshell.spi.ExecutionControl;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.Operation;
+import calculator.operation.unary.UnaryOperation;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Formatter extends Visitor {
 
-    private Notation notation;
+    private final Notation notation;
 
     /**
      * Default constructor of the class. Does not initialise anything.
@@ -41,33 +43,52 @@ public class Formatter extends Visitor {
         representation = n.toString();
     }
 
-
-    /** Use the visitor design pattern to visit an operation
-     *
-     * @param o The operation being visited
-     */
-    public void visit(Operation o) throws ExecutionControl.NotImplementedException, IllegalConstruction {
-
+    @Override
+    public void visit(Operation o) {
         ArrayList<String> stringArgs = new ArrayList<>();
-        for(Expression a: o.args) {
+        for(Expression a: o.getArgs()) {
             a.accept(this);
             stringArgs.add(representation);
         }
-
         Stream<String> s = stringArgs.stream();
-        representation = switch (this.notation) {
-            case INFIX -> "( " +
-                    s.reduce((s1, s2) -> s1 + " " + o.getSymbol() + " " + s2).get() +
-                    " )";
-            case PREFIX -> o.getSymbol() + " " +
-                    "(" +
-                    s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-                    ")";
-            case POSTFIX -> "(" +
-                    s.reduce((s1, s2) -> s1 + ", " + s2).get() +
-                    ")" +
-                    " " + o.getSymbol();
-        };
+        if (o instanceof BinaryOperation)
+        {
+            representation = switch (this.notation) {
+                case PREFIX -> visitPrefix(o, s);
+                case INFIX -> visitInfix(o, s);
+                case POSTFIX -> visitPostfix(o, s);
+            };
+        }
+        else if (o instanceof UnaryOperation)
+        {
+            representation = switch (this.notation) {
+                case PREFIX, INFIX -> visitPrefix(o, s);
+                case POSTFIX -> visitPostfix(o, s);
+            };
+        }
     }
 
+
+    private String visitInfix(Operation o, Stream<String> s)
+    {
+        return "( " +
+                s.reduce((s1, s2) -> s1 + " " + o.getSymbol() + " " + s2).orElse("") +
+                " )";
+    }
+
+    private String visitPrefix(Operation o, Stream<String> s)
+    {
+        return o.getSymbol() + " " +
+                "(" +
+                s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
+                ")";
+    }
+
+    private String visitPostfix(Operation o, Stream<String> s)
+    {
+        return "(" +
+                s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
+                ")" +
+                " " + o.getSymbol();
+    }
 }

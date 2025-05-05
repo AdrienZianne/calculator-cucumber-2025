@@ -12,4 +12,4 @@ AC deletes your entire calculation, and the arrows allow you to move in your cal
 
 When you make a calculation and submit it, you'll see a memory system. 
 You can delete a specific line from this memory, or delete everything. 
-The memory automatically deletes the first calculation made in the list when it exceeds a size of 5.
+The memory automatically deletes the first calculation made in the list when it exceeds a size of 5.<br><br>

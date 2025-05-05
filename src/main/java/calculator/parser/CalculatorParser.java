@@ -1,15 +1,48 @@
 package calculator.parser;
 
-import calculator.Expression;
-import calculator.parser.antlr.ExpressionParser;
-import calculator.parser.antlr.LabeledExprLexer;
-import calculator.parser.antlr.LabeledExprParser;
+import calculator.parser.antlr.*;
+import calculator.*;
+
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import io.Shell;
+
+/**
+ * CalculatorParser
+ * Class used to launch the parser on different grammars.
+ */
 public class CalculatorParser {
-    public static Expression parseString(String input) {
+    /**
+     * Method used to launch the parser on parameters.
+     * 
+     * @param input User input.
+     * @param shell Connect to the shell to call methods from the parser.
+     */
+    public static void parseSettings(String input, Shell shell) {
+        // Read input as stream
+        CharStream inp = CharStreams.fromString(input);
 
+        LabeledSettingsLexer lexer = new LabeledSettingsLexer(inp);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledSettingsParser parser = new LabeledSettingsParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        SettingsParser eval = new SettingsParser(shell);
+        try {
+            eval.visit(parser.setting());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Settings: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Method for launching the parser in arithmetic mode.
+     * 
+     * @param input User input.
+     * @return The result of the arithmetic expression.
+     */
+    public static Expression parseArithmetic(String input) {
         // Read input as stream
         CharStream inp = CharStreams.fromString(input);
 
@@ -19,17 +52,37 @@ public class CalculatorParser {
         parser.removeErrorListeners();
         parser.addErrorListener(new ThrowingErrorListener());
 
-
         ExpressionParser eval = new ExpressionParser();
         try {
             return eval.visit(parser.expr());
-
-        }catch(ParserError e) {
-            System.out.println("Parsing error caught: " + e.getMessage());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Arithmetic: " + e.getMessage());
             return null;
         }
-
     }
 
+    /**
+     * Method for launching the parser in programmer mode.
+     * 
+     * @param input User input.
+     * @return The result of the programmer's expression.
+     */
+    public static Programmer parseProgrammer(String input) {
+        // Read input as stream
+        CharStream inp = CharStreams.fromString(input);
 
+        LabeledProgrammerLexer lexer = new LabeledProgrammerLexer(inp);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledProgrammerParser parser = new LabeledProgrammerParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        ProgrammerParser eval = new ProgrammerParser();
+        try {
+            return eval.visit(parser.operation());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Programmer: " + e.getMessage());
+            return null;
+        }
+    }
 }

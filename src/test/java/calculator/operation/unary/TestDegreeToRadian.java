@@ -1,0 +1,45 @@
+package calculator.operation.unary;
+
+import calculator.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class TestDegreeToRadian extends TestUnaryOperation{
+
+    @Test
+    @Override
+    public void testInteger() throws Exception {
+
+        Configuration.setRealPrecision(5);
+
+        DegreeToRadian op = new DegreeToRadian(new MyInteger(10));
+        assertEquals(MyReal.valueOf(0.17453), calculator.eval(op));
+    }
+
+    @Test
+    @Override
+    public void testMyReal() throws Exception {
+
+        Configuration.setRealPrecision(5);
+
+        DegreeToRadian op = new DegreeToRadian(new MyReal(5.5));
+        assertEquals(MyReal.valueOf(0.0959931), calculator.eval(op));
+    }
+
+    @Test
+    @Override
+    public void testMyRational() throws Exception {
+        Configuration.setRealPrecision(5);
+
+        DegreeToRadian op = new DegreeToRadian(MyRational.toRational(new MyReal(5.5)));
+        assertEquals(MyReal.valueOf(0.0959931), calculator.eval(op));
+    }
+
+    @Test
+    @Override
+    public void testMyComplex() throws Exception {
+        DegreeToRadian op = new DegreeToRadian(MyComplex.create(1,1));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
+}

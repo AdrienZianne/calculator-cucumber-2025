@@ -2,6 +2,7 @@ package calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import calculator.operation.binary.*;
 import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -14,10 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalculatorSteps {
-	// static final Logger log = getLogger(lookup().lookupClass());
 
 	private ArrayList<Expression> params;
-	private ArrayList<Operation> operations;
+	private ArrayList<BinaryOperation> binaryOperations;
 	private Calculator c;
 
 	/**
@@ -25,13 +25,13 @@ public class CalculatorSteps {
 	 * 
 	 * @param operator The operator of the operation.
 	 * @param params   The params to pass the created operation.
-	 * @return An instance of the {@link Operation} class.
+	 * @return An instance of the {@link BinaryOperation} class.
 	 * @throws IllegalConstruction if the given operator is not valid
 	 */
-	private static Operation createIntegerOperation(String operator, ArrayList<Expression> params)
+	private static BinaryOperation createIntegerOperation(String operator, ArrayList<Expression> params)
 			throws IllegalConstruction {
 
-		Operation op = null;
+		BinaryOperation op = null;
 		try {
 			op = switch (operator) {
 				case "sum", "+" -> new Plus(params);
@@ -49,14 +49,19 @@ public class CalculatorSteps {
 	@Before
 	public void resetMemoryBeforeEachScenario() {
 		params = new ArrayList<>();
-		operations = new ArrayList<>();
+		binaryOperations = new ArrayList<>();
 	}
 
 	@Given("I initialise a calculator")
 	public void givenIInitialiseACalculator() {
 		c = new Calculator();
-		operations = new ArrayList<>();
+		binaryOperations = new ArrayList<>();
 		params = new ArrayList<>();
+	}
+
+	@Given("I initialise a seed")
+	public void givenIInitialiseASeed() {
+		Configuration.setSeed(1);
 	}
 
 	@Given("an operation {string}")
@@ -64,8 +69,8 @@ public class CalculatorSteps {
 		// Write code here that turns the phrase above into concrete actions
 		params = new ArrayList<>(); // create an empty set of parameters to be filled in
 		try {
-			operations = new ArrayList<>(List.of(createIntegerOperation(s, params))); // create an empty set of
-																						// operations to be filled in
+			binaryOperations = new ArrayList<>(List.of(createIntegerOperation(s, params))); // create an empty set of
+			// operations to be filled in
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -84,7 +89,7 @@ public class CalculatorSteps {
 		numbers.get(0).forEach(n -> params.add(new MyInteger(Integer.parseInt(n))));
 		params.forEach(n -> System.out.println("value =" + n));
 
-		operations = new ArrayList<>();
+		binaryOperations = new ArrayList<>();
 	}
 
 	// The string in the Given annotation shows how to use regular expressions...
@@ -98,7 +103,7 @@ public class CalculatorSteps {
 			params = new ArrayList<>();
 			params.add(new MyInteger(n1));
 			params.add(new MyInteger(n2));
-			operations = new ArrayList<>(List.of(new Plus(params)));
+			binaryOperations = new ArrayList<>(List.of(new Plus(params)));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -107,8 +112,8 @@ public class CalculatorSteps {
 	@Then("^its (.*) notation is (.*)$")
 	public void thenItsNotationIs(String notation, String s) {
 		if (notation.equals("PREFIX") || notation.equals("POSTFIX") || notation.equals("INFIX")) {
-			operations.getFirst().notation = Notation.valueOf(notation);
-			assertEquals(s, operations.getFirst().toString());
+			binaryOperations.getFirst().notation = Notation.valueOf(notation);
+			assertEquals(s, binaryOperations.getFirst().toString());
 		} else
 			fail(notation + " is not a correct notation! ");
 	}
@@ -135,27 +140,27 @@ public class CalculatorSteps {
 
 	@When("^I provide a (.*) number (-?\\d+)/(\\d+)$")
 	public void whenIProvideARational(String s, int num, int den) {
-		addParams(s, new MyRational(num, den), 0);
+		addParams(s, MyRational.create(num, den), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+)/(\\d+) to operator (.*)$")
 	public void whenIProvideARational(String s, int num, int den, int opIndex) {
-		addParams(s, new MyRational(num, den), opIndex);
+		addParams(s, MyRational.create(num, den), opIndex);
 	}
 
 	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void whenIProvideAComplex(String s, double real, double imaginary) {
-		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), 0);
+		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
 	public void whenIProvideAComplex(String s, double real, double imaginary, int opIndex) {
-		addParams(s, new MyComplex(new MyReal(real), new MyReal(imaginary)), opIndex);
+		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
 	public void addParams(String s, MyNumber number, int opIndex) {
 		try {
-			Operation op = operations.get(opIndex);
+			BinaryOperation op = binaryOperations.get(opIndex);
 			// add extra parameter to the operation
 			params = new ArrayList<>();
 			params.add(number);
@@ -177,9 +182,9 @@ public class CalculatorSteps {
 			// add an extra operation to the operation
 			ArrayList<Expression> parameters = new ArrayList<>();
 
-			Operation newOp = createIntegerOperation(operator, parameters);
-			operations.add(newOp);
-			operations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
+			BinaryOperation newOp = createIntegerOperation(operator, parameters);
+			binaryOperations.add(newOp);
+			binaryOperations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			fail("The given operator index is out of bounds! " + e);
 		} catch (IllegalConstruction e) {
@@ -191,12 +196,12 @@ public class CalculatorSteps {
 	public void thenTheOperationIs(String s, int val)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
 		try {
-			if (operations.isEmpty()) {
-				operations.add(createIntegerOperation(s, params));
+			if (binaryOperations.isEmpty()) {
+				binaryOperations.add(createIntegerOperation(s, params));
 			} else {
-				operations.set(0, createIntegerOperation(s, params));
+				binaryOperations.set(0, createIntegerOperation(s, params));
 			}
-			assert (c.eval(operations.getFirst()).equals(new MyInteger(val)));
+			assert (c.eval(binaryOperations.getFirst()).equals(new MyInteger(val)));
 		} catch (IllegalConstruction e) {
 			fail();
 		}
@@ -205,53 +210,53 @@ public class CalculatorSteps {
 	@Then("the operation evaluates to (-?\\d+)$")
 	public void thenTheOperationEvaluatesToInteger(int val)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst()).equals(new MyInteger(val)));
+		assert (c.eval(binaryOperations.getFirst()).equals(new MyInteger(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)$")
 	public void thenTheOperationEvaluatesToReal(double val)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst()).equals(new MyReal(val)));
+		assert (c.eval(binaryOperations.getFirst()).equals(new MyReal(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)$")
 	public void thenTheOperationEvaluatesToRational(int num, int den)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst()).equals(new MyRational(num, den)));
+		assert (c.eval(binaryOperations.getFirst()).equals(MyRational.create(num, den)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(double real, double imaginary)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst()).equals(new MyComplex(new MyReal(real), new MyReal(imaginary))));
+		assert (c.eval(binaryOperations.getFirst()).equals(MyComplex.create(new MyReal(real), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, double imaginary)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst())
-				.equals(new MyComplex(new MyRational(realNum, realDen), new MyReal(imaginary))));
+		assert (c.eval(binaryOperations.getFirst())
+				.equals(MyComplex.create(MyRational.create(realNum, realDen), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(double real, int imagNum, int imagDen)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst())
-				.equals(new MyComplex(new MyReal(real), new MyRational(imagNum, imagDen))));
+		assert (c.eval(binaryOperations.getFirst())
+				.equals(MyComplex.create(new MyReal(real), MyRational.create(imagNum, imagDen))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
 	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, int imagNum, int imagDen)
 			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-		assert (c.eval(operations.getFirst())
-				.equals(new MyComplex(new MyRational(realNum, realDen), new MyRational(imagNum, imagDen))));
+		assert (c.eval(binaryOperations.getFirst())
+				.equals(MyComplex.create(MyRational.create(realNum, realDen), MyRational.create(imagNum, imagDen))));
 	}
 
 	@And("^I provide the notation (.*) to operator (.*)$")
 	public void whenIProvideANotation(String notation, int opIndex) {
 		try {
 			if (notation.equals("PREFIX") || notation.equals("POSTFIX") || notation.equals("INFIX")) {
-				operations.get(opIndex).notation = Notation.valueOf(notation);
+				binaryOperations.get(opIndex).notation = Notation.valueOf(notation);
 			} else
 				fail(notation + " is not a correct notation! ");
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -262,18 +267,14 @@ public class CalculatorSteps {
 
 	@Then("the operation is written like (.*)$")
 	public void thenTheOperationWriteLike(String val) {
-		assertEquals(val, operations.getFirst().toString());
+		assertEquals(val, binaryOperations.getFirst().toString());
 	}
 
 	@When("I provide an expression as a string {string}")
-	public void whenIProvideAString(String string) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-		params.add(CalculatorParser.parseString(string));
-	}
+	public void whenIProvideAString(String string)
+			throws IllegalConstruction, ExecutionControl.NotImplementedException {
+		params.add(CalculatorParser.parseArithmetic(string));
 
-	@Then("the expression evaluates to {int}")
-	public void thenTheExpressionEvaluatesTo(int val)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
-
-		assert (c.eval(params.getFirst()).equals(MyInteger.valueOf(val)));
+		binaryOperations = new ArrayList<>(List.of(new Plus(params)));
 	}
 }

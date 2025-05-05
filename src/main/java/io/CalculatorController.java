@@ -20,7 +20,8 @@ public class CalculatorController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity compute(@RequestBody CalculatorDTO request) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+    public ResponseEntity compute(@RequestBody CalculatorDTO request)
+            throws IllegalConstruction, ExecutionControl.NotImplementedException {
         String value = calculatorService.compute(request.getInput());
         return ResponseEntity.ok(CalculatorResponse.builder().answer(value).build());
     }
@@ -34,7 +35,6 @@ public class CalculatorController {
                         .message("An unexpected error has occurred.\n" +
                                 "Please contact the maintainers of this application with the step to get this error.")
                         .build(),
-                HttpStatus.BAD_REQUEST
-        );
+                HttpStatus.BAD_REQUEST);
     }
 }
