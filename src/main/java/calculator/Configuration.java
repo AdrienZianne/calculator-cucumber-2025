@@ -118,7 +118,7 @@ public final class Configuration {
     /**
      * Sets the current precision of left-hand scientific notation.
      * 
-     * @param scNotationMaxLeft The new precision to use.
+     * @param value The new precision to use.
      */
     public static void setScNotationMaxLeft(int value) {
         scNotationMaxLeft = value;
@@ -136,7 +136,7 @@ public final class Configuration {
     /**
      * Sets the current precision of right-hand scientific notation.
      * 
-     * @param scNotationMaxLeft The new precision to use.
+     * @param value The new precision to use.
      */
     public static void setScNotationMaxRight(int value) {
         scNotationMaxRight = value;
