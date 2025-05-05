@@ -65,6 +65,42 @@ public class Shell {
                 .completer(new StringsCompleter(completionStrings))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
+
+        infoOptions.put(Options.MODE, new String[] { "mode", "[arithmetic|programmer]",
+                "Selects the calculator mode." });
+        infoOptions.put(Options.REAL_PRECISION, new String[] { "real_precision", "An positive integer value",
+                "Selects the precision of real numbers, i.e. how many digits will be used after the dot." });
+        infoOptions.put(Options.REAL_ROUNDING_MODE, new String[] { "real_rounding_mode",
+                "roundingmode (See description)",
+                """
+                        Selects the rounding method for real numbers.The possible values are as follows:
+                        \tceiling : Rounding mode to round towards positive infinity.
+                        \tdown : Rounding mode to round towards zero.
+                        \tfloor : Rounding mode to round towards negative infinity.
+                        \thalf_down : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round down.
+                        \thalf_even : Rounding mode to round towards the 'nearest neighbor' unless both neighbors are equidistant, in which case, round towards the even neighbor.
+                        \thalf_up : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round up.
+                        \tunnecessary : Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary.
+                        \tup : Rounding mode to round away from zero.
+                        """ });
+        infoOptions.put(Options.USE_REAL_NOTATION, new String[] { "use_real_notation", "[true|false]",
+                "Sets whether or not rationals should be displayed as an approximation of their values as reals." });
+        infoOptions.put(Options.USE_SCIENTIFIC_NOTATION, new String[] { "use_scientific_notation", "[true|false]",
+                "Sets wether or not the scientific notation should be used." });
+        infoOptions.put(Options.SC_NOTATION_MAX_LEFT,
+                new String[] { "sc_notation_max_left", "An positive integer value",
+                        "The maximum number of digits that can be displayed in the integer part of a number." });
+        infoOptions.put(Options.SC_NOTATION_MAX_RIGHT,
+                new String[] { "sc_notation_max_right", "An positive integer value",
+                        "The maximum number of digits that can be displayed in the decimal part of a number." });
+        infoOptions.put(Options.USE_DEGREES,
+                new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
+        infoOptions.put(Options.SEED, new String[] { "seed", "An integer value",
+                "Selects the seed value. Numbers will then be generated according to this value." });
+        infoOptions.put(Options.BASE_NOTATION_CONVENTION, new String[] { "base_notation_convention", "[true|false]",
+                "Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2." });
+        infoOptions.put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", "[true|false]",
+                "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
     }
 
     /**
@@ -285,40 +321,5 @@ public class Shell {
      * option.
      * See infoOption method.
      */
-    private final HashMap<Options, String[]> infoOptions = new HashMap<Options, String[]>() {
-        {
-            put(Options.MODE, new String[] { "mode", "[arithmetic|programmer]",
-                    "Selects the calculator mode." });
-            put(Options.REAL_PRECISION, new String[] { "real_precision", "An positive integer value",
-                    "Selects the precision of real numbers, i.e. how many digits will be used after the dot." });
-            put(Options.REAL_ROUNDING_MODE, new String[] { "real_rounding_mode", "roundingmode (See description)",
-                    """
-                            Selects the rounding method for real numbers.The possible values are as follows:
-                            \tceiling : Rounding mode to round towards positive infinity.
-                            \tdown : Rounding mode to round towards zero.
-                            \tfloor : Rounding mode to round towards negative infinity.
-                            \thalf_down : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round down.
-                            \thalf_even : Rounding mode to round towards the 'nearest neighbor' unless both neighbors are equidistant, in which case, round towards the even neighbor.
-                            \thalf_up : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round up.
-                            \tunnecessary : Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary.
-                            \tup : Rounding mode to round away from zero.
-                            """ });
-            put(Options.USE_REAL_NOTATION, new String[] { "use_real_notation", "[true|false]",
-                    "Sets whether or not rationals should be displayed as an approximation of their values as reals." });
-            put(Options.USE_SCIENTIFIC_NOTATION, new String[] { "use_scientific_notation", "[true|false]",
-                    "Sets wether or not the scientific notation should be used." });
-            put(Options.SC_NOTATION_MAX_LEFT, new String[] { "sc_notation_max_left", "An positive integer value",
-                    "The maximum number of digits that can be displayed in the integer part of a number." });
-            put(Options.SC_NOTATION_MAX_RIGHT, new String[] { "sc_notation_max_right", "An positive integer value",
-                    "The maximum number of digits that can be displayed in the decimal part of a number." });
-            put(Options.USE_DEGREES,
-                    new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
-            put(Options.SEED, new String[] { "seed", "An integer value",
-                    "Selects the seed value. Numbers will then be generated according to this value." });
-            put(Options.BASE_NOTATION_CONVENTION, new String[] { "base_notation_convention", "[true|false]",
-                    "Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2." });
-            put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", "[true|false]",
-                    "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
-        }
-    };
+    private final HashMap<Options, String[]> infoOptions = new HashMap<Options, String[]>();
 }
