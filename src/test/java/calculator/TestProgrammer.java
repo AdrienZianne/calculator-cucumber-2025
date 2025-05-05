@@ -102,8 +102,8 @@ public class TestProgrammer {
         Programmer p1 = new Programmer(num1, base1);
         Programmer p2 = new Programmer(num2, base2);
         Programmer p3 = new Programmer(num1 + "00", base1);
-        assertTrue(p1.equals(p2));
-        assertTrue(!p1.equals(p3));
+        assertTrue(p1.isEquals(p2));
+        assertTrue(!p1.isEquals(p3));
     }
 
     /**
@@ -122,9 +122,9 @@ public class TestProgrammer {
     })
     void testConversion(String num1, int base1, String num2, int base2) throws ProgrammerException {
         Programmer p = new Programmer(num1, base1);
-        assertTrue(p.newBase(base2).equals(new Programmer(num2, base2)));
+        assertTrue(p.newBase(base2).isEquals(new Programmer(num2, base2)));
         p = new Programmer(num2, base2);
-        assertTrue(p.newBase(base1).equals(new Programmer(num1, base1)));
+        assertTrue(p.newBase(base1).isEquals(new Programmer(num1, base1)));
     }
 
     /**
