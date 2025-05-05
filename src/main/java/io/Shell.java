@@ -90,7 +90,7 @@ public class Shell {
             try {
                 String line = reader.readLine(">> ").trim();
 
-                if (line.charAt(0) == '$') {
+                if (!line.isEmpty() && line.charAt(0) == '$') {
                     modeSettings(line.substring(1));
                 } else {
                     if (Configuration.getMode() == Mode.ARITHMETIC) {
