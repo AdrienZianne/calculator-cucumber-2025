@@ -29,12 +29,13 @@ sumPostfix : productPostfix                                     #SumPostfixProd
            | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
            | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
            | '('atomPostfix (','? atomPostfix)* ')' 'root'      #SumPostfixRoot
+           | '('atomPostfix (','? atomPostfix)* ')' MOD         #SumPostfixMod
            ;
 
-productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '^'   #ProductPostfixExp
-                | '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
-                | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
-                | unaryPostfix                                  #ProductPostfixTrigo
+productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' EXPONENT   #ProductPostfixExp
+                | '(' atomPostfix (','? atomPostfix)* ')' '*'        #ProductPostfixMult
+                | '(' atomPostfix (','? atomPostfix)* ')' '/'        #ProductPostfixDiv
+                | unaryPostfix                                       #ProductPostfixTrigo
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
@@ -66,12 +67,13 @@ sumPrefix : productPrefix                                   #SumPrefixProd
            | '+' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixSum
            | '-' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixDiff
            | 'root' '('atomPrefix (','? atomPrefix)* ')'    #SumPrefixRoot
+           | MOD '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixMod
            ;
 
-productPrefix   : '^' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
-                | '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
-                | '/' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixDiv
-                | unaryPrefix                                    #ProductPrefixUnary
+productPrefix   : EXPONENT '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
+                | '*' '(' atomPrefix (','? atomPrefix)* ')'           #ProductPrefixMult
+                | '/' '(' atomPrefix (','? atomPrefix)* ')'           #ProductPrefixDiv
+                | unaryPrefix                                         #ProductPrefixUnary
                 ;
 
 unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
@@ -100,13 +102,14 @@ atomPrefix  : sumPrefix         #AtomPrefixSum
 sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
+    | sumInfix MOD  sumInfix                        #SumInfixMod
     | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
     ;
 
-productInfix: atomInfix             #ProductInfixAtom
-    | productInfix '^' atomInfix    #ProductInfixExpo
-    | productInfix '*' atomInfix    #ProductInfixMult
-    | productInfix '/' atomInfix    #ProductInfixDiv
+productInfix: atomInfix                  #ProductInfixAtom
+    | productInfix EXPONENT atomInfix    #ProductInfixExpo
+    | productInfix '*' atomInfix         #ProductInfixMult
+    | productInfix '/' atomInfix         #ProductInfixDiv
     ;
 
 atomInfix: unaryInfix           #AtomInfixUnary
@@ -172,6 +175,8 @@ MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
 ADD :   '+' ;
 SUB :   '-' ;
+EXPONENT :  '^' | '**';
+MOD :   '%'|'mod';
 BOOL :   'true'|'false' ;                      // match booleans
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers

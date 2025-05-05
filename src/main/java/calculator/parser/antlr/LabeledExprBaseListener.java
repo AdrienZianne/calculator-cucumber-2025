@@ -221,6 +221,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPostfixMod(LabeledExprParser.SumPostfixModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPostfixMod(LabeledExprParser.SumPostfixModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -509,6 +521,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPrefixMod(LabeledExprParser.SumPrefixModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixMod(LabeledExprParser.SumPrefixModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -780,6 +804,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSumInfixDiff(LabeledExprParser.SumInfixDiffContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumInfixMod(LabeledExprParser.SumInfixModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumInfixMod(LabeledExprParser.SumInfixModContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
