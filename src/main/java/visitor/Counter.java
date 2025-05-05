@@ -65,7 +65,7 @@ public class Counter extends Visitor {
         //second loop to accumulate all the evaluated subresults
 
         // store the accumulated result
-        depth = 1 + argsDepth.stream().max(Integer::compare).get();
+        depth = 1 + argsDepth.stream().max(Integer::compare).orElse(0);
         ops = 1 + argsOps.stream().reduce(0, Integer::sum);
         nbs = argsNbs.stream().reduce(0, Integer::sum);
     }

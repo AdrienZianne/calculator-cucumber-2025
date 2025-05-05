@@ -50,10 +50,9 @@ public class Shell {
      * Class constructor. It initializes everything required for the CLI to function
      * correctly.
      * 
-     * @param ctx Application context.
      * @throws IOException This error is thrown if the terminal could not be built.
      */
-    public Shell(ConfigurableApplicationContext ctx) throws IOException {
+    public Shell() throws IOException {
         terminal = TerminalBuilder.terminal();
 
         List<String> completionStrings = Arrays.asList("mode", "real_precision", "real_rounding_mode",
@@ -66,7 +65,6 @@ public class Shell {
                 .completer(new StringsCompleter(completionStrings))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
-        this.ctx = ctx;
     }
 
     /**

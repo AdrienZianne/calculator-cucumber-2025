@@ -23,7 +23,6 @@ public final class Times extends CommutativeBinaryOperation {
      * @param elist The list of Expressions to multiply
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
-     * @see #Times(List< Expression >, Notation )
      */
     public /* constructor */ Times(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
@@ -37,8 +36,6 @@ public final class Times extends CommutativeBinaryOperation {
      * @param n     The Notation to be used to represent the operation
      * @throws IllegalConstruction If an empty list of expressions if passed as
      *                             parameter
-     * @see #Times(List<Expression>)
-     * @see BinaryOperation(List<Expression>,Notation)
      */
     public Times(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);

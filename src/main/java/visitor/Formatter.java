@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Formatter extends Visitor {
 
-    private Notation notation;
+    private final Notation notation;
 
     /**
      * Default constructor of the class. Does not initialise anything.
@@ -72,7 +72,7 @@ public class Formatter extends Visitor {
     private String visitInfix(Operation o, Stream<String> s)
     {
         return "( " +
-                s.reduce((s1, s2) -> s1 + " " + o.getSymbol() + " " + s2).get() +
+                s.reduce((s1, s2) -> s1 + " " + o.getSymbol() + " " + s2).orElse("") +
                 " )";
     }
 
@@ -80,14 +80,14 @@ public class Formatter extends Visitor {
     {
         return o.getSymbol() + " " +
                 "(" +
-                s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+                s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
                 ")";
     }
 
     private String visitPostfix(Operation o, Stream<String> s)
     {
         return "(" +
-                s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+                s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
                 ")" +
                 " " + o.getSymbol();
     }
