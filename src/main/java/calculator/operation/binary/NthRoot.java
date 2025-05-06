@@ -131,7 +131,7 @@ public final class NthRoot extends BinaryOperation {
 
         long n = rootIndex.getValue().intValue();
         double x = r.getValue().doubleValue();
-        if (n <= 1) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (n == 1 || n == 0) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
 
         // If n == 2 then this is a square root operation
         if (n == 2) return UnaryOperation.op(r, SquareRoot::new);
@@ -166,7 +166,7 @@ public final class NthRoot extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyInteger r) {
-        if (r.getValue().abs().compareTo(BigInteger.ONE) <= 0) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (r.getValue().abs().equals(BigInteger.ONE) || r.getValue().abs().equals(BigInteger.ZERO)) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
         return infOp(l);
     }
 
@@ -197,7 +197,7 @@ public final class NthRoot extends BinaryOperation {
         if (l.isPositive())
             return new MyInfinity(true);
         else
-            return new MyUndefinedNumber(this);
+            return new MyErrorNumber(this, "The value of n, cannot be negative");
     }
 
     private MyErrorNumber getIndexErrorText(String numberType) {
