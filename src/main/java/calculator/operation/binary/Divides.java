@@ -51,14 +51,13 @@ public final class Divides extends BinaryOperation {
     public MyNumber op(MyInteger l, MyInteger r) {
         MyNumber err = isUndefined(l, r);
         if (err != null) {return err;}
-        if (r.equals(ConstantNumber.ZERO)) {return new MyErrorNumber(this, "This operation results in a division by zero error");}
 
         return MyRational.create(l.getValue(), r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
-        MyNumber err = isUndefined(l, r);
+        MyNumber err = isUndefinedOrInf(l, r);
         if (err != null) {return err;}
         MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
@@ -83,11 +82,7 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) {
-        MyNumber err = isUndefined(l, r);
-
-        if (r.equals(MyInteger.valueOf(0)) && l.getSign() > 0) {return new MyInfinity(true);}
-        if (r.equals(MyInteger.valueOf(0)) && l.getSign() < 0) {return new MyInfinity(false);}
-
+        MyNumber err = isUndefinedOrInf(l, r);
         if (err != null) {return err;}
         // To not lose any information we just divide them as rationals and integers
         MyNumber lRatio = MyRational.toRational(l);
@@ -96,11 +91,8 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyReal r) {
-        MyNumber err = isUndefined(l, r);
+        MyNumber err = isUndefinedOrInf(l, r);
         if (err != null) {return err;}
-
-        if (l.equals(MyReal.valueOf(1)) && r.equals(MyReal.valueOf(0))) {return new MyInfinity(true);}
-        if (l.equals(MyReal.valueOf(-1)) && r.equals(MyReal.valueOf(0))) {return new MyInfinity(false);}
 
         // To not lose any information we just divide them as rationals
         MyNumber lRatio = MyRational.toRational(l);
@@ -116,11 +108,15 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
         return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
         return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
@@ -158,6 +154,8 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
+        MyNumber err = isUndefinedOrInf(l, r);
+        if (err != null) {return err;}
         return MyRational.create(l.getNumDenomPair().a,
                 MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue())));
     }
@@ -191,7 +189,7 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInfinity r) {
-        return new MyUndefinedNumber(this);
+        return MyInteger.valueOf(0);
     }
 
     @Override
@@ -211,7 +209,7 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyComplex r) {
-        return divInfinity(l, r);
+        return new MyErrorNumber(this, "Division of infinite by complex number is not supported");
     }
 
     @Override
@@ -225,7 +223,13 @@ public final class Divides extends BinaryOperation {
     }
 
     private MyNumber divInfinity(MyInfinity l, MyNumber r) {
-        return new MyInfinity(l.isPositive() && (r.getSign() > 0));
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
+        // 1 0 = 0
+        // 0 1 = 0
+        // 0 0 = 1
+        // 1 1 = 1
+        return new MyInfinity(l.isPositive() == (r.getSign() > 0));
     }
 
     public MyNumber divByComplex(MyNumber l, MyComplex r) {
@@ -243,25 +247,17 @@ public final class Divides extends BinaryOperation {
         return MyComplex.create(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
     }
 
-
-
-    private MyNumber checkSpecialCases(MyNumber num, MyNumber denom) {
-        /*
-        0.0 / 0.0 is a NaN (an undefined number);
-        1.0/0.0 is +infinity
-            (while 1/0 in the integer domain should report a division by zero error);
-        -1.0/0.0 is -infinity
-            (while -1/0 in the integer domain should report a division by zero error);
-        taking the square root of a negative real number is a NaN,
-        While it results in an imaginary number in the complex number domain;
-        Taking the logarithm of a negative value is not allowed, and so on.
-
-         */
-        return null;
-    }
-
     private MyNumber isUndefined(MyNumber num, MyNumber denom) {
         if (num.isZero() && denom.isZero()) return new MyUndefinedNumber(this);
+        if (denom.isZero()) return new MyErrorNumber(this, "Division by zero error");
+        return null;
+    }
+    private MyNumber isUndefinedOrInf(MyNumber l, MyNumber r) {
+        if (l.isZero() && r.isZero()) return new MyUndefinedNumber(this);
+
+        if (r.equals(MyReal.valueOf(0)))
+            return new MyInfinity(l.getSign() > 0);
+
         return null;
     }
 }

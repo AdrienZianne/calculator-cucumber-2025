@@ -135,6 +135,8 @@ public final class NthRoot extends BinaryOperation {
 
         // If n == 2 then this is a square root operation
         if (n == 2) return UnaryOperation.op(r, SquareRoot::new);
+        if (r.getSign() < 0) return new MyErrorNumber(this, "The value of a root, cannot be negative");
+
 
         return MyReal.valueOf(Math.pow(x, 1./n));
     }

@@ -341,6 +341,14 @@ public class TestExponent extends TestBinaryOperation{
         assertEquals(MyUndefinedNumber.class, res.getClass());
     }
 
+
+
+    @Test
+    public void test() {
+        MyNumber res = op(new MyReal(-2), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, res.getClass());
+    }
+
     private MyNumber op(MyNumber a, MyNumber b) {
         return BinaryOperation.op(a, b, Exponent::new);
     }
