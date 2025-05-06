@@ -206,7 +206,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyComplex r) {
-        return infiniteValue(l, r);
+        return new MyUndefinedNumber(this);
     }
 
     @Override
@@ -221,7 +221,17 @@ public final class Exponent extends BinaryOperation {
 
     private MyNumber infiniteValue(MyInfinity l, MyNumber r) {
         if (r.equals(ConstantNumber.ZERO)) return new MyUndefinedNumber(this);
+        if (r.getSign() < 0) return MyInteger.valueOf(0);
+        // If, r is even always return positive infinity
+        if (BinaryOperation.op(r, MyInteger.valueOf(2), Modulus::new).equals(ConstantNumber.ZERO)) {
+            return new MyInfinity(true);
+        }
+        // otherwise return the infinity with the same symbol
         return new MyInfinity(l.isPositive());
+
+        // (-2)^(5/4)
+
+        // (-2)^(3/2)
     }
 
     /**

@@ -281,30 +281,64 @@ public class TestExponent extends TestBinaryOperation{
 
         exp = op(new MyInfinity(false), MyInteger.valueOf(1));
         assertEquals(new MyInfinity(false), exp);
+
+        exp = op(new MyInfinity(false), MyInteger.valueOf(4));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(new MyInfinity(false), MyInteger.valueOf(-4));
+        assertEquals(MyInteger.valueOf(0), exp);
     }
 
     @Test
     @Override
     public void TestMyInfinityMyReal() {
+        MyNumber exp = op(new MyInfinity(true), MyReal.valueOf(2));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(new MyInfinity(false), MyReal.valueOf(1));
+        assertEquals(new MyInfinity(false), exp);
+
+        exp = op(new MyInfinity(false), MyReal.valueOf(4));
+        assertEquals(new MyInfinity(true), exp);
+
+        exp = op(new MyInfinity(false), MyReal.valueOf(1.5));
+        assertEquals(new MyInfinity(false), exp);
+        exp = op(new MyInfinity(true), MyReal.valueOf(-1.5));
+        assertEquals(MyInteger.valueOf(0), exp);
 
     }
 
     @Test
     @Override
     public void TestMyInfinityMyComplex() {
+        MyNumber exp = op(new MyInfinity(true), MyComplex.create(1,2));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
 
+        exp = op(new MyInfinity(false), MyComplex.create(1,2));
+        assertEquals(MyUndefinedNumber.class, exp.getClass());
     }
 
     @Test
     @Override
     public void TestMyInfinityMyRational() {
+        MyNumber exp = op(new MyInfinity(true), MyRational.create(2,3));
+        assertEquals(new MyInfinity(true), exp);
 
+        exp = op(new MyInfinity(false), MyRational.create(1, 2));
+        assertEquals(new MyInfinity(false), exp);
     }
 
     @Test
     @Override
     public void TestMyInfinityMyInfinity() {
-
+        MyNumber res = op(new MyInfinity(true), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, res.getClass());
+        res = op(new MyInfinity(true), new MyInfinity(false));
+        assertEquals(MyUndefinedNumber.class, res.getClass());
+        res = op(new MyInfinity(false), new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, res.getClass());
+        res = op(new MyInfinity(false), new MyInfinity(false));
+        assertEquals(MyUndefinedNumber.class, res.getClass());
     }
 
     private MyNumber op(MyNumber a, MyNumber b) {
