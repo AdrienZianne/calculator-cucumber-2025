@@ -37,7 +37,6 @@ public final class Modulus extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) {
-        if (r.getSign() == 0) return new MyErrorNumber(this, ERRORMESSAGE);
         return op(MyReal.toReal(l), MyReal.toReal(r));
     }
 
