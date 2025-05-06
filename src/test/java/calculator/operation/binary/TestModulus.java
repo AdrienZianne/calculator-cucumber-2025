@@ -71,6 +71,9 @@ public class TestModulus extends TestBinaryOperation {
     public void TestMyRealMyInteger() {
         MyNumber res = op(MyReal.valueOf(2.5), MyInteger.valueOf(2));
         assertEquals(MyReal.valueOf(0.5), res);
+
+        res = op(MyReal.valueOf(2.5), MyInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, res.getClass());
     }
 
     @Test
@@ -78,6 +81,9 @@ public class TestModulus extends TestBinaryOperation {
     public void TestMyRealMyReal() {
         MyNumber res = op(MyReal.valueOf(2.5), MyReal.valueOf(1.2));
         assertEquals(MyReal.valueOf(0.1), res);
+
+        res = op(MyReal.valueOf(2.5), MyReal.valueOf(0));
+        assertEquals(MyErrorNumber.class, res.getClass());
 
     }
 
@@ -149,6 +155,9 @@ public class TestModulus extends TestBinaryOperation {
     public void TestMyRationalMyInteger() {
         MyNumber res = op(MyRational.create(323,212), MyInteger.valueOf(1));
         assertEquals(MyReal.valueOf(0.52358), res);
+
+        res = op(MyRational.create(2, 5), MyInteger.valueOf(0));
+        assertEquals(MyErrorNumber.class, res.getClass());
     }
 
     @Test
@@ -156,6 +165,9 @@ public class TestModulus extends TestBinaryOperation {
     public void TestMyRationalMyReal() {
         MyNumber res = op(MyRational.create(323,212), MyReal.valueOf(0.5));
         assertEquals(MyReal.valueOf(0.02358), res);
+
+        res = op(MyRational.create(2, 5), MyReal.valueOf(0));
+        assertEquals(MyErrorNumber.class, res.getClass());
     }
 
     @Test
@@ -191,7 +203,6 @@ public class TestModulus extends TestBinaryOperation {
         assertEquals(MyUndefinedNumber.class, res.getClass());
         res = op(new MyInfinity(false), MyInteger.valueOf(2));
         assertEquals(MyUndefinedNumber.class, res.getClass());
-
     }
 
     @Test
@@ -201,7 +212,6 @@ public class TestModulus extends TestBinaryOperation {
         assertEquals(MyUndefinedNumber.class, res.getClass());
         res = op(new MyInfinity(false), MyReal.valueOf(2.5));
         assertEquals(MyUndefinedNumber.class, res.getClass());
-
     }
 
     @Test
