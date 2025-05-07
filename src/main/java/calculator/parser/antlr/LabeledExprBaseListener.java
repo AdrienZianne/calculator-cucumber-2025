@@ -317,6 +317,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -636,6 +648,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -328,6 +328,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.PREFIX));
     }
 
+    @Override
+    public Expression visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.PREFIX));
+    }
+
     /*
      * _________________________________ POSTFIX _________________________________
      */
@@ -430,6 +435,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitTrigoPostfixRadToDeg(LabeledExprParser.TrigoPostfixRadToDegContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.POSTFIX));
     }
 
     /* __________________________________ NUMBER _______________________________ */
@@ -540,17 +550,17 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <E> The current parser rule context
      * @param <O> The type of operation to build
      */
-    public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
+    public <E extends ParserRuleContext, O extends BinaryOperation> Expression parseToBinaryOperator(E ctx,
             BuildOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // If the node is a subset of args
             if (ctx.getChild(i) instanceof LabeledExprParser.PostfixBinaryArgsContext args) {
-                expressions.addAll(visitArgs(args, v));
+                expressions.addAll(visitArgsBinary(args, v));
             }
             else if (ctx.getChild(i) instanceof LabeledExprParser.PrefixBinaryArgsContext args) {
-                expressions.addAll(visitArgs(args, v));
+                expressions.addAll(visitArgsBinary(args, v));
             }
             // Checks if the node is not a token without any interesting values
             else if (!(ctx.getChild(i) instanceof TerminalNode)) {
@@ -562,23 +572,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         try {
             res = operation.build(expressions);
         } catch (IllegalConstruction e) {
-            throw new RuntimeException(e);
-            // FIXME : We need to find a way to return an operation error in a cleaner way
-        }
-        return res;
-    }
-
-
-    private <E extends ParserRuleContext> ArrayList<Expression> visitArgs(E args, Evaluator v)
-    {
-        ArrayList<Expression> res = new ArrayList<>();
-        for (int j = 0; j < args.getChildCount(); j++) {
-            // Checks if the node is a token without any interesting values
-
-            if (!(args.getChild(j) instanceof TerminalNode)) {
-                visit(args.getChild(j)).accept(v);
-                res.add(v.getResult());
-            }
+            return new MyErrorNumber(null, e.getMessage());
         }
         return res;
     }
@@ -598,14 +592,22 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <E> The current parser rule context
      * @param <O> The type of operation to build
      */
-    public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx,
+    public <E extends ParserRuleContext, O extends UnaryOperation> Expression parseToUnaryOperator(E ctx,
             BuildUnaryOperationFunction<O> operation) {
         Expression expression = null;
-        Evaluator v;
+        Evaluator v = new Evaluator();
         // Explore all path to find the argument to pass to the unary operator.
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // Checks if the node is a token without any interesting values
-            if (!(ctx.getChild(i) instanceof TerminalNode)) {
+            if (ctx.getChild(i) instanceof LabeledExprParser.PostfixUnaryArgsContext args) {
+                expression = visitArgsUnary(args, v);
+                break;
+            }
+            else if (ctx.getChild(i) instanceof LabeledExprParser.PrefixUnaryArgsContext args) {
+                expression = visitArgsUnary(args, v);
+                break;
+            }
+            else if (!(ctx.getChild(i) instanceof TerminalNode)) {
                 v = new Evaluator();
                 visit(ctx.getChild(i)).accept(v);
                 // We can stop after finding the only expression as this is a unary operation
@@ -620,10 +622,37 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
             }
             res = operation.build(expression);
         } catch (IllegalConstruction e) {
-            throw new RuntimeException(e);
-            // FIXME : We need to find a way to return an operation error in a cleaner way
+            return new MyErrorNumber(null, e.getMessage());
         }
         return res;
     }
+
+    private <E extends ParserRuleContext> ArrayList<Expression> visitArgsBinary(E args, Evaluator v)
+    {
+        ArrayList<Expression> res = new ArrayList<>();
+        for (int j = 0; j < args.getChildCount(); j++) {
+            // Checks if the node is a token without any interesting values
+            if (!(args.getChild(j) instanceof TerminalNode)) {
+                visit(args.getChild(j)).accept(v);
+                res.add(v.getResult());
+            }
+        }
+        return res;
+    }
+
+    private <E extends ParserRuleContext> Expression visitArgsUnary(E args, Evaluator v)
+    {
+        Expression res = null;
+        for (int j = 0; j < args.getChildCount(); j++) {
+            // Checks if the node is a token without any interesting values
+            if (!(args.getChild(j) instanceof TerminalNode)) {
+                visit(args.getChild(j)).accept(v);
+                res = v.getResult();
+                break;
+            }
+        }
+        return res;
+    }
+
 
 }

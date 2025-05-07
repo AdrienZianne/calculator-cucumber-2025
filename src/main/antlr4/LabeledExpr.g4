@@ -43,6 +43,7 @@ productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | postfixUnaryArgs 'log'       #UnaryPostfixLog
              | postfixUnaryArgs 'sqrt'      #UnaryPostfixSqrt
+             | postfixUnaryArgs '-'         #UnaryPostfixNegation
              ;
 
 trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
@@ -82,6 +83,7 @@ productPrefix   : EXPONENT prefixBinaryArgs          #ProductPrefixExp
 unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
              | 'log'  prefixUnaryArgs        #UnaryPrefixLog
              | 'sqrt' prefixUnaryArgs        #UnaryPrefixSqrt
+             | '-'    prefixUnaryArgs        #UnaryPrefixNegation
              ;
 
 trigoPrefix  : 'sin' prefixUnaryArgs          #TrigoPrefixSin

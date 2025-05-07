@@ -306,6 +306,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -625,6 +637,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.

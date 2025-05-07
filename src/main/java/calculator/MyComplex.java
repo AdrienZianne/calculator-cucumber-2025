@@ -97,10 +97,21 @@ public class MyComplex extends MyNumber {
 
     @Override
     public String toString() {
-        // important to let this display for debug reason since without it there would be no way to differentiate 
-        // between complex value printed and non complex values.
-        
-        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString() + " + ") + this.realImaginaryPair.b + " i";
+        char opSymbol = '+';
+        MyNumber imaginaryPart = realImaginaryPair.b;
+        if (this.realImaginaryPair.b.getSign() < 0) {
+            opSymbol = '-';
+            imaginaryPart = UnaryOperation.op(imaginaryPart, Negation::new);
+        }
+        String imaginaryPartStr;
+        if (imaginaryPart.equals(ConstantNumber.ONE)){
+            imaginaryPartStr = "";
+        }else {
+            imaginaryPartStr = imaginaryPart.toString();
+        }
+        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString()
+                    + " " + opSymbol + " ")
+                + imaginaryPartStr + "i";
     }
 
 

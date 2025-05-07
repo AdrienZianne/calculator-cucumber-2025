@@ -185,6 +185,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -371,6 +378,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
