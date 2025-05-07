@@ -2,10 +2,7 @@ package calculator.parser;
 
 import calculator.Expression;
 import calculator.Programmer;
-import calculator.parser.antlr.LabeledExprLexer;
-import calculator.parser.antlr.LabeledExprParser;
-import calculator.parser.antlr.LabeledProgrammerLexer;
-import calculator.parser.antlr.LabeledProgrammerParser;
+import calculator.parser.antlr.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
