@@ -463,6 +463,18 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LabeledExprParser#prefixBinaryArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixBinaryArgs(LabeledExprParser.PrefixBinaryArgsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LabeledExprParser#prefixUnaryArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumInfixRoot}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
 	 * @param ctx the parse tree

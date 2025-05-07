@@ -41,8 +41,8 @@ productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
-             | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
-             | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
+             | postfixUnaryArgs 'log'       #UnaryPostfixLog
+             | postfixUnaryArgs 'sqrt'      #UnaryPostfixSqrt
              ;
 
 trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
@@ -59,47 +59,52 @@ trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
              ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
-            | complexNumber           #AtomPostfixInt
+            | complexNumber             #AtomPostfixInt
             ;
 
 postfixBinaryArgs :  '(' atomPostfix ','?  atomPostfix (','? atomPostfix)* ')';
 postfixUnaryArgs  : '(' atomPostfix ')';
 
 /* PREFIX NOTATION */
-sumPrefix : productPrefix                                   #SumPrefixProd
-           | '+' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixSum
-           | '-' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixDiff
-           | 'root' '('atomPrefix (','? atomPrefix)* ')'    #SumPrefixRoot
-           | MOD '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixMod
+sumPrefix : productPrefix                            #SumPrefixProd
+           | '+' prefixBinaryArgs                    #SumPrefixSum
+           | '-' prefixBinaryArgs                    #SumPrefixDiff
+           | 'root' prefixBinaryArgs                 #SumPrefixRoot
+           | MOD prefixBinaryArgs                    #SumPrefixMod
            ;
 
-productPrefix   : EXPONENT '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
-                | '*' '(' atomPrefix (','? atomPrefix)* ')'           #ProductPrefixMult
-                | '/' '(' atomPrefix (','? atomPrefix)* ')'           #ProductPrefixDiv
-                | unaryPrefix                                         #ProductPrefixUnary
+productPrefix   : EXPONENT prefixBinaryArgs          #ProductPrefixExp
+                | '*' prefixBinaryArgs               #ProductPrefixMult
+                | '/' prefixBinaryArgs               #ProductPrefixDiv
+                | unaryPrefix                        #ProductPrefixUnary
                 ;
 
 unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
-             | 'log' '(' atomPrefix ')'      #UnaryPrefixLog
-             | 'sqrt' '(' atomPrefix ')'     #UnaryPrefixSqrt
+             | 'log'  prefixUnaryArgs        #UnaryPrefixLog
+             | 'sqrt' prefixUnaryArgs        #UnaryPrefixSqrt
              ;
 
-trigoPrefix  : 'sin' '(' atomPrefix ')'       #TrigoPrefixSin
-             | 'cos' '(' atomPrefix ')'       #TrigoPrefixCos
-             | 'tan' '(' atomPrefix ')'       #TrigoPrefixTan
-             | 'sinh' '(' atomPrefix ')'      #TrigoPrefixSinh
-             | 'cosh' '(' atomPrefix ')'      #TrigoPrefixCosh
-             | 'tanh' '(' atomPrefix ')'      #TrigoPrefixTanh
-             | 'asin' '(' atomPrefix ')'      #TrigoPrefixASin
-             | 'acos' '(' atomPrefix ')'      #TrigoPrefixACos
-             | 'atan' '(' atomPrefix ')'      #TrigoPrefixATan
-             | 'degToRad' '(' atomPrefix ')'  #TrigoPrefixDegToRad
-             | 'radToDeg' '(' atomPrefix ')'  #TrigoPrefixRadToDeg
+trigoPrefix  : 'sin' prefixUnaryArgs          #TrigoPrefixSin
+             | 'cos' prefixUnaryArgs          #TrigoPrefixCos
+             | 'tan' prefixUnaryArgs          #TrigoPrefixTan
+             | 'sinh' prefixUnaryArgs         #TrigoPrefixSinh
+             | 'cosh' prefixUnaryArgs         #TrigoPrefixCosh
+             | 'tanh' prefixUnaryArgs         #TrigoPrefixTanh
+             | 'asin' prefixUnaryArgs         #TrigoPrefixASin
+             | 'acos' prefixUnaryArgs         #TrigoPrefixACos
+             | 'atan' prefixUnaryArgs         #TrigoPrefixATan
+             | 'degToRad' prefixUnaryArgs     #TrigoPrefixDegToRad
+             | 'radToDeg' prefixUnaryArgs     #TrigoPrefixRadToDeg
              ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
             | complexNumber   #AtomPrefixInt
             ;
+
+
+prefixBinaryArgs :  '(' atomPrefix ','?  atomPrefix (','? atomPrefix)* ')';
+prefixUnaryArgs  :  '(' atomPrefix ')';
+
 
 /* INFIX NOTATION */
 sumInfix : productInfix                             #SumInfixProd

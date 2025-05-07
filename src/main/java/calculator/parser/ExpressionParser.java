@@ -547,14 +547,10 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // If the node is a subset of args
             if (ctx.getChild(i) instanceof LabeledExprParser.PostfixBinaryArgsContext args) {
-                for (int j = 0; j < args.getChildCount(); j++) {
-                    // Checks if the node is a token without any interesting values
-
-                    if (!(args.getChild(j) instanceof TerminalNode)) {
-                        visit(args.getChild(j)).accept(v);
-                        expressions.add(v.getResult());
-                    }
-                }
+                expressions.addAll(visitArgs(args, v));
+            }
+            else if (ctx.getChild(i) instanceof LabeledExprParser.PrefixBinaryArgsContext args) {
+                expressions.addAll(visitArgs(args, v));
             }
             // Checks if the node is not a token without any interesting values
             else if (!(ctx.getChild(i) instanceof TerminalNode)) {
@@ -568,6 +564,21 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         } catch (IllegalConstruction e) {
             throw new RuntimeException(e);
             // FIXME : We need to find a way to return an operation error in a cleaner way
+        }
+        return res;
+    }
+
+
+    private <E extends ParserRuleContext> ArrayList<Expression> visitArgs(E args, Evaluator v)
+    {
+        ArrayList<Expression> res = new ArrayList<>();
+        for (int j = 0; j < args.getChildCount(); j++) {
+            // Checks if the node is a token without any interesting values
+
+            if (!(args.getChild(j) instanceof TerminalNode)) {
+                visit(args.getChild(j)).accept(v);
+                res.add(v.getResult());
+            }
         }
         return res;
     }
