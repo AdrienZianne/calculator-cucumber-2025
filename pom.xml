@@ -21,7 +21,7 @@
         <junit-jupiter.version>5.11.4</junit-jupiter.version>
         <junit-platform-suite.version>1.11.4</junit-platform-suite.version>
         <cucumber.version>7.21.1</cucumber.version>
-        <jacoco.version>0.8.12</jacoco.version>
+        <jacoco.version>0.8.13</jacoco.version>
         <javadoc.version>3.11.2</javadoc.version>
         <sonar.organization>tommens</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -38,6 +38,9 @@
         <maven.compiler.proc>full</maven.compiler.proc>
         <maven.surefire.version>3.5.2</maven.surefire.version>
         <maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
+        <!-- Sonar configuration -->
+        <sonar.organization>adrienziannelegrandinquisiteurbackend</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     </properties>
 
@@ -120,13 +123,13 @@
                     <encoding>UTF-8</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <!--<annotationProcessorPaths>
+                    <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>1.18.38</version>
                         </path>
-                    </annotationProcessorPaths>-->
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>

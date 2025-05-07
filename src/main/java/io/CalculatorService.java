@@ -13,7 +13,7 @@ import visitor.Evaluator;
 public class CalculatorService {
 
     public String compute(String request) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        Expression expression = CalculatorParser.parseString(request);
+        Expression expression = CalculatorParser.parseArithmetic(request);
         Evaluator evaluator = new Evaluator();
         expression.accept(evaluator);
         return evaluator.getResult().toString();

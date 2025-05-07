@@ -44,11 +44,6 @@ class TestMyComplex {
         assertEquals(6 + " - " + "i", nb.toString());
     }
 
-    @Test
-    void testIsZero()
-    {
-        // It isn't really possible to get a zero
-    }
 
     @Test
     void testCreate()

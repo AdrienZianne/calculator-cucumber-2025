@@ -243,4 +243,3 @@ Feature: Integer Arithmetic Expressions
       |"conv(12, 2)"      | "0b1100" |
       |"0 and 0 or 1"     | "1"      |
       |"0 and (0 or 1)"   | "0"      |
-

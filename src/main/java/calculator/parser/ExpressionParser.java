@@ -32,22 +32,22 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      */
     @Override
     public Expression visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) {
-        RandomGenerator.setSeed(Integer.parseInt(ctx.getChild(2).getText()));
+        Configuration.setSeed(Integer.parseInt(ctx.getChild(2).getText()));
         return null;
     }
 
     @Override
     public Expression visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) {
-        RandomGenerator.resetSeed();
+        Configuration.resetSeed();
         return null;
     }
 
     public Expression visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) {
-        if (RandomGenerator.getSeed() == null) {
+        if (Configuration.getSeed() == null) {
             System.out.println("No seed is currently defined.");
             return null;
         }
-        return MyInteger.valueOf(RandomGenerator.getSeed());
+        return MyInteger.valueOf(Configuration.getSeed());
     }
 
     @Override
@@ -73,8 +73,10 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
 
     @Override
     public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
-        if (!Configuration.usesScientificNotation()) System.out.println("Scientific Notation is set to false.");
-        else System.out.println(Configuration.getScientificNotationPrecision());
+        if (!Configuration.usesScientificNotation())
+            System.out.println("Scientific Notation is set to false.");
+        else
+            System.out.println(Configuration.getScientificNotationPrecision());
         return null;
     }
 
@@ -503,7 +505,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     /*
-     * __________________________________ RANDOM NUMBER _______________________________
+     * __________________________________ RANDOM NUMBER
+     * _______________________________
      */
 
     @Override

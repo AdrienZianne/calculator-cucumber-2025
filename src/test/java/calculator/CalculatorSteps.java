@@ -62,7 +62,7 @@ public class CalculatorSteps {
 
 	@Given("I initialise a seed")
 	public void givenIInitialiseASeed() {
-		RandomGenerator.setSeed(1);
+		Configuration.setSeed(1);
 	}
 
 	@Given("an operation {string}")
@@ -274,7 +274,7 @@ public class CalculatorSteps {
 	@When("I provide an expression as a string {string}")
 	public void whenIProvideAString(String string)
 			throws IllegalConstruction, ExecutionControl.NotImplementedException {
-		params.add(CalculatorParser.parseString(string));
+		params.add(CalculatorParser.parseArithmetic(string));
 
 		binaryOperations = new ArrayList<>(List.of(new Plus(params)));
 	}

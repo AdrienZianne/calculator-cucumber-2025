@@ -9,6 +9,7 @@ import java.util.Collections;
  * It aims to be flexible by using a base_value notation.
  * The maximum base simply depends on the number of characters available, of
  * which there are currently thirty.
+ * {@link Configuration}
  */
 public class Programmer {
     /**
@@ -50,18 +51,6 @@ public class Programmer {
      * The prefix used for the known bases, i.e. binary, octal and hexadecimal.
      */
     public final String prefix;
-
-    /**
-     * When this variable is true, the notation conventions are activated.
-     * For example, 10_2 -> 0b10.
-     */
-    public static boolean convention = true;
-
-    /**
-     * When the variable is true and the value is a decimal, the values 0 and 1 are
-     * replaced by F and T.
-     */
-    public static boolean logicalSymbol = true;
 
     /**
      * The class constructor. It checks that the value only uses characters
@@ -215,7 +204,7 @@ public class Programmer {
         if (oldRealNum.toString().equals("0")) {
             res = "0";
         } else {
-            while (oldRealNum.compareTo(new BigInteger("0")) == 1) {
+            while (oldRealNum.compareTo(new BigInteger("0")) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
                 res = chars.charAt(divideAndRemainder[1].intValue()) + res;
@@ -253,7 +242,7 @@ public class Programmer {
      * @param n The other value to compare.
      * @return True if both values are equivalent, false otherwise.
      */
-    public boolean equals(Programmer n) {
+    public boolean isEquals(Programmer n) {
         return binaryNum.equals(n.binaryNum);
     }
 
@@ -262,14 +251,14 @@ public class Programmer {
         if (base == 0) {
             return realNum;
         }
-        if (logicalSymbol && base == 10) {
+        if (Configuration.getLogicalSymbol() && base == 10) {
             if (binaryNum.equals("1")) {
                 return "T";
             } else if (binaryNum.equals("0")) {
                 return "F";
             }
         }
-        if (convention && prefix != null)
+        if (Configuration.getBaseNotationConvention() && prefix != null)
 
         {
             return prefix + realNum;

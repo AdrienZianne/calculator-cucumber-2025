@@ -11,40 +11,64 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestRandomGenerator {
 
+    /**
+     * Method for testing integer generation.
+     * First we test whether we can generate a number, then whether the number
+     * generated is the right one according to the seed and finally whether we can
+     * disable the seed and generate numbers without any problem.
+     */
     @Test
     void testRandomInt() {
         assertNotNull(RandomGenerator.genInt(new BigInteger("10")));
-        RandomGenerator.setSeed(0);
+        Configuration.setSeed(0);
         assertEquals(new MyInteger(0), RandomGenerator.genInt(new BigInteger("10")));
-        RandomGenerator.resetSeed();
+        Configuration.resetSeed();
         assertNotNull(RandomGenerator.genInt(new BigInteger("10")));
     }
 
+    /**
+     * Method for testing real generation.
+     * First we test whether we can generate a number, then whether the number
+     * generated is the right one according to the seed and finally whether we can
+     * disable the seed and generate numbers without any problem.
+     */
     @Test
     void testRandomReal() {
         assertNotNull(RandomGenerator.genReal());
-        RandomGenerator.setSeed(0);
+        Configuration.setSeed(0);
         assertEquals(new MyReal("0.73097"), RandomGenerator.genReal());
-        RandomGenerator.resetSeed();
+        Configuration.resetSeed();
         assertNotNull(RandomGenerator.genReal());
     }
 
+    /**
+     * Method for testing rational generation.
+     * First we test whether we can generate a number, then whether the number
+     * generated is the right one according to the seed and finally whether we can
+     * disable the seed and generate numbers without any problem.
+     */
     @Test
     void testRandomRatio() {
         assertNotNull(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")));
-        RandomGenerator.setSeed(1); // With a seed of 0, the generation of the number will give 0 for the
-                                    // denominator, which poses a problem for a rational number.
+        Configuration.setSeed(1); // With a seed of 0, the generation of the number will give 0 for the
+                                  // denominator, which poses a problem for a rational number.
         assertEquals(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")), MyRational.create(3, 19));
-        RandomGenerator.resetSeed();
+        Configuration.resetSeed();
         assertNotNull(RandomGenerator.genRational(new BigInteger("10"), new BigInteger("30")));
     }
 
+    /**
+     * Method for testing complex generation.
+     * First we test whether we can generate a number, then whether the number
+     * generated is the right one according to the seed and finally whether we can
+     * disable the seed and generate numbers without any problem.
+     */
     @Test
     void testRandomComplex() {
         assertNotNull(RandomGenerator.genComplex());
-        RandomGenerator.setSeed(0);
+        Configuration.setSeed(0);
         assertEquals(RandomGenerator.genComplex(), MyComplex.create(new MyReal("0.73097"), new MyReal("0.73097")));
-        RandomGenerator.resetSeed();
+        Configuration.resetSeed();
         assertNotNull(RandomGenerator.genComplex());
     }
 }
