@@ -329,6 +329,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTrigoPostfixSin(LabeledExprParser.TrigoPostfixSinContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -660,6 +672,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1020,6 +1044,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

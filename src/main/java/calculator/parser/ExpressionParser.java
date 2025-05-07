@@ -228,6 +228,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.INFIX));
     }
 
+    @Override
+    public Expression visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.INFIX));
+    }
+
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -333,6 +338,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.PREFIX));
     }
 
     /*
@@ -442,6 +452,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.POSTFIX));
     }
 
     /* __________________________________ NUMBER _______________________________ */
