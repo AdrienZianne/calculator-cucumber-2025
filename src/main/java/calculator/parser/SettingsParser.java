@@ -125,9 +125,21 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) {
+        shell.infoOption(Shell.Options.USE_COMPLEX_DOMAIN);
+        return null;
+    }
+
     /*
      * __________________________________________________________________Change_Option
      */
+
+    @Override
+    public Void visitOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx) {
+        Configuration.setUsesComplexDomainDefault(Boolean.valueOf(ctx.getChild(2).getText()));
+        return super.visitOptionUseComplexDomain(ctx);
+    }
 
     @Override
     public Void visitOptionRealPrecision(LabeledSettingsParser.OptionRealPrecisionContext ctx) {

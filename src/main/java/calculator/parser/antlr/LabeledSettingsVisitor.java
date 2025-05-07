@@ -109,6 +109,13 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInfoScNotationMaxRight(LabeledSettingsParser.InfoScNotationMaxRightContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InfoUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InfoUseDegrees}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree
@@ -185,6 +192,13 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOptionScNotationMaxRight(LabeledSettingsParser.OptionScNotationMaxRightContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OptionUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code OptionUseDegrees}
 	 * labeled alternative in {@link LabeledSettingsParser#option}.
