@@ -9,7 +9,6 @@ import calculator.operation.unary.trigonometry.*;
 import calculator.parser.antlr.LabeledExprBaseVisitor;
 import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
@@ -26,7 +25,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitExpr(LabeledExprParser.ExprContext ctx) {
         return visit(ctx.getChild(0));
     }
-    
+
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {

@@ -5,8 +5,6 @@ import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Exponent;
 import calculator.operation.binary.Plus;
 
-import java.math.BigInteger;
-
 /**
  * A class used to represent the absolute operation for an expression.
  * Let {@code x} be our expression, the operation will result in {@code |x|} or written like {@code abs(x)}.

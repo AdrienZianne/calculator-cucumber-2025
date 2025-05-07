@@ -1,10 +1,10 @@
 package io;
 
 import calculator.Calculator;
-import calculator.Expression;
-import calculator.Programmer;
 import calculator.Configuration;
 import calculator.Configuration.Mode;
+import calculator.Expression;
+import calculator.Programmer;
 import calculator.parser.CalculatorParser;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -16,8 +16,8 @@ import org.jline.terminal.TerminalBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**

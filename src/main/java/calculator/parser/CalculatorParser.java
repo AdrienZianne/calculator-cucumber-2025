@@ -3,11 +3,10 @@ package calculator.parser;
 import calculator.Expression;
 import calculator.Programmer;
 import calculator.parser.antlr.*;
+import io.Shell;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-
-import io.Shell;
 
 /**
  * CalculatorParser

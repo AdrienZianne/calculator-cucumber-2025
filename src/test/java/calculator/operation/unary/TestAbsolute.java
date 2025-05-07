@@ -2,6 +2,7 @@ package calculator.operation.unary;
 
 import calculator.*;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestAbsolute extends TestUnaryOperation {
