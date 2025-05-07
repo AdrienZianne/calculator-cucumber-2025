@@ -26,16 +26,18 @@ setting : 'seed' '(' INT ')'                             #SettingSetSeed
 /* POSTFIX NOTATION */
 
 sumPostfix : productPostfix                                     #SumPostfixProd
-           | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
-           | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
-           | '('atomPostfix (','? atomPostfix)* ')' 'root'      #SumPostfixRoot
-           | '('atomPostfix (','? atomPostfix)* ')' MOD         #SumPostfixMod
+           | postfixBinaryArgs '+'         #SumPostfixSum
+           | postfixBinaryArgs '-'         #SumPostfixDiff
+           | postfixBinaryArgs 'root'      #SumPostfixRoot
+           | postfixBinaryArgs MOD         #SumPostfixMod
            ;
 
-productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' EXPONENT   #ProductPostfixExp
-                | '(' atomPostfix (','? atomPostfix)* ')' '*'        #ProductPostfixMult
-                | '(' atomPostfix (','? atomPostfix)* ')' '/'        #ProductPostfixDiv
-                | unaryPostfix                                       #ProductPostfixTrigo
+// TODO : Add negation to POSTFIX AND PREFIX
+
+productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
+                | postfixBinaryArgs '*'        #ProductPostfixMult
+                | postfixBinaryArgs '/'        #ProductPostfixDiv
+                | unaryPostfix                 #ProductPostfixTrigo
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
@@ -43,24 +45,25 @@ unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
              ;
 
-trigoPostfix : '(' atomPostfix ')' 'sin'       #TrigoPostfixSin
-             | '(' atomPostfix ')' 'cos'       #TrigoPostfixCos
-             | '(' atomPostfix ')' 'tan'       #TrigoPostfixTan
-             | '(' atomPostfix ')' 'sinh'      #TrigoPostfixSinh
-             | '(' atomPostfix ')' 'cosh'      #TrigoPostfixCosh
-             | '(' atomPostfix ')' 'tanh'      #TrigoPostfixTanh
-             | '(' atomPostfix ')' 'asin'      #TrigoPostfixASin
-             | '(' atomPostfix ')' 'acos'      #TrigoPostfixACos
-             | '(' atomPostfix ')' 'atan'      #TrigoPostfixATan
-             | '(' atomPostfix ')' 'degToRad'  #TrigoPostfixDegToRad
-             | '(' atomPostfix ')' 'radToDeg'  #TrigoPostfixRadToDeg
+trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
+             | postfixUnaryArgs 'cos'       #TrigoPostfixCos
+             | postfixUnaryArgs 'tan'       #TrigoPostfixTan
+             | postfixUnaryArgs 'sinh'      #TrigoPostfixSinh
+             | postfixUnaryArgs 'cosh'      #TrigoPostfixCosh
+             | postfixUnaryArgs 'tanh'      #TrigoPostfixTanh
+             | postfixUnaryArgs 'asin'      #TrigoPostfixASin
+             | postfixUnaryArgs 'acos'      #TrigoPostfixACos
+             | postfixUnaryArgs 'atan'      #TrigoPostfixATan
+             | postfixUnaryArgs 'degToRad'  #TrigoPostfixDegToRad
+             | postfixUnaryArgs 'radToDeg'  #TrigoPostfixRadToDeg
              ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
             | complexNumber           #AtomPostfixInt
             ;
 
-
+postfixBinaryArgs :  '(' atomPostfix ','?  atomPostfix (','? atomPostfix)* ')';
+postfixUnaryArgs  : '(' atomPostfix ')';
 
 /* PREFIX NOTATION */
 sumPrefix : productPrefix                                   #SumPrefixProd

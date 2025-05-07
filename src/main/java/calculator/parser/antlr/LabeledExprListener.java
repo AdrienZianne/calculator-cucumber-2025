@@ -462,6 +462,26 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LabeledExprParser#postfixBinaryArgs}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostfixBinaryArgs(LabeledExprParser.PostfixBinaryArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LabeledExprParser#postfixBinaryArgs}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostfixBinaryArgs(LabeledExprParser.PostfixBinaryArgsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LabeledExprParser#postfixUnaryArgs}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostfixUnaryArgs(LabeledExprParser.PostfixUnaryArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LabeledExprParser#postfixUnaryArgs}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostfixUnaryArgs(LabeledExprParser.PostfixUnaryArgsContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPrefixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
 	 * @param ctx the parse tree

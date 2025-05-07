@@ -473,6 +473,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPostfixBinaryArgs(LabeledExprParser.PostfixBinaryArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPostfixBinaryArgs(LabeledExprParser.PostfixBinaryArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPostfixUnaryArgs(LabeledExprParser.PostfixUnaryArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPostfixUnaryArgs(LabeledExprParser.PostfixUnaryArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSumPrefixProd(LabeledExprParser.SumPrefixProdContext ctx) { }
 	/**
 	 * {@inheritDoc}

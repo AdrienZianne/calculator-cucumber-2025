@@ -545,9 +545,19 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
-            // Checks if the node is a token without any interesting values
+            // If the node is a subset of args
+            if (ctx.getChild(i) instanceof LabeledExprParser.PostfixBinaryArgsContext args) {
+                for (int j = 0; j < args.getChildCount(); j++) {
+                    // Checks if the node is a token without any interesting values
 
-            if (!(ctx.getChild(i) instanceof TerminalNode)) {
+                    if (!(args.getChild(j) instanceof TerminalNode)) {
+                        visit(args.getChild(j)).accept(v);
+                        expressions.add(v.getResult());
+                    }
+                }
+            }
+            // Checks if the node is not a token without any interesting values
+            else if (!(ctx.getChild(i) instanceof TerminalNode)) {
                 visit(ctx.getChild(i)).accept(v);
                 expressions.add(v.getResult());
             }
