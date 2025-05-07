@@ -34,14 +34,6 @@ public class MyInfinity extends MyNumber {
     }
 
     /**
-     * Sets if the infinity is positive or negative.
-     * @param positive true if the infinity is positive, false otherwise.
-     */
-    public void setPositive(boolean positive) {
-        isPositive = positive;
-    }
-
-    /**
      * Checks if the infinity is positive or negative.
      * @return  True if the infinity is positive, false otherwise.
      */
@@ -63,6 +55,6 @@ public class MyInfinity extends MyNumber {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(isPositive);
+        return Objects.hashCode(isPositive ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY);
     }
 }

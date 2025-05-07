@@ -1,11 +1,14 @@
 package calculator.parser;
 
-import calculator.*;
+import calculator.Calculator;
+import calculator.Expression;
+import calculator.IllegalConstruction;
+import calculator.MyInteger;
 import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorParserTest {
     Expression exp;

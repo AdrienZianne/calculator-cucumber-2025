@@ -1,15 +1,15 @@
 package calculator;
 
 //Import Junit5 libraries for unit testing:
-import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.operation.binary.Times;
-import io.cucumber.java.eo.Do;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TestMyReal {
     @FunctionalInterface

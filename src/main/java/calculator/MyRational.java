@@ -2,7 +2,6 @@ package calculator;
 
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
-import org.apache.tomcat.util.bcel.Const;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

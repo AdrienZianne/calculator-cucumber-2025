@@ -1,12 +1,14 @@
 package calculator;
 
 //Import Junit5 libraries for unit testing:
-import static org.junit.jupiter.api.Assertions.*;
 
 import calculator.operation.binary.Times;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TestMyComplex {
 
@@ -37,7 +39,9 @@ class TestMyComplex {
 
     @Test
     void testToString() {
-        assertEquals(imaginary + " + " + real + " i", number.toString());
+        assertEquals(imaginary + " + " + real + "i", number.toString());
+        MyNumber nb = MyComplex.create(6, -1);
+        assertEquals(6 + " - " + "i", nb.toString());
     }
 
     @Test

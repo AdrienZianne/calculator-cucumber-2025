@@ -1,7 +1,5 @@
 package calculator;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import calculator.operation.binary.*;
 import calculator.parser.CalculatorParser;
 import io.cucumber.java.Before;
@@ -13,6 +11,9 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CalculatorSteps {
 

@@ -1,6 +1,6 @@
 package calculator.operation.binary;
 
-import calculator.*;
+import calculator.Calculator;
 
 public abstract class TestBinaryOperation {
 
