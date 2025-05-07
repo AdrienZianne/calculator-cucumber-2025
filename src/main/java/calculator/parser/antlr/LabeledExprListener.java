@@ -318,6 +318,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code UnaryPostfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPostfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -649,6 +661,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPrefixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPrefixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -1005,6 +1029,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryInfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryInfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.

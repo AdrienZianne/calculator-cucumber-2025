@@ -192,6 +192,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
 	 * @param ctx the parse tree
@@ -385,6 +392,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -593,6 +607,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.

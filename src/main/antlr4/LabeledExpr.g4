@@ -32,8 +32,6 @@ sumPostfix : productPostfix                                     #SumPostfixProd
            | postfixBinaryArgs MOD         #SumPostfixMod
            ;
 
-// TODO : Add negation to POSTFIX AND PREFIX
-
 productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
                 | postfixBinaryArgs '*'        #ProductPostfixMult
                 | postfixBinaryArgs '/'        #ProductPostfixDiv
@@ -44,6 +42,7 @@ unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
              | postfixUnaryArgs 'log'       #UnaryPostfixLog
              | postfixUnaryArgs 'sqrt'      #UnaryPostfixSqrt
              | postfixUnaryArgs '-'         #UnaryPostfixNegation
+             | postfixUnaryArgs 'abs'       #UnaryPostfixAbsolute
              ;
 
 trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
@@ -84,6 +83,7 @@ unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
              | 'log'  prefixUnaryArgs        #UnaryPrefixLog
              | 'sqrt' prefixUnaryArgs        #UnaryPrefixSqrt
              | '-'    prefixUnaryArgs        #UnaryPrefixNegation
+             | 'abs'  prefixUnaryArgs        #UnaryPrefixAbsolute
              ;
 
 trigoPrefix  : 'sin' prefixUnaryArgs          #TrigoPrefixSin
@@ -130,7 +130,9 @@ atomInfix: unaryInfix           #AtomInfixUnary
 unaryInfix: trigoInfix                                   #UnaryInfixTrigo
           | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
           | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
-          | '-' productInfix   #UnaryInfixNegation
+          | (('|' sumInfix + '|')
+                | ('abs' + '(' + sumInfix +')' ) )       #UnaryInfixAbsolute
+          | '-' productInfix                             #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
