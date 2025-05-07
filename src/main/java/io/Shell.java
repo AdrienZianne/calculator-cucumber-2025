@@ -95,7 +95,7 @@ public class Shell {
                         "The maximum number of digits that can be displayed in the decimal part of a number." });
         infoOptions.put(Options.USE_COMPLEX_DOMAIN,
                 new String[] { "use_complex_domain", "[true|false]", "Select whether to work by default in the complex domain. " +
-                        "(If set to false, this will not prevent the creation of complex values)" });
+                        "(If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)" });
         infoOptions.put(Options.USE_DEGREES,
                 new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
         infoOptions.put(Options.SEED, new String[] { "seed", "An integer value",
