@@ -274,6 +274,10 @@ public final class Exponent extends BinaryOperation {
 
 
     private MyNumber complexPower(MyComplex val, MyInteger n) {
+        if (n.getSign() < 0)
+        {
+            return inversePower(val,n);
+        }
         BigInteger[] decompositions = new BigInteger[3];
 
         // Number
@@ -298,7 +302,6 @@ public final class Exponent extends BinaryOperation {
         }
 
         // Squared :
-
         if (decompositions[0].compareTo(BigInteger.ZERO) > 0) {
             count = BigInteger.valueOf(0);
             MyNumber complexSquare = complexSquared(val);
