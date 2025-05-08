@@ -1,26 +1,9 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: ( setting
-    | sumInfix
+expr: sumInfix
     | sumPrefix
-    | sumPostfix) EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
-
-
-
-setting : 'seed' '(' INT ')'                             #SettingSetSeed
-        | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
-        | 'seed'                                         #SettingGetSeed
-        | 'realPre' '(' INT ')'                          #SettingSetRealPrecision
-        | 'realPre'                                      #SettingGetRealPrecision
-        | 'scNot' '(' INT ',' INT ')'                            #SettingSetScNotInt
-        | 'scNot' '(' BOOL ')'                           #SettingSetScNotBool
-        | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
-        | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg
-        | 'useDeg'                                       #SettingGetUseDeg
-        | 'displayReal' '(' BOOL ')'                          #SettingSetDisplayReal
-        | 'displayReal'                                       #SettingGetDisplayReal
-        ;
+    | sumPostfix EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
 
 
 /* POSTFIX NOTATION */

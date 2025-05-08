@@ -1,12 +1,12 @@
 package calculator.parser;
 
-import java.math.RoundingMode;
-
 import calculator.Configuration;
 import calculator.Configuration.Mode;
-import calculator.parser.antlr.*;
-
+import calculator.parser.antlr.LabeledSettingsBaseVisitor;
+import calculator.parser.antlr.LabeledSettingsParser;
 import io.Shell;
+
+import java.math.RoundingMode;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.
@@ -125,9 +125,21 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) {
+        shell.infoOption(Shell.Options.USE_COMPLEX_DOMAIN);
+        return null;
+    }
+
     /*
      * __________________________________________________________________Change_Option
      */
+
+    @Override
+    public Void visitOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx) {
+        Configuration.setUsesComplexDomainDefault(Boolean.valueOf(ctx.getChild(2).getText()));
+        return super.visitOptionUseComplexDomain(ctx);
+    }
 
     @Override
     public Void visitOptionRealPrecision(LabeledSettingsParser.OptionRealPrecisionContext ctx) {

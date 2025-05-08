@@ -185,6 +185,18 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInfoUseDegrees(LabeledSettingsParser.InfoUseDegreesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -312,6 +324,18 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOptionScNotationMaxRight(LabeledSettingsParser.OptionScNotationMaxRightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -16,6 +16,7 @@ info : MODE                       #InfoMode
      | 'use_scientific_notation'  #InfoUseScientificNotation
      | 'sc_notation_max_left'     #InfoScNotationMaxLeft
      | 'sc_notation_max_right'    #InfoScNotationMaxRight
+     | 'use_complex_domain'       #InfoUseComplexDomain
      | 'use_degrees'              #InfoUseDegrees
      | 'seed'                     #InfoSeed
      | 'base_notation_convention' #InfoBaseNotationConvention
@@ -29,6 +30,7 @@ option : MODE '=' modes                        #OptionMode
        | 'use_scientific_notation' '=' BOOL    #OptionUseScientificNotation
        | 'sc_notation_max_left' '=' UINT       #OptionScNotationMaxLeft
        | 'sc_notation_max_right' '=' UINT      #OptionScNotationMaxRight
+       | 'use_complex_domain' '=' BOOL         #OptionUseComplexDomain
        | 'use_degrees' '=' BOOL                #OptionUseDegrees
        | 'seed' '=' INT                        #OptionSeed
        | 'base_notation_convention' '=' BOOL   #OptionBaseNotationConvention
