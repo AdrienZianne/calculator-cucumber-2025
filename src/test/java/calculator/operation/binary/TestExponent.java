@@ -115,8 +115,13 @@ public class TestExponent extends TestBinaryOperation{
 
         exp = op(MyReal.valueOf(2.5), MyRational.create(-2,4));
         assertEquals(MyReal.valueOf(0.632456), exp);
+        Configuration.setUsesComplexDomainDefault(true);
         exp = op(MyReal.valueOf(-2.5), MyRational.create(-2,4));
         assertEquals(MyComplex.create(ConstantNumber.ZERO,MyReal.valueOf(-0.632456)), exp);
+
+        Configuration.setUsesComplexDomainDefault(false);
+        exp = op(MyReal.valueOf(-2.5), MyRational.create(-2,4));
+        assertEquals(MyErrorNumber.class, exp.getClass());
 
     }
 
