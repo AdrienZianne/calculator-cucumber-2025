@@ -1,10 +1,14 @@
 package calculator.operation.binary;
 
 import calculator.*;
+import calculator.operation.BuildOperationFunction;
+import calculator.operation.Operation;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -95,7 +99,13 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
-        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
+        if (r.equals(MyInteger.valueOf(2))) {
+            return complexSquared(l);
+        }
+        else if (r.equals(MyInteger.valueOf(3))) {
+            return complexCube(l);
+        }
+        return complexPower(l, r);
     }
 
     @Override
@@ -261,4 +271,102 @@ public final class Exponent extends BinaryOperation {
         MyNumber lPowerA = op(x, r.getNumDenomPair().a);
         return BinaryOperation.op(lPowerA, r.getNumDenomPair().b, NthRoot::new);
     }
+
+
+    private MyNumber complexPower(MyComplex val, MyInteger n) {
+        BigInteger[] decompositions = new BigInteger[3];
+
+        // Number
+        decompositions[0] = n.getValue().divide(BigInteger.valueOf(3));
+        decompositions[1] = n.getValue().subtract(decompositions[0].multiply(BigInteger.valueOf(3)))
+                                    .divide(BigInteger.valueOf(2));
+        decompositions[2] = n.getValue().subtract(decompositions[0].multiply(BigInteger.valueOf(3)))
+                                        .subtract(decompositions[1].multiply(BigInteger.TWO)); // the rest
+
+
+        MyNumber total = ConstantNumber.ONE;
+
+        // Cubed :
+        BigInteger count = BigInteger.valueOf(0);
+        if (decompositions[0].compareTo(BigInteger.ZERO) > 0)  {
+            MyNumber complexCube = complexCube(val);
+            while (count.compareTo(decompositions[0]) < 0)
+            {
+                total = BinaryOperation.op(total, complexCube, Times::new);
+                count = count.add(BigInteger.ONE);
+            }
+        }
+
+        // Squared :
+
+        if (decompositions[0].compareTo(BigInteger.ZERO) > 0) {
+            count = BigInteger.valueOf(0);
+            MyNumber complexSquare = complexSquared(val);
+            while (count.compareTo(decompositions[1]) < 0) {
+                total = BinaryOperation.op(total, complexSquare, Times::new);
+                count = count.add(BigInteger.ONE);
+            }
+        }
+
+        // Rest :
+        if (decompositions[2].compareTo(BigInteger.ZERO) > 0)
+        {
+            total = BinaryOperation.op(total, val, Times::new);
+        }
+
+        return total;
+    }
+
+
+    private MyNumber complexSquared(MyComplex nb) {
+        // (a+bi)^2 = a^2 + 2abi - b^2 = (a^2 - b^2) + 2abi
+
+        MyNumber a = nb.getRealImaginaryPair().a;
+        MyNumber b = nb.getRealImaginaryPair().b;
+
+        MyNumber aSquared = op(a, MyInteger.valueOf(2));
+        MyNumber bSquared = op(b, MyInteger.valueOf(2));
+
+        MyNumber ab = BinaryOperation.op(a, b, Times::new);
+        MyNumber abTimes2 = BinaryOperation.op(ab, MyInteger.valueOf(2), Times::new);
+
+        return MyComplex.create(
+                BinaryOperation.op(aSquared, bSquared, Minus::new), // (a^2 - b^2)
+                abTimes2);  // + 2abi
+    }
+    private MyNumber complexCube(MyComplex nb) {
+        // (a+bi)^3 = a^3 + 3a^2 bi - 3 a b^2 - b^3 i
+        // (a^3 - 3ab^2) + (3a^2 b - b^3) i
+        MyNumber a = nb.getRealImaginaryPair().a;
+        MyNumber b = nb.getRealImaginaryPair().b;
+
+        // 2ab^2
+        MyNumber twoABSquared = tripleTimes(b, a);
+        // a^3 - 2ab^2
+        MyNumber aCubed = op(a, MyInteger.valueOf(3));
+        MyNumber aCubedMinus2ABSquared = BinaryOperation.op(aCubed, twoABSquared, Minus::new);
+
+        // 3a^2b
+        MyNumber threeASquaredB = tripleTimes(a, b);
+        // 3a^2b - b^3
+        MyNumber bCubed = op(b, MyInteger.valueOf(3));
+        MyNumber threeASquaredBMinusBCubed = BinaryOperation.op(threeASquaredB, bCubed, Minus::new);
+
+        return MyComplex.create(aCubedMinus2ABSquared, threeASquaredBMinusBCubed);
+    }
+
+    /**
+     * Given {@code x} and {@code x}, returns {@code 2xy²}
+     * @param x The number {@code x}
+     * @param y The number {@code y}
+     * @return {@code 2ab²}
+     */
+    private MyNumber tripleTimes(MyNumber x, MyNumber y)
+    {
+        MyNumber squared = op(x, MyInteger.valueOf(2));
+        return BinaryOperation.op(MyInteger.valueOf(3),
+                BinaryOperation.op(squared, y, Times::new),
+                Times::new);
+    }
+
 }
