@@ -110,7 +110,8 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
-        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
+        if (r.isInt()) return op(l, MyInteger.toMyInteger(r));
+        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented for non integer numbers");
     }
 
     @Override
@@ -120,7 +121,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyRational r) {
-        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented");
+        return new MyErrorNumber(this, "Exponentiation of complex operations are not implemented for non integer numbers");
     }
 
     @Override
