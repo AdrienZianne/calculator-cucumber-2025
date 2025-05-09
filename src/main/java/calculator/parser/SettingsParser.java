@@ -129,6 +129,18 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) {
+        shell.infoOption(Shell.Options.MAX_STORE);
+        return null;
+    }
+
+    @Override
+    public Void visitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) {
+        shell.infoOption(Shell.Options.DELETE_DUPLICATES);
+        return null;
+    }
+
     /*
      * __________________________________________________________________Change_Option
      */
@@ -202,6 +214,18 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
     @Override
     public Void visitModeProgrammer(LabeledSettingsParser.ModeProgrammerContext ctx) {
         Configuration.setMode(Mode.PROGRAMMER);
+        return null;
+    }
+
+    @Override
+    public Void visitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) {
+        Configuration.setMaxStore(Integer.parseInt(ctx.getChild(2).getText()));
+        return null;
+    }
+
+    @Override
+    public Void visitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) {
+        Configuration.setDeleteDuplicates(Boolean.valueOf(ctx.getChild(2).getText()));
         return null;
     }
 

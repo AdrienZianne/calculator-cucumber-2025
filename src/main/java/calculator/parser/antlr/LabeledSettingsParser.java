@@ -19,10 +19,10 @@ public class LabeledSettingsParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, T__19=20, QUIT=21, HELP=22, LISTOPTIONS=23, INFO=24, 
-		CLEAR=25, MODE=26, INT=27, UINT=28, BOOL=29, ARITHMETIC=30, PROGRAMMER=31, 
-		LOGS=32, FAVOS=33, ADDFAVO=34, DELFAVO=35, USELOG=36, USEFAVO=37, NEWLINE=38, 
-		WS=39;
+		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, QUIT=23, HELP=24, LISTOPTIONS=25, 
+		INFO=26, CLEAR=27, MODE=28, INT=29, UINT=30, BOOL=31, ARITHMETIC=32, PROGRAMMER=33, 
+		LOGS=34, FAVOS=35, ADDFAVO=36, DELFAVO=37, USELOG=38, USEFAVO=39, NEWLINE=40, 
+		WS=41;
 	public static final int
 		RULE_setting = 0, RULE_info = 1, RULE_option = 2, RULE_modes = 3, RULE_roundingmode = 4, 
 		RULE_history = 5;
@@ -38,18 +38,18 @@ public class LabeledSettingsParser extends Parser {
 			null, "'reset_seed'", "'real_precision'", "'real_rounding_mode'", "'use_real_notation'", 
 			"'use_scientific_notation'", "'sc_notation_max_left'", "'sc_notation_max_right'", 
 			"'use_degrees'", "'seed'", "'base_notation_convention'", "'logical_symbol'", 
-			"'='", "'ceiling'", "'down'", "'floor'", "'half_down'", "'half_even'", 
-			"'half_up'", "'unnecessary'", "'up'"
+			"'max_store'", "'delete_duplicates'", "'='", "'ceiling'", "'down'", "'floor'", 
+			"'half_down'", "'half_even'", "'half_up'", "'unnecessary'", "'up'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, "QUIT", "HELP", 
-			"LISTOPTIONS", "INFO", "CLEAR", "MODE", "INT", "UINT", "BOOL", "ARITHMETIC", 
-			"PROGRAMMER", "LOGS", "FAVOS", "ADDFAVO", "DELFAVO", "USELOG", "USEFAVO", 
-			"NEWLINE", "WS"
+			null, null, null, null, null, null, null, null, null, null, null, "QUIT", 
+			"HELP", "LISTOPTIONS", "INFO", "CLEAR", "MODE", "INT", "UINT", "BOOL", 
+			"ARITHMETIC", "PROGRAMMER", "LOGS", "FAVOS", "ADDFAVO", "DELFAVO", "USELOG", 
+			"USEFAVO", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -325,6 +325,8 @@ public class LabeledSettingsParser extends Parser {
 			case T__8:
 			case T__9:
 			case T__10:
+			case T__11:
+			case T__12:
 			case MODE:
 				_localctx = new SettingsOptionContext(_localctx);
 				enterOuterAlt(_localctx, 6);
@@ -382,23 +384,6 @@ public class LabeledSettingsParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class InfoUseScientificNotationContext extends InfoContext {
-		public InfoUseScientificNotationContext(InfoContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoUseScientificNotation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoUseScientificNotation(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoUseScientificNotation(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class InfoModeContext extends InfoContext {
 		public TerminalNode MODE() { return getToken(LabeledSettingsParser.MODE, 0); }
 		public InfoModeContext(InfoContext ctx) { copyFrom(ctx); }
@@ -430,23 +415,6 @@ public class LabeledSettingsParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoRealPrecision(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class InfoScNotationMaxRightContext extends InfoContext {
-		public InfoScNotationMaxRightContext(InfoContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoScNotationMaxRight(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoScNotationMaxRight(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoScNotationMaxRight(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -485,6 +453,91 @@ public class LabeledSettingsParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class InfoSeedContext extends InfoContext {
+		public InfoSeedContext(InfoContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoSeed(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoSeed(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoSeed(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InfoMaxStoreContext extends InfoContext {
+		public InfoMaxStoreContext(InfoContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoMaxStore(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoMaxStore(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoMaxStore(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InfoDeleteDuplicatesContext extends InfoContext {
+		public InfoDeleteDuplicatesContext(InfoContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoDeleteDuplicates(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoDeleteDuplicates(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoDeleteDuplicates(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InfoUseScientificNotationContext extends InfoContext {
+		public InfoUseScientificNotationContext(InfoContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoUseScientificNotation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoUseScientificNotation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoUseScientificNotation(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InfoScNotationMaxRightContext extends InfoContext {
+		public InfoScNotationMaxRightContext(InfoContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoScNotationMaxRight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoScNotationMaxRight(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoScNotationMaxRight(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class InfoRoundingModeContext extends InfoContext {
 		public InfoRoundingModeContext(InfoContext ctx) { copyFrom(ctx); }
 		@Override
@@ -515,23 +568,6 @@ public class LabeledSettingsParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoUseRealNotation(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class InfoSeedContext extends InfoContext {
-		public InfoSeedContext(InfoContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterInfoSeed(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitInfoSeed(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitInfoSeed(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -574,7 +610,7 @@ public class LabeledSettingsParser extends Parser {
 		InfoContext _localctx = new InfoContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_info);
 		try {
-			setState(34);
+			setState(36);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MODE:
@@ -665,6 +701,22 @@ public class LabeledSettingsParser extends Parser {
 				match(T__10);
 				}
 				break;
+			case T__11:
+				_localctx = new InfoMaxStoreContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(34);
+				match(T__11);
+				}
+				break;
+			case T__12:
+				_localctx = new InfoDeleteDuplicatesContext(_localctx);
+				enterOuterAlt(_localctx, 13);
+				{
+				setState(35);
+				match(T__12);
+				}
+				break;
 			default:
 				throw new NoViableAltException(this);
 			}
@@ -729,6 +781,96 @@ public class LabeledSettingsParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class OptionDeleteDuplicatesContext extends OptionContext {
+		public TerminalNode BOOL() { return getToken(LabeledSettingsParser.BOOL, 0); }
+		public OptionDeleteDuplicatesContext(OptionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionDeleteDuplicates(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionDeleteDuplicates(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionDeleteDuplicates(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OptionScNotationMaxRightContext extends OptionContext {
+		public TerminalNode UINT() { return getToken(LabeledSettingsParser.UINT, 0); }
+		public OptionScNotationMaxRightContext(OptionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionScNotationMaxRight(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionScNotationMaxRight(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionScNotationMaxRight(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OptionMaxStoreContext extends OptionContext {
+		public TerminalNode INT() { return getToken(LabeledSettingsParser.INT, 0); }
+		public OptionMaxStoreContext(OptionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionMaxStore(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionMaxStore(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionMaxStore(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OptionUseScientificNotationContext extends OptionContext {
+		public TerminalNode BOOL() { return getToken(LabeledSettingsParser.BOOL, 0); }
+		public OptionUseScientificNotationContext(OptionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionUseScientificNotation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionUseScientificNotation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionUseScientificNotation(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OptionRealPrecisionContext extends OptionContext {
+		public TerminalNode UINT() { return getToken(LabeledSettingsParser.UINT, 0); }
+		public OptionRealPrecisionContext(OptionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionRealPrecision(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionRealPrecision(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionRealPrecision(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class OptionModeContext extends OptionContext {
 		public TerminalNode MODE() { return getToken(LabeledSettingsParser.MODE, 0); }
 		public ModesContext modes() {
@@ -768,24 +910,6 @@ public class LabeledSettingsParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class OptionScNotationMaxRightContext extends OptionContext {
-		public TerminalNode UINT() { return getToken(LabeledSettingsParser.UINT, 0); }
-		public OptionScNotationMaxRightContext(OptionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionScNotationMaxRight(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionScNotationMaxRight(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionScNotationMaxRight(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class OptionUseDegreesContext extends OptionContext {
 		public TerminalNode BOOL() { return getToken(LabeledSettingsParser.BOOL, 0); }
 		public OptionUseDegreesContext(OptionContext ctx) { copyFrom(ctx); }
@@ -818,24 +942,6 @@ public class LabeledSettingsParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionSeed(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class OptionUseScientificNotationContext extends OptionContext {
-		public TerminalNode BOOL() { return getToken(LabeledSettingsParser.BOOL, 0); }
-		public OptionUseScientificNotationContext(OptionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionUseScientificNotation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionUseScientificNotation(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionUseScientificNotation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -877,41 +983,23 @@ public class LabeledSettingsParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class OptionRealPrecisionContext extends OptionContext {
-		public TerminalNode UINT() { return getToken(LabeledSettingsParser.UINT, 0); }
-		public OptionRealPrecisionContext(OptionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).enterOptionRealPrecision(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledSettingsListener ) ((LabeledSettingsListener)listener).exitOptionRealPrecision(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledSettingsVisitor ) return ((LabeledSettingsVisitor<? extends T>)visitor).visitOptionRealPrecision(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 
 	public final OptionContext option() throws RecognitionException {
 		OptionContext _localctx = new OptionContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_option);
 		try {
-			setState(69);
+			setState(77);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case MODE:
 				_localctx = new OptionModeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(36);
-				match(MODE);
-				setState(37);
-				match(T__11);
 				setState(38);
+				match(MODE);
+				setState(39);
+				match(T__13);
+				setState(40);
 				modes();
 				}
 				break;
@@ -919,11 +1007,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionRealPrecisionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(39);
-				match(T__1);
-				setState(40);
-				match(T__11);
 				setState(41);
+				match(T__1);
+				setState(42);
+				match(T__13);
+				setState(43);
 				match(UINT);
 				}
 				break;
@@ -931,11 +1019,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionRoundingModeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(42);
-				match(T__2);
-				setState(43);
-				match(T__11);
 				setState(44);
+				match(T__2);
+				setState(45);
+				match(T__13);
+				setState(46);
 				roundingmode();
 				}
 				break;
@@ -943,11 +1031,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionUseRealNotationContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(45);
-				match(T__3);
-				setState(46);
-				match(T__11);
 				setState(47);
+				match(T__3);
+				setState(48);
+				match(T__13);
+				setState(49);
 				match(BOOL);
 				}
 				break;
@@ -955,11 +1043,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionUseScientificNotationContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(48);
-				match(T__4);
-				setState(49);
-				match(T__11);
 				setState(50);
+				match(T__4);
+				setState(51);
+				match(T__13);
+				setState(52);
 				match(BOOL);
 				}
 				break;
@@ -967,11 +1055,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionScNotationMaxLeftContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(51);
-				match(T__5);
-				setState(52);
-				match(T__11);
 				setState(53);
+				match(T__5);
+				setState(54);
+				match(T__13);
+				setState(55);
 				match(UINT);
 				}
 				break;
@@ -979,11 +1067,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionScNotationMaxRightContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(54);
-				match(T__6);
-				setState(55);
-				match(T__11);
 				setState(56);
+				match(T__6);
+				setState(57);
+				match(T__13);
+				setState(58);
 				match(UINT);
 				}
 				break;
@@ -991,11 +1079,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionUseDegreesContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(57);
-				match(T__7);
-				setState(58);
-				match(T__11);
 				setState(59);
+				match(T__7);
+				setState(60);
+				match(T__13);
+				setState(61);
 				match(BOOL);
 				}
 				break;
@@ -1003,11 +1091,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionSeedContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(60);
-				match(T__8);
-				setState(61);
-				match(T__11);
 				setState(62);
+				match(T__8);
+				setState(63);
+				match(T__13);
+				setState(64);
 				match(INT);
 				}
 				break;
@@ -1015,11 +1103,11 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionBaseNotationConventionContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(63);
-				match(T__9);
-				setState(64);
-				match(T__11);
 				setState(65);
+				match(T__9);
+				setState(66);
+				match(T__13);
+				setState(67);
 				match(BOOL);
 				}
 				break;
@@ -1027,11 +1115,35 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new OptionLogicalSymbolContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(66);
-				match(T__10);
-				setState(67);
-				match(T__11);
 				setState(68);
+				match(T__10);
+				setState(69);
+				match(T__13);
+				setState(70);
+				match(BOOL);
+				}
+				break;
+			case T__11:
+				_localctx = new OptionMaxStoreContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(71);
+				match(T__11);
+				setState(72);
+				match(T__13);
+				setState(73);
+				match(INT);
+				}
+				break;
+			case T__12:
+				_localctx = new OptionDeleteDuplicatesContext(_localctx);
+				enterOuterAlt(_localctx, 13);
+				{
+				setState(74);
+				match(T__12);
+				setState(75);
+				match(T__13);
+				setState(76);
 				match(BOOL);
 				}
 				break;
@@ -1103,14 +1215,14 @@ public class LabeledSettingsParser extends Parser {
 		ModesContext _localctx = new ModesContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_modes);
 		try {
-			setState(73);
+			setState(81);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ARITHMETIC:
 				_localctx = new ModeArithmeticContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(71);
+				setState(79);
 				match(ARITHMETIC);
 				}
 				break;
@@ -1118,7 +1230,7 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new ModeProgrammerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(72);
+				setState(80);
 				match(PROGRAMMER);
 				}
 				break;
@@ -1290,71 +1402,71 @@ public class LabeledSettingsParser extends Parser {
 		RoundingmodeContext _localctx = new RoundingmodeContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_roundingmode);
 		try {
-			setState(83);
+			setState(91);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__12:
+			case T__14:
 				_localctx = new RoundingModeCeilingContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(75);
-				match(T__12);
-				}
-				break;
-			case T__13:
-				_localctx = new RoundingModeDownContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(76);
-				match(T__13);
-				}
-				break;
-			case T__14:
-				_localctx = new RoundingModeFloorContext(_localctx);
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(77);
+				setState(83);
 				match(T__14);
 				}
 				break;
 			case T__15:
-				_localctx = new RoundingModeHalfDownContext(_localctx);
-				enterOuterAlt(_localctx, 4);
+				_localctx = new RoundingModeDownContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
-				setState(78);
+				setState(84);
 				match(T__15);
 				}
 				break;
 			case T__16:
-				_localctx = new RoundingModeHalfEvenContext(_localctx);
-				enterOuterAlt(_localctx, 5);
+				_localctx = new RoundingModeFloorContext(_localctx);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(79);
+				setState(85);
 				match(T__16);
 				}
 				break;
 			case T__17:
-				_localctx = new RoundingModeHalfUpContext(_localctx);
-				enterOuterAlt(_localctx, 6);
+				_localctx = new RoundingModeHalfDownContext(_localctx);
+				enterOuterAlt(_localctx, 4);
 				{
-				setState(80);
+				setState(86);
 				match(T__17);
 				}
 				break;
 			case T__18:
-				_localctx = new RoundingModeUnnecessaryContext(_localctx);
-				enterOuterAlt(_localctx, 7);
+				_localctx = new RoundingModeHalfEvenContext(_localctx);
+				enterOuterAlt(_localctx, 5);
 				{
-				setState(81);
+				setState(87);
 				match(T__18);
 				}
 				break;
 			case T__19:
+				_localctx = new RoundingModeHalfUpContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(88);
+				match(T__19);
+				}
+				break;
+			case T__20:
+				_localctx = new RoundingModeUnnecessaryContext(_localctx);
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(89);
+				match(T__20);
+				}
+				break;
+			case T__21:
 				_localctx = new RoundingModeUpContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(82);
-				match(T__19);
+				setState(90);
+				match(T__21);
 				}
 				break;
 			default:
@@ -1502,14 +1614,14 @@ public class LabeledSettingsParser extends Parser {
 		enterRule(_localctx, 10, RULE_history);
 		int _la;
 		try {
-			setState(103);
+			setState(111);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LOGS:
 				_localctx = new HistoryLogsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(85);
+				setState(93);
 				match(LOGS);
 				}
 				break;
@@ -1517,7 +1629,7 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new HistoryFavosContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(86);
+				setState(94);
 				match(FAVOS);
 				}
 				break;
@@ -1525,44 +1637,8 @@ public class LabeledSettingsParser extends Parser {
 				_localctx = new HistoryAddFavoContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(87);
-				match(ADDFAVO);
-				setState(89);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==INT) {
-					{
-					setState(88);
-					match(INT);
-					}
-				}
-
-				}
-				break;
-			case DELFAVO:
-				_localctx = new HistoryDelFavoContext(_localctx);
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(91);
-				match(DELFAVO);
-				setState(93);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==INT) {
-					{
-					setState(92);
-					match(INT);
-					}
-				}
-
-				}
-				break;
-			case USELOG:
-				_localctx = new HistoryUseLogContext(_localctx);
-				enterOuterAlt(_localctx, 5);
-				{
 				setState(95);
-				match(USELOG);
+				match(ADDFAVO);
 				setState(97);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1575,18 +1651,54 @@ public class LabeledSettingsParser extends Parser {
 
 				}
 				break;
-			case USEFAVO:
-				_localctx = new HistoryUseFavoContext(_localctx);
-				enterOuterAlt(_localctx, 6);
+			case DELFAVO:
+				_localctx = new HistoryDelFavoContext(_localctx);
+				enterOuterAlt(_localctx, 4);
 				{
 				setState(99);
-				match(USEFAVO);
+				match(DELFAVO);
 				setState(101);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==INT) {
 					{
 					setState(100);
+					match(INT);
+					}
+				}
+
+				}
+				break;
+			case USELOG:
+				_localctx = new HistoryUseLogContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(103);
+				match(USELOG);
+				setState(105);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==INT) {
+					{
+					setState(104);
+					match(INT);
+					}
+				}
+
+				}
+				break;
+			case USEFAVO:
+				_localctx = new HistoryUseFavoContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(107);
+				match(USEFAVO);
+				setState(109);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==INT) {
+					{
+					setState(108);
 					match(INT);
 					}
 				}
@@ -1609,80 +1721,86 @@ public class LabeledSettingsParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\'j\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
-		"\u0005\u0007\u0005\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000\u0016"+
-		"\b\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0003"+
-		"\u0001#\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002F\b"+
-		"\u0002\u0001\u0003\u0001\u0003\u0003\u0003J\b\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001)r\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
+		"\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002\u0005"+
+		"\u0007\u0005\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000\u0016\b\u0000"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0003\u0001%\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0003\u0002N\b\u0002\u0001\u0003\u0001\u0003\u0003\u0003R\b\u0003\u0001"+
 		"\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001"+
-		"\u0004\u0003\u0004T\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
-		"\u0005\u0003\u0005Z\b\u0005\u0001\u0005\u0001\u0005\u0003\u0005^\b\u0005"+
-		"\u0001\u0005\u0001\u0005\u0003\u0005b\b\u0005\u0001\u0005\u0001\u0005"+
-		"\u0003\u0005f\b\u0005\u0003\u0005h\b\u0005\u0001\u0005\u0000\u0000\u0006"+
-		"\u0000\u0002\u0004\u0006\b\n\u0000\u0000\u008f\u0000\u0015\u0001\u0000"+
-		"\u0000\u0000\u0002\"\u0001\u0000\u0000\u0000\u0004E\u0001\u0000\u0000"+
-		"\u0000\u0006I\u0001\u0000\u0000\u0000\bS\u0001\u0000\u0000\u0000\ng\u0001"+
-		"\u0000\u0000\u0000\f\u0016\u0005\u0015\u0000\u0000\r\u0016\u0005\u0016"+
-		"\u0000\u0000\u000e\u0016\u0005\u0017\u0000\u0000\u000f\u0010\u0005\u0018"+
-		"\u0000\u0000\u0010\u0016\u0003\u0002\u0001\u0000\u0011\u0016\u0005\u0019"+
-		"\u0000\u0000\u0012\u0016\u0003\u0004\u0002\u0000\u0013\u0016\u0005\u0001"+
-		"\u0000\u0000\u0014\u0016\u0003\n\u0005\u0000\u0015\f\u0001\u0000\u0000"+
-		"\u0000\u0015\r\u0001\u0000\u0000\u0000\u0015\u000e\u0001\u0000\u0000\u0000"+
-		"\u0015\u000f\u0001\u0000\u0000\u0000\u0015\u0011\u0001\u0000\u0000\u0000"+
-		"\u0015\u0012\u0001\u0000\u0000\u0000\u0015\u0013\u0001\u0000\u0000\u0000"+
-		"\u0015\u0014\u0001\u0000\u0000\u0000\u0016\u0001\u0001\u0000\u0000\u0000"+
-		"\u0017#\u0005\u001a\u0000\u0000\u0018#\u0005\u0002\u0000\u0000\u0019#"+
-		"\u0005\u0003\u0000\u0000\u001a#\u0005\u0004\u0000\u0000\u001b#\u0005\u0005"+
-		"\u0000\u0000\u001c#\u0005\u0006\u0000\u0000\u001d#\u0005\u0007\u0000\u0000"+
-		"\u001e#\u0005\b\u0000\u0000\u001f#\u0005\t\u0000\u0000 #\u0005\n\u0000"+
-		"\u0000!#\u0005\u000b\u0000\u0000\"\u0017\u0001\u0000\u0000\u0000\"\u0018"+
-		"\u0001\u0000\u0000\u0000\"\u0019\u0001\u0000\u0000\u0000\"\u001a\u0001"+
-		"\u0000\u0000\u0000\"\u001b\u0001\u0000\u0000\u0000\"\u001c\u0001\u0000"+
-		"\u0000\u0000\"\u001d\u0001\u0000\u0000\u0000\"\u001e\u0001\u0000\u0000"+
-		"\u0000\"\u001f\u0001\u0000\u0000\u0000\" \u0001\u0000\u0000\u0000\"!\u0001"+
-		"\u0000\u0000\u0000#\u0003\u0001\u0000\u0000\u0000$%\u0005\u001a\u0000"+
-		"\u0000%&\u0005\f\u0000\u0000&F\u0003\u0006\u0003\u0000\'(\u0005\u0002"+
-		"\u0000\u0000()\u0005\f\u0000\u0000)F\u0005\u001c\u0000\u0000*+\u0005\u0003"+
-		"\u0000\u0000+,\u0005\f\u0000\u0000,F\u0003\b\u0004\u0000-.\u0005\u0004"+
-		"\u0000\u0000./\u0005\f\u0000\u0000/F\u0005\u001d\u0000\u000001\u0005\u0005"+
-		"\u0000\u000012\u0005\f\u0000\u00002F\u0005\u001d\u0000\u000034\u0005\u0006"+
-		"\u0000\u000045\u0005\f\u0000\u00005F\u0005\u001c\u0000\u000067\u0005\u0007"+
-		"\u0000\u000078\u0005\f\u0000\u00008F\u0005\u001c\u0000\u00009:\u0005\b"+
-		"\u0000\u0000:;\u0005\f\u0000\u0000;F\u0005\u001d\u0000\u0000<=\u0005\t"+
-		"\u0000\u0000=>\u0005\f\u0000\u0000>F\u0005\u001b\u0000\u0000?@\u0005\n"+
-		"\u0000\u0000@A\u0005\f\u0000\u0000AF\u0005\u001d\u0000\u0000BC\u0005\u000b"+
-		"\u0000\u0000CD\u0005\f\u0000\u0000DF\u0005\u001d\u0000\u0000E$\u0001\u0000"+
-		"\u0000\u0000E\'\u0001\u0000\u0000\u0000E*\u0001\u0000\u0000\u0000E-\u0001"+
-		"\u0000\u0000\u0000E0\u0001\u0000\u0000\u0000E3\u0001\u0000\u0000\u0000"+
-		"E6\u0001\u0000\u0000\u0000E9\u0001\u0000\u0000\u0000E<\u0001\u0000\u0000"+
-		"\u0000E?\u0001\u0000\u0000\u0000EB\u0001\u0000\u0000\u0000F\u0005\u0001"+
-		"\u0000\u0000\u0000GJ\u0005\u001e\u0000\u0000HJ\u0005\u001f\u0000\u0000"+
-		"IG\u0001\u0000\u0000\u0000IH\u0001\u0000\u0000\u0000J\u0007\u0001\u0000"+
-		"\u0000\u0000KT\u0005\r\u0000\u0000LT\u0005\u000e\u0000\u0000MT\u0005\u000f"+
-		"\u0000\u0000NT\u0005\u0010\u0000\u0000OT\u0005\u0011\u0000\u0000PT\u0005"+
-		"\u0012\u0000\u0000QT\u0005\u0013\u0000\u0000RT\u0005\u0014\u0000\u0000"+
-		"SK\u0001\u0000\u0000\u0000SL\u0001\u0000\u0000\u0000SM\u0001\u0000\u0000"+
-		"\u0000SN\u0001\u0000\u0000\u0000SO\u0001\u0000\u0000\u0000SP\u0001\u0000"+
-		"\u0000\u0000SQ\u0001\u0000\u0000\u0000SR\u0001\u0000\u0000\u0000T\t\u0001"+
-		"\u0000\u0000\u0000Uh\u0005 \u0000\u0000Vh\u0005!\u0000\u0000WY\u0005\""+
-		"\u0000\u0000XZ\u0005\u001b\u0000\u0000YX\u0001\u0000\u0000\u0000YZ\u0001"+
-		"\u0000\u0000\u0000Zh\u0001\u0000\u0000\u0000[]\u0005#\u0000\u0000\\^\u0005"+
-		"\u001b\u0000\u0000]\\\u0001\u0000\u0000\u0000]^\u0001\u0000\u0000\u0000"+
-		"^h\u0001\u0000\u0000\u0000_a\u0005$\u0000\u0000`b\u0005\u001b\u0000\u0000"+
-		"a`\u0001\u0000\u0000\u0000ab\u0001\u0000\u0000\u0000bh\u0001\u0000\u0000"+
-		"\u0000ce\u0005%\u0000\u0000df\u0005\u001b\u0000\u0000ed\u0001\u0000\u0000"+
-		"\u0000ef\u0001\u0000\u0000\u0000fh\u0001\u0000\u0000\u0000gU\u0001\u0000"+
-		"\u0000\u0000gV\u0001\u0000\u0000\u0000gW\u0001\u0000\u0000\u0000g[\u0001"+
-		"\u0000\u0000\u0000g_\u0001\u0000\u0000\u0000gc\u0001\u0000\u0000\u0000"+
-		"h\u000b\u0001\u0000\u0000\u0000\n\u0015\"EISY]aeg";
+		"\u0004\u0001\u0004\u0003\u0004\\\b\u0004\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0005\u0003\u0005b\b\u0005\u0001\u0005\u0001\u0005\u0003"+
+		"\u0005f\b\u0005\u0001\u0005\u0001\u0005\u0003\u0005j\b\u0005\u0001\u0005"+
+		"\u0001\u0005\u0003\u0005n\b\u0005\u0003\u0005p\b\u0005\u0001\u0005\u0000"+
+		"\u0000\u0006\u0000\u0002\u0004\u0006\b\n\u0000\u0000\u009b\u0000\u0015"+
+		"\u0001\u0000\u0000\u0000\u0002$\u0001\u0000\u0000\u0000\u0004M\u0001\u0000"+
+		"\u0000\u0000\u0006Q\u0001\u0000\u0000\u0000\b[\u0001\u0000\u0000\u0000"+
+		"\no\u0001\u0000\u0000\u0000\f\u0016\u0005\u0017\u0000\u0000\r\u0016\u0005"+
+		"\u0018\u0000\u0000\u000e\u0016\u0005\u0019\u0000\u0000\u000f\u0010\u0005"+
+		"\u001a\u0000\u0000\u0010\u0016\u0003\u0002\u0001\u0000\u0011\u0016\u0005"+
+		"\u001b\u0000\u0000\u0012\u0016\u0003\u0004\u0002\u0000\u0013\u0016\u0005"+
+		"\u0001\u0000\u0000\u0014\u0016\u0003\n\u0005\u0000\u0015\f\u0001\u0000"+
+		"\u0000\u0000\u0015\r\u0001\u0000\u0000\u0000\u0015\u000e\u0001\u0000\u0000"+
+		"\u0000\u0015\u000f\u0001\u0000\u0000\u0000\u0015\u0011\u0001\u0000\u0000"+
+		"\u0000\u0015\u0012\u0001\u0000\u0000\u0000\u0015\u0013\u0001\u0000\u0000"+
+		"\u0000\u0015\u0014\u0001\u0000\u0000\u0000\u0016\u0001\u0001\u0000\u0000"+
+		"\u0000\u0017%\u0005\u001c\u0000\u0000\u0018%\u0005\u0002\u0000\u0000\u0019"+
+		"%\u0005\u0003\u0000\u0000\u001a%\u0005\u0004\u0000\u0000\u001b%\u0005"+
+		"\u0005\u0000\u0000\u001c%\u0005\u0006\u0000\u0000\u001d%\u0005\u0007\u0000"+
+		"\u0000\u001e%\u0005\b\u0000\u0000\u001f%\u0005\t\u0000\u0000 %\u0005\n"+
+		"\u0000\u0000!%\u0005\u000b\u0000\u0000\"%\u0005\f\u0000\u0000#%\u0005"+
+		"\r\u0000\u0000$\u0017\u0001\u0000\u0000\u0000$\u0018\u0001\u0000\u0000"+
+		"\u0000$\u0019\u0001\u0000\u0000\u0000$\u001a\u0001\u0000\u0000\u0000$"+
+		"\u001b\u0001\u0000\u0000\u0000$\u001c\u0001\u0000\u0000\u0000$\u001d\u0001"+
+		"\u0000\u0000\u0000$\u001e\u0001\u0000\u0000\u0000$\u001f\u0001\u0000\u0000"+
+		"\u0000$ \u0001\u0000\u0000\u0000$!\u0001\u0000\u0000\u0000$\"\u0001\u0000"+
+		"\u0000\u0000$#\u0001\u0000\u0000\u0000%\u0003\u0001\u0000\u0000\u0000"+
+		"&\'\u0005\u001c\u0000\u0000\'(\u0005\u000e\u0000\u0000(N\u0003\u0006\u0003"+
+		"\u0000)*\u0005\u0002\u0000\u0000*+\u0005\u000e\u0000\u0000+N\u0005\u001e"+
+		"\u0000\u0000,-\u0005\u0003\u0000\u0000-.\u0005\u000e\u0000\u0000.N\u0003"+
+		"\b\u0004\u0000/0\u0005\u0004\u0000\u000001\u0005\u000e\u0000\u00001N\u0005"+
+		"\u001f\u0000\u000023\u0005\u0005\u0000\u000034\u0005\u000e\u0000\u0000"+
+		"4N\u0005\u001f\u0000\u000056\u0005\u0006\u0000\u000067\u0005\u000e\u0000"+
+		"\u00007N\u0005\u001e\u0000\u000089\u0005\u0007\u0000\u00009:\u0005\u000e"+
+		"\u0000\u0000:N\u0005\u001e\u0000\u0000;<\u0005\b\u0000\u0000<=\u0005\u000e"+
+		"\u0000\u0000=N\u0005\u001f\u0000\u0000>?\u0005\t\u0000\u0000?@\u0005\u000e"+
+		"\u0000\u0000@N\u0005\u001d\u0000\u0000AB\u0005\n\u0000\u0000BC\u0005\u000e"+
+		"\u0000\u0000CN\u0005\u001f\u0000\u0000DE\u0005\u000b\u0000\u0000EF\u0005"+
+		"\u000e\u0000\u0000FN\u0005\u001f\u0000\u0000GH\u0005\f\u0000\u0000HI\u0005"+
+		"\u000e\u0000\u0000IN\u0005\u001d\u0000\u0000JK\u0005\r\u0000\u0000KL\u0005"+
+		"\u000e\u0000\u0000LN\u0005\u001f\u0000\u0000M&\u0001\u0000\u0000\u0000"+
+		"M)\u0001\u0000\u0000\u0000M,\u0001\u0000\u0000\u0000M/\u0001\u0000\u0000"+
+		"\u0000M2\u0001\u0000\u0000\u0000M5\u0001\u0000\u0000\u0000M8\u0001\u0000"+
+		"\u0000\u0000M;\u0001\u0000\u0000\u0000M>\u0001\u0000\u0000\u0000MA\u0001"+
+		"\u0000\u0000\u0000MD\u0001\u0000\u0000\u0000MG\u0001\u0000\u0000\u0000"+
+		"MJ\u0001\u0000\u0000\u0000N\u0005\u0001\u0000\u0000\u0000OR\u0005 \u0000"+
+		"\u0000PR\u0005!\u0000\u0000QO\u0001\u0000\u0000\u0000QP\u0001\u0000\u0000"+
+		"\u0000R\u0007\u0001\u0000\u0000\u0000S\\\u0005\u000f\u0000\u0000T\\\u0005"+
+		"\u0010\u0000\u0000U\\\u0005\u0011\u0000\u0000V\\\u0005\u0012\u0000\u0000"+
+		"W\\\u0005\u0013\u0000\u0000X\\\u0005\u0014\u0000\u0000Y\\\u0005\u0015"+
+		"\u0000\u0000Z\\\u0005\u0016\u0000\u0000[S\u0001\u0000\u0000\u0000[T\u0001"+
+		"\u0000\u0000\u0000[U\u0001\u0000\u0000\u0000[V\u0001\u0000\u0000\u0000"+
+		"[W\u0001\u0000\u0000\u0000[X\u0001\u0000\u0000\u0000[Y\u0001\u0000\u0000"+
+		"\u0000[Z\u0001\u0000\u0000\u0000\\\t\u0001\u0000\u0000\u0000]p\u0005\""+
+		"\u0000\u0000^p\u0005#\u0000\u0000_a\u0005$\u0000\u0000`b\u0005\u001d\u0000"+
+		"\u0000a`\u0001\u0000\u0000\u0000ab\u0001\u0000\u0000\u0000bp\u0001\u0000"+
+		"\u0000\u0000ce\u0005%\u0000\u0000df\u0005\u001d\u0000\u0000ed\u0001\u0000"+
+		"\u0000\u0000ef\u0001\u0000\u0000\u0000fp\u0001\u0000\u0000\u0000gi\u0005"+
+		"&\u0000\u0000hj\u0005\u001d\u0000\u0000ih\u0001\u0000\u0000\u0000ij\u0001"+
+		"\u0000\u0000\u0000jp\u0001\u0000\u0000\u0000km\u0005\'\u0000\u0000ln\u0005"+
+		"\u001d\u0000\u0000ml\u0001\u0000\u0000\u0000mn\u0001\u0000\u0000\u0000"+
+		"np\u0001\u0000\u0000\u0000o]\u0001\u0000\u0000\u0000o^\u0001\u0000\u0000"+
+		"\u0000o_\u0001\u0000\u0000\u0000oc\u0001\u0000\u0000\u0000og\u0001\u0000"+
+		"\u0000\u0000ok\u0001\u0000\u0000\u0000p\u000b\u0001\u0000\u0000\u0000"+
+		"\n\u0015$MQ[aeimo";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -245,6 +245,30 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOptionMode(LabeledSettingsParser.OptionModeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -372,6 +396,30 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOptionLogicalSymbol(LabeledSettingsParser.OptionLogicalSymbolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

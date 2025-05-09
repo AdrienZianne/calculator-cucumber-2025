@@ -236,6 +236,30 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 */
 	void exitInfoLogicalSymbol(LabeledSettingsParser.InfoLogicalSymbolContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code InfoMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void enterInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InfoMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void exitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InfoDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void enterInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InfoDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void exitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code OptionMode}
 	 * labeled alternative in {@link LabeledSettingsParser#option}.
 	 * @param ctx the parse tree
@@ -367,6 +391,30 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOptionLogicalSymbol(LabeledSettingsParser.OptionLogicalSymbolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OptionMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OptionMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OptionDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OptionDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ModeArithmetic}
 	 * labeled alternative in {@link LabeledSettingsParser#modes}.

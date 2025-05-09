@@ -21,6 +21,8 @@ info : MODE                       #InfoMode
      | 'seed'                     #InfoSeed
      | 'base_notation_convention' #InfoBaseNotationConvention
      | 'logical_symbol'           #InfoLogicalSymbol
+     | 'max_store'                #InfoMaxStore
+     | 'delete_duplicates'        #InfoDeleteDuplicates
      ;
 
 option : MODE '=' modes                        #OptionMode
@@ -34,6 +36,8 @@ option : MODE '=' modes                        #OptionMode
        | 'seed' '=' INT                        #OptionSeed
        | 'base_notation_convention' '=' BOOL   #OptionBaseNotationConvention
        | 'logical_symbol' '=' BOOL             #OptionLogicalSymbol
+       | 'max_store' '=' INT                   #OptionMaxStore
+       | 'delete_duplicates' '=' BOOL          #OptionDeleteDuplicates
        ;
 
 modes : ARITHMETIC #ModeArithmetic

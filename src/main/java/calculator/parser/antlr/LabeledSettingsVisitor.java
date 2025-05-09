@@ -144,6 +144,20 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInfoLogicalSymbol(LabeledSettingsParser.InfoLogicalSymbolContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code InfoMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InfoDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code OptionMode}
 	 * labeled alternative in {@link LabeledSettingsParser#option}.
 	 * @param ctx the parse tree
@@ -220,6 +234,20 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOptionLogicalSymbol(LabeledSettingsParser.OptionLogicalSymbolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OptionMaxStore}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OptionDeleteDuplicates}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ModeArithmetic}
 	 * labeled alternative in {@link LabeledSettingsParser#modes}.

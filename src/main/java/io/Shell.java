@@ -59,7 +59,7 @@ public class Shell {
                 "use_real_notation", "use_scientific_notation", "sc_notation_max_left", "sc_notation_max_right",
                 "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol", "true", "false",
                 "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up", "logs", "favos",
-                "add_favo", "del_favo", "use_log", "use_favo");
+                "add_favo", "del_favo", "use_log", "use_favo", "max_store", "delete_duplicates");
 
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
@@ -104,6 +104,11 @@ public class Shell {
                 "Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2." });
         infoOptions.put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", "[true|false]",
                 "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
+        infoOptions.put(Options.MAX_STORE,
+                new String[] { "max_store", "An positive integer value",
+                        "Number of elements that can be stored in logs and favors." });
+        infoOptions.put(Options.DELETE_DUPLICATES, new String[] { "delete_duplicates", "[true|false]",
+                "Selects whether to delete duplicates in logs and favors." });
     }
 
     /**
@@ -265,6 +270,8 @@ public class Shell {
                 \tseed = int
                 \tbase_notation_convention = bool
                 \tlogical_symbol = bool
+                \tmax_store = int
+                \tdelete_duplicates = bool
                 """);
     }
 
@@ -317,6 +324,10 @@ public class Shell {
                 return "" + Configuration.getBaseNotationConvention();
             case Options.LOGICAL_SYMBOL:
                 return "" + Configuration.getLogicalSymbol();
+            case Options.MAX_STORE:
+                return "" + Configuration.getMaxStore();
+            case Options.DELETE_DUPLICATES:
+                return "" + Configuration.getDeleteDuplicates();
         }
 
         return "";
@@ -339,11 +350,8 @@ public class Shell {
      * {@link Configuration}
      */
     public enum Options {
-        MODE, REAL_PRECISION, REAL_ROUNDING_MODE,
-        USE_REAL_NOTATION, USE_SCIENTIFIC_NOTATION,
-        SC_NOTATION_MAX_LEFT, SC_NOTATION_MAX_RIGHT,
-        USE_DEGREES, SEED,
-        BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL
+        MODE, REAL_PRECISION, REAL_ROUNDING_MODE, USE_REAL_NOTATION, USE_SCIENTIFIC_NOTATION, SC_NOTATION_MAX_LEFT,
+        SC_NOTATION_MAX_RIGHT, USE_DEGREES, SEED, BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL, MAX_STORE, DELETE_DUPLICATES
     }
 
     /**
