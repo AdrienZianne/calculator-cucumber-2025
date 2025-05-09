@@ -6,27 +6,92 @@ import calculator.operation.binary.Plus;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
- * Represents the term {@code ax^n + b} where {@code x} is an unknown value,
- * {@code n} the exponentiation of {@code x},
- * while {@code a} and {@code b} represent numbers.
+ * Represents the expression {@code a_0x^{n_0} + ... + a_i x^{n_i} + b},
+ * where {@code x} is an unknown value,
+ * while {@code a}, {@code n} and {@code b} represent numbers.
  */
 public final class MyUnknown extends MyNumber {
-    private final MyNumber exponent;
-    private final MyNumber a;
-    private final MyNumber b;
+    private final HashMap<MyNumber, MyNumber> operands;
+
+    private final MyNumber rest;
 
     private MyUnknown(MyNumber a, MyNumber b, MyNumber exponent) {
-        this.exponent = exponent;
-        this.a = a;
-        this.b = b;
+        this.operands = new HashMap<>();
+        operands.put(exponent, a);
+
+        this.rest = b;
+    }
+
+    private MyUnknown(HashMap<MyNumber, MyNumber> operands, MyNumber rest) {
+        this.operands = operands;
+        this.rest = rest;
+    }
+
+    /**
+     * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code a_0x^{n_0} + ... + a_i x^{n_i} + rest}.
+     * @param operands The list of values representing : {@code [(a_0,n_0), ..., (a_i,n_i)]}. Note that for each pair, the first value represent {@code a} and the second {@code n}.
+     * @param rest The value of {@code rest}.
+     * @return
+     * <ul>
+     *     <li>{@code rest} if {@code a} is equivalent to zero.</li> // TODO FIX THIS DOC !!!
+     *     <li>{@code a+b} if {@code n} is equivalent to zero.</li>
+     *     <li>
+     *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
+     *          (it return the undefined parameter)
+     *      </li>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
+     *     <ul>
+     *         <li>A {@code null} argument</li>
+     *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
+     *         <li>Another instance of the {@link MyUnknown} class.</li>
+     *     </ul>
+     *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
+     * </ul>
+     */
+    public static MyNumber create(List<Pair<MyNumber, MyNumber>> operands, MyNumber rest) {
+
+        MyNumber validity = checkOperandValidity(rest);
+        if (validity != null) {return validity;}
+
+
+        HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
+
+        MyNumber totalRest = ConstantNumber.ZERO;
+
+
+        for (Pair<MyNumber, MyNumber> operand : operands) {
+
+            validity = checkOperandValidity(operand.a);
+            if (validity != null) {return validity;}
+
+            validity = checkOperandValidity(operand.b);
+            if (validity != null) {return validity;}
+
+
+
+            // if the exponent is zero then we can add 'a' to the rest.
+            if (operand.b.isZero()) totalRest = BinaryOperation.op(totalRest, rest, Plus::new);
+            // If the exponent doesn't already exist we add it
+            else if (!newOperands.containsKey(operand.b)) {
+                newOperands.put(operand.b, operand.a);
+            }
+            // else if a 'x' with the same exponent was already added we can add them together
+            else {
+                newOperands.replace(operand.b, BinaryOperation.op(newOperands.get(operand.b), operand.a, Plus::new));
+            }
+        }
+        totalRest = BinaryOperation.op(totalRest, rest, Plus::new);
+
+        return newOperands.isEmpty() ? totalRest : new MyUnknown(newOperands, totalRest);
     }
 
 
+
     /**
-     * A constructor for the {@link MyUnknown} class.
+     * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code ax^n + b}.
      * @param a The value of {@code a}.
      * @param b The value of {@code b}.
      * @param n The value of {@code n}.
@@ -48,39 +113,11 @@ public final class MyUnknown extends MyNumber {
      * </ul>
      */
     public static MyNumber create(MyNumber a, MyNumber b, MyNumber n) {
-        if (a == null || b == null || n == null) { return new MyErrorNumber(null, "Tried to create an unknown" +
-                " number using a null argument"); }
-        if (a.isZero())
-            return b;
-        if (n.isZero())
-            return BinaryOperation.op(a, b, Plus::new);
-
-        if (a instanceof MyErrorNumber ea)
-            return ea;
-        if (b instanceof MyErrorNumber eb)
-            return eb;
-        if (n instanceof MyErrorNumber nb)
-            return nb;
-
-        if (a instanceof MyUndefinedNumber ea)
-            return ea;
-        if (b instanceof MyUndefinedNumber eb)
-            return eb;
-        if (n instanceof MyUndefinedNumber nb)
-            return nb;
-
-
-        if (a instanceof MyUnknown aU)
-            return new MyErrorNumber(null, "Tried to pass another unknown number as argument to create another unknown number: " + aU);
-
-        if (b instanceof MyUnknown bU)
-            return new MyErrorNumber(null, "Tried to pass another unknown number as argument to create another unknown number: " + bU);
-
-        return new MyUnknown(a, b, n);
+        return create(List.of(new Pair<>(a, n)), b);
     }
 
     /**
-     * A constructor for the {@link MyUnknown} class.
+     * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code ax + b}
      * @param a The value of {@code a}.
      * @param b The value of {@code b}.
      * @return
@@ -96,7 +133,7 @@ public final class MyUnknown extends MyNumber {
      *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
      *         <li>Another instance of the {@link MyUnknown} class.</li>
      *     </ul>
-     *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^1 + b}.</li>
+     *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax + b}.</li>
      * </ul>
     */
     public static MyNumber create(MyNumber a, MyNumber b) {
@@ -107,12 +144,13 @@ public final class MyUnknown extends MyNumber {
 
     @Override
     public Object getObjectValue() {
-        return new Pair<>(a, b);
+        return null;
     }
 
     @Override
     public boolean isZero() {
-        return a.isZero() && b.isZero();
+        boolean isZero = true;
+        return isZero && rest.isZero();
     }
 
     @Override
@@ -121,46 +159,71 @@ public final class MyUnknown extends MyNumber {
         // (2x - 3) is *positive*
         // (-2x + 3) is *positive*
         // (-2x - 3) = - (2x + 3) is *negative*
-        return (a.getSign() < 0 && b.getSign() < 0) ? -1 : 1;
+        return 1;
     }
 
     @Override
     public String toString() {
-        char opSymbol = '+';
-        MyNumber notUnknownPart = b;
-        if (notUnknownPart.getSign() < 0) {
-            opSymbol = '-';
-            notUnknownPart = UnaryOperation.op(notUnknownPart, Negation::new);
-        }
-        String notUnknownString;
-        if (notUnknownPart.equals(ConstantNumber.ZERO)){
-            notUnknownString = "";
-        }else {
-            notUnknownString = notUnknownPart.toString();
+        StringBuilder res = new StringBuilder();
+
+        for (MyNumber exp : operands.keySet()) {
+            res.append(termAsString(operands.get(exp), exp));
+            res.append(" ");
         }
 
-        return a.toString() + 'x' + (exponent.equals(ConstantNumber.ONE) ? "" : "^" + exponent)
-                + (!b.isZero() ?
-                    " " + opSymbol + " " + notUnknownString : "");
+        return res + (rest.isZero() ? "" : termAsString(rest)) ;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        MyUnknown myUnknown = (MyUnknown) o;
-        return Objects.equals(exponent, myUnknown.exponent) && Objects.equals(a, myUnknown.a) && Objects.equals(b, myUnknown.b);
+    private String termAsString(MyNumber factor) {
+        String res = "+";
+        if (factor.getSign() < 0) {
+            res = "-";
+            factor = UnaryOperation.op(factor, Negation::new);
+        }
+        return res + " " + (factor.equals(ConstantNumber.ONE) ? "": factor);
+    }
+
+    private String termAsString(MyNumber factor, MyNumber exp) {
+        String res = termAsString(factor) + "x";
+
+        if (!exp.equals(ConstantNumber.ONE)) {
+            return res +"^" + exp;
+        }
+        return res;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exponent, a, b);
+        return Objects.hash(operands, rest);
     }
 
-    public MyNumber getA() {
-        return a;
+    public Map<MyNumber, MyNumber> getOperands() {
+        return operands;
     }
 
-    public MyNumber getB() {
-        return b;
+    public MyNumber getRest() {
+        return rest;
+    }
+
+
+    private static MyNumber checkOperandValidity(MyNumber operand) {
+        switch (operand) {
+            case null -> {
+                return new MyErrorNumber(null, "Tried to create an unknown" +
+                        " number using a null argument");
+            }
+            case MyErrorNumber eb -> {
+                return eb;
+            }
+            case MyUndefinedNumber ea -> {
+                return ea;
+            }
+            case MyUnknown _ -> {
+                return new MyErrorNumber(null, "Tried to pass another unknown number as argument to create another unknown number");
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 }
