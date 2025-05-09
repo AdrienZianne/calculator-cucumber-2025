@@ -1,11 +1,14 @@
 package io;
 
+import io.Memory.Category;
+
 import calculator.Calculator;
 import calculator.Expression;
 import calculator.Programmer;
 import calculator.Configuration;
 import calculator.Configuration.Mode;
 import calculator.parser.CalculatorParser;
+
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -13,7 +16,6 @@ import org.jline.reader.impl.LineReaderImpl;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,11 +42,9 @@ public class Shell {
      */
     private LineReader reader;
 
-    /**
-     * Attribute containing the object that keeps the application context. It is
-     * used to close the application.
-     */
-    private ConfigurableApplicationContext ctx;
+    private Memory memo;
+
+    private String expression_reuse = "";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
@@ -58,13 +58,16 @@ public class Shell {
         List<String> completionStrings = Arrays.asList("mode", "real_precision", "real_rounding_mode",
                 "use_real_notation", "use_scientific_notation", "sc_notation_max_left", "sc_notation_max_right",
                 "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol", "true", "false",
-                "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up");
+                "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up", "logs", "favos",
+                "add_favo", "del_favo", "use_log", "use_favo");
 
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer(new StringsCompleter(completionStrings))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
+
+        memo = new Memory();
 
         infoOptions.put(Options.MODE, new String[] { "mode", "[arithmetic|programmer]",
                 "Selects the calculator mode." });
@@ -122,17 +125,20 @@ public class Shell {
         while (!interrupted) {
 
             try {
-                String line = reader.readLine(">> ").trim();
+                String line = reader.readLine(">> ", null, expression_reuse).trim();
+                expression_reuse = "";
 
                 if (!line.isEmpty() && line.charAt(0) == '$') {
                     modeSettings(line.substring(1));
                 } else {
+                    String res;
                     if (Configuration.getMode() == Mode.ARITHMETIC) {
-                        modeArithmetic(c, line);
+                        res = modeArithmetic(c, line);
 
                     } else {
-                        modeProgrammer(line);
+                        res = modeProgrammer(line);
                     }
+                    memo.addElement(Category.LOG, line, res);
                 }
 
                 reader.getHistory().add(line);
@@ -149,7 +155,7 @@ public class Shell {
      */
     private void modeSettings(String line) {
         try {
-            CalculatorParser.parseSettings(line, this);
+            CalculatorParser.parseSettings(line, this, memo);
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
@@ -161,37 +167,51 @@ public class Shell {
      * 
      * @param c    The calculator.
      * @param line User input
-     *             {@link Calculator}
+     * @return The result of the operation as a string to be stored in the logs.
+     *         {@link Calculator}
+     *         {@link MemoryImageSource}
      */
-    private void modeArithmetic(Calculator c, String line) {
+    private String modeArithmetic(Calculator c, String line) {
         try {
             Expression exp = CalculatorParser.parseArithmetic(line);
             if (exp == null)
                 System.out.println("[DEBUG] : Result was null, returning");
-            else
-                terminal.writer().println(c.eval(exp));
+            else {
+                Expression res = c.eval(exp);
+                terminal.writer().println(res);
+                return res.toString();
+            }
+
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
         }
+
+        return "";
     }
 
     /**
      * Method for calling the parser for logic and computer calculations.
      * 
      * @param line User input
+     * @return The result of the operation as a string to be stored in the logs.
+     *         {@link MemoryImageSource}
      */
-    private void modeProgrammer(String line) {
+    private String modeProgrammer(String line) {
         try {
             Programmer exp = CalculatorParser.parseProgrammer(line);
             if (exp == null)
                 System.out.println("[DEBUG] : Result was null, returning");
-            else
+            else {
                 terminal.writer().println(exp);
+                return exp.toString();
+            }
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
         }
+
+        return "";
     }
 
     /**
@@ -201,7 +221,7 @@ public class Shell {
         terminal.writer().println("Exiting !");
         terminal.flush();
         interrupted = true;
-        ctx.close();
+        memo.save();
     }
 
     /**
@@ -211,13 +231,19 @@ public class Shell {
         terminal.writer().println("""
                 \033[1mCalculator Cucumber\033[0m
 
-                \t$<help|h>           : Display this message
-                \t$<clear|c>          : Clear the screen
-                \t$<quit|q>           : Quit the application
-                \t$<list|l>           : List options
-                \t$<info|i> <option>  : Displays information about an option
-                \t$<reset_seed>       : Disables seed
-                \t$<option> = <value> : Setting an option value
+                \t$<help|h>            : Display this message
+                \t$<clear|c>           : Clear the screen
+                \t$<quit|q>            : Quit the application
+                \t$<list|l>            : List options
+                \t$<info|i> <option>   : Displays information about an option
+                \t$<reset_seed>        : Disables seed
+                \t$<option> = <value>  : Setting an option value
+                \t$<logs|ll>           : Display logs
+                \t$<favos|lf>          : Display favorites
+                \t$<add_favo|af> [int] : Add the targeted expression as a favorite
+                \t$<del_favo|df> [int] : Removes targeted expression from favors
+                \t$<use_log|ul>  [int] : Re-use targeted expression in logs
+                \t$<use_favo|uf> [int] : Re-use targeted expression in favors
                 """);
     }
 
@@ -301,6 +327,10 @@ public class Shell {
      */
     public void clear() {
         ((LineReaderImpl) reader).clearScreen();
+    }
+
+    public void reuse_exp(Category c, Integer index) {
+        expression_reuse = memo.getExpression(c, index);
     }
 
     /**

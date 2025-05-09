@@ -60,6 +60,13 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SettingsHistory}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSettingsHistory(LabeledSettingsParser.SettingsHistoryContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InfoMode}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree
@@ -283,4 +290,46 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRoundingModeUp(LabeledSettingsParser.RoundingModeUpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryLogs}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryFavos}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryAddFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryDelFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryUseLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryUseFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx);
 }

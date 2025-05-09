@@ -92,6 +92,18 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 */
 	void exitSettingsResetSeed(LabeledSettingsParser.SettingsResetSeedContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SettingsHistory}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void enterSettingsHistory(LabeledSettingsParser.SettingsHistoryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SettingsHistory}
+	 * labeled alternative in {@link LabeledSettingsParser#setting}.
+	 * @param ctx the parse tree
+	 */
+	void exitSettingsHistory(LabeledSettingsParser.SettingsHistoryContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code InfoMode}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree
@@ -475,4 +487,76 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRoundingModeUp(LabeledSettingsParser.RoundingModeUpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryLogs}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryLogs}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryFavos}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryFavos}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryAddFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryAddFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryDelFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryDelFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryUseLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryUseLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryUseFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryUseFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx);
 }

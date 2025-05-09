@@ -7,6 +7,8 @@ import calculator.Configuration.Mode;
 import calculator.parser.antlr.*;
 
 import io.Shell;
+import io.Memory;
+import io.Memory.Category;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.
@@ -16,9 +18,11 @@ import io.Shell;
 public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
 
     private Shell shell;
+    private Memory memo;
 
-    public SettingsParser(Shell shell) {
+    public SettingsParser(Shell shell, Memory memo) {
         this.shell = shell;
+        this.memo = memo;
     }
 
     /*
@@ -250,6 +254,62 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
     @Override
     public Void visitRoundingModeUp(LabeledSettingsParser.RoundingModeUpContext ctx) {
         Configuration.setRealRoundingMode(RoundingMode.UP);
+        return null;
+    }
+
+    /*
+     * __________________________________________________________________History
+     */
+
+    @Override
+    public Void visitHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx) {
+        memo.printData(Category.LOG);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx) {
+        memo.printData(Category.FAVO);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        memo.addFavo(index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        memo.delFavo(index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        shell.reuse_exp(Category.LOG, index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        shell.reuse_exp(Category.FAVO, index);
         return null;
     }
 }

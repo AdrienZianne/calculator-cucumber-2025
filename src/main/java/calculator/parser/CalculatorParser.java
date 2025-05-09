@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import io.Shell;
+import io.Memory;
 
 /**
  * CalculatorParser
@@ -17,10 +18,11 @@ public class CalculatorParser {
     /**
      * Method used to launch the parser on parameters.
      * 
-     * @param input User input.
-     * @param shell Connect to the shell to call methods from the parser.
+     * @param input  User input.
+     * @param shell  Connect to the shell to call methods from the parser.
+     * @param Memory instance to interact with logs and favors.
      */
-    public static void parseSettings(String input, Shell shell) {
+    public static void parseSettings(String input, Shell shell, Memory memo) {
         // Read input as stream
         CharStream inp = CharStreams.fromString(input);
 
@@ -30,7 +32,7 @@ public class CalculatorParser {
         parser.removeErrorListeners();
         parser.addErrorListener(new ThrowingErrorListener());
 
-        SettingsParser eval = new SettingsParser(shell);
+        SettingsParser eval = new SettingsParser(shell, memo);
         try {
             eval.visit(parser.setting());
         } catch (ParserError e) {
