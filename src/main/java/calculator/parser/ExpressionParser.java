@@ -400,6 +400,15 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) {
+        if (ctx.getChildCount() == 1) {
+            return MyUnknown.create(new MyInteger(1), new MyInteger(0));
+        }
+
+        return MyUnknown.create((MyNumber) visit(ctx.getChild(0)), new MyInteger(0));
+    }
+
+    @Override
     public Expression visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) {
         return new MyInfinity(true);
     }

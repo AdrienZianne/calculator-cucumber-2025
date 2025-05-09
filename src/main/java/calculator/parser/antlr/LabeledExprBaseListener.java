@@ -341,13 +341,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx) { }
+	@Override public void enterAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx) { }
+	@Override public void exitAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -689,13 +689,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { }
+	@Override public void enterAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { }
+	@Override public void exitAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -845,13 +845,13 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx) { }
+	@Override public void enterAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx) { }
+	@Override public void exitAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1056,6 +1056,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnknownNumber(LabeledExprParser.UnknownNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnknownNumber(LabeledExprParser.UnknownNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -330,17 +330,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomPostfixInt}
+	 * Enter a parse tree produced by the {@code AtomPostfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
+	void enterAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AtomPostfixInt}
+	 * Exit a parse tree produced by the {@code AtomPostfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
+	void exitAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LabeledExprParser#postfixBinaryArgs}.
 	 * @param ctx the parse tree
@@ -674,17 +674,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomPrefixInt}
+	 * Enter a parse tree produced by the {@code AtomPrefixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	void enterAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AtomPrefixInt}
+	 * Exit a parse tree produced by the {@code AtomPrefixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	void exitAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LabeledExprParser#prefixBinaryArgs}.
 	 * @param ctx the parse tree
@@ -826,17 +826,17 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AtomInfixComplex}
+	 * Enter a parse tree produced by the {@code AtomInfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
+	void enterAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AtomInfixComplex}
+	 * Exit a parse tree produced by the {@code AtomInfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
+	void exitAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -1041,6 +1041,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnknownUnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnknownUnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnknownNumber(LabeledExprParser.UnknownNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnknownNumber(LabeledExprParser.UnknownNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
