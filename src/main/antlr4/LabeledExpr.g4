@@ -95,13 +95,13 @@ sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
     | sumInfix MOD  sumInfix                        #SumInfixMod
-    | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
     ;
 
-productInfix: atomInfix                  #ProductInfixAtom
-    | productInfix EXPONENT atomInfix    #ProductInfixExpo
-    | productInfix '*' atomInfix         #ProductInfixMult
-    | productInfix '/' atomInfix         #ProductInfixDiv
+productInfix: atomInfix                             #ProductInfixAtom
+    | productInfix EXPONENT atomInfix               #ProductInfixExpo
+    | productInfix '*' atomInfix                    #ProductInfixMult
+    | productInfix '/' atomInfix                    #ProductInfixDiv
+    | 'root' '(' sumInfix + ',' + sumInfix ')'      #ProductInfixRoot
     ;
 
 atomInfix: unaryInfix           #AtomInfixUnary

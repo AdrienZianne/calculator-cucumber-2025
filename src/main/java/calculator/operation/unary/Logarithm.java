@@ -59,6 +59,11 @@ public final class Logarithm extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the logarithm operation");
+    }
+
+    @Override
     public MyNumber op(MyInfinity i) {
         MyErrorNumber check = checkValidity(i);
         if (check != null)

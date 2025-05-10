@@ -58,6 +58,11 @@ public final class Absolute extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the absolute operation");
+    }
+
+    @Override
     public MyNumber op(MyInfinity i) {
         return new MyInfinity(true);
     }

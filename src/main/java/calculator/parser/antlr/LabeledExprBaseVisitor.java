@@ -431,13 +431,6 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -474,6 +467,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

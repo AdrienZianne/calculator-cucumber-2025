@@ -3,6 +3,8 @@ package calculator.operation.binary;
 import calculator.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -124,6 +126,55 @@ public final class Times extends CommutativeBinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
         return new MyInfinity(l.isPositive() && r.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return MyUnknown.applyToAllOperators(r, l, Times::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return MyUnknown.applyToAllOperators(l,r, Times::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return MyUnknown.applyToAllOperators(l,r, Times::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return MyUnknown.applyToAllOperators(l,r, Times::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return MyUnknown.applyToAllOperators(l,r, Times::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+
+        ArrayList<Pair<MyNumber, MyNumber>> newOperand = new ArrayList<>();
+
+        MyNumber factor;
+        for (MyNumber expR : r.getOperands().keySet()) {
+            factor = r.getOperands().get(expR);
+            // (factor * x^exp) * l
+            for (MyNumber expL : l.getOperands().keySet()) {
+                newOperand.add(new Pair<>(op(factor, l.getOperands().get(expL)), BinaryOperation.op(expR, expL, Plus::new)));
+            }
+            // add the rest
+            newOperand.add(new Pair<>(op(l.getRest(), factor), expR));
+
+
+        }
+        // Associate every term
+        MyNumber total = MyUnknown.create(newOperand, ConstantNumber.ZERO);
+
+        // Add the rest
+        return BinaryOperation.op(total, op(r.getRest(), l), Plus::new);
     }
 
 

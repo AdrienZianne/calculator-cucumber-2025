@@ -31,8 +31,6 @@ public class Main {
 	 * @param args Command-line parameters are not used in this version
 	 */
 	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
-        MyNumber x = MyUnknown.create(List.of(new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)), new Pair<>(MyInteger.valueOf(-9), MyInteger.valueOf(7)), new Pair<>(MyInteger.valueOf(11), MyInteger.valueOf(1)),new Pair<>(MyInteger.valueOf(11), MyInteger.valueOf(1)), new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3))), MyInteger.valueOf(-5));
-        System.out.println(x);
         if (args.length >= 1 && args[0].equals("web")) {
             SpringApplication.run(Main.class);
         } else {

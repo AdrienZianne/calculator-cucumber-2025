@@ -94,6 +94,11 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by trigonometric functions");
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;

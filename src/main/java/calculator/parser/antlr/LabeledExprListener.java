@@ -706,18 +706,6 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SumInfixRoot}
-	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
-	 * @param ctx the parse tree
-	 */
-	void enterSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SumInfixRoot}
-	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
-	 * @param ctx the parse tree
-	 */
-	void exitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
 	 * @param ctx the parse tree
@@ -789,6 +777,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ProductInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ProductInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ProductInfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.

@@ -38,11 +38,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
-    public Expression visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) {
-        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
-    }
-
-    @Override
     public Expression visitSumInfixMod(LabeledExprParser.SumInfixModContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Modulus(expressions, Notation.INFIX));
     }
@@ -60,6 +55,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
     }
 
     @Override

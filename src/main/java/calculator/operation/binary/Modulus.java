@@ -46,6 +46,11 @@ public final class Modulus extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
     public MyNumber op(MyReal l, MyInteger r) {
         return op(l, MyReal.toReal(r));
     }
@@ -69,6 +74,11 @@ public final class Modulus extends BinaryOperation {
     @Override
     public MyNumber op(MyReal l, MyInfinity r) {
         return new MyReal(l.getValue());
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return getUnknownErrorText();
     }
 
     @Override
@@ -97,6 +107,11 @@ public final class Modulus extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
     public MyNumber op(MyRational l, MyInteger r) {
         return op(MyReal.toReal(l), MyReal.toReal(r));
     }
@@ -119,6 +134,11 @@ public final class Modulus extends BinaryOperation {
     @Override
     public MyNumber op(MyRational l, MyInfinity r) {
         return MyRational.create(l.getNumDenomPair().a, l.getNumDenomPair().b);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return getUnknownErrorText();
     }
 
     @Override
@@ -145,4 +165,44 @@ public final class Modulus extends BinaryOperation {
     public MyNumber op(MyInfinity l, MyInfinity r) {
         return new MyUndefinedNumber(this);
     }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    private MyErrorNumber getUnknownErrorText() {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the modulus operation");
+    }
+
 }

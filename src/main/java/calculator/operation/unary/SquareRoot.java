@@ -69,6 +69,11 @@ public final class SquareRoot extends UnaryOperation {
         return new MyErrorNumber(this, "Complex numbers are not supported by the sqrt operation.");
     }
 
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the sqrt operation");
+    }
+
 
     @Override
     public MyNumber op(MyInfinity i) {

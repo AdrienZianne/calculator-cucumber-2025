@@ -2474,29 +2474,6 @@ public class LabeledExprParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class SumInfixRootContext extends SumInfixContext {
-		public List<SumInfixContext> sumInfix() {
-			return getRuleContexts(SumInfixContext.class);
-		}
-		public SumInfixContext sumInfix(int i) {
-			return getRuleContext(SumInfixContext.class,i);
-		}
-		public SumInfixRootContext(SumInfixContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledExprListener ) ((LabeledExprListener)listener).enterSumInfixRoot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LabeledExprListener ) ((LabeledExprListener)listener).exitSumInfixRoot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LabeledExprVisitor ) return ((LabeledExprVisitor<? extends T>)visitor).visitSumInfixRoot(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class SumInfixAddContext extends SumInfixContext {
 		public SumInfixContext sumInfix() {
 			return getRuleContext(SumInfixContext.class,0);
@@ -2600,136 +2577,51 @@ public class LabeledExprParser extends Parser {
 		SumInfixContext _prevctx = _localctx;
 		int _startState = 30;
 		enterRecursionRule(_localctx, 30, RULE_sumInfix, _p);
-		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(264);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__1:
-			case T__2:
-			case T__3:
-			case T__4:
-			case T__5:
-			case T__6:
-			case T__7:
-			case T__8:
-			case T__9:
-			case T__10:
-			case T__11:
-			case T__12:
-			case T__13:
-			case T__14:
-			case T__15:
-			case T__18:
-			case T__19:
-			case T__20:
-			case T__21:
-			case T__22:
-			case T__23:
-			case T__24:
-			case T__25:
-			case T__26:
-			case T__27:
-			case T__28:
-			case T__29:
-			case T__30:
-			case T__31:
-			case ADD:
-			case SUB:
-			case UNKNOWN:
-			case INT:
-			case FLOAT:
-				{
-				_localctx = new SumInfixProdContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
+			{
+			_localctx = new SumInfixProdContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
 
-				setState(248);
-				productInfix(0);
-				}
-				break;
-			case T__0:
-				{
-				_localctx = new SumInfixRootContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(249);
-				match(T__0);
-				setState(250);
-				match(T__15);
-				setState(252); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(251);
-					sumInfix(0);
-					}
-					}
-					setState(254); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 22239340265470L) != 0) );
-				setState(257); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(256);
-					match(T__16);
-					}
-					}
-					setState(259); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==T__16 );
-				setState(261);
-				sumInfix(0);
-				setState(262);
-				match(T__17);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			setState(248);
+			productInfix(0);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(277);
+			setState(261);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(275);
+					setState(259);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
 					case 1:
 						{
 						_localctx = new SumInfixModContext(new SumInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_sumInfix);
-						setState(266);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(267);
+						setState(250);
+						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+						setState(251);
 						match(MOD);
-						setState(268);
-						sumInfix(3);
+						setState(252);
+						sumInfix(2);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new SumInfixAddContext(new SumInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_sumInfix);
-						setState(269);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(270);
+						setState(253);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(254);
 						match(ADD);
-						setState(271);
+						setState(255);
 						productInfix(0);
 						}
 						break;
@@ -2737,20 +2629,20 @@ public class LabeledExprParser extends Parser {
 						{
 						_localctx = new SumInfixDiffContext(new SumInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_sumInfix);
-						setState(272);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(273);
+						setState(256);
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						setState(257);
 						match(SUB);
-						setState(274);
+						setState(258);
 						productInfix(0);
 						}
 						break;
 					}
 					} 
 				}
-				setState(279);
+				setState(263);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			}
 			}
 		}
@@ -2822,6 +2714,29 @@ public class LabeledExprParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class ProductInfixRootContext extends ProductInfixContext {
+		public List<SumInfixContext> sumInfix() {
+			return getRuleContexts(SumInfixContext.class);
+		}
+		public SumInfixContext sumInfix(int i) {
+			return getRuleContext(SumInfixContext.class,i);
+		}
+		public ProductInfixRootContext(ProductInfixContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledExprListener ) ((LabeledExprListener)listener).enterProductInfixRoot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof LabeledExprListener ) ((LabeledExprListener)listener).exitProductInfixRoot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof LabeledExprVisitor ) return ((LabeledExprVisitor<? extends T>)visitor).visitProductInfixRoot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class ProductInfixMultContext extends ProductInfixContext {
 		public ProductInfixContext productInfix() {
 			return getRuleContext(ProductInfixContext.class,0);
@@ -2881,17 +2796,102 @@ public class LabeledExprParser extends Parser {
 		ProductInfixContext _prevctx = _localctx;
 		int _startState = 32;
 		enterRecursionRule(_localctx, 32, RULE_productInfix, _p);
+		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			_localctx = new ProductInfixAtomContext(_localctx);
-			_ctx = _localctx;
-			_prevctx = _localctx;
-
 			setState(281);
-			atomInfix();
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__1:
+			case T__2:
+			case T__3:
+			case T__4:
+			case T__5:
+			case T__6:
+			case T__7:
+			case T__8:
+			case T__9:
+			case T__10:
+			case T__11:
+			case T__12:
+			case T__13:
+			case T__14:
+			case T__15:
+			case T__18:
+			case T__19:
+			case T__20:
+			case T__21:
+			case T__22:
+			case T__23:
+			case T__24:
+			case T__25:
+			case T__26:
+			case T__27:
+			case T__28:
+			case T__29:
+			case T__30:
+			case T__31:
+			case ADD:
+			case SUB:
+			case UNKNOWN:
+			case INT:
+			case FLOAT:
+				{
+				_localctx = new ProductInfixAtomContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(265);
+				atomInfix();
+				}
+				break;
+			case T__0:
+				{
+				_localctx = new ProductInfixRootContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(266);
+				match(T__0);
+				setState(267);
+				match(T__15);
+				setState(269); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				do {
+					{
+					{
+					setState(268);
+					sumInfix(0);
+					}
+					}
+					setState(271); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 22239340265470L) != 0) );
+				setState(274); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				do {
+					{
+					{
+					setState(273);
+					match(T__16);
+					}
+					}
+					setState(276); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				} while ( _la==T__16 );
+				setState(278);
+				sumInfix(0);
+				setState(279);
+				match(T__17);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
 			setState(294);
@@ -2910,7 +2910,7 @@ public class LabeledExprParser extends Parser {
 						_localctx = new ProductInfixExpoContext(new ProductInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_productInfix);
 						setState(283);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(284);
 						match(EXPONENT);
 						setState(285);
@@ -2922,7 +2922,7 @@ public class LabeledExprParser extends Parser {
 						_localctx = new ProductInfixMultContext(new ProductInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_productInfix);
 						setState(286);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(287);
 						match(MUL);
 						setState(288);
@@ -2934,7 +2934,7 @@ public class LabeledExprParser extends Parser {
 						_localctx = new ProductInfixDivContext(new ProductInfixContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_productInfix);
 						setState(289);
-						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(290);
 						match(DIV);
 						setState(291);
@@ -4807,22 +4807,22 @@ public class LabeledExprParser extends Parser {
 	private boolean sumInfix_sempred(SumInfixContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 1);
 		case 1:
-			return precpred(_ctx, 4);
-		case 2:
 			return precpred(_ctx, 3);
+		case 2:
+			return precpred(_ctx, 2);
 		}
 		return true;
 	}
 	private boolean productInfix_sempred(ProductInfixContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 3:
-			return precpred(_ctx, 3);
+			return precpred(_ctx, 4);
 		case 4:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 3);
 		case 5:
-			return precpred(_ctx, 1);
+			return precpred(_ctx, 2);
 		}
 		return true;
 	}
@@ -4873,12 +4873,12 @@ public class LabeledExprParser extends Parser {
 		"\f\u0001\f\u0003\f\u00e1\b\f\u0001\r\u0001\r\u0001\r\u0003\r\u00e6\b\r"+
 		"\u0001\r\u0001\r\u0003\r\u00ea\b\r\u0001\r\u0005\r\u00ed\b\r\n\r\f\r\u00f0"+
 		"\t\r\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001"+
-		"\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0004\u000f\u00fd"+
-		"\b\u000f\u000b\u000f\f\u000f\u00fe\u0001\u000f\u0004\u000f\u0102\b\u000f"+
-		"\u000b\u000f\f\u000f\u0103\u0001\u000f\u0001\u000f\u0001\u000f\u0003\u000f"+
-		"\u0109\b\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f"+
-		"\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0005\u000f\u0114\b\u000f"+
-		"\n\u000f\f\u000f\u0117\t\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001"+
+		"\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001"+
+		"\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0005"+
+		"\u000f\u0104\b\u000f\n\u000f\f\u000f\u0107\t\u000f\u0001\u0010\u0001\u0010"+
+		"\u0001\u0010\u0001\u0010\u0001\u0010\u0004\u0010\u010e\b\u0010\u000b\u0010"+
+		"\f\u0010\u010f\u0001\u0010\u0004\u0010\u0113\b\u0010\u000b\u0010\f\u0010"+
+		"\u0114\u0001\u0010\u0001\u0010\u0001\u0010\u0003\u0010\u011a\b\u0010\u0001"+
 		"\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001"+
 		"\u0010\u0001\u0010\u0001\u0010\u0005\u0010\u0125\b\u0010\n\u0010\f\u0010"+
 		"\u0128\t\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011"+
@@ -4924,8 +4924,8 @@ public class LabeledExprParser extends Parser {
 		"\u0000\u0010\u00b0\u0001\u0000\u0000\u0000\u0012\u00b9\u0001\u0000\u0000"+
 		"\u0000\u0014\u00c4\u0001\u0000\u0000\u0000\u0016\u00dc\u0001\u0000\u0000"+
 		"\u0000\u0018\u00e0\u0001\u0000\u0000\u0000\u001a\u00e2\u0001\u0000\u0000"+
-		"\u0000\u001c\u00f3\u0001\u0000\u0000\u0000\u001e\u0108\u0001\u0000\u0000"+
-		"\u0000 \u0118\u0001\u0000\u0000\u0000\"\u012f\u0001\u0000\u0000\u0000"+
+		"\u0000\u001c\u00f3\u0001\u0000\u0000\u0000\u001e\u00f7\u0001\u0000\u0000"+
+		"\u0000 \u0119\u0001\u0000\u0000\u0000\"\u012f\u0001\u0000\u0000\u0000"+
 		"$\u0171\u0001\u0000\u0000\u0000&\u01aa\u0001\u0000\u0000\u0000(\u01b1"+
 		"\u0001\u0000\u0000\u0000*\u01b8\u0001\u0000\u0000\u0000,\u01c3\u0001\u0000"+
 		"\u0000\u0000.\u01dc\u0001\u0000\u0000\u00000\u01e0\u0001\u0000\u0000\u0000"+
@@ -5038,29 +5038,29 @@ public class LabeledExprParser extends Parser {
 		"\u0000\u00f2\u001b\u0001\u0000\u0000\u0000\u00f3\u00f4\u0005\u0010\u0000"+
 		"\u0000\u00f4\u00f5\u0003\u0018\f\u0000\u00f5\u00f6\u0005\u0012\u0000\u0000"+
 		"\u00f6\u001d\u0001\u0000\u0000\u0000\u00f7\u00f8\u0006\u000f\uffff\uffff"+
-		"\u0000\u00f8\u0109\u0003 \u0010\u0000\u00f9\u00fa\u0005\u0001\u0000\u0000"+
-		"\u00fa\u00fc\u0005\u0010\u0000\u0000\u00fb\u00fd\u0003\u001e\u000f\u0000"+
-		"\u00fc\u00fb\u0001\u0000\u0000\u0000\u00fd\u00fe\u0001\u0000\u0000\u0000"+
-		"\u00fe\u00fc\u0001\u0000\u0000\u0000\u00fe\u00ff\u0001\u0000\u0000\u0000"+
-		"\u00ff\u0101\u0001\u0000\u0000\u0000\u0100\u0102\u0005\u0011\u0000\u0000"+
-		"\u0101\u0100\u0001\u0000\u0000\u0000\u0102\u0103\u0001\u0000\u0000\u0000"+
-		"\u0103\u0101\u0001\u0000\u0000\u0000\u0103\u0104\u0001\u0000\u0000\u0000"+
-		"\u0104\u0105\u0001\u0000\u0000\u0000\u0105\u0106\u0003\u001e\u000f\u0000"+
-		"\u0106\u0107\u0005\u0012\u0000\u0000\u0107\u0109\u0001\u0000\u0000\u0000"+
-		"\u0108\u00f7\u0001\u0000\u0000\u0000\u0108\u00f9\u0001\u0000\u0000\u0000"+
-		"\u0109\u0115\u0001\u0000\u0000\u0000\u010a\u010b\n\u0002\u0000\u0000\u010b"+
-		"\u010c\u0005\'\u0000\u0000\u010c\u0114\u0003\u001e\u000f\u0003\u010d\u010e"+
-		"\n\u0004\u0000\u0000\u010e\u010f\u0005#\u0000\u0000\u010f\u0114\u0003"+
-		" \u0010\u0000\u0110\u0111\n\u0003\u0000\u0000\u0111\u0112\u0005$\u0000"+
-		"\u0000\u0112\u0114\u0003 \u0010\u0000\u0113\u010a\u0001\u0000\u0000\u0000"+
-		"\u0113\u010d\u0001\u0000\u0000\u0000\u0113\u0110\u0001\u0000\u0000\u0000"+
-		"\u0114\u0117\u0001\u0000\u0000\u0000\u0115\u0113\u0001\u0000\u0000\u0000"+
-		"\u0115\u0116\u0001\u0000\u0000\u0000\u0116\u001f\u0001\u0000\u0000\u0000"+
-		"\u0117\u0115\u0001\u0000\u0000\u0000\u0118\u0119\u0006\u0010\uffff\uffff"+
-		"\u0000\u0119\u011a\u0003\"\u0011\u0000\u011a\u0126\u0001\u0000\u0000\u0000"+
-		"\u011b\u011c\n\u0003\u0000\u0000\u011c\u011d\u0005&\u0000\u0000\u011d"+
-		"\u0125\u0003\"\u0011\u0000\u011e\u011f\n\u0002\u0000\u0000\u011f\u0120"+
-		"\u0005!\u0000\u0000\u0120\u0125\u0003\"\u0011\u0000\u0121\u0122\n\u0001"+
+		"\u0000\u00f8\u00f9\u0003 \u0010\u0000\u00f9\u0105\u0001\u0000\u0000\u0000"+
+		"\u00fa\u00fb\n\u0001\u0000\u0000\u00fb\u00fc\u0005\'\u0000\u0000\u00fc"+
+		"\u0104\u0003\u001e\u000f\u0002\u00fd\u00fe\n\u0003\u0000\u0000\u00fe\u00ff"+
+		"\u0005#\u0000\u0000\u00ff\u0104\u0003 \u0010\u0000\u0100\u0101\n\u0002"+
+		"\u0000\u0000\u0101\u0102\u0005$\u0000\u0000\u0102\u0104\u0003 \u0010\u0000"+
+		"\u0103\u00fa\u0001\u0000\u0000\u0000\u0103\u00fd\u0001\u0000\u0000\u0000"+
+		"\u0103\u0100\u0001\u0000\u0000\u0000\u0104\u0107\u0001\u0000\u0000\u0000"+
+		"\u0105\u0103\u0001\u0000\u0000\u0000\u0105\u0106\u0001\u0000\u0000\u0000"+
+		"\u0106\u001f\u0001\u0000\u0000\u0000\u0107\u0105\u0001\u0000\u0000\u0000"+
+		"\u0108\u0109\u0006\u0010\uffff\uffff\u0000\u0109\u011a\u0003\"\u0011\u0000"+
+		"\u010a\u010b\u0005\u0001\u0000\u0000\u010b\u010d\u0005\u0010\u0000\u0000"+
+		"\u010c\u010e\u0003\u001e\u000f\u0000\u010d\u010c\u0001\u0000\u0000\u0000"+
+		"\u010e\u010f\u0001\u0000\u0000\u0000\u010f\u010d\u0001\u0000\u0000\u0000"+
+		"\u010f\u0110\u0001\u0000\u0000\u0000\u0110\u0112\u0001\u0000\u0000\u0000"+
+		"\u0111\u0113\u0005\u0011\u0000\u0000\u0112\u0111\u0001\u0000\u0000\u0000"+
+		"\u0113\u0114\u0001\u0000\u0000\u0000\u0114\u0112\u0001\u0000\u0000\u0000"+
+		"\u0114\u0115\u0001\u0000\u0000\u0000\u0115\u0116\u0001\u0000\u0000\u0000"+
+		"\u0116\u0117\u0003\u001e\u000f\u0000\u0117\u0118\u0005\u0012\u0000\u0000"+
+		"\u0118\u011a\u0001\u0000\u0000\u0000\u0119\u0108\u0001\u0000\u0000\u0000"+
+		"\u0119\u010a\u0001\u0000\u0000\u0000\u011a\u0126\u0001\u0000\u0000\u0000"+
+		"\u011b\u011c\n\u0004\u0000\u0000\u011c\u011d\u0005&\u0000\u0000\u011d"+
+		"\u0125\u0003\"\u0011\u0000\u011e\u011f\n\u0003\u0000\u0000\u011f\u0120"+
+		"\u0005!\u0000\u0000\u0120\u0125\u0003\"\u0011\u0000\u0121\u0122\n\u0002"+
 		"\u0000\u0000\u0122\u0123\u0005\"\u0000\u0000\u0123\u0125\u0003\"\u0011"+
 		"\u0000\u0124\u011b\u0001\u0000\u0000\u0000\u0124\u011e\u0001\u0000\u0000"+
 		"\u0000\u0124\u0121\u0001\u0000\u0000\u0000\u0125\u0128\u0001\u0000\u0000"+
@@ -5184,7 +5184,7 @@ public class LabeledExprParser extends Parser {
 		"\u0000\u0000\u0000\u01ea\u01eb\u0005*\u0000\u0000\u01eb\u01ec\u0005\""+
 		"\u0000\u0000\u01ec\u01ed\u0005*\u0000\u0000\u01ed5\u0001\u0000\u0000\u0000"+
 		"0?NZi\u008c\u0090\u0095\u0099\u009e\u00b0\u00b9\u00c4\u00dc\u00e0\u00e5"+
-		"\u00e9\u00ee\u00fe\u0103\u0108\u0113\u0115\u0124\u0126\u012f\u0135\u013a"+
+		"\u00e9\u00ee\u0103\u0105\u010f\u0114\u0119\u0124\u0126\u012f\u0135\u013a"+
 		"\u013f\u0146\u014b\u0150\u0158\u015f\u0164\u0169\u016d\u0171\u01aa\u01ad"+
 		"\u01b1\u01b4\u01b8\u01c3\u01c9\u01dc\u01e0\u01e3\u01e8";
 	public static final ATN _ATN =

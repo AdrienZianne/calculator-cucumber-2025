@@ -51,6 +51,11 @@ public final class RadianToDegree extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, RadianToDegree::new);
+    }
+
+    @Override
     public MyNumber op(MyInfinity i) {
         return new MyErrorNumber(this,  "Cannot apply a degree to radian conversion from infinity");
     }

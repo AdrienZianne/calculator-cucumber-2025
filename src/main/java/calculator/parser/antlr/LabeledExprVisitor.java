@@ -419,13 +419,6 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SumInfixRoot}
-	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
 	 * @param ctx the parse tree
@@ -467,6 +460,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ProductInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ProductInfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.

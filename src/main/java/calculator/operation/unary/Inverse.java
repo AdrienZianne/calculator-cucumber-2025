@@ -61,6 +61,11 @@ public final class Inverse extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the inverse operation");
+    }
+
+    @Override
     public MyNumber op(MyInfinity i) {
         return new MyUndefinedNumber(this);
     }

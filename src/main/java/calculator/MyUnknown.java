@@ -1,6 +1,8 @@
 package calculator;
 
 
+import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Plus;
 import calculator.operation.unary.Negation;
@@ -30,14 +32,18 @@ public final class MyUnknown extends MyNumber {
         this.rest = rest;
     }
 
+    public static MyNumber create(Map<MyNumber, MyNumber> operands, MyNumber rest) {
+        return new MyUnknown((HashMap<MyNumber, MyNumber>) operands, rest);
+    }
+
     /**
      * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code a_0x^{n_0} + ... + a_i x^{n_i} + rest}.
      * @param operands The list of values representing : {@code [(a_0,n_0), ..., (a_i,n_i)]}. Note that for each pair, the first value represent {@code a} and the second {@code n}.
+     *                 <p>If one of the {@code n_i} is equal to zero, then the value of {@code a_i} will be added to the {@code rest}.</p>
      * @param rest The value of {@code rest}.
      * @return
      * <ul>
-     *     <li>{@code rest} if {@code a} is equivalent to zero.</li> // TODO FIX THIS DOC !!!
-     *     <li>{@code a+b} if {@code n} is equivalent to zero.</li>
+     *     <li>{@code rest} if all {@code a_i} (or all {@code n_i}) are equivalent to zero.</li>
      *     <li>
      *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
      *          (it return the undefined parameter)
@@ -60,6 +66,7 @@ public final class MyUnknown extends MyNumber {
         HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
 
         MyNumber totalRest = ConstantNumber.ZERO;
+        MyNumber newVal;
 
 
         for (Pair<MyNumber, MyNumber> operand : operands) {
@@ -71,7 +78,7 @@ public final class MyUnknown extends MyNumber {
             if (validity != null) {return validity;}
 
 
-
+            if (operand.a.isZero()) continue;
             // if the exponent is zero then we can add 'a' to the rest.
             if (operand.b.isZero()) totalRest = BinaryOperation.op(totalRest, rest, Plus::new);
             // If the exponent doesn't already exist we add it
@@ -80,7 +87,13 @@ public final class MyUnknown extends MyNumber {
             }
             // else if a 'x' with the same exponent was already added we can add them together
             else {
-                newOperands.replace(operand.b, BinaryOperation.op(newOperands.get(operand.b), operand.a, Plus::new));
+                newVal = BinaryOperation.op(newOperands.get(operand.b), operand.a, Plus::new);
+                // If the result is zero, then we can remove it from the operands list
+                if (newVal.isZero()) {
+                    newOperands.remove(operand.b);
+                }else {
+                    newOperands.replace(operand.b, newVal);
+                }
             }
         }
         totalRest = BinaryOperation.op(totalRest, rest, Plus::new);
@@ -180,7 +193,7 @@ public final class MyUnknown extends MyNumber {
             res = "-";
             factor = UnaryOperation.op(factor, Negation::new);
         }
-        return res + " " + (factor.equals(ConstantNumber.ONE) ? "": factor);
+        return res + " " + factor;
     }
 
     private String termAsString(MyNumber factor, MyNumber exp) {
@@ -205,7 +218,6 @@ public final class MyUnknown extends MyNumber {
         return rest;
     }
 
-
     private static MyNumber checkOperandValidity(MyNumber operand) {
         switch (operand) {
             case null -> {
@@ -225,5 +237,27 @@ public final class MyUnknown extends MyNumber {
                 return null;
             }
         }
+    }
+
+    public static <T extends BinaryOperation> MyNumber applyToAllOperators(MyUnknown l, MyNumber val, BuildOperationFunction<T> fn)
+    {
+        HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
+        for (MyNumber key : l.getOperands().keySet())
+        {
+            newOperands.put(key, BinaryOperation.op(l.getOperands().get(key), val, fn));
+        }
+
+        return MyUnknown.create(newOperands, BinaryOperation.op(val, l.getRest(), fn));
+    }
+
+    public static <T extends UnaryOperation> MyNumber applyToAllOperators(MyUnknown l, BuildUnaryOperationFunction<T> fn)
+    {
+        HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
+        for (MyNumber key : l.getOperands().keySet())
+        {
+            newOperands.put(key, UnaryOperation.op(l.getOperands().get(key), fn));
+        }
+
+        return MyUnknown.create(newOperands, UnaryOperation.op(l.getRest(), fn));
     }
 }

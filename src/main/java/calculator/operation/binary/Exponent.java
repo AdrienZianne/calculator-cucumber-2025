@@ -168,6 +168,11 @@ public final class Exponent extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return null;
+    }
+
+    @Override
     public MyNumber op(MyReal l, MyInfinity r) {
         if (l.equals(MyReal.valueOf(1))) return new MyUndefinedNumber(this);
         if (l.equals(MyReal.valueOf(0))) return MyInteger.valueOf(0);
@@ -176,10 +181,20 @@ public final class Exponent extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return null;
+    }
+
+    @Override
     public MyNumber op(MyComplex l, MyInfinity r) {
         if (!r.isPositive()) return MyInteger.valueOf(0);
 
         return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return null;
     }
 
     @Override
@@ -205,6 +220,11 @@ public final class Exponent extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return null;
+    }
+
+    @Override
     public MyNumber op(MyInfinity l, MyInteger r) {
         return infiniteValue(l, r);
     }
@@ -227,6 +247,41 @@ public final class Exponent extends BinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
         return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return null;
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        return null;
     }
 
     private MyNumber infiniteValue(MyInfinity l, MyNumber r) {
