@@ -188,6 +188,18 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 */
 	void exitInfoScNotationMaxRight(LabeledSettingsParser.InfoScNotationMaxRightContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code InfoUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void enterInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InfoUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#info}.
+	 * @param ctx the parse tree
+	 */
+	void exitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code InfoUseDegrees}
 	 * labeled alternative in {@link LabeledSettingsParser#info}.
 	 * @param ctx the parse tree
@@ -343,6 +355,18 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOptionScNotationMaxRight(LabeledSettingsParser.OptionScNotationMaxRightContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OptionUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OptionUseComplexDomain}
+	 * labeled alternative in {@link LabeledSettingsParser#option}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptionUseComplexDomain(LabeledSettingsParser.OptionUseComplexDomainContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code OptionUseDegrees}
 	 * labeled alternative in {@link LabeledSettingsParser#option}.

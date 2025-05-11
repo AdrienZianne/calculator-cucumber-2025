@@ -115,23 +115,46 @@ public class TestExponent extends TestBinaryOperation{
 
         exp = op(MyReal.valueOf(2.5), MyRational.create(-2,4));
         assertEquals(MyReal.valueOf(0.632456), exp);
+        Configuration.setUsesComplexDomainDefault(true);
         exp = op(MyReal.valueOf(-2.5), MyRational.create(-2,4));
         assertEquals(MyComplex.create(ConstantNumber.ZERO,MyReal.valueOf(-0.632456)), exp);
+
+        Configuration.setUsesComplexDomainDefault(false);
+        exp = op(MyReal.valueOf(-2.5), MyRational.create(-2,4));
+        assertEquals(MyErrorNumber.class, exp.getClass());
 
     }
 
     @Test
     @Override
     public void TestMyComplexMyInteger() {
-        MyNumber exp = op(MyComplex.create(2,1), MyInteger.valueOf(1));
-        assertEquals(MyErrorNumber.class, exp.getClass());
+        MyNumber exp = op(MyComplex.create(5, 2), MyInteger.valueOf(2));
+        assertEquals(MyComplex.create(21, 20), exp);
+
+        exp = op(MyComplex.create(5, 2), MyInteger.valueOf(3));
+        assertEquals(MyComplex.create(65, 142), exp);
+
+        exp = op(MyComplex.create(5, 2), MyInteger.valueOf(7));
+        assertEquals(MyComplex.create(-116615, 60422), exp);
+
+        exp = op(MyComplex.create(5, 2), MyInteger.valueOf(11));
+        assertEquals(MyComplex.create(-55535695, -95479298), exp);
+
+        exp = op(MyComplex.create(5, 2), MyInteger.valueOf(-3));
+        assertEquals(MyComplex.create(MyReal.valueOf(0.00267), MyReal.valueOf(-0.00582)), exp);
     }
 
     @Test
     @Override
     public void TestMyComplexMyReal() {
-        MyNumber exp = op(MyComplex.create(2,1), MyReal.valueOf(1));
+        MyNumber exp = op(MyComplex.create(2,1), MyReal.valueOf(2.5));
         assertEquals(MyErrorNumber.class, exp.getClass());
+
+        exp = op(MyComplex.create(5, 2), MyReal.valueOf(7));
+        assertEquals(MyComplex.create(-116615, 60422), exp);
+
+        exp = op(MyComplex.create(5, 2), MyReal.valueOf(-3));
+        assertEquals(MyComplex.create(MyReal.valueOf(0.00267), MyReal.valueOf(-0.00582)), exp);
     }
 
     @Test

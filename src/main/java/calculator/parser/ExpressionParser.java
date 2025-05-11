@@ -9,7 +9,6 @@ import calculator.operation.unary.trigonometry.*;
 import calculator.parser.antlr.LabeledExprBaseVisitor;
 import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
@@ -25,94 +24,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitExpr(LabeledExprParser.ExprContext ctx) {
         return visit(ctx.getChild(0));
-    }
-
-    /*
-     * _________________________________ SETTINGS _________________________________
-     */
-    @Override
-    public Expression visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) {
-        Configuration.setSeed(Integer.parseInt(ctx.getChild(2).getText()));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) {
-        Configuration.resetSeed();
-        return null;
-    }
-
-    public Expression visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) {
-        if (Configuration.getSeed() == null) {
-            System.out.println("No seed is currently defined.");
-            return null;
-        }
-        return MyInteger.valueOf(Configuration.getSeed());
-    }
-
-    @Override
-    public Expression visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) {
-        try {
-            Configuration.setRealPrecision(Integer.parseInt(ctx.getChild(2).getText()));
-        } catch (NumberFormatException e) {
-            System.out.println("The given value cannot be converted to an int.");
-        }
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) {
-        return MyInteger.valueOf(Configuration.getRealPrecision());
-    }
-
-    @Override
-    public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
-        Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
-        if (!Configuration.usesScientificNotation())
-            System.out.println("Scientific Notation is set to false.");
-        else
-            System.out.println(Configuration.getScientificNotationPrecision());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
-        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()),
-                Integer.parseInt(ctx.getChild(4).getText()));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) {
-        System.out.println(Configuration.isUsingDegrees());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) {
-        Configuration.setUseDegrees(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx) {
-        System.out.println(Configuration.isUsingRealNotation());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx) {
-        Configuration.setUseRealNotation(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    private boolean parseBool(ParseTree ctx) {
-        return Boolean.parseBoolean(ctx.getText());
     }
 
     /* _________________________________ INFIX _________________________________ */

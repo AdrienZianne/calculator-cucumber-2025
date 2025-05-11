@@ -1,6 +1,7 @@
 package calculator.operation.binary;
 
 import calculator.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,6 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class TestNthRoot extends TestBinaryOperation{
+    @BeforeAll
+    public static void setUp() throws Exception {
+        Configuration.setRealPrecision(5);
+        Configuration.setUsesComplexDomainDefault(false);
+    }
+
     @Test
     @Override
     public void TestMyIntegerMyInteger() {
@@ -28,6 +35,8 @@ public class TestNthRoot extends TestBinaryOperation{
 
         res = op(MyInteger.valueOf(2), MyInteger.valueOf(5));
         assertEquals(MyReal.valueOf(1.1487), res);
+        res = op(MyInteger.valueOf(-2), MyInteger.valueOf(5));
+        assertEquals(MyErrorNumber.class, res.getClass());
     }
 
     @Test

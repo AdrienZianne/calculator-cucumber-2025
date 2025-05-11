@@ -41,6 +41,9 @@ public final class SquareRoot extends UnaryOperation {
     public MyNumber op(MyReal r) {
         if (r.getSign() < 0)
         {
+            if (!Configuration.usesComplexDomainDefault())
+                return new MyErrorNumber(this, "Cannot apply the sqrt operation on negative number " +
+                        "because the imaginary domain is not set to true by default");
             // sqrt(-a) = sqrt(a * i^2) = sqrt(a) * i
             return MyComplex.create(ConstantNumber.ZERO, op(UnaryOperation.op(r, Negation::new)));
         }

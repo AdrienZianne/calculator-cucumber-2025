@@ -3,10 +3,10 @@ package io;
 import io.Memory.Category;
 
 import calculator.Calculator;
-import calculator.Expression;
-import calculator.Programmer;
 import calculator.Configuration;
 import calculator.Configuration.Mode;
+import calculator.Expression;
+import calculator.Programmer;
 import calculator.parser.CalculatorParser;
 
 import org.jline.reader.LineReader;
@@ -18,17 +18,16 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
-
 import java.util.HashMap;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Implement CLI and REPL with command and error
  */
 public class Shell {
     /**
-     * Attribute used to determine whether or not to stop the program.
+     * Attribute used to determine whether to stop the program.
      */
     private boolean interrupted = false;
 
@@ -99,6 +98,10 @@ public class Shell {
         infoOptions.put(Options.SC_NOTATION_MAX_RIGHT,
                 new String[] { "sc_notation_max_right", "An positive integer value",
                         "The maximum number of digits that can be displayed in the decimal part of a number." });
+        infoOptions.put(Options.USE_COMPLEX_DOMAIN,
+                new String[] { "use_complex_domain", "[true|false]",
+                        "Select whether to work by default in the complex domain. " +
+                                "(If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)" });
         infoOptions.put(Options.USE_DEGREES,
                 new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
         infoOptions.put(Options.SEED, new String[] { "seed", "An integer value",
@@ -274,6 +277,7 @@ public class Shell {
                 \tuse_scientific_notation = bool
                 \tsc_notation_max_left = int
                 \tsc_notation_max_right = int
+                \tuse_complex_domain = bool
                 \tuse_degrees = bool
                 \tseed = int
                 \tbase_notation_convention = bool
@@ -321,6 +325,8 @@ public class Shell {
                 return "" + Configuration.getScNotationMaxLeft();
             case Options.SC_NOTATION_MAX_RIGHT:
                 return "" + Configuration.getScNotationMaxRight();
+            case Options.USE_COMPLEX_DOMAIN:
+                return "" + Configuration.usesComplexDomainDefault();
             case Options.USE_DEGREES:
                 return "" + Configuration.isUsingDegrees();
             case Options.SEED:
@@ -359,7 +365,8 @@ public class Shell {
      */
     public enum Options {
         MODE, REAL_PRECISION, REAL_ROUNDING_MODE, USE_REAL_NOTATION, USE_SCIENTIFIC_NOTATION, SC_NOTATION_MAX_LEFT,
-        SC_NOTATION_MAX_RIGHT, USE_DEGREES, SEED, BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL, MAX_STORE, DELETE_DUPLICATES
+        SC_NOTATION_MAX_RIGHT, USE_COMPLEX_DOMAIN, USE_DEGREES, SEED, BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL,
+        MAX_STORE, DELETE_DUPLICATES
     }
 
     /**

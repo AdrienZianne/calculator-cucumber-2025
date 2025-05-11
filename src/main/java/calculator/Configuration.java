@@ -51,6 +51,32 @@ public final class Configuration {
     }
 
     /*
+     * __________________________________________________________________Imaginary_Domain
+     */
+
+    private static boolean usesComplexDomainDefault = false;
+
+    /**
+     * Controls whether the complex domain is used by default in some operation.
+     * For example, if set to true then the sqrt operation on a negative number will return a complex value.
+     * Otherwise, it will return an error.
+     * @param usesImaginaryDomain True if the default domain is the complex one, false otherwise.
+     */
+    public static void setUsesComplexDomainDefault(boolean usesImaginaryDomain) {
+        Configuration.usesComplexDomainDefault = usesImaginaryDomain;
+    }
+
+    /**
+     * Checks whether the complex domain is used by default in some operation.
+     * For example, if set to true then the sqrt operation on a negative number will return a complex value.
+     * Otherwise, it will return an error.
+     * @return True if the default domain is the complex one, false otherwise.
+     */
+    public static boolean usesComplexDomainDefault() {
+        return usesComplexDomainDefault;
+    }
+
+    /*
      * __________________________________________________________________Real_Precision
      */
 
