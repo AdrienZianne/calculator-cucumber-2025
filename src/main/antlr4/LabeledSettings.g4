@@ -54,12 +54,14 @@ roundingmode : 'ceiling'     #RoundingModeCeiling
              | 'up'          #RoundingModeUp
              ;
 
-history : LOGS          #HistoryLogs
-		| FAVOS         #HistoryFavos
+history : LOGS         #HistoryLogs
+		| FAVOS        #HistoryFavos
 		| ADDFAVO INT? #HistoryAddFavo
 		| DELFAVO INT? #HistoryDelFavo
 		| USELOG  INT? #HistoryUseLog
 		| USEFAVO INT? #HistoryUseFavo
+		| RESETLOG     #HistoryResetLog
+		| RESETFAVO    #HistoryResetFavo
 		;
 
 QUIT : 'q' | 'quit' | 'e' | 'exit' ; // match quit
@@ -81,6 +83,8 @@ ADDFAVO : 'af' | 'add_favo' ; // match add favo
 DELFAVO : 'df' | 'del_favo' ; // match del favo
 USELOG : 'ul' | 'use_log' ; // match use log
 USEFAVO : 'uf' | 'use_favo' ; // match use favo
+RESETLOG : 'rl' | 'reset_log' ; // match reset log
+RESETFAVO : 'rf' | 'reset_favo' ; // match reset favo
 
 NEWLINE : '\r'? '\n' ; // return newlines to parser (is end-statement signal)
 WS : [ \t]+ -> skip ; // toss out whitespace

@@ -339,13 +339,13 @@ public final class Configuration {
 
     /**
      * Value representing the maximum number of expressions to be stored in memory.
-     * In logs and favors.
+     * In logs and favorites.
      */
     private static int maxStore = 100;
 
     /**
      * If this value is set to True, then an expression will not be added to memory
-     * if it is already present. This works for logs and favors.
+     * if it is already present. This works for logs and favorites.
      */
     private static boolean deleteDuplicates = false;
 
@@ -371,7 +371,7 @@ public final class Configuration {
 
     /**
      * Method for checking whether duplicates have been removed from logs and
-     * favors.
+     * favorites.
      * 
      * @return Duplicates are deleted or not.
      */

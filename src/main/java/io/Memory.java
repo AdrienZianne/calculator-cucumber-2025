@@ -192,17 +192,6 @@ public class Memory {
     }
 
     /**
-     * Method for deleting an element that you no longer wish to save in a category
-     * in the current mode.
-     * 
-     * @param c     The desired category.
-     * @param index The index of the element to be deleted.
-     */
-    public void delElement(Category c, int index) {
-        memo[Configuration.getMode().ordinal()][c.ordinal()].remove(index);
-    }
-
-    /**
      * Method for saving an item as a favorite.
      * 
      * @param index The index of the element in the logs to be saved.
@@ -219,7 +208,7 @@ public class Memory {
     }
 
     /**
-     * Method for removing an item from favors.
+     * Method for removing an item from favorites.
      * 
      * @param index The index of the favorite to be deleted.
      */
@@ -231,7 +220,7 @@ public class Memory {
             return;
         }
 
-        delElement(Category.FAVO, index);
+        memo[Configuration.getMode().ordinal()][Category.FAVO.ordinal()].remove((int) index);
     }
 
     /**
@@ -263,5 +252,14 @@ public class Memory {
         }
 
         return memo[Configuration.getMode().ordinal()][c.ordinal()].get(index).expression;
+    }
+
+    /**
+     * Method used to completely erase category data in the current mode.
+     * 
+     * @param c The desired categorie.
+     */
+    public void reset(Category c) {
+        memo[Configuration.getMode().ordinal()][c.ordinal()] = new ArrayList<Element>();
     }
 }

@@ -362,4 +362,18 @@ public class LabeledSettingsBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) { return visitChildren(ctx); }
 }

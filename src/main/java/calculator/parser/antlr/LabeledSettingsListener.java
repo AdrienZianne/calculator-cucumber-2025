@@ -607,4 +607,28 @@ public interface LabeledSettingsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryResetLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryResetLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HistoryResetFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void enterHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HistoryResetFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 */
+	void exitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx);
 }

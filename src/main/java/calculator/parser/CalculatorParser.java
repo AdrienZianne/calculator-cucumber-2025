@@ -20,7 +20,7 @@ public class CalculatorParser {
      * 
      * @param input  User input.
      * @param shell  Connect to the shell to call methods from the parser.
-     * @param Memory instance to interact with logs and favors.
+     * @param Memory instance to interact with logs and favorites.
      */
     public static void parseSettings(String input, Shell shell, Memory memo) {
         // Read input as stream

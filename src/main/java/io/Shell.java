@@ -60,7 +60,8 @@ public class Shell {
                 "use_real_notation", "use_scientific_notation", "sc_notation_max_left", "sc_notation_max_right",
                 "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol", "true", "false",
                 "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up", "logs", "favos",
-                "add_favo", "del_favo", "use_log", "use_favo", "max_store", "delete_duplicates", "arithmetic",
+                "add_favo", "del_favo", "use_log", "use_favo", "reset_log", "reset_favo", "max_store",
+                "delete_duplicates", "arithmetic",
                 "programmer");
 
         reader = LineReaderBuilder.builder()
@@ -108,9 +109,9 @@ public class Shell {
                 "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
         infoOptions.put(Options.MAX_STORE,
                 new String[] { "max_store", "An positive integer value",
-                        "Number of elements that can be stored in logs and favors." });
+                        "Number of elements that can be stored in logs and favorites." });
         infoOptions.put(Options.DELETE_DUPLICATES, new String[] { "delete_duplicates", "[true|false]",
-                "Selects whether to delete duplicates in logs and favors." });
+                "Selects whether to delete duplicates in logs and favorites." });
     }
 
     /**
@@ -251,9 +252,11 @@ public class Shell {
                 \t$<logs|ll>           : Display logs
                 \t$<favos|lf>          : Display favorites
                 \t$<add_favo|af> [int] : Add the targeted expression as a favorite
-                \t$<del_favo|df> [int] : Removes targeted expression from favors
+                \t$<del_favo|df> [int] : Removes targeted expression from favorites
                 \t$<use_log|ul>  [int] : Re-use targeted expression in logs
-                \t$<use_favo|uf> [int] : Re-use targeted expression in favors
+                \t$<use_favo|uf> [int] : Re-use targeted expression in favorites
+                \t$<reset_log|rl>      : Reset data for logs.
+                \t$<reset_favo|rf>     : Reset data for favorites.
                 """);
     }
 

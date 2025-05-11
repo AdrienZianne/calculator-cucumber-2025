@@ -612,6 +612,30 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

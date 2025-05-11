@@ -360,4 +360,18 @@ public interface LabeledSettingsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryResetLog}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HistoryResetFavo}
+	 * labeled alternative in {@link LabeledSettingsParser#history}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx);
 }

@@ -336,4 +336,14 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         shell.reuse_exp(Category.FAVO, index);
         return null;
     }
+
+    public Void visitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) {
+        memo.reset(Category.LOG);
+        return null;
+    }
+
+    public Void visitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) {
+        memo.reset(Category.FAVO);
+        return null;
+    }
 }
