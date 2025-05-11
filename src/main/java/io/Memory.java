@@ -1,15 +1,40 @@
 package io;
 
 import calculator.Configuration;
+import calculator.Configuration.Mode;
 
 import java.util.ArrayList;
 
-import org.apache.tomcat.util.log.UserDataHelper.Mode;
+import java.io.File;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public class Memory {
-    public class Element {
-        public final String expression;
-        public final String res;
+    public static class Element {
+        private String expression;
+
+        public String getExpression() {
+            return expression;
+        }
+
+        public void setExpression(String expression) {
+            this.expression = expression;
+        }
+
+        private String res;
+
+        public String getRes() {
+            return res;
+        }
+
+        public void setRes(String res) {
+            this.res = res;
+        }
+
+        public Element() {
+        }
 
         public Element(String expression, String res) {
             this.expression = expression.trim().replaceAll("\\s+", " ");
@@ -39,17 +64,23 @@ public class Memory {
     private ArrayList<Element>[][] memo = new ArrayList[Mode.values().length][Category.values().length];
 
     public Memory() {
-        // TODO charger les fichiers
-
-        for (int i = 0; i < Configuration.Mode.values().length; i++) {
-            for (int j = 0; j < Category.values().length; j++) {
-                memo[i][j] = new ArrayList<Element>();
+        try {
+            readFromYaml();
+        } catch (IOException e) {
+            for (int i = 0; i < Mode.values().length; i++) {
+                for (int j = 0; j < Category.values().length; j++) {
+                    memo[i][j] = new ArrayList<Element>();
+                }
             }
         }
     }
 
     public void save() {
-        // TODO sauvegarder les fichiers
+        try {
+            writeToYaml();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addElement(Category c, String exp, String res) {
@@ -66,6 +97,7 @@ public class Memory {
         }
 
         memo[Configuration.getMode().ordinal()][c.ordinal()].add(element);
+
         if (memo[Configuration.getMode().ordinal()][c.ordinal()].size() > Configuration.getMaxStore()) {
             memo[Configuration.getMode().ordinal()][c.ordinal()].remove(0);
         }
@@ -112,5 +144,26 @@ public class Memory {
         }
 
         return memo[Configuration.getMode().ordinal()][c.ordinal()].get(index).expression;
+    }
+
+    public void writeToYaml() throws IOException {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        for (Mode m : Mode.values()) {
+            for (Category c : Category.values()) {
+                mapper.writeValue(new File("src/main/ressources/" + m.toString() + "_" + c.toString() + ".yml"),
+                        memo[m.ordinal()][c.ordinal()]);
+            }
+        }
+    }
+
+    public void readFromYaml() throws IOException {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        for (Mode m : Mode.values()) {
+            for (Category c : Category.values()) {
+                memo[m.ordinal()][c.ordinal()] = mapper.readValue(
+                        new File("src/main/ressources/" + m.toString() + "_" + c.toString() + ".yml"),
+                        mapper.getTypeFactory().constructCollectionType(ArrayList.class, Element.class));
+            }
+        }
     }
 }

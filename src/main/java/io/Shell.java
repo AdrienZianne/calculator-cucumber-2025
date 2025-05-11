@@ -18,6 +18,7 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +60,8 @@ public class Shell {
                 "use_real_notation", "use_scientific_notation", "sc_notation_max_left", "sc_notation_max_right",
                 "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol", "true", "false",
                 "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up", "logs", "favos",
-                "add_favo", "del_favo", "use_log", "use_favo", "max_store", "delete_duplicates");
+                "add_favo", "del_favo", "use_log", "use_favo", "max_store", "delete_duplicates", "arithmetic",
+                "programmer");
 
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
@@ -128,25 +130,28 @@ public class Shell {
      */
     public void loop(Calculator c) {
         while (!interrupted) {
-
             try {
                 String line = reader.readLine(">> ", null, expression_reuse).trim();
                 expression_reuse = "";
 
-                if (!line.isEmpty() && line.charAt(0) == '$') {
-                    modeSettings(line.substring(1));
-                } else {
-                    String res;
-                    if (Configuration.getMode() == Mode.ARITHMETIC) {
-                        res = modeArithmetic(c, line);
-
+                if (!line.isEmpty()) {
+                    if (line.charAt(0) == '$') {
+                        modeSettings(line.substring(1));
                     } else {
-                        res = modeProgrammer(line);
-                    }
-                    memo.addElement(Category.LOG, line, res);
-                }
+                        String res;
+                        if (Configuration.getMode() == Mode.ARITHMETIC) {
+                            res = modeArithmetic(c, line);
 
-                reader.getHistory().add(line);
+                        } else {
+                            res = modeProgrammer(line);
+                        }
+                        if (!res.isEmpty()) {
+                            memo.addElement(Category.LOG, line, res);
+                        }
+                    }
+
+                    reader.getHistory().add(line);
+                }
             } catch (UserInterruptException e) {
                 exit();
             }
