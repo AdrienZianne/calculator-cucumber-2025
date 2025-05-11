@@ -169,7 +169,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyUnknown r) {
-        return null;
+        return getUnknownErrorText();
     }
 
     @Override
@@ -182,7 +182,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyUnknown r) {
-        return null;
+        return getUnknownErrorText();
     }
 
     @Override
@@ -194,7 +194,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyUnknown r) {
-        return null;
+        return getUnknownErrorText();
     }
 
     @Override
@@ -221,7 +221,7 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyUnknown r) {
-        return null;
+        return getUnknownErrorText();
     }
 
     @Override
@@ -251,37 +251,48 @@ public final class Exponent extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyUnknown r) {
-        return null;
+        return getUnknownErrorText();
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyInteger r) {
-        return null;
+        if (r.getSign() < 0) return new MyErrorNumber(this, "Negative exponents on operations with unknown terms are not implemented");
+        if (r.isZero()) return MyInteger.valueOf(1);
+        MyNumber total = l;
+
+        BigInteger count = r.getValue().subtract(BigInteger.ONE);
+        while (count.compareTo(BigInteger.ZERO) > 0) {
+            total = BinaryOperation.op(total, l,Times::new);
+            count = count.subtract(BigInteger.ONE);
+        }
+
+        return total;
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyReal r) {
-        return null;
+        if (r.isInt()) return op(l, MyInteger.toMyInteger(r));
+        return getUnknownExponentErrorText();
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyComplex r) {
-        return null;
+        return getUnknownExponentErrorText();
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyRational r) {
-        return null;
+        return getUnknownExponentErrorText();
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyInfinity r) {
-        return null;
+        return getUnknownExponentErrorText();
     }
 
     @Override
     public MyNumber op(MyUnknown l, MyUnknown r) {
-        return null;
+        return getUnknownExponentErrorText();
     }
 
     private MyNumber infiniteValue(MyInfinity l, MyNumber r) {
@@ -293,10 +304,6 @@ public final class Exponent extends BinaryOperation {
         }
         // otherwise return the infinity with the same symbol
         return new MyInfinity(l.isPositive());
-
-        // (-2)^(5/4)
-
-        // (-2)^(3/2)
     }
 
     /**
@@ -428,4 +435,10 @@ public final class Exponent extends BinaryOperation {
                 Times::new);
     }
 
+    private MyErrorNumber getUnknownErrorText() {
+        return new MyErrorNumber(this, "Expression with unknown terms are not supported by the exponent operation");
+    }
+    private MyErrorNumber getUnknownExponentErrorText() {
+        return new MyErrorNumber(this, "Exponentiation of unknown terms is not implemented for non integer numbers");
+    }
 }

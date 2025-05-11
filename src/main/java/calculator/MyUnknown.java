@@ -184,20 +184,20 @@ public final class MyUnknown extends MyNumber {
             res.append(" ");
         }
 
-        return res + (rest.isZero() ? "" : termAsString(rest)) ;
+        return res + (rest.isZero() ? "" : termAsString(rest, false)) ;
     }
 
-    private String termAsString(MyNumber factor) {
+    private String termAsString(MyNumber factor, boolean hideOne) {
         String res = "+";
         if (factor.getSign() < 0) {
             res = "-";
             factor = UnaryOperation.op(factor, Negation::new);
         }
-        return res + " " + factor;
+        return res + " " + (hideOne && factor.equals(ConstantNumber.ONE) ? "" : factor.toString());
     }
 
     private String termAsString(MyNumber factor, MyNumber exp) {
-        String res = termAsString(factor) + "x";
+        String res = termAsString(factor, true) + "x";
 
         if (!exp.equals(ConstantNumber.ONE)) {
             return res +"^" + exp;
