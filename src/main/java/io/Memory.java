@@ -153,7 +153,7 @@ public class Memory {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error: Unable to save data.");
         }
     }
 
