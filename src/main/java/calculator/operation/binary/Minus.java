@@ -129,7 +129,7 @@ public final class Minus extends BinaryOperation {
     @Override
     public MyNumber op(MyComplex l, MyRational r) {
         return MyComplex.create(op(l.getRealImaginaryPair().a, r),
-                op(new MyInteger(0), l.getRealImaginaryPair().b));
+                l.getRealImaginaryPair().b);
     }
 
     @Override
@@ -210,12 +210,20 @@ public final class Minus extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
+        if (l.getSign() != r.getSign()) {
+            return new MyInfinity(l.isPositive());
+        }
         return new MyUndefinedNumber(this);
     }
 
     @Override
     public MyNumber op(MyInfinity l, MyUnknown r) {
-        return MyUnknown.create(r.getOperands(), l);
+        MyNumber res = MyUnknown.applyToAllOperators(r, Negation::new);
+        if (res instanceof MyUnknown x)
+        {
+            return MyUnknown.create(x.getOperands(), l);
+        }
+        return res;
     }
 
     @Override
@@ -255,7 +263,7 @@ public final class Minus extends BinaryOperation {
             allOperands.add(new Pair<>(UnaryOperation.op(r.getOperands().get(key), Negation::new), key));
         }
 
-        return MyUnknown.create(allOperands, op(r.getRest(), l.getRest()));
+        return MyUnknown.create(allOperands, op(l.getRest(), r.getRest()));
     }
 
 
