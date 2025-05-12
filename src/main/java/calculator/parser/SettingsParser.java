@@ -349,11 +349,13 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         return null;
     }
 
+    @Override
     public Void visitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) {
         memo.reset(Category.LOG);
         return null;
     }
 
+    @Override
     public Void visitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) {
         memo.reset(Category.FAVO);
         return null;
