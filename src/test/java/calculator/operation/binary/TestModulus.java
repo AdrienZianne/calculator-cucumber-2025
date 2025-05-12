@@ -4,13 +4,23 @@ import calculator.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestModulus extends TestBinaryOperation {
+    static MyUnknown other;
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         Configuration.setRealPrecision(5);
+
+        other = (MyUnknown) MyUnknown.create(List.of(
+                        new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+                ),
+                MyInteger.valueOf(8));
+
     }
 
     @Test
@@ -68,6 +78,12 @@ public class TestModulus extends TestBinaryOperation {
 
     @Test
     @Override
+    public void TestMyIntegerMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(MyInteger.valueOf(3), other).getClass());
+    }
+
+    @Test
+    @Override
     public void TestMyRealMyInteger() {
         MyNumber res = op(MyReal.valueOf(2.5), MyInteger.valueOf(2));
         assertEquals(MyReal.valueOf(0.5), res);
@@ -115,6 +131,13 @@ public class TestModulus extends TestBinaryOperation {
 
     @Test
     @Override
+    public void TestMyRealMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(MyReal.valueOf(3), other).getClass());
+
+    }
+
+    @Test
+    @Override
     public void TestMyComplexMyInteger() {
         MyNumber res = op(MyComplex.create(1,1), MyInteger.valueOf(2));
         assertEquals(MyErrorNumber.class, res.getClass());
@@ -148,6 +171,12 @@ public class TestModulus extends TestBinaryOperation {
         assertEquals(MyComplex.create(1,1), res);
         res = op(MyComplex.create(1,1), new MyInfinity(false));
         assertEquals(MyComplex.create(1,1), res);
+    }
+
+    @Test
+    @Override
+    public void TestMyComplexMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(MyComplex.create(3, 2), other).getClass());
     }
 
     @Test
@@ -198,6 +227,12 @@ public class TestModulus extends TestBinaryOperation {
 
     @Test
     @Override
+    public void TestMyRationalMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(MyRational.create(3, 6), other).getClass());
+    }
+
+    @Test
+    @Override
     public void TestMyInfinityMyInteger() {
         MyNumber res = op(new MyInfinity(true), MyInteger.valueOf(2));
         assertEquals(MyUndefinedNumber.class, res.getClass());
@@ -243,6 +278,51 @@ public class TestModulus extends TestBinaryOperation {
         assertEquals(MyUndefinedNumber.class, res.getClass());
         res = op(new MyInfinity(false), new MyInfinity(false));
         assertEquals(MyUndefinedNumber.class, res.getClass());
+
+    }
+
+    @Test
+    @Override
+    public void TestMyInfinityMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(new MyInfinity(true), other).getClass());
+        assertEquals(MyErrorNumber.class, op(new MyInfinity(false), other).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyInteger() {
+        assertEquals(MyErrorNumber.class, op(other, MyInteger.valueOf(2)).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyReal() {
+        assertEquals(MyErrorNumber.class, op(other, MyReal.valueOf(2.5)).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyComplex() {
+        assertEquals(MyErrorNumber.class, op(other, MyComplex.create(2, 3)).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyRational() {
+        assertEquals(MyErrorNumber.class, op(other, MyRational.create(2, 3)).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyInfinity() {
+        assertEquals(MyErrorNumber.class, op(other, new MyInfinity(true)).getClass());
+        assertEquals(MyErrorNumber.class, op(other, new MyInfinity(false)).getClass());
+    }
+
+    @Test
+    @Override
+    public void TestMyUnknownMyUnknown() {
+        assertEquals(MyErrorNumber.class, op(other, other).getClass());
 
     }
 

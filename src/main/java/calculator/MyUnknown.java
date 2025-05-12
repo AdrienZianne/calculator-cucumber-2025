@@ -296,7 +296,7 @@ public final class MyUnknown extends MyNumber {
             newOperands.put(key, BinaryOperation.op(l.getOperands().get(key), val, fn));
         }
 
-        return MyUnknown.create(newOperands, BinaryOperation.op(val, l.getRest(), fn));
+        return MyUnknown.create(newOperands, BinaryOperation.op(l.getRest(), val, fn));
     }
 
     /**
