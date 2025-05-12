@@ -137,8 +137,8 @@ public class Memory {
                     memo[m.ordinal()][c.ordinal()] = mapper.readValue(
                             new File("src/main/ressources/" + m.toString() + "_" + c.toString() + ".yml"),
                             mapper.getTypeFactory().constructCollectionType(ArrayList.class, Element.class));
-                } catch (IOException e) {
-                    memo[m.ordinal()][c.ordinal()] = new ArrayList<Element>();
+                } catch (IOException _) {
+                    memo[m.ordinal()][c.ordinal()] = new ArrayList<>();
                 }
             }
         }
@@ -157,7 +157,7 @@ public class Memory {
                             memo[m.ordinal()][c.ordinal()]);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException _) {
             System.err.println("Error: Unable to save data.");
         }
     }
@@ -265,6 +265,6 @@ public class Memory {
      * @param c The desired categorie.
      */
     public void reset(Category c) {
-        memo[Configuration.getMode().ordinal()][c.ordinal()] = new ArrayList<Element>();
+        memo[Configuration.getMode().ordinal()][c.ordinal()] = new ArrayList<>();
     }
 }
