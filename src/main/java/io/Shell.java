@@ -135,27 +135,34 @@ public class Shell {
     public void loop(Calculator c) {
         while (!interrupted) {
             try {
-                String line = reader.readLine(">> ", null, expression_reuse).trim();
-                expression_reuse = "";
-
-                if (!line.isEmpty()) {
-                    if (line.charAt(0) == '$') {
-                        modeSettings(line.substring(1));
-                    } else {
-                        String res;
-                        if (Configuration.getMode() == Mode.ARITHMETIC) {
-                            res = modeArithmetic(c, line);
-
-                        } else {
-                            res = modeProgrammer(line);
-                        }
-                        if (!res.isEmpty()) {
-                            memo.addElement(Category.LOG, line, res);
-                        }
-                    }
-
-                    reader.getHistory().add(line);
+                String line = "";
+                while (line.isEmpty()) {
+                    line = reader.readLine(">> ", null, expression_reuse).trim();
+                    expression_reuse = "";
                 }
+
+                if (line.charAt(0) == '$') {
+                    modeSettings(line.substring(1));
+                    continue;
+                }
+
+                String res = "";
+                switch (Configuration.getMode()) {
+                    case Mode.ARITHMETIC:
+                        res = modeArithmetic(c, line);
+                        break;
+
+                    case Mode.PROGRAMMER:
+                        res = modeProgrammer(line);
+                        break;
+                }
+
+                if (!res.isEmpty()) {
+                    memo.addElement(Category.LOG, line, res);
+                }
+
+                reader.getHistory().add(line);
+
             } catch (UserInterruptException e) {
                 exit();
             }
