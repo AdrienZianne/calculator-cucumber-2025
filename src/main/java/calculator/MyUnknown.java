@@ -162,16 +162,11 @@ public final class MyUnknown extends MyNumber {
 
     @Override
     public boolean isZero() {
-        boolean isZero = true;
-        return isZero && rest.isZero();
+        return false;
     }
 
     @Override
     public int getSign() {
-        // (2x + 3) is *positive*
-        // (2x - 3) is *positive*
-        // (-2x + 3) is *positive*
-        // (-2x - 3) = - (2x + 3) is *negative*
         return 1;
     }
 
@@ -210,6 +205,25 @@ public final class MyUnknown extends MyNumber {
         return Objects.hash(operands, rest);
     }
 
+    /**
+     * Gets an instance of a {@link Map}, containing multiple pairs of keys and values.
+     * <p>
+     *     Each of these pairs represents a unique term of the form : {@code a_i x^{n_i}}.
+     * </p>
+     * <p>
+     *      With :
+     *     <ul>
+     *         <li>
+     *             Each key representing {@code n_i}
+     *         </li>
+     *         <li>
+     *             Each value representing {@code a_i}
+     *         </li>
+     *     </ul>
+     * </p>
+     * Please note that the rest of the equation is not part of this instance.
+     * @return Each operand, except the rest.
+     */
     public Map<MyNumber, MyNumber> getOperands() {
         return operands;
     }
@@ -239,6 +253,14 @@ public final class MyUnknown extends MyNumber {
         }
     }
 
+    /**
+     * Applies the given <b>binary</b> operation to each term, including the rest and return the resulting expression.
+     * @param l The original expression, which is going to be passed as the first argument to the binary operation.
+     * @param val The value that is going to be passed as the second argument to the binary operation.
+     * @param fn The constructor of the binary operation.
+     * @return The resulting expression.
+     * @param <T> The class of the binary operation to execute.
+     */
     public static <T extends BinaryOperation> MyNumber applyToAllOperators(MyUnknown l, MyNumber val, BuildOperationFunction<T> fn)
     {
         HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
@@ -250,6 +272,13 @@ public final class MyUnknown extends MyNumber {
         return MyUnknown.create(newOperands, BinaryOperation.op(val, l.getRest(), fn));
     }
 
+    /**
+     * Applies the given <b>unary</b> operation to each term, including the rest and return the resulting expression.
+     * @param l The original expression, which is going to be passed as the argument to the unary operation.
+     * @param fn The constructor of the unary operation.
+     * @return The resulting expression
+     * @param <T> The class of the unary operation to execute.
+     */
     public static <T extends UnaryOperation> MyNumber applyToAllOperators(MyUnknown l, BuildUnaryOperationFunction<T> fn)
     {
         HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
@@ -259,5 +288,13 @@ public final class MyUnknown extends MyNumber {
         }
 
         return MyUnknown.create(newOperands, UnaryOperation.op(l.getRest(), fn));
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MyUnknown myUnknown = (MyUnknown) o;
+        return Objects.equals(operands, myUnknown.operands) && Objects.equals(rest, myUnknown.rest);
     }
 }
