@@ -103,6 +103,11 @@ public class Memory {
             Element other = (Element) object;
             return expression.equals(other.expression) && res.equals(other.res);
         }
+
+        @Override
+        public int hashCode() {
+            return expression.hashCode() - res.hashCode();
+        }
     }
 
     /**
