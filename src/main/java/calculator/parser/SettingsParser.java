@@ -335,7 +335,7 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         if (ctx.getChildCount() == 2) {
             index = Integer.parseInt(ctx.getChild(1).getText());
         }
-        shell.reuse_exp(Category.LOG, index);
+        shell.reuseExp(Category.LOG, index);
         return null;
     }
 
@@ -345,7 +345,7 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         if (ctx.getChildCount() == 2) {
             index = Integer.parseInt(ctx.getChild(1).getText());
         }
-        shell.reuse_exp(Category.FAVO, index);
+        shell.reuseExp(Category.FAVO, index);
         return null;
     }
 

@@ -44,7 +44,7 @@ public class Shell {
 
     private Memory memo;
 
-    private String expression_reuse = "";
+    private String expressionReuse = "";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
@@ -137,8 +137,8 @@ public class Shell {
             try {
                 String line = "";
                 while (line.isEmpty()) {
-                    line = reader.readLine(">> ", null, expression_reuse).trim();
-                    expression_reuse = "";
+                    line = reader.readLine(">> ", null, expressionReuse).trim();
+                    expressionReuse = "";
                 }
 
                 if (line.charAt(0) == '$') {
@@ -361,8 +361,8 @@ public class Shell {
         ((LineReaderImpl) reader).clearScreen();
     }
 
-    public void reuse_exp(Category c, Integer index) {
-        expression_reuse = memo.getExpression(c, index);
+    public void reuseExp(Category c, Integer index) {
+        expressionReuse = memo.getExpression(c, index);
     }
 
     /**
