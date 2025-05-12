@@ -59,6 +59,13 @@ class TestAbsolute extends TestUnaryOperation {
         assertEquals(new MyInfinity(true), res);
     }
 
+    @Test
+    @Override
+    public void testMyUnknown() throws Exception {
+        MyNumber res = op(MyUnknown.create(ConstantNumber.ONE, ConstantNumber.ONE));
+        assertEquals(MyErrorNumber.class, res.getClass());
+    }
+
     private MyNumber op(MyNumber a) {
         return UnaryOperation.op(a, Absolute::new);
     }

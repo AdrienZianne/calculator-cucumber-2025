@@ -20,20 +20,41 @@ public final class MyUnknown extends MyNumber {
 
     private final MyNumber rest;
 
-    private MyUnknown(MyNumber a, MyNumber b, MyNumber exponent) {
-        this.operands = new HashMap<>();
-        operands.put(exponent, a);
-
-        this.rest = b;
-    }
-
     private MyUnknown(HashMap<MyNumber, MyNumber> operands, MyNumber rest) {
         this.operands = operands;
         this.rest = rest;
     }
 
+    /**
+     * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code a_0x^{n_0} + ... + a_i x^{n_i} + rest}.
+     * @param operands The map of values representing : {@code {(n_0 : a_0), ..., (n_i : a_i)}}.
+     *                 Note that for each pair, the key represents {@code n} and the value {@code a}.
+     *                 <p>If one of the {@code n_i} is equal to zero, then the value of {@code a_i} will be added to the {@code rest}.</p>
+     * @param rest The value of {@code rest}.
+     * @return
+     * <ul>
+     *     <li>{@code rest} if all {@code a_i} (or all {@code n_i}) are equivalent to zero.</li>
+     *     <li>
+     *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
+     *          (it return the undefined parameter)
+     *      </li>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
+     *     <ul>
+     *         <li>A {@code null} argument</li>
+     *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
+     *         <li>Another instance of the {@link MyUnknown} class.</li>
+     *     </ul>
+     *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
+     * </ul>
+     */
     public static MyNumber create(Map<MyNumber, MyNumber> operands, MyNumber rest) {
-        return new MyUnknown((HashMap<MyNumber, MyNumber>) operands, rest);
+        ArrayList<Pair<MyNumber, MyNumber>> operandList = new ArrayList<>();
+
+        for (Map.Entry<MyNumber, MyNumber> entry : operands.entrySet()) {
+            operandList.add(new Pair<>(entry.getValue(), entry.getKey()));
+        }
+        // We do this in order to check that everything is correct
+        return create(operandList, rest);
     }
 
     /**
@@ -58,7 +79,9 @@ public final class MyUnknown extends MyNumber {
      * </ul>
      */
     public static MyNumber create(List<Pair<MyNumber, MyNumber>> operands, MyNumber rest) {
-
+        if (rest == null || operands == null || operands.isEmpty()) {
+            return new MyErrorNumber(null, "Tried to create an unknown number null parameter or emptys list");
+        }
         MyNumber validity = checkOperandValidity(rest);
         if (validity != null) {return validity;}
 
@@ -80,7 +103,7 @@ public final class MyUnknown extends MyNumber {
 
             if (operand.a.isZero()) continue;
             // if the exponent is zero then we can add 'a' to the rest.
-            if (operand.b.isZero()) totalRest = BinaryOperation.op(totalRest, rest, Plus::new);
+            if (operand.b.isZero()) totalRest = BinaryOperation.op(totalRest, operand.a, Plus::new);
             // If the exponent doesn't already exist we add it
             else if (!newOperands.containsKey(operand.b)) {
                 newOperands.put(operand.b, operand.a);
@@ -106,8 +129,8 @@ public final class MyUnknown extends MyNumber {
     /**
      * A constructor for the {@link MyUnknown} class. Used to represent an instance of the following formula : {@code ax^n + b}.
      * @param a The value of {@code a}.
-     * @param b The value of {@code b}.
      * @param n The value of {@code n}.
+     * @param b The value of {@code b}.
      * @return
      * <ul>
      *     <li>{@code b} if {@code a} is equivalent to zero.</li>
@@ -125,7 +148,7 @@ public final class MyUnknown extends MyNumber {
      *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
      * </ul>
      */
-    public static MyNumber create(MyNumber a, MyNumber b, MyNumber n) {
+    public static MyNumber create(MyNumber a, MyNumber n, MyNumber b) {
         return create(List.of(new Pair<>(a, n)), b);
     }
 
@@ -150,7 +173,7 @@ public final class MyUnknown extends MyNumber {
      * </ul>
     */
     public static MyNumber create(MyNumber a, MyNumber b) {
-        return new MyUnknown(a, b, ConstantNumber.ONE);
+        return create(List.of(new Pair<>(a, ConstantNumber.ONE)), b);
     }
 
 
@@ -228,6 +251,10 @@ public final class MyUnknown extends MyNumber {
         return operands;
     }
 
+    /**
+     * Gets the rest of the expression that has no unknown values.
+     * @return The rest of the expression.
+     */
     public MyNumber getRest() {
         return rest;
     }

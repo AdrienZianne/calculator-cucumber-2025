@@ -3,6 +3,8 @@ package calculator.operation.unary;
 import calculator.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestNegation extends TestUnaryOperation {
@@ -45,5 +47,32 @@ public class TestNegation extends TestUnaryOperation {
         assertEquals(new MyInfinity(false), calculator.eval(neg));
         neg = new Negation(new MyInfinity(false));
         assertEquals(new MyInfinity(true), calculator.eval(neg));
+    }
+
+    @Test
+    @Override
+    public void testMyUnknown() throws Exception {
+        MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+                        new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(5), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(0)),
+                        new Pair<>(MyInteger.valueOf(5), MyInteger.valueOf(20))
+                ),
+                MyInteger.valueOf(8));
+
+        MyUnknown val = (MyUnknown) MyUnknown.create(List.of(
+                        new Pair<>(MyInteger.valueOf(-2), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(-5), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(-2), MyInteger.valueOf(0)),
+                        new Pair<>(MyInteger.valueOf(-5), MyInteger.valueOf(20))
+                ),
+                MyInteger.valueOf(-8));
+
+
+        assertEquals(val, op(other));
+    }
+
+    private MyNumber op(MyNumber a) {
+        return UnaryOperation.op(a, Negation::new);
     }
 }
