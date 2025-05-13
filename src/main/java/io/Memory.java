@@ -135,7 +135,7 @@ public class Memory {
             for (Category c : Category.values()) {
                 try {
                     memo[m.ordinal()][c.ordinal()] = mapper.readValue(
-                            new File("src/main/ressources/" + m.toString() + "_" + c.toString() + ".yml"),
+                            new File("." + m.toString() + "_" + c.toString() + ".yml"),
                             mapper.getTypeFactory().constructCollectionType(ArrayList.class, Element.class));
                 } catch (IOException _) {
                     memo[m.ordinal()][c.ordinal()] = new ArrayList<>();
@@ -153,7 +153,7 @@ public class Memory {
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             for (Mode m : Mode.values()) {
                 for (Category c : Category.values()) {
-                    mapper.writeValue(new File("src/main/ressources/" + m.toString() + "_" + c.toString() + ".yml"),
+                    mapper.writeValue(new File("." + m.toString() + "_" + c.toString() + ".yml"),
                             memo[m.ordinal()][c.ordinal()]);
                 }
             }
