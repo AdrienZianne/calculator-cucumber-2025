@@ -5,6 +5,8 @@ import calculator.Configuration.Mode;
 import calculator.parser.antlr.LabeledSettingsBaseVisitor;
 import calculator.parser.antlr.LabeledSettingsParser;
 import io.Shell;
+import io.Memory;
+import io.Memory.Category;
 
 import java.math.RoundingMode;
 
@@ -16,9 +18,11 @@ import java.math.RoundingMode;
 public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
 
     private Shell shell;
+    private Memory memo;
 
-    public SettingsParser(Shell shell) {
+    public SettingsParser(Shell shell, Memory memo) {
         this.shell = shell;
+        this.memo = memo;
     }
 
     /*
@@ -102,6 +106,12 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
     }
 
     @Override
+    public Void visitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) {
+        shell.infoOption(Shell.Options.USE_COMPLEX_DOMAIN);
+        return null;
+    }
+
+    @Override
     public Void visitInfoUseDegrees(LabeledSettingsParser.InfoUseDegreesContext ctx) {
         shell.infoOption(Shell.Options.USE_DEGREES);
         return null;
@@ -126,8 +136,14 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
     }
 
     @Override
-    public Void visitInfoUseComplexDomain(LabeledSettingsParser.InfoUseComplexDomainContext ctx) {
-        shell.infoOption(Shell.Options.USE_COMPLEX_DOMAIN);
+    public Void visitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) {
+        shell.infoOption(Shell.Options.MAX_STORE);
+        return null;
+    }
+
+    @Override
+    public Void visitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) {
+        shell.infoOption(Shell.Options.DELETE_DUPLICATES);
         return null;
     }
 
@@ -213,6 +229,18 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) {
+        Configuration.setMaxStore(Integer.parseInt(ctx.getChild(2).getText()));
+        return null;
+    }
+
+    @Override
+    public Void visitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) {
+        Configuration.setDeleteDuplicates(Boolean.valueOf(ctx.getChild(2).getText()));
+        return null;
+    }
+
     /*
      * __________________________________________________________________Rouding_Mode
      */
@@ -262,6 +290,74 @@ public class SettingsParser extends LabeledSettingsBaseVisitor<Void> {
     @Override
     public Void visitRoundingModeUp(LabeledSettingsParser.RoundingModeUpContext ctx) {
         Configuration.setRealRoundingMode(RoundingMode.UP);
+        return null;
+    }
+
+    /*
+     * __________________________________________________________________History
+     */
+
+    @Override
+    public Void visitHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx) {
+        memo.printData(Category.LOG);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx) {
+        memo.printData(Category.FAVO);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        memo.addFavo(index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        memo.delFavo(index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        shell.reuseExp(Category.LOG, index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) {
+        Integer index = null;
+        if (ctx.getChildCount() == 2) {
+            index = Integer.parseInt(ctx.getChild(1).getText());
+        }
+        shell.reuseExp(Category.FAVO, index);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) {
+        memo.reset(Category.LOG);
+        return null;
+    }
+
+    @Override
+    public Void visitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) {
+        memo.reset(Category.FAVO);
         return null;
     }
 }

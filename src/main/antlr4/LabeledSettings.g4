@@ -7,6 +7,7 @@ setting : QUIT         #SettingsQuit
         | CLEAR        #SettingsClear
         | option       #SettingsOption
 		| 'reset_seed' #SettingsResetSeed
+		| history      #SettingsHistory
         ;
 
 info : MODE                       #InfoMode
@@ -21,6 +22,8 @@ info : MODE                       #InfoMode
      | 'seed'                     #InfoSeed
      | 'base_notation_convention' #InfoBaseNotationConvention
      | 'logical_symbol'           #InfoLogicalSymbol
+     | 'max_store'                #InfoMaxStore
+     | 'delete_duplicates'        #InfoDeleteDuplicates
      ;
 
 option : MODE '=' modes                        #OptionMode
@@ -35,6 +38,8 @@ option : MODE '=' modes                        #OptionMode
        | 'seed' '=' INT                        #OptionSeed
        | 'base_notation_convention' '=' BOOL   #OptionBaseNotationConvention
        | 'logical_symbol' '=' BOOL             #OptionLogicalSymbol
+       | 'max_store' '=' INT                   #OptionMaxStore
+       | 'delete_duplicates' '=' BOOL          #OptionDeleteDuplicates
        ;
 
 modes : ARITHMETIC #ModeArithmetic
@@ -51,6 +56,16 @@ roundingmode : 'ceiling'     #RoundingModeCeiling
              | 'up'          #RoundingModeUp
              ;
 
+history : LOGS         #HistoryLogs
+		| FAVOS        #HistoryFavos
+		| ADDFAVO INT? #HistoryAddFavo
+		| DELFAVO INT? #HistoryDelFavo
+		| USELOG  INT? #HistoryUseLog
+		| USEFAVO INT? #HistoryUseFavo
+		| RESETLOG     #HistoryResetLog
+		| RESETFAVO    #HistoryResetFavo
+		;
+
 QUIT : 'q' | 'quit' | 'e' | 'exit' ; // match quit
 HELP : 'h' | 'help' | '?' ; // match help
 LISTOPTIONS : 'l' | 'list' | 'lo' | 'list' 'options' | 'o' | 'options' ; // match list options
@@ -63,6 +78,15 @@ UINT : [0-9]+ ; // match integers
 BOOL : 'true' | 'false' ; // match boolean
 ARITHMETIC : 'a' | 'arithmetic' ; // match mode arithmetic
 PROGRAMMER : 'p' | 'programmer' ; // match mode programmer
+
+LOGS : 'll' | 'logs' ; // match logs
+FAVOS : 'lf' | 'favos' ; // match favos
+ADDFAVO : 'af' | 'add_favo' ; // match add favo
+DELFAVO : 'df' | 'del_favo' ; // match del favo
+USELOG : 'ul' | 'use_log' ; // match use log
+USEFAVO : 'uf' | 'use_favo' ; // match use favo
+RESETLOG : 'rl' | 'reset_log' ; // match reset log
+RESETFAVO : 'rf' | 'reset_favo' ; // match reset favo
 
 NEWLINE : '\r'? '\n' ; // return newlines to parser (is end-statement signal)
 WS : [ \t]+ -> skip ; // toss out whitespace
