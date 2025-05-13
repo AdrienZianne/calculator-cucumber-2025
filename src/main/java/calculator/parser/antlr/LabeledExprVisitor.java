@@ -17,6 +17,27 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(LabeledExprParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EquationInfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationInfix(LabeledExprParser.EquationInfixContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EquationPostfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EquationPrefix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree

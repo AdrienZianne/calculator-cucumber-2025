@@ -18,6 +18,42 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitExpr(LabeledExprParser.ExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code EquationInfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void enterEquationInfix(LabeledExprParser.EquationInfixContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EquationInfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void exitEquationInfix(LabeledExprParser.EquationInfixContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EquationPostfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void enterEquationPostfix(LabeledExprParser.EquationPostfixContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EquationPostfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void exitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EquationPrefix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void enterEquationPrefix(LabeledExprParser.EquationPrefixContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EquationPrefix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 */
+	void exitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
