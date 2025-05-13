@@ -2,6 +2,7 @@ package calculator.operation;
 
 import calculator.Expression;
 import calculator.IllegalConstruction;
+import calculator.operation.binary.BinaryOperation;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @param <O> A class extending an operation
  */
 @FunctionalInterface
-public interface BuildOperationFunction<O extends Operation> {
+public interface BuildBinaryOperationFunction<O extends BinaryOperation> {
     /**
      * Creates an operation
      * @return The created operation

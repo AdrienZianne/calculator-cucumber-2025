@@ -115,7 +115,7 @@ public final class Times extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyComplex r) {
-        return null;
+        return infinityTimesNumber(l, r);
     }
 
     @Override
@@ -125,7 +125,7 @@ public final class Times extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
-        return new MyInfinity(l.isPositive() && r.isPositive());
+        return new MyInfinity(l.isPositive() == r.isPositive());
     }
 
     @Override
@@ -182,6 +182,6 @@ public final class Times extends CommutativeBinaryOperation {
     {
         if (r.isZero()) return new MyUndefinedNumber(this);
 
-        return new MyInfinity(l.isPositive() && (r.getSign() > 0));
+        return new MyInfinity(l.isPositive() == (r.getSign() > 0));
     }
 }

@@ -1,7 +1,7 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.Operation;
 import visitor.Evaluator;
 
@@ -206,7 +206,7 @@ public abstract class BinaryOperation extends Operation {
      * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
      * @param <T> The {@link BinaryOperation} to create.
      */
-    public static <T extends BinaryOperation> MyNumber op(MyNumber arg1, MyNumber arg2, BuildOperationFunction<T> builder)
+    public static <T extends BinaryOperation> MyNumber op(MyNumber arg1, MyNumber arg2, BuildBinaryOperationFunction<T> builder)
     {
         BinaryOperation u;
         try {
@@ -229,7 +229,7 @@ public abstract class BinaryOperation extends Operation {
      * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
      * @param <T> The {@link BinaryOperation} to create.
      */
-    public static <T extends BinaryOperation> MyNumber op(Evaluator eval, ArrayList<Expression> args, BuildOperationFunction<T> builder)
+    public static <T extends BinaryOperation> MyNumber op(Evaluator eval, ArrayList<Expression> args, BuildBinaryOperationFunction<T> builder)
     {
         BinaryOperation u;
         MyNumber result;

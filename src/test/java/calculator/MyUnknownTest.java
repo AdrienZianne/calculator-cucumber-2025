@@ -177,4 +177,59 @@ class MyUnknownTest {
                 MyInteger.valueOf(8));
         assertNotEquals(val, other);
     }
+
+
+    @Test
+    void testIsFirstDegree() {
+        assertFalse(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+                                new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))),
+                        MyInteger.valueOf(3))).isFirstDegree()
+        );
+
+        assertFalse(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3))),
+                        MyInteger.valueOf(3))).isFirstDegree()
+        );
+
+        assertTrue(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(23), MyInteger.valueOf(1))),
+                        MyInteger.valueOf(3))).isFirstDegree()
+        );
+    }
+
+
+    @Test
+    void testIsSecondDegree() {
+        assertFalse(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+                                new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))),
+                        MyInteger.valueOf(3))).isSecondDegree()
+        );
+
+        assertFalse(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(1))),
+                        MyInteger.valueOf(3))).isSecondDegree()
+        );
+
+        assertTrue(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(1), MyInteger.valueOf(2)),
+                                new Pair<>(MyInteger.valueOf(1), MyInteger.valueOf(1))),
+                        MyInteger.valueOf(3))).isSecondDegree()
+        );
+
+        assertTrue(
+                ((MyUnknown) MyUnknown.create(List.of(
+                                new Pair<>(MyInteger.valueOf(1), MyInteger.valueOf(2))),
+                        MyInteger.valueOf(3))).isSecondDegree()
+        );
+    }
+
+
 }

@@ -3,6 +3,7 @@ package calculator;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Minus;
 import calculator.operation.binary.Plus;
+import calculator.operation.unary.Absolute;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
@@ -136,6 +137,6 @@ public class MyComplex extends MyNumber {
 
     @Override
     public int getSign() {
-        return 0; // TODO: will need to add this after adding the absolute unary operator !
+        return UnaryOperation.op(this, Absolute::new).getSign();
     }
 }

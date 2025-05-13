@@ -1,14 +1,10 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import calculator.operation.BuildOperationFunction;
-import calculator.operation.Operation;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 

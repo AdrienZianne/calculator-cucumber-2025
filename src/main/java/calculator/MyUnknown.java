@@ -1,7 +1,7 @@
 package calculator;
 
 
-import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
 import calculator.operation.unary.Negation;
@@ -180,7 +180,7 @@ public final class MyUnknown extends MyNumber {
 
     @Override
     public Object getObjectValue() {
-        return null;
+        return operands;
     }
 
     @Override
@@ -211,7 +211,11 @@ public final class MyUnknown extends MyNumber {
             res = "-";
             factor = UnaryOperation.op(factor, Negation::new);
         }
-        return res + " " + (hideOne && factor.equals(ConstantNumber.ONE) ? "" : factor.toString());
+        String middlePart =  (hideOne && factor.equals(ConstantNumber.ONE) ? "" : factor.toString());
+        if (factor instanceof MyComplex)
+            return "(" + res + " " + middlePart + ")";
+        else
+            return res + " " + middlePart;
     }
 
     private String termAsString(MyNumber factor, MyNumber exp) {
@@ -288,7 +292,7 @@ public final class MyUnknown extends MyNumber {
      * @return The resulting expression.
      * @param <T> The class of the binary operation to execute.
      */
-    public static <T extends BinaryOperation> MyNumber applyToAllOperators(MyUnknown l, MyNumber val, BuildOperationFunction<T> fn)
+    public static <T extends BinaryOperation> MyNumber applyToAllOperators(MyUnknown l, MyNumber val, BuildBinaryOperationFunction<T> fn)
     {
         HashMap<MyNumber, MyNumber> newOperands = new HashMap<>();
         for (MyNumber key : l.getOperands().keySet())
@@ -317,7 +321,19 @@ public final class MyUnknown extends MyNumber {
         return MyUnknown.create(newOperands, UnaryOperation.op(l.getRest(), fn));
     }
 
-
+    /**
+     * Resolves an equation of the form : {@code left = right}.
+     * <p>Supported expression are :
+     * <ul>
+     *     <li>Expressions without any unknown terms.</li>
+     *     <li>First degree expression.</li>
+     *     <li>Second degree expression.</li>
+     * </ul>
+     * </p>
+     * @param left A number or an expression (i.e. an instance of the {@link MyUnknown}).
+     * @param right A number or an expression (i.e. an instance of the {@link MyUnknown}).
+     * @return A string representing the resulting equation.
+     */
     public static String solveEquation(MyNumber left, MyNumber right) {
         // Move everything to the left equation in order to get something of the form :
         // ax^n  + cx^{n-1} ... + dx + b = 0
@@ -408,6 +424,13 @@ public final class MyUnknown extends MyNumber {
     }
 
 
+    /**
+     * Checks if this instance is an expression of the first degree.
+     * <p>
+     *    i.e. an expression of the form : {@code ax^n + b}.
+     * </p>
+     * @return true if it's of the first degree, false otherwise.
+     */
     public boolean isFirstDegree() {
         for (MyNumber key : operands.keySet()) {
             if (!key.equals(ConstantNumber.ONE)) {
@@ -417,12 +440,22 @@ public final class MyUnknown extends MyNumber {
         return true;
     }
 
+    /**
+     * Checks if this instance is an expression of the second degree.
+     * <p>
+     *    i.e. an expression of the form : {@code ax^2 + bx^1 + c}. With {@code a} different from zero.
+     * </p>
+     * @return true if it's of the second degree, false otherwise.
+     */
     public boolean isSecondDegree() {
+        boolean flag = false;
         for (MyNumber key : operands.keySet()) {
-            if (!(key.equals(ConstantNumber.ONE) || key.equals(MyInteger.valueOf(2)))) {
+            if (key.equals(MyInteger.valueOf(2)))
+                flag = true;
+            else if (!key.equals(ConstantNumber.ONE)) {
                 return false;
             }
         }
-        return true;
+        return flag;
     }
 }
