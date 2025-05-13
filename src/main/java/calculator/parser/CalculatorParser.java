@@ -62,6 +62,24 @@ public class CalculatorParser {
         }
     }
 
+    public static void parseArithmeticEquation(String input) {
+        // Read input as stream
+        CharStream inp = CharStreams.fromString(input);
+
+        LabeledExprLexer lexer = new LabeledExprLexer(inp);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledExprParser parser = new LabeledExprParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        EquationParser eval = new EquationParser();
+        try {
+            eval.visit(parser.expr());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Arithmetic expression: " + e.getMessage());
+        }
+    }
+
     /**
      * Method for launching the parser in programmer mode.
      * 

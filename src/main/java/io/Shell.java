@@ -168,11 +168,16 @@ public class Shell {
      */
     private void modeArithmetic(Calculator c, String line) {
         try {
-            Expression exp = CalculatorParser.parseArithmetic(line);
-            if (exp == null)
-                System.out.println("[DEBUG] : Result was null, returning");
-            else
-                terminal.writer().println(c.eval(exp));
+            if (!line.contains("=")) {
+                Expression exp = CalculatorParser.parseArithmetic(line);
+                if (exp == null)
+                    System.out.println("[DEBUG] : Result was null, returning");
+                else
+                    terminal.writer().println(c.eval(exp));
+            }
+            else {
+                CalculatorParser.parseArithmeticEquation(line);
+            }
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
