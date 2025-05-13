@@ -144,6 +144,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.INFIX));
     }
 
+    @Override
+    public Expression visitEquationInfix(LabeledExprParser.EquationInfixContext ctx) {
+        return solveEquation(ctx);
+    }
+
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -254,6 +259,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx) {
+        return solveEquation(ctx);
     }
 
     /*
@@ -370,6 +380,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.POSTFIX));
     }
 
+    @Override
+    public Expression visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx) {
+        return solveEquation(ctx);
+    }
+
     /* __________________________________ NUMBER _______________________________ */
 
     @Override
@@ -477,7 +492,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return ConstantNumber.EULER;
     }
 
-    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Static Functions=-=-=-=-=-=-=-=-=-=-=-=-=
+    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Other Functions=-=-=-=-=-=-=-=-=-=-=-=-=
     /**
      * Parses the given context as expressions and feeds them to a binary operation.
      * 
@@ -590,6 +605,22 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
             }
         }
         return res;
+    }
+
+
+    private <E extends ParserRuleContext> Expression solveEquation(E ctx) {
+
+        // Compute left part of the equation
+        Evaluator v = new Evaluator();
+        visit(ctx.getChild(0)).accept(v);
+        MyNumber left = v.getResult();
+        // Compute right part of the equation
+        v = new Evaluator();
+        visit(ctx.getChild(2)).accept(v);
+        MyNumber right = v.getResult();
+
+        System.out.println(MyUnknown.solveEquation(left, right));
+        return null;
     }
 
 

@@ -109,9 +109,11 @@ public class MyComplex extends MyNumber {
         }else {
             imaginaryPartStr = imaginaryPart.toString();
         }
-        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString()
-                    + " " + opSymbol + " ")
-                + imaginaryPartStr + "i";
+        if (this.realImaginaryPair.a.isZero()) {
+            return (opSymbol == '-' ? opSymbol : "")  + imaginaryPartStr + "i";
+        }
+        return this.realImaginaryPair.a.toString()
+                    + " " + opSymbol + " " + imaginaryPartStr + "i";
     }
 
 

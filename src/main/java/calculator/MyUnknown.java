@@ -3,9 +3,9 @@ package calculator;
 
 import calculator.operation.BuildOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Plus;
+import calculator.operation.binary.*;
 import calculator.operation.unary.Negation;
+import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 
 import java.util.*;
@@ -318,10 +318,111 @@ public final class MyUnknown extends MyNumber {
     }
 
 
+    public static String solveEquation(MyNumber left, MyNumber right) {
+        // Move everything to the left equation in order to get something of the form :
+        // ax^n  + cx^{n-1} ... + dx + b = 0
+        left = BinaryOperation.op(left, right, Minus::new);
+        // If there are no unknown values anymore, we can simply check if the resulting value is equal
+        // or not to zero.
+
+        if (left instanceof MyUnknown l) {
+            if (l.isFirstDegree())
+                return "x =" + solveFirstDegreeEq(l.getOperands().get(ConstantNumber.ONE), l.getRest()).toString();
+            if (l.isSecondDegree()) {
+                MyNumber a = l.getOperands().get(MyInteger.valueOf(2));
+                MyNumber b = l.getOperands().get(MyInteger.valueOf(1));
+                Pair<MyNumber, MyNumber> solutions = solveSecondDegree(a, Objects.requireNonNullElse(b, ConstantNumber.ZERO), l.getRest());
+                if (solutions.a == null && solutions.b == null) {
+                    return "No solutions in the real domain";
+                }
+                if (solutions.a == null) {
+                    return "x = " + solutions.b;
+                }
+                if (solutions.b == null) {
+                    return "x = " + solutions.a;
+                }
+                return "x_1 = " + solutions.a + " | x_2 =" + solutions.b;
+            }
+            return "Equation with a degree superior to 2 are not supported";
+        }
+        else
+            return Boolean.toString(left.equals(ConstantNumber.ZERO));
+    }
+
+
+    private static MyNumber solveFirstDegreeEq(MyNumber a, MyNumber b) {
+        // ax + b = 0
+        // x = - b/a
+        return BinaryOperation.op(
+                UnaryOperation.op(b, Negation::new),
+                a,
+                Divides::new);
+    }
+
+
+    private static Pair<MyNumber, MyNumber> solveSecondDegree(MyNumber a, MyNumber b, MyNumber c) {
+        // ax^2 + bx + c = 0
+        // delta = b^2 - 4 ac
+        MyNumber bSquared = BinaryOperation.op(b, MyInteger.valueOf(2), Exponent::new);
+        MyNumber aTimesC = BinaryOperation.op(a, c, Times::new);
+        MyNumber fourATimesC = BinaryOperation.op(MyInteger.valueOf(4), aTimesC, Times::new);
+
+        MyNumber delta = BinaryOperation.op(bSquared, fourATimesC, Minus::new);
+
+        if (delta.getSign() < 0 && !Configuration.usesComplexDomainDefault())
+            return new Pair<>(null, null);
+
+
+        // solution : x_1 = (-bx + c) / a^2
+
+        // x_ 1  = (-b + sqrt(delta)) / 2a
+        MyNumber negativeB = UnaryOperation.op(b,Negation::new);
+        MyNumber sqrtDelta = UnaryOperation.op(delta, SquareRoot::new);
+        MyNumber twoA = BinaryOperation.op(MyInteger.valueOf(2), a, Times::new);
+        MyNumber x1 = BinaryOperation.op(
+                BinaryOperation.op(negativeB,
+                        sqrtDelta,
+                        Plus::new),
+                twoA,
+                Divides::new);
+        if (!delta.isZero()) {
+            MyNumber x2 = BinaryOperation.op(
+                    BinaryOperation.op(negativeB,
+                            sqrtDelta,
+                            Minus::new),
+                    twoA,
+                    Divides::new);
+
+            return new Pair<>(x1, x2);
+        } else {
+            return new Pair<>(x1, null);
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         MyUnknown myUnknown = (MyUnknown) o;
         return Objects.equals(operands, myUnknown.operands) && Objects.equals(rest, myUnknown.rest);
+    }
+
+
+    public boolean isFirstDegree() {
+        for (MyNumber key : operands.keySet()) {
+            if (!key.equals(ConstantNumber.ONE)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isSecondDegree() {
+        for (MyNumber key : operands.keySet()) {
+            if (!(key.equals(ConstantNumber.ONE) || key.equals(MyInteger.valueOf(2)))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
