@@ -131,7 +131,7 @@ public final class Plus extends CommutativeBinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyUnknown r) {
-        return MyUnknown.create(r.getOperands(), l);
+        return MyUnknown.create(r.getOperands(), op(l, r.getRest()));
     }
 
     @Override

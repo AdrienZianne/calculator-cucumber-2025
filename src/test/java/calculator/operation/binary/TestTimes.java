@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestTimes {
+class TestTimes extends TestBinaryOperation {
 
 	private final int value1 = 8;
 	private final int value2 = 6;
@@ -78,4 +78,219 @@ class TestTimes {
 		assertThrows(IllegalConstruction.class, () -> op = new Times(params));
 	}
 
+	@Test
+    @Override
+	public void TestMyIntegerMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyIntegerMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyIntegerMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyIntegerMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyIntegerMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyIntegerMyUnknown() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRealMyUnknown() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyComplexMyUnknown() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyRationalMyUnknown() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyInfinityMyUnknown() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyInteger() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyReal() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyComplex() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyRational() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyInfinity() {
+
+	}
+
+	@Test
+    @Override
+	public void TestMyUnknownMyUnknown() {
+
+	}
 }
