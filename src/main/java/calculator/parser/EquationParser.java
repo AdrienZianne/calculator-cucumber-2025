@@ -1,5 +1,7 @@
 package calculator.parser;
 
+import calculator.Equation;
+import calculator.Expression;
 import calculator.MyNumber;
 import calculator.MyUnknown;
 import calculator.parser.antlr.LabeledExprBaseVisitor;
@@ -7,31 +9,35 @@ import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import visitor.Evaluator;
 
-public class EquationParser extends LabeledExprBaseVisitor<Void> {
+public class EquationParser extends LabeledExprBaseVisitor<Equation> {
+    @Override
+    public Equation visitExpr(LabeledExprParser.ExprContext ctx) {
+        return visit(ctx.getChild(0));
+    }
+
 
     @Override
-    public Void visitEquationInfix(LabeledExprParser.EquationInfixContext ctx) {
+    public Equation visitEquationInfix(LabeledExprParser.EquationInfixContext ctx) {
         return solveEquation(ctx);
     }
 
     @Override
-    public Void visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx) {
+    public Equation visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx) {
         return solveEquation(ctx);
     }
 
     @Override
-    public Void visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx) {
+    public Equation visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx) {
         return solveEquation(ctx);
     }
 
 
-    private <E extends ParserRuleContext> Void solveEquation(E ctx) {
+    private <E extends ParserRuleContext> Equation solveEquation(E ctx) {
 
         ExpressionParser expressionParser = new ExpressionParser();
 
         // Compute left part of the equation
         Evaluator v = new Evaluator();
-
         expressionParser.visit(ctx.getChild(0)).accept(v);
         MyNumber left = v.getResult();
         // Compute right part of the equation
@@ -39,7 +45,7 @@ public class EquationParser extends LabeledExprBaseVisitor<Void> {
         expressionParser.visit(ctx.getChild(2)).accept(v);
         MyNumber right = v.getResult();
 
-        System.out.println(MyUnknown.solveEquation(left, right));
-        return null;
+        System.out.println(new Equation(left, right).printResults());
+        return new Equation(left, right);
     }
 }
