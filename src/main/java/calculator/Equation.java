@@ -74,6 +74,14 @@ public class Equation {
                     this.errorState = errorReal;
                     return;
                 }
+                // Something went wrong.
+                if (solutions.a instanceof MyErrorNumber e) {
+                    this.errorState = e.toString();
+                }
+                if (solutions.b instanceof MyErrorNumber e) {
+                    this.errorState = e.toString();
+                }
+
                 if (solutions.a == null) {
                     this.x1 = solutions.b;
                 }
@@ -83,13 +91,6 @@ public class Equation {
                 else {
                     this.x1 = solutions.a;
                     this.x2 = solutions.b;
-                }
-                // Something went wrong.
-                if (solutions.a instanceof MyErrorNumber e) {
-                    this.errorState = e.toString();
-                }
-                if (solutions.b instanceof MyErrorNumber e) {
-                    this.errorState = e.toString();
                 }
 
             }
@@ -169,6 +170,9 @@ public class Equation {
      *         <li>
      *             {@code x1: {SOLUTION 1} | x2: {SOLUTION 2}}, if the equation has two solutions.
      *         </li>
+     *         <li>
+     *             {@code true} or {@code false}, if the equation has no unknown terms.
+     *          </li>
      *     </ul>
      * </p>
      * @return The prettified result of an equation.
