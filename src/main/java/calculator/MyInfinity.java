@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class MyInfinity extends MyNumber {
 
-    boolean isPositive;
+    final boolean isPositive;
 
     /**
      * The default constructor of the {@link MyInfinity} class.

@@ -1,12 +1,9 @@
 package io;
 
+import calculator.*;
 import io.Memory.Category;
 
-import calculator.Calculator;
-import calculator.Configuration;
 import calculator.Configuration.Mode;
-import calculator.Expression;
-import calculator.Programmer;
 import calculator.parser.CalculatorParser;
 
 import org.jline.reader.LineReader;
@@ -49,7 +46,7 @@ public class Shell {
     /**
      * Class constructor. It initializes everything required for the CLI to function
      * correctly.
-     * 
+     *
      * @throws IOException This error is thrown if the terminal could not be built.
      */
     public Shell() throws IOException {
@@ -119,7 +116,7 @@ public class Shell {
 
     /**
      * Print error in the console
-     * 
+     *
      * @param err The error message sent to the user
      */
     private void printError(String err) {
@@ -128,7 +125,7 @@ public class Shell {
 
     /**
      * Loop of the REPL, making the application interactive
-     * 
+     *
      * @param c The calculator.
      *          {@link Calculator}
      */
@@ -171,7 +168,7 @@ public class Shell {
 
     /**
      * Method used to call the parser for application parameters.
-     * 
+     *
      * @param line User input
      */
     private void modeSettings(String line) {
@@ -185,7 +182,7 @@ public class Shell {
 
     /**
      * Method for calling the parser for arithmetic calculations.
-     * 
+     *
      * @param c    The calculator.
      * @param line User input
      * @return The result of the operation as a string to be stored in the logs.
@@ -194,13 +191,23 @@ public class Shell {
      */
     private String modeArithmetic(Calculator c, String line) {
         try {
-            Expression exp = CalculatorParser.parseArithmetic(line);
-            if (exp == null)
-                System.out.println("[DEBUG] : Result was null, returning");
-            else {
-                Expression res = c.eval(exp);
-                terminal.writer().println(res);
-                return res.toString();
+            if (!line.contains("=")) {
+                Expression exp = CalculatorParser.parseArithmetic(line);
+                if (exp == null)
+                    System.out.println("[DEBUG] : Result was null, returning");
+                else {
+                    Expression res = c.eval(exp);
+                    terminal.writer().println(res);
+                    return res.toString();
+                }
+            } else {
+                Equation exp = CalculatorParser.parseArithmeticEquation(line);
+                if (exp == null)
+                    System.out.println("[DEBUG] : Result was null, returning");
+                else {
+                    terminal.writer().println(exp.prettyResult());
+                    return exp.prettyResult();
+                }
             }
 
         } catch (IllegalArgumentException e) {
@@ -213,7 +220,7 @@ public class Shell {
 
     /**
      * Method for calling the parser for logic and computer calculations.
-     * 
+     *
      * @param line User input
      * @return The result of the operation as a string to be stored in the logs.
      *         {@link MemoryImageSource}
@@ -297,7 +304,7 @@ public class Shell {
     /**
      * Method for displaying multiple information about an option. Namely, its name,
      * current value, value type and description.
-     * 
+     *
      * @param o The option you want to know more about.
      */
     public void infoOption(Options o) {
@@ -310,7 +317,7 @@ public class Shell {
 
     /**
      * Method used to recover the current value of an option.
-     * 
+     *
      * @param o The option whose current value is to be retrieved.
      * @return The current value of the option. It is of type String to manage
      *         different types of configuration.

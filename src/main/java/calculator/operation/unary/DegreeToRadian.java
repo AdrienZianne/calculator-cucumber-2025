@@ -3,6 +3,7 @@ package calculator.operation.unary;
 import calculator.*;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
+import calculator.operation.binary.Minus;
 import calculator.operation.binary.Times;
 
 /**
@@ -48,6 +49,11 @@ public final class DegreeToRadian extends UnaryOperation {
     @Override
     public MyNumber op(MyComplex c) {
         return new MyErrorNumber(this,  "Cannot apply a transformation from degrees to radians on a complex number: " + c);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, DegreeToRadian::new);
     }
 
     @Override

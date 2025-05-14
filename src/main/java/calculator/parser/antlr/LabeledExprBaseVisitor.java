@@ -25,6 +25,27 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitEquationInfix(LabeledExprParser.EquationInfixContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitSumPostfixProd(LabeledExprParser.SumPostfixProdContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -207,7 +228,7 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -410,7 +431,7 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -425,13 +446,6 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -480,6 +494,13 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitProductInfixMult(LabeledExprParser.ProductInfixMultContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -501,7 +522,7 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -621,6 +642,20 @@ public class LabeledExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUnknownNumber(LabeledExprParser.UnknownNumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -17,6 +17,27 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(LabeledExprParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EquationInfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationInfix(LabeledExprParser.EquationInfixContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EquationPostfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EquationPrefix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
 	 * @param ctx the parse tree
@@ -199,12 +220,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomPostfixInt}
+	 * Visit a parse tree produced by the {@code AtomPostfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
+	T visitAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#postfixBinaryArgs}.
 	 * @param ctx the parse tree
@@ -400,12 +421,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomPrefixInt}
+	 * Visit a parse tree produced by the {@code AtomPrefixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	T visitAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#prefixBinaryArgs}.
 	 * @param ctx the parse tree
@@ -418,13 +439,6 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SumInfixRoot}
-	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
@@ -468,6 +482,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductInfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.
 	 * @param ctx the parse tree
@@ -489,12 +510,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixComplex}
+	 * Visit a parse tree produced by the {@code AtomInfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
+	T visitAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -614,6 +635,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnknownUnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownNumber(LabeledExprParser.UnknownNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.

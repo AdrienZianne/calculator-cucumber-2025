@@ -1,5 +1,6 @@
 package calculator.parser;
 
+import calculator.Equation;
 import calculator.Expression;
 import calculator.Programmer;
 import calculator.parser.antlr.*;
@@ -61,6 +62,25 @@ public class CalculatorParser {
             return eval.visit(parser.expr());
         } catch (ParserError e) {
             System.out.println("Parsing error caught for Arithmetic: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static Equation parseArithmeticEquation(String input) {
+        // Read input as stream
+        CharStream inp = CharStreams.fromString(input);
+
+        LabeledExprLexer lexer = new LabeledExprLexer(inp);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledExprParser parser = new LabeledExprParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        EquationParser eval = new EquationParser();
+        try {
+            return eval.visit(parser.expr());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Arithmetic expression: " + e.getMessage());
             return null;
         }
     }

@@ -1,7 +1,7 @@
 package calculator.parser;
 
 import calculator.*;
-import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
 import calculator.operation.unary.*;
@@ -38,11 +38,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
-    public Expression visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) {
-        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
-    }
-
-    @Override
     public Expression visitSumInfixMod(LabeledExprParser.SumInfixModContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Modulus(expressions, Notation.INFIX));
     }
@@ -60,6 +55,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
     }
 
     @Override
@@ -143,7 +143,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.INFIX));
     }
-
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -400,6 +399,15 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) {
+        if (ctx.getChildCount() == 1) {
+            return MyUnknown.create(new MyInteger(1), new MyInteger(0));
+        }
+
+        return MyUnknown.create((MyNumber) visit(ctx.getChild(0)), new MyInteger(0));
+    }
+
+    @Override
     public Expression visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) {
         return new MyInfinity(true);
     }
@@ -468,7 +476,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return ConstantNumber.EULER;
     }
 
-    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Static Functions=-=-=-=-=-=-=-=-=-=-=-=-=
+    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Other Functions=-=-=-=-=-=-=-=-=-=-=-=-=
     /**
      * Parses the given context as expressions and feeds them to a binary operation.
      * 
@@ -480,7 +488,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <O> The type of operation to build
      */
     public <E extends ParserRuleContext, O extends BinaryOperation> Expression parseToBinaryOperator(E ctx,
-            BuildOperationFunction<O> operation) {
+            BuildBinaryOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
@@ -582,6 +590,4 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         }
         return res;
     }
-
-
 }

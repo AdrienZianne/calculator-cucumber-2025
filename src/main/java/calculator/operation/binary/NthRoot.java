@@ -148,9 +148,19 @@ public final class NthRoot extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
     public MyNumber op(MyReal l, MyInfinity r) {
         if (l.isZero()) return new MyUndefinedNumber(this);
         return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return getUnknownErrorText();
     }
 
     @Override
@@ -159,9 +169,19 @@ public final class NthRoot extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
     public MyNumber op(MyRational l, MyInfinity r) {
         if (l.isZero()) return new MyUndefinedNumber(this);
         return MyInteger.valueOf(1);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return getUnknownErrorText();
     }
 
     @Override
@@ -191,6 +211,41 @@ public final class NthRoot extends BinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
         return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return getUnknownErrorText();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        return getUnknownErrorText();
     }
 
     private MyNumber infOp(MyInfinity l) {
@@ -239,5 +294,9 @@ public final class NthRoot extends BinaryOperation {
      */
     private String asFunction(String expr, Expression n) {
         return symbol + "(" + expr + ", " + n + ")";
+    }
+
+    private MyErrorNumber getUnknownErrorText() {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the root operation");
     }
 }

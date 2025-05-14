@@ -1,9 +1,18 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: sumInfix
-    | sumPrefix
+expr: equation EOF
+    | sumInfix EOF
+    | sumPrefix EOF
     | sumPostfix EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
+
+
+
+equation : sumInfix '=' sumInfix            #EquationInfix
+     | sumPostfix '=' sumPostfix            #EquationPostfix
+     | sumPrefix '=' sumPrefix              #EquationPrefix
+     ;
+
 
 
 /* POSTFIX NOTATION */
@@ -42,7 +51,7 @@ trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
              ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
-            | complexNumber             #AtomPostfixInt
+            | unknown                   #AtomPostfixNumber
             ;
 
 postfixBinaryArgs :  '(' atomPostfix ','?  atomPostfix (','? atomPostfix)* ')';
@@ -83,7 +92,7 @@ trigoPrefix  : 'sin' prefixUnaryArgs          #TrigoPrefixSin
              ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
-            | complexNumber   #AtomPrefixInt
+            | unknown           #AtomPrefixNumber
             ;
 
 
@@ -96,17 +105,17 @@ sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
     | sumInfix MOD  sumInfix                        #SumInfixMod
-    | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
     ;
 
-productInfix: atomInfix                  #ProductInfixAtom
-    | productInfix EXPONENT atomInfix    #ProductInfixExpo
-    | productInfix '*' atomInfix         #ProductInfixMult
-    | productInfix '/' atomInfix         #ProductInfixDiv
+productInfix: atomInfix                             #ProductInfixAtom
+    | productInfix EXPONENT atomInfix               #ProductInfixExpo
+    | productInfix '*' atomInfix                    #ProductInfixMult
+    | productInfix '/' atomInfix                    #ProductInfixDiv
+    | 'root' '(' sumInfix + ',' + sumInfix ')'      #ProductInfixRoot
     ;
 
 atomInfix: unaryInfix           #AtomInfixUnary
-    | complexNumber             #AtomInfixComplex
+    | unknown                   #AtomInfixNumber
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
@@ -133,10 +142,20 @@ trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
 
 /* NUMBER and TOKENS */
 
+// The next rules are written like this to prevent any recursion problem.
+
+// Checks to see if the number is an unknown value at first or not
+unknown : complexNumber? UNKNOWN            #UnknownUnknownNumber
+        | complexNumber                     #UnknownNumber
+        ;
+
 // Checks to see if the number is imaginary at first or not
 complexNumber   : number? 'i'    #ComplexImaginaryNumber
                 | number         #ComplexRealNumber
                 ;
+
+
+
 
 // Add other number kinds, such as floats/doubles
 number: rational                            #NumberRational // Placed first in order to *override* the infix division !
@@ -146,8 +165,10 @@ number: rational                            #NumberRational // Placed first in o
       | infinity                            #NumberInfinity
       | random                              #NumberRandom
       | number ENOTATION                    #NumberENotation
-      | '-' complexNumber                   #NumberNegation // In case someone wants the negative value of a number
+      | '-' unknown                         #NumberNegation // In case someone wants the negative value of a number
       ;
+
+
 
 random : 'rand_int' '(' INT ')'                         #RandomInt
        | 'rand_real' '(' ')'                            #RandomReal
@@ -170,6 +191,7 @@ MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
 ADD :   '+' ;
 SUB :   '-' ;
+UNKNOWN :   'x' ;
 EXPONENT :  '^' | '**';
 MOD :   '%'|'mod';
 BOOL :   'true'|'false' ;                      // match booleans

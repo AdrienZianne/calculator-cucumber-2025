@@ -3,6 +3,7 @@ package calculator;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Minus;
 import calculator.operation.binary.Plus;
+import calculator.operation.unary.Absolute;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
 
@@ -109,9 +110,11 @@ public class MyComplex extends MyNumber {
         }else {
             imaginaryPartStr = imaginaryPart.toString();
         }
-        return (this.realImaginaryPair.a.isZero() ? "" : this.realImaginaryPair.a.toString()
-                    + " " + opSymbol + " ")
-                + imaginaryPartStr + "i";
+        if (this.realImaginaryPair.a.isZero()) {
+            return (opSymbol == '-' ? opSymbol : "")  + imaginaryPartStr + "i";
+        }
+        return this.realImaginaryPair.a.toString()
+                    + " " + opSymbol + " " + imaginaryPartStr + "i";
     }
 
 
@@ -134,6 +137,6 @@ public class MyComplex extends MyNumber {
 
     @Override
     public int getSign() {
-        return 0; // TODO: will need to add this after adding the absolute unary operator !
+        return UnaryOperation.op(this, Absolute::new).getSign();
     }
 }

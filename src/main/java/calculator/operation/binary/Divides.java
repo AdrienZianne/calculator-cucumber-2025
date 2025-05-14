@@ -180,8 +180,18 @@ public final class Divides extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
     public MyNumber op(MyReal l, MyInfinity r) {
         return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return divByUnknownError();
     }
 
     @Override
@@ -190,8 +200,18 @@ public final class Divides extends BinaryOperation {
     }
 
     @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
     public MyNumber op(MyRational l, MyInfinity r) {
         return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return divByUnknownError();
     }
 
     @Override
@@ -206,7 +226,7 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyComplex r) {
-        return new MyErrorNumber(this, "Division of infinite by complex number is not supported");
+        return new MyErrorNumber(this, "Division of infinite by a complex number is not supported");
     }
 
     @Override
@@ -217,6 +237,41 @@ public final class Divides extends BinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyInfinity r) {
         return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return new MyErrorNumber(this, "Division of unknown values by a complex number is not supported");
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        return divByUnknownError();
     }
 
     private MyNumber divInfinity(MyInfinity l, MyNumber r) {
@@ -256,5 +311,10 @@ public final class Divides extends BinaryOperation {
             return new MyInfinity(l.getSign() > 0);
 
         return null;
+    }
+
+    private MyErrorNumber divByUnknownError()
+    {
+        return new MyErrorNumber(this, "The division operation does not support a division by an unknown term");
     }
 }

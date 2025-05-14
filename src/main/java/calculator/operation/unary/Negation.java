@@ -51,6 +51,11 @@ public final class Negation extends UnaryOperation {
     }
 
     @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, Negation::new);
+    }
+
+    @Override
     public MyNumber op(MyInfinity i) {
         return new MyInfinity(!i.isPositive());
     }

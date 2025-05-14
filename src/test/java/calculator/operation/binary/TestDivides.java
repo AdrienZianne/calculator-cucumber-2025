@@ -146,6 +146,13 @@ class TestDivides extends TestBinaryOperation {
 
 	@Test
 	@Override
+	public void TestMyIntegerMyUnknown() {
+		MyNumber exp = op(MyInteger.valueOf(3), MyUnknown.create(MyInteger.valueOf(1), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
+	}
+
+	@Test
+	@Override
 	public void TestMyRealMyInteger() {
 		MyNumber exp = op(MyReal.valueOf(1.53), MyInteger.valueOf(9));
 		assertEquals(MyReal.valueOf(0.17), exp);
@@ -206,6 +213,13 @@ class TestDivides extends TestBinaryOperation {
 
 	@Test
 	@Override
+	public void TestMyRealMyUnknown() {
+		MyNumber exp = op(MyReal.valueOf(3.5), MyUnknown.create(MyInteger.valueOf(1), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
+	}
+
+	@Test
+	@Override
 	public void TestMyComplexMyInteger() {
 		MyNumber exp = op(MyComplex.create(1, 2), MyInteger.valueOf(2));
 		assertEquals(MyComplex.create(MyReal.valueOf(0.5), ConstantNumber.ONE), exp);
@@ -246,6 +260,13 @@ class TestDivides extends TestBinaryOperation {
 
 		exp = op(MyComplex.create(1, 2), new MyInfinity(false));
 		assertEquals(ConstantNumber.ZERO, exp);
+	}
+
+	@Test
+	@Override
+	public void TestMyComplexMyUnknown() {
+		MyNumber exp = op(MyComplex.create(3, 2), MyUnknown.create(MyInteger.valueOf(1), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
 	}
 
 	@Test
@@ -294,6 +315,13 @@ class TestDivides extends TestBinaryOperation {
 
 		exp = op(MyRational.create(1,2), new MyInfinity(false));
 		assertEquals(ConstantNumber.ZERO, exp);
+	}
+
+	@Test
+	@Override
+	public void TestMyRationalMyUnknown() {
+		MyNumber exp = op(MyRational.create(1, 2), MyUnknown.create(MyInteger.valueOf(5), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
 	}
 
 	@Test
@@ -354,6 +382,108 @@ class TestDivides extends TestBinaryOperation {
 		assertEquals(MyUndefinedNumber.class, exp.getClass());
 		exp = op(new MyInfinity(false), new MyInfinity(false));
 		assertEquals(MyUndefinedNumber.class, exp.getClass());
+	}
+
+	@Test
+	@Override
+	public void TestMyInfinityMyUnknown() {
+		MyNumber exp = op(new MyInfinity(true), MyUnknown.create(MyInteger.valueOf(5), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
+		exp = op(new MyInfinity(false), MyUnknown.create(MyInteger.valueOf(5), MyInteger.valueOf(2)));
+		assertEquals(MyErrorNumber.class, exp.getClass());
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyInteger() {
+		MyUnknown val = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2/2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6/2), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8/2));
+
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8));
+
+		assertEquals(val, op(other, MyInteger.valueOf(2)));
+
+		assertEquals(MyErrorNumber.class, op(other, MyInteger.valueOf(0)).getClass());
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyReal() {
+		MyUnknown val = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyReal.valueOf(2/2.5), MyInteger.valueOf(3)),
+						new Pair<>(MyReal.valueOf(6/2.5), MyInteger.valueOf(20))
+				),
+				MyReal.valueOf(8/2.5));
+
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8));
+
+		assertEquals(val, op(other, MyReal.valueOf(2.5)));
+		assertEquals(val.getClass(), op(other, MyReal.valueOf(0)).getClass());
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyComplex() {
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8));
+
+		assertEquals(MyErrorNumber.class, op(other, MyComplex.create(4,2)).getClass());
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyRational() {
+		MyUnknown val = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyReal.valueOf(2/0.5), MyInteger.valueOf(3)),
+						new Pair<>(MyReal.valueOf(6/0.5), MyInteger.valueOf(20))
+				),
+				MyReal.valueOf(8/0.5));
+
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyReal.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyReal.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyReal.valueOf(8));
+
+		assertEquals(val, op(other, MyRational.create(1,2)));
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyInfinity() {
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8));
+
+		assertEquals(ConstantNumber.ZERO, op(other, new MyInfinity(true)));
+	}
+
+	@Test
+	@Override
+	public void TestMyUnknownMyUnknown() {
+		MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+						new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+						new Pair<>(MyInteger.valueOf(6), MyInteger.valueOf(20))
+				),
+				MyInteger.valueOf(8));
+
+		assertEquals(MyErrorNumber.class, op(other, other).getClass());
 	}
 
 	private MyNumber op(MyNumber a, MyNumber b) {
