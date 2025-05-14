@@ -74,13 +74,12 @@ public final class Logarithm extends UnaryOperation {
     private MyErrorNumber checkValidity(MyNumber nb) {
         if (nb.isZero())
             return new MyErrorNumber(this,
-                    "Tried to apply the log operation on an expression that resulted in : " + nb);
+                    "Tried to apply the log operation on an expression that resulted in zero");
         if (nb.getSign() < 0) {
             return new MyErrorNumber(this,
-                    "Tried to apply the log operation on an expression that resulted in the following negative value : "
-                            + nb);
+                    "Tried to apply the log operation on an expression that resulted in a negative value");
         }
-        if (nb instanceof MyReal r && !r.isDouble()) return new MyErrorNumber(this, "The given real number cannot be converted to a double: " + nb);
+        if (nb instanceof MyReal r && !r.isDouble()) return new MyErrorNumber(this, "The given real number cannot be converted to a double");
 
         return null;
     }

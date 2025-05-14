@@ -7,6 +7,13 @@ import calculator.operation.unary.UnaryOperation;
 
 import java.util.Objects;
 
+/**
+ * A class used to represent an equation of the form : {@code left = right}, with {@code left} and {@code right}
+ * two instance of {@link MyNumber}.
+ * <p>
+ *     Also tries to solve the given equation.
+ * </p>
+ */
 public class Equation {
     MyNumber left;
 
@@ -22,6 +29,10 @@ public class Equation {
      *     <li>Expressions without any unknown terms.</li>
      *     <li>First degree expression.</li>
      *     <li>Second degree expression.</li>
+     *     <ul>
+     *         <li>Some equations might not have any solution in the real domain.
+     *         In this case the resul depends on the current {@link Configuration}.</li>
+     *     </ul>
      * </ul>
      * </p>
      * @param left A number or an expression (i.e. an instance of the {@link MyUnknown}).
@@ -37,18 +48,28 @@ public class Equation {
         // Move everything to the left equation in order to get something of the form :
         // ax^n  + cx^{n-1} ... + dx + b = 0
         this.left = BinaryOperation.op(left, right, Minus::new);
+        if (this.left instanceof MyErrorNumber e) {
+            this.errorState = e.toString();
+            return;
+        }
         // If there are no unknown values anymore, we can simply check if the resulting value is equal
         // or not to zero.
 
         if (this.left instanceof MyUnknown l) {
+            // If the equation is of the first degree
             if (l.isFirstDegree())
             {
                 this.x1 = solveFirstDegreeEq(l.getOperands().get(ConstantNumber.ONE), l.getRest());
+                if (this.x1 instanceof MyErrorNumber e) {
+                    this.errorState = e.getMessage();
+                }
             }
+            // if the equation is of the second degree
             else if (l.isSecondDegree()) {
                 MyNumber a = l.getOperands().get(MyInteger.valueOf(2));
                 MyNumber b = l.getOperands().get(MyInteger.valueOf(1));
                 Pair<MyNumber, MyNumber> solutions = solveSecondDegree(a, Objects.requireNonNullElse(b, ConstantNumber.ZERO), l.getRest());
+                // There are no answer in the real domain
                 if (solutions.a == null && solutions.b == null) {
                     this.errorState = errorReal;
                     return;
@@ -63,8 +84,12 @@ public class Equation {
                     this.x1 = solutions.a;
                     this.x2 = solutions.b;
                 }
-                if (solutions.a instanceof MyErrorNumber || solutions.b instanceof MyErrorNumber) {
-                    this.errorState = errorReal;
+                // Something went wrong.
+                if (solutions.a instanceof MyErrorNumber e) {
+                    this.errorState = e.toString();
+                }
+                if (solutions.b instanceof MyErrorNumber e) {
+                    this.errorState = e.toString();
                 }
 
             }
