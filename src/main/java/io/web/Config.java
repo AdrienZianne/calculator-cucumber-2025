@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class Config {
 
     @Bean
@@ -29,7 +29,6 @@ public class Config {
     @Bean
     public Jackson2ObjectMapperBuilder jacksonBuilder() {
         Jackson2ObjectMapperBuilder b = new Jackson2ObjectMapperBuilder();
-        b.propertyNamingStrategy(PropertyNamingStrategies.LOWER_CASE);
         b.featuresToDisable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         b.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         b.findModulesViaServiceLoader(true);

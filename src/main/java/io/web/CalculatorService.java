@@ -20,7 +20,8 @@ public class CalculatorService {
         System.out.println(request.getIsProgra());
         if (request.getIsProgra()) {
             Programmer programmer = CalculatorParser.parseProgrammer(request.getInput());
-            return programmer != null ? programmer.toString() : "";
+            if (programmer == null) throw new Exception("Unable to parse");
+            return programmer.toString();
         } else {
             Expression expression = CalculatorParser.parseArithmetic(request.getInput());
             Evaluator evaluator = new Evaluator();
