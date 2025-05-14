@@ -42,8 +42,6 @@ public class EquationParser extends LabeledExprBaseVisitor<Equation> {
         v = new Evaluator();
         expressionParser.visit(ctx.getChild(2)).accept(v);
         MyNumber right = v.getResult();
-
-        System.out.println(new Equation(left, right).prettyResult());
         return new Equation(left, right);
     }
 }

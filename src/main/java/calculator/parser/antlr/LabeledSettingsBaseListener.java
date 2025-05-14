@@ -101,6 +101,18 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSettingsHistory(LabeledSettingsParser.SettingsHistoryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSettingsHistory(LabeledSettingsParser.SettingsHistoryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInfoMode(LabeledSettingsParser.InfoModeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -240,6 +252,30 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInfoLogicalSymbol(LabeledSettingsParser.InfoLogicalSymbolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfoMaxStore(LabeledSettingsParser.InfoMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfoDeleteDuplicates(LabeledSettingsParser.InfoDeleteDuplicatesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -389,6 +425,30 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptionMaxStore(LabeledSettingsParser.OptionMaxStoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptionDeleteDuplicates(LabeledSettingsParser.OptionDeleteDuplicatesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterModeArithmetic(LabeledSettingsParser.ModeArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -504,6 +564,102 @@ public class LabeledSettingsBaseListener implements LabeledSettingsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRoundingModeUp(LabeledSettingsParser.RoundingModeUpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryLogs(LabeledSettingsParser.HistoryLogsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryFavos(LabeledSettingsParser.HistoryFavosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryAddFavo(LabeledSettingsParser.HistoryAddFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryDelFavo(LabeledSettingsParser.HistoryDelFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryUseLog(LabeledSettingsParser.HistoryUseLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryUseFavo(LabeledSettingsParser.HistoryUseFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryResetLog(LabeledSettingsParser.HistoryResetLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHistoryResetFavo(LabeledSettingsParser.HistoryResetFavoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
