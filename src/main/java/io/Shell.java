@@ -1,11 +1,11 @@
 package io;
 
-import calculator.Calculator;
-import calculator.Configuration;
+import calculator.*;
+import io.Memory.Category;
+
 import calculator.Configuration.Mode;
-import calculator.Expression;
-import calculator.Programmer;
 import calculator.parser.CalculatorParser;
+
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -13,12 +13,11 @@ import org.jline.reader.impl.LineReaderImpl;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Implement CLI and REPL with command and error
@@ -40,16 +39,14 @@ public class Shell {
      */
     private LineReader reader;
 
-    /**
-     * Attribute containing the object that keeps the application context. It is
-     * used to close the application.
-     */
-    private ConfigurableApplicationContext ctx;
+    private Memory memo;
+
+    private String expressionReuse = "";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
      * correctly.
-     * 
+     *
      * @throws IOException This error is thrown if the terminal could not be built.
      */
     public Shell() throws IOException {
@@ -57,14 +54,19 @@ public class Shell {
 
         List<String> completionStrings = Arrays.asList("mode", "real_precision", "real_rounding_mode",
                 "use_real_notation", "use_scientific_notation", "sc_notation_max_left", "sc_notation_max_right",
-                "use_complex_domain", "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol",
-                "true", "false", "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up");
+                "use_degrees", "seed", "reset_seed", "base_notation_convention", "logical_symbol", "true", "false",
+                "ceiling", "down", "floor", "half_down", "half_even", "half_up", "unnecessary", "up", "logs", "favos",
+                "add_favo", "del_favo", "use_log", "use_favo", "reset_log", "reset_favo", "max_store",
+                "delete_duplicates", "arithmetic",
+                "programmer");
 
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer(new StringsCompleter(completionStrings))
                 .option(LineReader.Option.DISABLE_EVENT_EXPANSION, true)
                 .build();
+
+        memo = new Memory();
 
         infoOptions.put(Options.MODE, new String[] { "mode", "[arithmetic|programmer]",
                 "Selects the calculator mode." });
@@ -94,8 +96,9 @@ public class Shell {
                 new String[] { "sc_notation_max_right", "An positive integer value",
                         "The maximum number of digits that can be displayed in the decimal part of a number." });
         infoOptions.put(Options.USE_COMPLEX_DOMAIN,
-                new String[] { "use_complex_domain", "[true|false]", "Select whether to work by default in the complex domain. " +
-                        "(If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)" });
+                new String[] { "use_complex_domain", "[true|false]",
+                        "Select whether to work by default in the complex domain. " +
+                                "(If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)" });
         infoOptions.put(Options.USE_DEGREES,
                 new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
         infoOptions.put(Options.SEED, new String[] { "seed", "An integer value",
@@ -104,11 +107,16 @@ public class Shell {
                 "Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2." });
         infoOptions.put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", "[true|false]",
                 "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
+        infoOptions.put(Options.MAX_STORE,
+                new String[] { "max_store", "An positive integer value",
+                        "Number of elements that can be stored in logs and favorites." });
+        infoOptions.put(Options.DELETE_DUPLICATES, new String[] { "delete_duplicates", "[true|false]",
+                "Selects whether to delete duplicates in logs and favorites." });
     }
 
     /**
      * Print error in the console
-     * 
+     *
      * @param err The error message sent to the user
      */
     private void printError(String err) {
@@ -117,28 +125,41 @@ public class Shell {
 
     /**
      * Loop of the REPL, making the application interactive
-     * 
+     *
      * @param c The calculator.
      *          {@link Calculator}
      */
     public void loop(Calculator c) {
         while (!interrupted) {
-
             try {
-                String line = reader.readLine(">> ").trim();
+                String line = "";
+                while (line.isEmpty()) {
+                    line = reader.readLine(">> ", null, expressionReuse).trim();
+                    expressionReuse = "";
+                }
 
-                if (!line.isEmpty() && line.charAt(0) == '$') {
+                if (line.charAt(0) == '$') {
                     modeSettings(line.substring(1));
-                } else {
-                    if (Configuration.getMode() == Mode.ARITHMETIC) {
-                        modeArithmetic(c, line);
+                    continue;
+                }
 
-                    } else {
-                        modeProgrammer(line);
-                    }
+                String res = "";
+                switch (Configuration.getMode()) {
+                    case Mode.ARITHMETIC:
+                        res = modeArithmetic(c, line);
+                        break;
+
+                    case Mode.PROGRAMMER:
+                        res = modeProgrammer(line);
+                        break;
+                }
+
+                if (!res.isEmpty()) {
+                    memo.addElement(Category.LOG, line, res);
                 }
 
                 reader.getHistory().add(line);
+
             } catch (UserInterruptException e) {
                 exit();
             }
@@ -147,12 +168,12 @@ public class Shell {
 
     /**
      * Method used to call the parser for application parameters.
-     * 
+     *
      * @param line User input
      */
     private void modeSettings(String line) {
         try {
-            CalculatorParser.parseSettings(line, this);
+            CalculatorParser.parseSettings(line, this, memo);
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
@@ -161,45 +182,65 @@ public class Shell {
 
     /**
      * Method for calling the parser for arithmetic calculations.
-     * 
+     *
      * @param c    The calculator.
      * @param line User input
-     *             {@link Calculator}
+     * @return The result of the operation as a string to be stored in the logs.
+     *         {@link Calculator}
+     *         {@link MemoryImageSource}
      */
-    private void modeArithmetic(Calculator c, String line) {
+    private String modeArithmetic(Calculator c, String line) {
         try {
             if (!line.contains("=")) {
                 Expression exp = CalculatorParser.parseArithmetic(line);
                 if (exp == null)
                     System.out.println("[DEBUG] : Result was null, returning");
-                else
-                    terminal.writer().println(c.eval(exp));
+                else {
+                    Expression res = c.eval(exp);
+                    terminal.writer().println(res);
+                    return res.toString();
+                }
             }
             else {
-                CalculatorParser.parseArithmeticEquation(line);
+                Equation exp = CalculatorParser.parseArithmeticEquation(line);
+                if (exp == null)
+                    System.out.println("[DEBUG] : Result was null, returning");
+                else {
+                    terminal.writer().println(exp.prettyResult());
+                    return exp.toString();
+                }
             }
+
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
         }
+
+        return "";
     }
 
     /**
      * Method for calling the parser for logic and computer calculations.
-     * 
+     *
      * @param line User input
+     * @return The result of the operation as a string to be stored in the logs.
+     *         {@link MemoryImageSource}
      */
-    private void modeProgrammer(String line) {
+    private String modeProgrammer(String line) {
         try {
             Programmer exp = CalculatorParser.parseProgrammer(line);
             if (exp == null)
                 System.out.println("[DEBUG] : Result was null, returning");
-            else
+            else {
                 terminal.writer().println(exp);
+                return exp.toString();
+            }
         } catch (IllegalArgumentException e) {
             printError(e.getMessage());
             e.printStackTrace(terminal.writer());
         }
+
+        return "";
     }
 
     /**
@@ -209,7 +250,7 @@ public class Shell {
         terminal.writer().println("Exiting !");
         terminal.flush();
         interrupted = true;
-        ctx.close();
+        memo.save();
     }
 
     /**
@@ -219,13 +260,21 @@ public class Shell {
         terminal.writer().println("""
                 \033[1mCalculator Cucumber\033[0m
 
-                \t$<help|h>           : Display this message
-                \t$<clear|c>          : Clear the screen
-                \t$<quit|q>           : Quit the application
-                \t$<list|l>           : List options
-                \t$<info|i> <option>  : Displays information about an option
-                \t$<reset_seed>       : Disables seed
-                \t$<option> = <value> : Setting an option value
+                \t$<help|h>            : Display this message
+                \t$<clear|c>           : Clear the screen
+                \t$<quit|q>            : Quit the application
+                \t$<list|l>            : List options
+                \t$<info|i> <option>   : Displays information about an option
+                \t$<reset_seed>        : Disables seed
+                \t$<option> = <value>  : Setting an option value
+                \t$<logs|ll>           : Display logs
+                \t$<favos|lf>          : Display favorites
+                \t$<add_favo|af> [int] : Add the targeted expression as a favorite
+                \t$<del_favo|df> [int] : Removes targeted expression from favorites
+                \t$<use_log|ul>  [int] : Re-use targeted expression in logs
+                \t$<use_favo|uf> [int] : Re-use targeted expression in favorites
+                \t$<reset_log|rl>      : Reset data for logs.
+                \t$<reset_favo|rf>     : Reset data for favorites.
                 """);
     }
 
@@ -248,13 +297,15 @@ public class Shell {
                 \tseed = int
                 \tbase_notation_convention = bool
                 \tlogical_symbol = bool
+                \tmax_store = int
+                \tdelete_duplicates = bool
                 """);
     }
 
     /**
      * Method for displaying multiple information about an option. Namely, its name,
      * current value, value type and description.
-     * 
+     *
      * @param o The option you want to know more about.
      */
     public void infoOption(Options o) {
@@ -267,7 +318,7 @@ public class Shell {
 
     /**
      * Method used to recover the current value of an option.
-     * 
+     *
      * @param o The option whose current value is to be retrieved.
      * @return The current value of the option. It is of type String to manage
      *         different types of configuration.
@@ -302,6 +353,10 @@ public class Shell {
                 return "" + Configuration.getBaseNotationConvention();
             case Options.LOGICAL_SYMBOL:
                 return "" + Configuration.getLogicalSymbol();
+            case Options.MAX_STORE:
+                return "" + Configuration.getMaxStore();
+            case Options.DELETE_DUPLICATES:
+                return "" + Configuration.getDeleteDuplicates();
         }
 
         return "";
@@ -314,17 +369,19 @@ public class Shell {
         ((LineReaderImpl) reader).clearScreen();
     }
 
+    public void reuseExp(Category c, Integer index) {
+        expressionReuse = memo.getExpression(c, index);
+    }
+
     /**
      * Options
      * Enumeration listing all possible application options.
      * {@link Configuration}
      */
     public enum Options {
-        MODE, REAL_PRECISION, REAL_ROUNDING_MODE,
-        USE_REAL_NOTATION, USE_SCIENTIFIC_NOTATION,
-        SC_NOTATION_MAX_LEFT, SC_NOTATION_MAX_RIGHT,
-        USE_COMPLEX_DOMAIN, USE_DEGREES, SEED,
-        BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL
+        MODE, REAL_PRECISION, REAL_ROUNDING_MODE, USE_REAL_NOTATION, USE_SCIENTIFIC_NOTATION, SC_NOTATION_MAX_LEFT,
+        SC_NOTATION_MAX_RIGHT, USE_COMPLEX_DOMAIN, USE_DEGREES, SEED, BASE_NOTATION_CONVENTION, LOGICAL_SYMBOL,
+        MAX_STORE, DELETE_DUPLICATES
     }
 
     /**
