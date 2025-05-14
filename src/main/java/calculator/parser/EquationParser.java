@@ -1,9 +1,7 @@
 package calculator.parser;
 
 import calculator.Equation;
-import calculator.Expression;
 import calculator.MyNumber;
-import calculator.MyUnknown;
 import calculator.parser.antlr.LabeledExprBaseVisitor;
 import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -45,7 +43,7 @@ public class EquationParser extends LabeledExprBaseVisitor<Equation> {
         expressionParser.visit(ctx.getChild(2)).accept(v);
         MyNumber right = v.getResult();
 
-        System.out.println(new Equation(left, right).printResults());
+        System.out.println(new Equation(left, right).prettyResult());
         return new Equation(left, right);
     }
 }

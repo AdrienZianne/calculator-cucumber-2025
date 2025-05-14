@@ -74,7 +74,7 @@ public class CalculatorParser {
 
         EquationParser eval = new EquationParser();
         try {
-            eval.visit(parser.expr()).printResults();
+            eval.visit(parser.expr()).prettyResult();
         } catch (ParserError e) {
             System.out.println("Parsing error caught for Arithmetic expression: " + e.getMessage());
         }

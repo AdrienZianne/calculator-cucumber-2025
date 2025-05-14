@@ -154,7 +154,26 @@ public class Equation {
         return left + " = " + 0;
     }
 
-    public String printResults() {
+    /**
+     * Prettify the results of an equation into a human-readable way.
+     * <p>
+     *     Under the form of :
+     *     <ul>
+     *         <li>
+     *             An error message if something went wrong during the
+     *             computation of the equation or if there were no solution in the real domain.
+     *         </li>
+     *         <li>
+     *             {@code x: {SOLUTION}}, if the equation has only one solution.
+     *         </li>
+     *         <li>
+     *             {@code x1: {SOLUTION 1} | x2: {SOLUTION 2}}, if the equation has two solutions.
+     *         </li>
+     *     </ul>
+     * </p>
+     * @return The prettified result of an equation.
+     */
+    public String prettyResult() {
         if (errorState != null) return errorState;
 
         if (x1 == null && x2 == null) return  Boolean.toString(left.equals(ConstantNumber.ZERO));
@@ -162,5 +181,33 @@ public class Equation {
         if (x2 == null) return "x: " + x1;
 
         return "x1: " + x1 + " | x2: " + x2;
+    }
+
+    /**
+     * Gets the error message contained in the equation if something went wrong during it's creation or if there were no
+     * solutions found.
+     * @return The error state.
+     */
+    public String getErrorState() {
+        return errorState;
+    }
+
+    /**
+     * Gets the first solution solution (or only if the result of {@link Equation#getX2()} is null) of this equation.
+     * <p>If this value is null, the {@link Equation#getX2()} will always be null too.</p>
+     * @return null, or the number representing one of the two solutions or (the only solution).
+     */
+    public MyNumber getX1() {
+        return x1;
+    }
+
+
+    /**
+     * Gets the second solution solution of this equation.
+     * <p>If the value {@link Equation#getX1()} is null then the result of this function will always be null too.</p>
+     * @return null, if the equation has 0 or 1 solution. Otherwise, returns the result of the second solution of this equation.
+     */
+    public MyNumber getX2() {
+        return x2;
     }
 }
