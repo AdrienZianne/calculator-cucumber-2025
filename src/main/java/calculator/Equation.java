@@ -32,6 +32,8 @@ public class Equation {
     }
 
     private void solveEquation(MyNumber left, MyNumber right) {
+        String errorReal = "No solutions in the real domain";
+
         // Move everything to the left equation in order to get something of the form :
         // ax^n  + cx^{n-1} ... + dx + b = 0
         this.left = BinaryOperation.op(left, right, Minus::new);
@@ -48,6 +50,7 @@ public class Equation {
                 MyNumber b = l.getOperands().get(MyInteger.valueOf(1));
                 Pair<MyNumber, MyNumber> solutions = solveSecondDegree(a, Objects.requireNonNullElse(b, ConstantNumber.ZERO), l.getRest());
                 if (solutions.a == null && solutions.b == null) {
+                    this.errorState = errorReal;
                     return;
                 }
                 if (solutions.a == null) {
@@ -55,12 +58,15 @@ public class Equation {
                 }
                 else if (solutions.b == null) {
                     this.x1 = solutions.a;
-
                 }
                 else {
                     this.x1 = solutions.a;
                     this.x2 = solutions.b;
                 }
+                if (solutions.a instanceof MyErrorNumber || solutions.b instanceof MyErrorNumber) {
+                    this.errorState = errorReal;
+                }
+
             }
             else {
                 this.errorState = "Equations with a degree superior to 2 are not supported";
