@@ -37,11 +37,11 @@
                     <button class="key" v-for="op in operations" :op="op" @click="addKey(op)">
                         {{ op }}
                     </button>
-                    <button class="key" @click="removeASpecificKey">⌫</button>
-                    <button class="key" @click="clearAll">AC</button>
                     <button class="key" @click="moveCursorLeft">←</button>
                     <button class="key" @click="moveCursorRight">→</button>
-                    <button class="key" @click="replyRequest">=</button>
+                    <button class="key" @click="removeASpecificKey">⌫</button>
+                    <button class="key" @click="clearAll">AC</button>
+                    <button class="key pc2" @click="replyRequest">=</button>
                 </div>
 
                 <div class="keyboard trigo" v-if="isExpandKeyboard">
@@ -80,7 +80,7 @@ export default {
                 ..."0123456789i.".split('')
             ],
             operations: [
-                ..."+-/*()^".split(''),
+                ..."+-/*()^%|x".split(''),
             ],
             expandOperations: [
                 "log",
@@ -93,6 +93,12 @@ export default {
                 ","
             ],
         };
+    },
+    mounted() {
+        if (localStorage.getItem("arithmetic_memory")) {
+        this.memoryList = JSON.parse(localStorage.getItem("arithmetic_memory"));
+        this.isMemory = true;
+    }
     },
     methods: {
         /**
@@ -202,6 +208,7 @@ export default {
         memoryClear() {
             this.isMemory = false;
             this.memoryList = [];
+            localStorage.removeItem("arithmetic_memory");
         },
         /**
          * Method that removes an element from the list at a particular index.
@@ -227,7 +234,7 @@ export default {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
                     },
-                    body: JSON.stringify({ input: this.inputText }) //In GET, we can't put a body.
+                    body: JSON.stringify({ input: this.inputText, isProgra: false }) //In GET, we can't put a body.
                 };
                 fetch("http://localhost:8080/calc", requestOptions)
                     .then(response => {
@@ -238,6 +245,7 @@ export default {
                         let res = GlobalMethods.memoryUpdate(this.memoryList, this.inputText);
                         this.isMemory = res.isMemory;
                         this.memoryList = res.memoryList;
+                        localStorage.setItem("arithmetic_memory", JSON.stringify(this.memoryList));
                         this.inputText = data.answer;
                         this.formatInput();
                     })
@@ -247,7 +255,7 @@ export default {
                         this.formatInput();
                     });
             }
-        }
+        },
     }
 };
 </script>
@@ -262,7 +270,7 @@ export default {
 }
 
 .expanded {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .keyboard {
@@ -271,23 +279,46 @@ export default {
     gap: 5px;
 }
 
+.trigo {
+    grid-column: span 2;
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: 40px;
+    justify-self: center;
+}
+
+.symbol {
+    grid-template-rows: repeat(4, 40px);
+}
+
+.pc2 {
+    grid-column: span 2;
+}
+
 @media only screen and (max-width: 650px) {
 
     .calculator-keyboard {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 3fr 4fr;
     }
 
     .keyboard {
         grid-template-columns: repeat(3, 40px);
+        grid-template-rows: repeat(4, 40px);
     }
 
     .key {
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .trigo {
         grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 30px);
         grid-column: 1 / span 2;
+        width: 100%;
+    }
+
+    .symbol {
+        grid-template-rows: repeat(4, 40px);
+        grid-template-columns: repeat(4, 40px);
     }
 }
 

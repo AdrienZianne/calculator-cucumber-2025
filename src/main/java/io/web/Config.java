@@ -1,6 +1,5 @@
-package io;
+package io.web;
 
-import calculator.parser.CalculatorParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -20,10 +19,12 @@ public class Config {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**");
+                registry.addMapping("/**").allowedMethods("*");
             }
         };
     }
+
+
 
     @Bean
     public Jackson2ObjectMapperBuilder jacksonBuilder() {

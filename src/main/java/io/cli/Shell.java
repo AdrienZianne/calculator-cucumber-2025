@@ -1,4 +1,4 @@
-package io;
+package io.cli;
 
 import calculator.Calculator;
 import calculator.Expression;

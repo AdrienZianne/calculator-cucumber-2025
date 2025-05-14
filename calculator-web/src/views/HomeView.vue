@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Header></Header>
     <Calculator class="calculator"/>
     <Info/>
   </div>
@@ -8,9 +9,10 @@
 <script>
 import Calculator from '@/components/Calculator.vue';
 import Info from '@/components/Info.vue';
+import Header from '@/components/Header.vue';
 
 export default {
-  components: {Calculator, Info}
+  components: {Calculator, Info, Header}
 };
 </script>
 

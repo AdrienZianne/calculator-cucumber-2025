@@ -1,15 +1,12 @@
 package calculator;
 
-import io.Shell;
+import io.cli.Shell;
 import jdk.jshell.spi.ExecutionControl;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import calculator.parser.CalculatorParser;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 /**

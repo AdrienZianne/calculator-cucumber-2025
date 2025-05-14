@@ -6,7 +6,7 @@ import calculator.Configuration;
 import calculator.Configuration.Mode;
 import calculator.parser.antlr.*;
 
-import io.Shell;
+import io.cli.Shell;
 
 /**
  * A class that maps the generated parser to the calculator custom classes.

@@ -5,11 +5,12 @@
             <div>Calculator-cucumber</div>
         </RouterLink>
 
-        <div class="dropdown" @click="isClicked = !isClicked" v-bind:class="isClicked?'clicked':''">
+        <div class="dropdown" @click="clicked" v-bind:class="isClicked?'clicked':''">
             <img src="../assets/menu.svg" class="menu"/>
             <div class="links">
                 <HeaderLink to="/" text="Basic" class="content" />
                 <HeaderLink to="/pro" text="Programmer" class="content" />
+                <HeaderLink to="/settings" text="Settings" class="content" />
             </div>
         </div>
     </div>
@@ -21,6 +22,12 @@ import { RouterLink } from 'vue-router';
 import { ref } from 'vue'
 
 const isClicked = ref(false);
+
+function clicked() {
+   if (window.matchMedia("(pointer: coarse)").matches) {
+    isClicked = !isClicked;
+   }
+}
 
 </script>
 
@@ -72,7 +79,7 @@ img {
     padding-left: 20px;
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 800px) {
 
     .home-button {
         display: flex;

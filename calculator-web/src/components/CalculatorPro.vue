@@ -20,7 +20,6 @@
         <!--https://github.com/justforuse/vue-mathjax-next-->
         <textarea v-model="inputText" @paste.prevent id="inputId" @keydown="forbiddenKeys"
           placeholder="You can write here..."></textarea>
-          <div v-katex="`$$` + inputText + `$$`"></div>
       </div>
 
       <!--Three divs representing the three parts of the keyboard. 
@@ -48,9 +47,8 @@
           <button class="key" @click="moveCursorRight">→</button>
           <button class="key" @click="replyRequest">=</button>
         </div>
+        <button @click="gapButton" class="key gapButton">__________</button>
       </div>
-
-      <button @click="gapButton" class="key gapButton">__________</button>
     </div>
   </div>
 </template>
@@ -69,7 +67,7 @@ export default {
       inputId: document.getElementById('inputId'),
       memoryList: [],
       authorizedKeys: [
-        ..."0123456789.abcdefghijklmnopqrstuvxy()_<>".split('')
+        ..."0123456789.abcdefghijklmnopqrstuvxy()_<>, ".split('')
       ],
       numbers: [
         ..."0123456789".split('')
@@ -93,9 +91,16 @@ export default {
         "conv",
         ..."_()".split(''),
         "<",
-        ">"
+        ">",
+        ","
       ]
     };
+  },
+  mounted() {
+    if (localStorage.getItem("programmer_memory")) {
+        this.memoryList = JSON.parse(localStorage.getItem("programmer_memory"));
+        this.isMemory = true;
+    }
   },
   methods: {
     /**
@@ -145,7 +150,7 @@ export default {
       if (this.inputText.includes('^')) this.inputText = this.inputText.replaceAll("^", "");
       if (this.inputText.includes('¨')) this.inputText = this.inputText.replaceAll("¨", "");
       if (this.inputText.includes('`')) this.inputText = this.inputText.replaceAll("`", "");
-      if (!this.authorizedKeys.includes(word)) setTimeout(() => this.removeSpecificWord(word));
+      if (!this.authorizedKeys.includes(word.lowercase())) setTimeout(() => this.removeSpecificWord(word));
       if (word == "Enter" || word == "=") this.replyRequest();
     },
     /**Method for moving the cursor left.
@@ -174,6 +179,7 @@ export default {
     memoryClear() {
       this.isMemory = false;
       this.memoryList = [];
+      localStorage.removeItem("programmer_memory");
     },
     /**
      * Method that removes an element from the list at a particular index.
@@ -214,6 +220,7 @@ export default {
             let res = GlobalMethods.memoryUpdate(this.memoryList, this.inputText);
             this.isMemory = res.isMemory;
             this.memoryList = res.memoryList;
+            localStorage.setItem("programmer_memory", JSON.stringify(this.memoryList));
             this.inputText = data.answer;
           })
           .catch(error => {
@@ -233,11 +240,8 @@ export default {
 .calculator-keyboard {
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr 4fr 1fr;
   gap: 10px 5px;
-}
-
-.expanded {
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .keyboard {
@@ -249,12 +253,13 @@ export default {
 
 .number {
   grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 40px;
 }
 
 @media only screen and (max-width: 650px) {
 
   .calculator-keyboard {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 2fr 4fr 4fr 1fr;
   }
 
   .keyboard {
@@ -263,6 +268,7 @@ export default {
   
   .number {
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 30px);
   }
 
   .key {
