@@ -200,14 +200,13 @@ public class Shell {
                     terminal.writer().println(res);
                     return res.toString();
                 }
-            }
-            else {
+            } else {
                 Equation exp = CalculatorParser.parseArithmeticEquation(line);
                 if (exp == null)
                     System.out.println("[DEBUG] : Result was null, returning");
                 else {
                     terminal.writer().println(exp.prettyResult());
-                    return exp.toString();
+                    return exp.prettyResult();
                 }
             }
 

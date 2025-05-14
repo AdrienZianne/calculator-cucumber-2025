@@ -91,7 +91,7 @@ public class Memory {
 
         @Override
         public String toString() {
-            return expression + " = " + res;
+            return expression + " => " + res;
         }
 
         @Override
