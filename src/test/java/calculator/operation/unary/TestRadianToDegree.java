@@ -3,6 +3,8 @@ package calculator.operation.unary;
 import calculator.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestRadianToDegree extends TestUnaryOperation{
@@ -45,5 +47,31 @@ public class TestRadianToDegree extends TestUnaryOperation{
     public void testMyComplex() throws Exception {
         RadianToDegree op = new RadianToDegree(MyComplex.create(1,1));
         assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
+
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        RadianToDegree op = new RadianToDegree(new MyInfinity(true));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+        op = new RadianToDegree(new MyInfinity(false));
+        assertEquals(MyErrorNumber.class, calculator.eval(op).getClass());
+    }
+
+    @Test
+    @Override
+    public void testMyUnknown() throws Exception {
+        MyUnknown other = (MyUnknown) MyUnknown.create(List.of(
+                        new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(5), MyInteger.valueOf(3)),
+                        new Pair<>(MyInteger.valueOf(2), MyInteger.valueOf(0)),
+                        new Pair<>(MyInteger.valueOf(5), MyInteger.valueOf(20))
+                ),
+                MyInteger.valueOf(8));
+
+        RadianToDegree op = new RadianToDegree(other);
+        assertEquals(MyUnknown.applyToAllOperators(other, RadianToDegree::new),
+                calculator.eval(op));
     }
 }

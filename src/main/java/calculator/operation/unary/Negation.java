@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the negation of an expression.
  * Let {@code x} be our expression, the operation will result in {@code -x}.
  */
-public class Negation extends UnaryOperation {
+public final class Negation extends UnaryOperation {
     /**
      * The default constructor of the {@link Negation} class.
      * 
@@ -48,5 +48,15 @@ public class Negation extends UnaryOperation {
     @Override
     public MyNumber op(MyComplex c) {
         return MyComplex.create(op(c.getRealImaginaryPair().a), op(c.getRealImaginaryPair().b));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, Negation::new);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyInfinity(!i.isPositive());
     }
 }

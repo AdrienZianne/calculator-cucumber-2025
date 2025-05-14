@@ -1,123 +1,130 @@
 grammar LabeledExpr; // rename to distinguish from Expr.g4
 
 
-expr: ( setting
-    | sumInfix
-    | sumPrefix
-    | sumPostfix) EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
+expr: equation EOF
+    | sumInfix EOF
+    | sumPrefix EOF
+    | sumPostfix EOF;  // We expect only one root expression, without this, writting stuff like '(3+1)(' is accepted
 
 
 
-setting : 'seed' '(' INT ')'                             #SettingSetSeed
-        | ('seed' '(' ')' | 'reset_seed' '(' ')' )       #SettingResetSeed
-        | 'seed'                                         #SettingGetSeed
-        | 'realPre' '(' INT ')'                          #SettingSetRealPrecision
-        | 'realPre'                                      #SettingGetRealPrecision
-        | 'scNot' '(' INT ',' INT ')'                            #SettingSetScNotInt
-        | 'scNot' '(' BOOL ')'                           #SettingSetScNotBool
-        | 'scNot'                                        #SettingGetScNot   // get the current scientific notation precision
-        | 'useDeg' '(' BOOL ')'                          #SettingSetUseDeg
-        | 'useDeg'                                       #SettingGetUseDeg
-        | 'displayReal' '(' BOOL ')'                          #SettingSetDisplayReal
-        | 'displayReal'                                       #SettingGetDisplayReal
-        ;
+equation : sumInfix '=' sumInfix            #EquationInfix
+     | sumPostfix '=' sumPostfix            #EquationPostfix
+     | sumPrefix '=' sumPrefix              #EquationPrefix
+     ;
+
 
 
 /* POSTFIX NOTATION */
 
 sumPostfix : productPostfix                                     #SumPostfixProd
-           | '('atomPostfix (','? atomPostfix)* ')' '+'         #SumPostfixSum
-           | '('atomPostfix (','? atomPostfix)* ')' '-'         #SumPostfixDiff
-           | '('atomPostfix (','? atomPostfix)* ')' 'root'      #SumPostfixRoot
+           | postfixBinaryArgs '+'         #SumPostfixSum
+           | postfixBinaryArgs '-'         #SumPostfixDiff
+           | postfixBinaryArgs 'root'      #SumPostfixRoot
+           | postfixBinaryArgs MOD         #SumPostfixMod
            ;
 
-productPostfix  : '(' atomPostfix (','? atomPostfix)* ')' '^'   #ProductPostfixExp
-                | '(' atomPostfix (','? atomPostfix)* ')' '*'   #ProductPostfixMult
-                | '(' atomPostfix (','? atomPostfix)* ')' '/'   #ProductPostfixDiv
-                | unaryPostfix                                  #ProductPostfixTrigo
+productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
+                | postfixBinaryArgs '*'        #ProductPostfixMult
+                | postfixBinaryArgs '/'        #ProductPostfixDiv
+                | unaryPostfix                 #ProductPostfixTrigo
                 ;
 
 unaryPostfix : trigoPostfix                 #UnaryPostfixTrigo
-             | '(' atomPostfix ')' 'log'    #UnaryPostfixLog
-             | '(' atomPostfix ')' 'sqrt'    #UnaryPostfixSqrt
+             | postfixUnaryArgs 'log'       #UnaryPostfixLog
+             | postfixUnaryArgs 'sqrt'      #UnaryPostfixSqrt
+             | postfixUnaryArgs '-'         #UnaryPostfixNegation
+             | postfixUnaryArgs 'abs'       #UnaryPostfixAbsolute
              ;
 
-trigoPostfix : '(' atomPostfix ')' 'sin'       #TrigoPostfixSin
-             | '(' atomPostfix ')' 'cos'       #TrigoPostfixCos
-             | '(' atomPostfix ')' 'tan'       #TrigoPostfixTan
-             | '(' atomPostfix ')' 'sinh'      #TrigoPostfixSinh
-             | '(' atomPostfix ')' 'cosh'      #TrigoPostfixCosh
-             | '(' atomPostfix ')' 'tanh'      #TrigoPostfixTanh
-             | '(' atomPostfix ')' 'asin'      #TrigoPostfixASin
-             | '(' atomPostfix ')' 'acos'      #TrigoPostfixACos
-             | '(' atomPostfix ')' 'atan'      #TrigoPostfixATan
-             | '(' atomPostfix ')' 'degToRad'  #TrigoPostfixDegToRad
-             | '(' atomPostfix ')' 'radToDeg'  #TrigoPostfixRadToDeg
+trigoPostfix : postfixUnaryArgs 'sin'       #TrigoPostfixSin
+             | postfixUnaryArgs 'cos'       #TrigoPostfixCos
+             | postfixUnaryArgs 'tan'       #TrigoPostfixTan
+             | postfixUnaryArgs 'sinh'      #TrigoPostfixSinh
+             | postfixUnaryArgs 'cosh'      #TrigoPostfixCosh
+             | postfixUnaryArgs 'tanh'      #TrigoPostfixTanh
+             | postfixUnaryArgs 'asin'      #TrigoPostfixASin
+             | postfixUnaryArgs 'acos'      #TrigoPostfixACos
+             | postfixUnaryArgs 'atan'      #TrigoPostfixATan
+             | postfixUnaryArgs 'degToRad'  #TrigoPostfixDegToRad
+             | postfixUnaryArgs 'radToDeg'  #TrigoPostfixRadToDeg
              ;
 
 atomPostfix : sumPostfix                #AtomPostfixSum
-            | complexNumber           #AtomPostfixInt
+            | unknown                   #AtomPostfixNumber
             ;
 
-
+postfixBinaryArgs :  '(' atomPostfix ','?  atomPostfix (','? atomPostfix)* ')';
+postfixUnaryArgs  : '(' atomPostfix ')';
 
 /* PREFIX NOTATION */
-sumPrefix : productPrefix                                   #SumPrefixProd
-           | '+' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixSum
-           | '-' '('atomPrefix (','? atomPrefix)* ')'       #SumPrefixDiff
-           | 'root' '('atomPrefix (','? atomPrefix)* ')'    #SumPrefixRoot
+sumPrefix : productPrefix                            #SumPrefixProd
+           | '+' prefixBinaryArgs                    #SumPrefixSum
+           | '-' prefixBinaryArgs                    #SumPrefixDiff
+           | 'root' prefixBinaryArgs                 #SumPrefixRoot
+           | MOD prefixBinaryArgs                    #SumPrefixMod
            ;
 
-productPrefix   : '^' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixExp
-                | '*' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixMult
-                | '/' '(' atomPrefix (','? atomPrefix)* ')'      #ProductPrefixDiv
-                | unaryPrefix                                    #ProductPrefixUnary
+productPrefix   : EXPONENT prefixBinaryArgs          #ProductPrefixExp
+                | '*' prefixBinaryArgs               #ProductPrefixMult
+                | '/' prefixBinaryArgs               #ProductPrefixDiv
+                | unaryPrefix                        #ProductPrefixUnary
                 ;
 
 unaryPrefix : trigoPrefix                    #UnaryPrefixTrigo
-             | 'log' '(' atomPrefix ')'      #UnaryPrefixLog
-             | 'sqrt' '(' atomPrefix ')'     #UnaryPrefixSqrt
+             | 'log'  prefixUnaryArgs        #UnaryPrefixLog
+             | 'sqrt' prefixUnaryArgs        #UnaryPrefixSqrt
+             | '-'    prefixUnaryArgs        #UnaryPrefixNegation
+             | 'abs'  prefixUnaryArgs        #UnaryPrefixAbsolute
              ;
 
-trigoPrefix  : 'sin' '(' atomPrefix ')'       #TrigoPrefixSin
-             | 'cos' '(' atomPrefix ')'       #TrigoPrefixCos
-             | 'tan' '(' atomPrefix ')'       #TrigoPrefixTan
-             | 'sinh' '(' atomPrefix ')'      #TrigoPrefixSinh
-             | 'cosh' '(' atomPrefix ')'      #TrigoPrefixCosh
-             | 'tanh' '(' atomPrefix ')'      #TrigoPrefixTanh
-             | 'asin' '(' atomPrefix ')'      #TrigoPrefixASin
-             | 'acos' '(' atomPrefix ')'      #TrigoPrefixACos
-             | 'atan' '(' atomPrefix ')'      #TrigoPrefixATan
-             | 'degToRad' '(' atomPrefix ')'  #TrigoPrefixDegToRad
-             | 'radToDeg' '(' atomPrefix ')'  #TrigoPrefixRadToDeg
+trigoPrefix  : 'sin' prefixUnaryArgs          #TrigoPrefixSin
+             | 'cos' prefixUnaryArgs          #TrigoPrefixCos
+             | 'tan' prefixUnaryArgs          #TrigoPrefixTan
+             | 'sinh' prefixUnaryArgs         #TrigoPrefixSinh
+             | 'cosh' prefixUnaryArgs         #TrigoPrefixCosh
+             | 'tanh' prefixUnaryArgs         #TrigoPrefixTanh
+             | 'asin' prefixUnaryArgs         #TrigoPrefixASin
+             | 'acos' prefixUnaryArgs         #TrigoPrefixACos
+             | 'atan' prefixUnaryArgs         #TrigoPrefixATan
+             | 'degToRad' prefixUnaryArgs     #TrigoPrefixDegToRad
+             | 'radToDeg' prefixUnaryArgs     #TrigoPrefixRadToDeg
              ;
 
 atomPrefix  : sumPrefix         #AtomPrefixSum
-            | complexNumber   #AtomPrefixInt
+            | unknown           #AtomPrefixNumber
             ;
+
+
+prefixBinaryArgs :  '(' atomPrefix ','?  atomPrefix (','? atomPrefix)* ')';
+prefixUnaryArgs  :  '(' atomPrefix ')';
+
 
 /* INFIX NOTATION */
 sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
-    | 'root' '(' sumInfix + ',' + sumInfix ')'      #SumInfixRoot
+    | sumInfix MOD  sumInfix                        #SumInfixMod
     ;
 
-productInfix: atomInfix             #ProductInfixAtom
-    | productInfix '^' atomInfix    #ProductInfixExpo
-    | productInfix '*' atomInfix    #ProductInfixMult
-    | productInfix '/' atomInfix    #ProductInfixDiv
+productInfix: atomInfix                             #ProductInfixAtom
+    | productInfix EXPONENT atomInfix               #ProductInfixExpo
+    | productInfix '*' atomInfix                    #ProductInfixMult
+    | productInfix '/' atomInfix                    #ProductInfixDiv
+    | 'root' '(' sumInfix + ',' + sumInfix ')'      #ProductInfixRoot
     ;
 
 atomInfix: unaryInfix           #AtomInfixUnary
-    | complexNumber             #AtomInfixComplex
+    | unknown                   #AtomInfixNumber
     | '(' sumInfix ')'          #AtomInfixSum
     ;
 
 unaryInfix: trigoInfix                                   #UnaryInfixTrigo
           | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
           | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
-          | '-' sumInfix   #UnaryInfixNegation
+          | (('|' sumInfix + '|')
+                | ('abs' + '(' + sumInfix +')' ) )       #UnaryInfixAbsolute
+          | '-' productInfix                             #UnaryInfixNegation
           ;
 
 trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
@@ -135,20 +142,33 @@ trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
 
 /* NUMBER and TOKENS */
 
+// The next rules are written like this to prevent any recursion problem.
+
+// Checks to see if the number is an unknown value at first or not
+unknown : complexNumber? UNKNOWN            #UnknownUnknownNumber
+        | complexNumber                     #UnknownNumber
+        ;
+
 // Checks to see if the number is imaginary at first or not
 complexNumber   : number? 'i'    #ComplexImaginaryNumber
                 | number         #ComplexRealNumber
                 ;
+
+
+
 
 // Add other number kinds, such as floats/doubles
 number: rational                            #NumberRational // Placed first in order to *override* the infix division !
       | INT                                 #NumberInt
       | FLOAT                               #NumberReal
       | constant                            #NumberContant
+      | infinity                            #NumberInfinity
       | random                              #NumberRandom
       | number ENOTATION                    #NumberENotation
-      | '-' number                          #NumberNegation // In case someone wants the negative value of a number
+      | '-' unknown                         #NumberNegation // In case someone wants the negative value of a number
       ;
+
+
 
 random : 'rand_int' '(' INT ')'                         #RandomInt
        | 'rand_real' '(' ')'                            #RandomReal
@@ -160,6 +180,10 @@ constant: ('pi' | 'PI' | 'Pi' | 'pI' | 'π') #ConstantPi
         | ('E' | 'e')                       #ConstantEuler
         ;
 
+infinity: '+'? 'inf'                        #InfinityPositive
+        | '-' 'inf'                         #InfinityNegative
+        ;
+
 rational: INT '/' INT
         ;
 
@@ -167,6 +191,9 @@ MUL :   '*' ; // assigns token name to '*' used above in grammar
 DIV :   '/' ;
 ADD :   '+' ;
 SUB :   '-' ;
+UNKNOWN :   'x' ;
+EXPONENT :  '^' | '**';
+MOD :   '%'|'mod';
 BOOL :   'true'|'false' ;                      // match booleans
 ID  :   [a-zA-Z]+ ;                   // match identifiers
 INT :   [0-9]+ ;                      // match integers

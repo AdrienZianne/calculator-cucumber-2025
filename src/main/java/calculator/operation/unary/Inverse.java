@@ -1,15 +1,16 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.*;
-
-import java.util.List;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Divides;
+import calculator.operation.binary.Exponent;
+import calculator.operation.binary.Plus;
 
 /**
  * A class used to represent the inversion of an expression.
  * Let {@code x} be our expression, the operation will result in {@code 1/x}.
  */
-public class Inverse extends UnaryOperation {
+public final class Inverse extends UnaryOperation {
     /**
      * The default constructor of the {@link Inverse} class.
      * 
@@ -57,5 +58,15 @@ public class Inverse extends UnaryOperation {
 
         return MyComplex.create(BinaryOperation.op(c.getRealImaginaryPair().a, denom, Divides::new),
                 UnaryOperation.op(BinaryOperation.op(c.getRealImaginaryPair().b, denom, Divides::new), Negation::new));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the inverse operation");
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyUndefinedNumber(this);
     }
 }

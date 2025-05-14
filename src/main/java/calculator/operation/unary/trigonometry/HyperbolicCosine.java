@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the hyperbolic cosine operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code cosh(x)}.
  */
-public class HyperbolicCosine  extends TrigonometricFunction{
+public final class HyperbolicCosine  extends TrigonometricFunction{
     /**
      * A constructor of the {@link HyperbolicCosine} class.
      * @param expression An expression to apply the cosh operation to.

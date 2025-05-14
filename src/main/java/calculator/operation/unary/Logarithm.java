@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the logarithmic value of an expression.
  * Let {@code x} be our expression, the operation will result in {@code log(x)}.
  */
-public class Logarithm extends UnaryOperation {
+public final class Logarithm extends UnaryOperation {
 
     /**
      * The default constructor of the {@link Logarithm} class.
@@ -58,16 +58,28 @@ public class Logarithm extends UnaryOperation {
         return new MyErrorNumber(this, "Tried to apply the log operation on the following complex value: " + c);
     }
 
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by the logarithm operation");
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        MyErrorNumber check = checkValidity(i);
+        if (check != null)
+            return check;
+        return new MyInfinity(true);
+    }
+
     private MyErrorNumber checkValidity(MyNumber nb) {
         if (nb.isZero())
             return new MyErrorNumber(this,
-                    "Tried to apply the log operation on an expression that resulted in : " + nb);
+                    "Tried to apply the log operation on an expression that resulted in zero");
         if (nb.getSign() < 0) {
             return new MyErrorNumber(this,
-                    "Tried to apply the log operation on an expression that resulted in the following negative value : "
-                            + nb);
+                    "Tried to apply the log operation on an expression that resulted in a negative value");
         }
-        if (nb instanceof MyReal r && !r.isDouble()) return new MyErrorNumber(this, "The given real number cannot be converted to a double: " + nb);
+        if (nb instanceof MyReal r && !r.isDouble()) return new MyErrorNumber(this, "The given real number cannot be converted to a double");
 
         return null;
     }

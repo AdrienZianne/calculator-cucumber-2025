@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the cosinus operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code cos(x)}.
  */
-public class Cosinus extends TrigonometricFunction {
+public final class Cosinus extends TrigonometricFunction {
     /**
      * The default constructor of the {@link Cosinus} class.
      * @param expression An expression to apply the cosinus operation.

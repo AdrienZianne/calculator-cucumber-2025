@@ -1,13 +1,12 @@
 package calculator;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.ArrayList;
-
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Represents a rational number.
@@ -62,9 +61,13 @@ public class MyRational extends MyNumber {
         params.add(numerator);
         params.add(denominator);
         try {
-            return new MyErrorNumber(new Divides(params), "A rational cannot have a denominator of 0");
+            Divides divides = new Divides(params);
+            if (numerator.equals(ConstantNumber.ZERO)) {
+                return new MyUndefinedNumber(divides);
+            }
+            return new MyErrorNumber(divides, "The operation results in a division by zero error");
         } catch (IllegalConstruction e) {
-            return new MyErrorNumber(null, "A rational cannot have a denominator of 0");
+            return new MyErrorNumber(null, "The operation results in a division by zero error");
         }
     }
 
@@ -115,7 +118,7 @@ public class MyRational extends MyNumber {
 
     /**
      * Method for creating a MyRational object using denominator checks.
-     *
+
      * @param numerator
      * @param denominator
      *
@@ -129,7 +132,7 @@ public class MyRational extends MyNumber {
     public static MyNumber toRational(MyReal real) {
         BigInteger denom = BigInteger.TEN.pow(real.getValue().scale());
         BigInteger num = real.getValue().multiply(new BigDecimal(denom)).toBigInteger();
-        return new MyRational(num, denom).simplify();
+        return create(num, denom);
     }
 
     @Override
@@ -154,6 +157,7 @@ public class MyRational extends MyNumber {
      *         Either another instance of {@link MyRational}.
      *         Or if the new denominator is equal to 1 or the enumerator is equal to
      *         0, then it returns an {@link MyInteger} instance.
+     *         then it will return an instance of {@link MyInteger} with the rounded value.
      */
     private MyNumber simplify() {
         Pair<MyInteger, MyInteger> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a.getValue(),
@@ -200,7 +204,12 @@ public class MyRational extends MyNumber {
         {
             case MyReal r : yield MyRational.toRational(r);
             case MyRational r : yield r;
-            case MyInteger i : yield new MyRational(i, i);
+            case MyInteger i :
+            {
+                if (!i.equals(ConstantNumber.ZERO))
+                    yield new MyRational(i, i);
+                yield null;
+            }
             default: yield  null;
         };
 
@@ -222,4 +231,5 @@ public class MyRational extends MyNumber {
     public int getSign() {
         return this.numDenomPair.a.getSign() * this.numDenomPair.b.getSign();
     }
+
 }

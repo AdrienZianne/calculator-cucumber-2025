@@ -17,89 +17,26 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(LabeledExprParser.ExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SettingSetSeed}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * Visit a parse tree produced by the {@code EquationInfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx);
+	T visitEquationInfix(LabeledExprParser.EquationInfixContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SettingResetSeed}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * Visit a parse tree produced by the {@code EquationPostfix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx);
+	T visitEquationPostfix(LabeledExprParser.EquationPostfixContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SettingGetSeed}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
+	 * Visit a parse tree produced by the {@code EquationPrefix}
+	 * labeled alternative in {@link LabeledExprParser#equation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingSetRealPrecision}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingGetRealPrecision}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingSetScNotInt}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingSetScNotBool}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingGetScNot}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingSetUseDeg}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingGetUseDeg}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingSetDisplayReal}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SettingGetDisplayReal}
-	 * labeled alternative in {@link LabeledExprParser#setting}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx);
+	T visitEquationPrefix(LabeledExprParser.EquationPrefixContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumPostfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
@@ -128,6 +65,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumPostfixMod}
+	 * labeled alternative in {@link LabeledExprParser#sumPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPostfixMod(LabeledExprParser.SumPostfixModContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ProductPostfixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPostfix}.
@@ -177,6 +121,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPostfixSqrt(LabeledExprParser.UnaryPostfixSqrtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPostfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPostfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPostfixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPostfix}.
@@ -262,12 +220,24 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomPostfixSum(LabeledExprParser.AtomPostfixSumContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomPostfixInt}
+	 * Visit a parse tree produced by the {@code AtomPostfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPostfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomPostfixInt(LabeledExprParser.AtomPostfixIntContext ctx);
+	T visitAtomPostfixNumber(LabeledExprParser.AtomPostfixNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LabeledExprParser#postfixBinaryArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostfixBinaryArgs(LabeledExprParser.PostfixBinaryArgsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LabeledExprParser#postfixUnaryArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostfixUnaryArgs(LabeledExprParser.PostfixUnaryArgsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumPrefixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
@@ -296,6 +266,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumPrefixMod}
+	 * labeled alternative in {@link LabeledExprParser#sumPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumPrefixMod(LabeledExprParser.SumPrefixModContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ProductPrefixExp}
 	 * labeled alternative in {@link LabeledExprParser#productPrefix}.
@@ -345,6 +322,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryPrefixSqrt(LabeledExprParser.UnaryPrefixSqrtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixNegation}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPrefixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryPrefix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrigoPrefixSin}
 	 * labeled alternative in {@link LabeledExprParser#trigoPrefix}.
@@ -430,19 +421,24 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomPrefixSum(LabeledExprParser.AtomPrefixSumContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomPrefixInt}
+	 * Visit a parse tree produced by the {@code AtomPrefixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomPrefix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomPrefixInt(LabeledExprParser.AtomPrefixIntContext ctx);
+	T visitAtomPrefixNumber(LabeledExprParser.AtomPrefixNumberContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SumInfixRoot}
-	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * Visit a parse tree produced by {@link LabeledExprParser#prefixBinaryArgs}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx);
+	T visitPrefixBinaryArgs(LabeledExprParser.PrefixBinaryArgsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LabeledExprParser#prefixUnaryArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumInfixAdd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
@@ -457,6 +453,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSumInfixDiff(LabeledExprParser.SumInfixDiffContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SumInfixMod}
+	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSumInfixMod(LabeledExprParser.SumInfixModContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SumInfixProd}
 	 * labeled alternative in {@link LabeledExprParser#sumInfix}.
@@ -479,6 +482,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductInfixAtom(LabeledExprParser.ProductInfixAtomContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ProductInfixRoot}
+	 * labeled alternative in {@link LabeledExprParser#productInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ProductInfixMult}
 	 * labeled alternative in {@link LabeledExprParser#productInfix}.
 	 * @param ctx the parse tree
@@ -500,12 +510,12 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AtomInfixComplex}
+	 * Visit a parse tree produced by the {@code AtomInfixNumber}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtomInfixComplex(LabeledExprParser.AtomInfixComplexContext ctx);
+	T visitAtomInfixNumber(LabeledExprParser.AtomInfixNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomInfixSum}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
@@ -534,6 +544,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitUnaryInfixSqrt(LabeledExprParser.UnaryInfixSqrtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryInfixAbsolute}
+	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UnaryInfixNegation}
 	 * labeled alternative in {@link LabeledExprParser#unaryInfix}.
@@ -619,6 +636,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnknownUnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnknownNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownNumber(LabeledExprParser.UnknownNumberContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ComplexImaginaryNumber}
 	 * labeled alternative in {@link LabeledExprParser#complexNumber}.
 	 * @param ctx the parse tree
@@ -646,6 +677,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNumberRational(LabeledExprParser.NumberRationalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NumberInfinity}
+	 * labeled alternative in {@link LabeledExprParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberInfinity(LabeledExprParser.NumberInfinityContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code NumberReal}
 	 * labeled alternative in {@link LabeledExprParser#number}.
@@ -723,6 +761,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConstantEuler(LabeledExprParser.ConstantEulerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InfinityPositive}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InfinityNegative}
+	 * labeled alternative in {@link LabeledExprParser#infinity}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LabeledExprParser#rational}.
 	 * @param ctx the parse tree

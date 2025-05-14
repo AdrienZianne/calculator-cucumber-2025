@@ -1,19 +1,17 @@
 package calculator.parser;
 
-import calculator.operation.unary.*;
-import calculator.parser.antlr.*;
 import calculator.*;
-
-import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.binary.*;
+import calculator.operation.unary.*;
 import calculator.operation.unary.trigonometry.*;
+import calculator.parser.antlr.LabeledExprBaseVisitor;
+import calculator.parser.antlr.LabeledExprParser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.Evaluator;
 
-import calculator.Expression;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -28,94 +26,6 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return visit(ctx.getChild(0));
     }
 
-    /*
-     * _________________________________ SETTINGS _________________________________
-     */
-    @Override
-    public Expression visitSettingSetSeed(LabeledExprParser.SettingSetSeedContext ctx) {
-        Configuration.setSeed(Integer.parseInt(ctx.getChild(2).getText()));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingResetSeed(LabeledExprParser.SettingResetSeedContext ctx) {
-        Configuration.resetSeed();
-        return null;
-    }
-
-    public Expression visitSettingGetSeed(LabeledExprParser.SettingGetSeedContext ctx) {
-        if (Configuration.getSeed() == null) {
-            System.out.println("No seed is currently defined.");
-            return null;
-        }
-        return MyInteger.valueOf(Configuration.getSeed());
-    }
-
-    @Override
-    public Expression visitSettingSetRealPrecision(LabeledExprParser.SettingSetRealPrecisionContext ctx) {
-        try {
-            Configuration.setRealPrecision(Integer.parseInt(ctx.getChild(2).getText()));
-        } catch (NumberFormatException e) {
-            System.out.println("The given value cannot be converted to an int.");
-        }
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetRealPrecision(LabeledExprParser.SettingGetRealPrecisionContext ctx) {
-        return MyInteger.valueOf(Configuration.getRealPrecision());
-    }
-
-    @Override
-    public Expression visitSettingSetScNotBool(LabeledExprParser.SettingSetScNotBoolContext ctx) {
-        Configuration.setUseScientificNotation(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetScNot(LabeledExprParser.SettingGetScNotContext ctx) {
-        if (!Configuration.usesScientificNotation())
-            System.out.println("Scientific Notation is set to false.");
-        else
-            System.out.println(Configuration.getScientificNotationPrecision());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetScNotInt(LabeledExprParser.SettingSetScNotIntContext ctx) {
-        Configuration.setScientificNotationPrecision(Integer.parseInt(ctx.getChild(2).getText()),
-                Integer.parseInt(ctx.getChild(4).getText()));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetUseDeg(LabeledExprParser.SettingGetUseDegContext ctx) {
-        System.out.println(Configuration.isUsingDegrees());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetUseDeg(LabeledExprParser.SettingSetUseDegContext ctx) {
-        Configuration.setUseDegrees(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingGetDisplayReal(LabeledExprParser.SettingGetDisplayRealContext ctx) {
-        System.out.println(Configuration.isUsingRealNotation());
-        return null;
-    }
-
-    @Override
-    public Expression visitSettingSetDisplayReal(LabeledExprParser.SettingSetDisplayRealContext ctx) {
-        Configuration.setUseRealNotation(parseBool(ctx.getChild(2)));
-        return null;
-    }
-
-    private boolean parseBool(ParseTree ctx) {
-        return Boolean.parseBoolean(ctx.getText());
-    }
-
     /* _________________________________ INFIX _________________________________ */
     @Override
     public Expression visitSumInfixAdd(LabeledExprParser.SumInfixAddContext ctx) {
@@ -128,8 +38,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
-    public Expression visitSumInfixRoot(LabeledExprParser.SumInfixRootContext ctx) {
-        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
+    public Expression visitSumInfixMod(LabeledExprParser.SumInfixModContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Modulus(expressions, Notation.INFIX));
     }
 
     @Override
@@ -145,6 +55,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Divides(expressions, Notation.INFIX));
+    }
+
+    @Override
+    public Expression visitProductInfixRoot(LabeledExprParser.ProductInfixRootContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.INFIX));
     }
 
     @Override
@@ -224,6 +139,10 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.INFIX));
     }
 
+    @Override
+    public Expression visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.INFIX));
+    }
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -239,6 +158,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPrefixRoot(LabeledExprParser.SumPrefixRootContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitSumPrefixMod(LabeledExprParser.SumPrefixModContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Modulus(expressions, Notation.PREFIX));
     }
 
     @Override
@@ -321,6 +245,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.PREFIX));
     }
 
+    @Override
+    public Expression visitUnaryPrefixNegation(LabeledExprParser.UnaryPrefixNegationContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.PREFIX));
+    }
+
+    @Override
+    public Expression visitUnaryPrefixAbsolute(LabeledExprParser.UnaryPrefixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.PREFIX));
+    }
+
     /*
      * _________________________________ POSTFIX _________________________________
      */
@@ -338,6 +272,11 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     @Override
     public Expression visitSumPostfixRoot(LabeledExprParser.SumPostfixRootContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new NthRoot(expressions, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitSumPostfixMod(LabeledExprParser.SumPostfixModContext ctx) {
+        return parseToBinaryOperator(ctx, expressions -> new Modulus(expressions, Notation.POSTFIX));
     }
 
     @Override
@@ -420,6 +359,16 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return parseToUnaryOperator(ctx, expression -> new RadianToDegree(expression, Notation.POSTFIX));
     }
 
+    @Override
+    public Expression visitUnaryPostfixNegation(LabeledExprParser.UnaryPostfixNegationContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Negation(expression, Notation.POSTFIX));
+    }
+
+    @Override
+    public Expression visitUnaryPostfixAbsolute(LabeledExprParser.UnaryPostfixAbsoluteContext ctx) {
+        return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.POSTFIX));
+    }
+
     /* __________________________________ NUMBER _______________________________ */
 
     @Override
@@ -447,6 +396,24 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         }
 
         return MyComplex.create(new MyInteger(0), (MyNumber) visit(ctx.getChild(0)));
+    }
+
+    @Override
+    public Expression visitUnknownUnknownNumber(LabeledExprParser.UnknownUnknownNumberContext ctx) {
+        if (ctx.getChildCount() == 1) {
+            return MyUnknown.create(new MyInteger(1), new MyInteger(0));
+        }
+
+        return MyUnknown.create((MyNumber) visit(ctx.getChild(0)), new MyInteger(0));
+    }
+
+    @Override
+    public Expression visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) {
+        return new MyInfinity(true);
+    }
+    @Override
+    public Expression visitInfinityNegative(LabeledExprParser.InfinityNegativeContext ctx) {
+        return new MyInfinity(false);
     }
 
     @Override
@@ -509,7 +476,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         return ConstantNumber.EULER;
     }
 
-    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Static Functions=-=-=-=-=-=-=-=-=-=-=-=-=
+    // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=Other Functions=-=-=-=-=-=-=-=-=-=-=-=-=
     /**
      * Parses the given context as expressions and feeds them to a binary operation.
      * 
@@ -520,14 +487,20 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <E> The current parser rule context
      * @param <O> The type of operation to build
      */
-    public <E extends ParserRuleContext, O extends BinaryOperation> O parseToBinaryOperator(E ctx,
-            BuildOperationFunction<O> operation) {
+    public <E extends ParserRuleContext, O extends BinaryOperation> Expression parseToBinaryOperator(E ctx,
+            BuildBinaryOperationFunction<O> operation) {
         ArrayList<Expression> expressions = new ArrayList<>();
         Evaluator v = new Evaluator();
         for (int i = 0; i < ctx.getChildCount(); i++) {
-            // Checks if the node is a token without any interesting values
-
-            if (!(ctx.getChild(i) instanceof TerminalNode)) {
+            // If the node is a subset of args
+            if (ctx.getChild(i) instanceof LabeledExprParser.PostfixBinaryArgsContext args) {
+                expressions.addAll(visitArgsBinary(args, v));
+            }
+            else if (ctx.getChild(i) instanceof LabeledExprParser.PrefixBinaryArgsContext args) {
+                expressions.addAll(visitArgsBinary(args, v));
+            }
+            // Checks if the node is not a token without any interesting values
+            else if (!(ctx.getChild(i) instanceof TerminalNode)) {
                 visit(ctx.getChild(i)).accept(v);
                 expressions.add(v.getResult());
             }
@@ -536,8 +509,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
         try {
             res = operation.build(expressions);
         } catch (IllegalConstruction e) {
-            throw new RuntimeException(e);
-            // FIXME : We need to find a way to return an operation error in a cleaner way
+            return new MyErrorNumber(null, e.getMessage());
         }
         return res;
     }
@@ -557,14 +529,22 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
      * @param <E> The current parser rule context
      * @param <O> The type of operation to build
      */
-    public <E extends ParserRuleContext, O extends UnaryOperation> O parseToUnaryOperator(E ctx,
+    public <E extends ParserRuleContext, O extends UnaryOperation> Expression parseToUnaryOperator(E ctx,
             BuildUnaryOperationFunction<O> operation) {
         Expression expression = null;
-        Evaluator v;
+        Evaluator v = new Evaluator();
         // Explore all path to find the argument to pass to the unary operator.
         for (int i = 0; i < ctx.getChildCount(); i++) {
             // Checks if the node is a token without any interesting values
-            if (!(ctx.getChild(i) instanceof TerminalNode)) {
+            if (ctx.getChild(i) instanceof LabeledExprParser.PostfixUnaryArgsContext args) {
+                expression = visitArgsUnary(args, v);
+                break;
+            }
+            else if (ctx.getChild(i) instanceof LabeledExprParser.PrefixUnaryArgsContext args) {
+                expression = visitArgsUnary(args, v);
+                break;
+            }
+            else if (!(ctx.getChild(i) instanceof TerminalNode)) {
                 v = new Evaluator();
                 visit(ctx.getChild(i)).accept(v);
                 // We can stop after finding the only expression as this is a unary operation
@@ -579,10 +559,35 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
             }
             res = operation.build(expression);
         } catch (IllegalConstruction e) {
-            throw new RuntimeException(e);
-            // FIXME : We need to find a way to return an operation error in a cleaner way
+            return new MyErrorNumber(null, e.getMessage());
         }
         return res;
     }
 
+    private <E extends ParserRuleContext> ArrayList<Expression> visitArgsBinary(E args, Evaluator v)
+    {
+        ArrayList<Expression> res = new ArrayList<>();
+        for (int j = 0; j < args.getChildCount(); j++) {
+            // Checks if the node is a token without any interesting values
+            if (!(args.getChild(j) instanceof TerminalNode)) {
+                visit(args.getChild(j)).accept(v);
+                res.add(v.getResult());
+            }
+        }
+        return res;
+    }
+
+    private <E extends ParserRuleContext> Expression visitArgsUnary(E args, Evaluator v)
+    {
+        Expression res = null;
+        for (int j = 0; j < args.getChildCount(); j++) {
+            // Checks if the node is a token without any interesting values
+            if (!(args.getChild(j) instanceof TerminalNode)) {
+                visit(args.getChild(j)).accept(v);
+                res = v.getResult();
+                break;
+            }
+        }
+        return res;
+    }
 }

@@ -42,4 +42,26 @@ public class TestInverse extends TestUnaryOperation {
         // Inverse of a complex is different by nature
 
     }
+
+    @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        Inverse op = new Inverse(new MyInfinity(true));
+        assertEquals(MyUndefinedNumber.class, calculator.eval(op).getClass());
+        op = new Inverse(new MyInfinity(false));
+        assertEquals(MyUndefinedNumber.class, calculator.eval(op).getClass());
+    }
+
+    @Test
+    @Override
+    public void testMyUnknown() throws Exception {
+        MyNumber res = op(MyUnknown.create(ConstantNumber.ONE, ConstantNumber.ONE));
+        assertEquals(MyErrorNumber.class, res.getClass());
+    }
+
+
+    private MyNumber op(MyNumber a) {
+        return UnaryOperation.op(a, Inverse::new);
+    }
+
 }

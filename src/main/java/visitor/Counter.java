@@ -1,6 +1,7 @@
 package visitor;
 
-import calculator.*;
+import calculator.Expression;
+import calculator.MyNumber;
 import calculator.operation.Operation;
 
 import java.util.ArrayList;

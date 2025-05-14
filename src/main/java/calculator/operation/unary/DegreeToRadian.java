@@ -3,13 +3,14 @@ package calculator.operation.unary;
 import calculator.*;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
+import calculator.operation.binary.Minus;
 import calculator.operation.binary.Times;
 
 /**
  * A class used to represent the degree to radian conversion.
  * Let {@code x} be our number, the operation will result in {@code x * π/180}.
  */
-public class DegreeToRadian extends UnaryOperation {
+public final class DegreeToRadian extends UnaryOperation {
     /**
      * The default constructor of the {@link DegreeToRadian} class.
      *
@@ -48,6 +49,16 @@ public class DegreeToRadian extends UnaryOperation {
     @Override
     public MyNumber op(MyComplex c) {
         return new MyErrorNumber(this,  "Cannot apply a transformation from degrees to radians on a complex number: " + c);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, DegreeToRadian::new);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyErrorNumber(this,  "Cannot apply a degree to radian conversion from infinity");
     }
 
     private static MyNumber degToRadian(MyNumber og) {

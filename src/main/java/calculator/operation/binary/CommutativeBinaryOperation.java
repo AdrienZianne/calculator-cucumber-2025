@@ -28,6 +28,16 @@ public abstract class CommutativeBinaryOperation extends BinaryOperation
     }
 
     @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        return op(r,l);
+    }
+
+    @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return op(r,l);
+    }
+
+    @Override
     public MyNumber op(MyReal l, MyComplex r) {
         return op(r,l);
     }
@@ -38,9 +48,42 @@ public abstract class CommutativeBinaryOperation extends BinaryOperation
     }
 
     @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        return op(r,l);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return op(r,l);
+    }
+
+    @Override
     public MyNumber op(MyComplex l, MyRational r) {
         return op(r,l);
     }
 
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        return op(r,l);
+    }
 
+    @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return op(r,l);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        return op(r,l);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return op(r,l);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return op(r,l);
+    }
 }

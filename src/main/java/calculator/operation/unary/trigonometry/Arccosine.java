@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * A class used to represent the arc cosine operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code acos(x)}.
  */
-public class Arccosine extends TrigonometricFunction {
+public final class Arccosine extends TrigonometricFunction {
     /**
      * The default constructor of the {@link Arccosine} class.
      * @param expression An expression to apply the inverse cosine operation.

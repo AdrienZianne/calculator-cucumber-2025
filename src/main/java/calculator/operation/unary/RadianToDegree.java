@@ -9,7 +9,7 @@ import calculator.operation.binary.Times;
  * A class used to represent the radian to degree conversion.
  * Let {@code x} be our number, the operation will result in {@code x * 180/π}.
  */
-public class RadianToDegree extends UnaryOperation {
+public final class RadianToDegree extends UnaryOperation {
     /**
      * The default constructor of the {@link RadianToDegree} class.
      *
@@ -48,6 +48,16 @@ public class RadianToDegree extends UnaryOperation {
     @Override
     public MyNumber op(MyComplex c) {
         return new MyErrorNumber(this,  "Cannot apply a transformation from radian to degree on a complex number: " + c);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, RadianToDegree::new);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyErrorNumber(this,  "Cannot apply a degree to radian conversion from infinity");
     }
 
     private static MyNumber degToRadian(MyNumber og) {
