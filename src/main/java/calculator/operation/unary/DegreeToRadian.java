@@ -26,7 +26,6 @@ public final class DegreeToRadian extends DegreeRadianConvertor {
         super(argument, "degToRad", notation, ConstantNumber.PI, MyInteger.valueOf(180));
     }
 
-
     @Override
     public MyNumber op(MyUnknown x) {
         return MyUnknown.applyToAllOperators(x, DegreeToRadian::new);

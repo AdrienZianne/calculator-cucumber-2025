@@ -200,19 +200,19 @@ public class Programmer {
             }
         }
 
-        StringBuilder res = new StringBuilder();
         if (oldRealNum.toString().equals("0")) {
-            res = new StringBuilder("0");
+            return "0";
         } else {
+            StringBuilder res = new StringBuilder();
             while (oldRealNum.compareTo(BigInteger.valueOf(0)) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
                 res.insert(0, chars.charAt(divideAndRemainder[1].intValue()));
                 oldRealNum = divideAndRemainder[0];
             }
-        }
 
-        return res.toString();
+            return res.toString();
+        }
     }
 
     /**

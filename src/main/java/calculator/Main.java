@@ -1,14 +1,12 @@
 package calculator;
 
 import io.cli.Shell;
-import jdk.jshell.spi.ExecutionControl;
 import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
-
 
 /**
  * A very simple calculator in Java
@@ -23,14 +21,14 @@ import org.springframework.context.annotation.ComponentScan;
 @EntityScan({ "io" })
 public class Main {
 
-	/**
-	 * This is the main method of the application.
-	 * It provides examples of how to use it to construct and evaluate arithmetic
-	 * expressions.
-	 *
-	 * @param args Command-line parameters are not used in this version
-	 */
-	public static void main(String[] args) throws IOException {
+    /**
+     * This is the main method of the application.
+     * It provides examples of how to use it to construct and evaluate arithmetic
+     * expressions.
+     *
+     * @param args Command-line parameters are not used in this version
+     */
+    public static void main(String[] args) throws IOException {
         if (args.length >= 1 && args[0].equals("web")) {
             SpringApplication.run(Main.class);
         } else {
@@ -45,5 +43,5 @@ public class Main {
                 System.out.println("cannot create operations without parameters: " + exception.getMessage());
             }
         }
-	  }
+    }
 }

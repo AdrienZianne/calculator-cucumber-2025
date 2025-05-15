@@ -16,7 +16,6 @@ import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
 

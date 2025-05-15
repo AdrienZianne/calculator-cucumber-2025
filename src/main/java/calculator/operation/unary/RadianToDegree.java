@@ -27,6 +27,8 @@ public final class RadianToDegree extends DegreeRadianConvertor {
     }
 
     @Override
-    public MyNumber op(MyUnknown x) {return MyUnknown.applyToAllOperators(x, RadianToDegree::new);}
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, RadianToDegree::new);
+    }
 
 }

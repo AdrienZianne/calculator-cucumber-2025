@@ -7,7 +7,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -265,7 +264,7 @@ public class CalculatorSteps {
 
 	@When("I provide an expression as a string {string}")
 	public void whenIProvideAString(String string)
-			throws IllegalConstruction, ExecutionControl.NotImplementedException {
+			throws IllegalConstruction {
 		params.add(CalculatorParser.parseArithmetic(string));
 
 		binaryOperations = new ArrayList<>(List.of(new Plus(params)));

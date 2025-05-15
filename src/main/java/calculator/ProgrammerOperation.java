@@ -29,7 +29,6 @@ interface LogicOperation {
  */
 public class ProgrammerOperation {
 
-
     /**
      * Private constructor, never supposed to be called, as it's a static utility
      * class.
@@ -58,6 +57,7 @@ public class ProgrammerOperation {
                 newValue.append("0");
             }
         }
+
         return (new Programmer(newValue.toString(), 2)).newBase(Math.max(l.base, r.base));
     }
 
@@ -197,8 +197,7 @@ public class ProgrammerOperation {
             }
         }
 
-        return new Programmer(newValue.toString(), 2)
-                .newBase(n.base);
+        return new Programmer(newValue.toString(), 2).newBase(n.base);
     }
 
     /**
