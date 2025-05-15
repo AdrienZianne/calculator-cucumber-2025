@@ -32,6 +32,8 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 *  Once the code is compiled, you can execute the main class of the Java code using "mvn exec:java" 
 *  The tests and BDD scenarios are executable with Maven using "mvn test"
 *  Note that the tests are also executed when you do a "mvn install". It is possible to skip those tests by providing an extra parameter. For details of more advanced uses of Maven, please refer to its official documentation https://maven.apache.org/guides/.
+*  To run the API used by the front end gui, the argument "web" must be passed using 'mvn clean compile exec:java -Dexec.args="web"'.
+*  To run the front end gui, the command "npm run dev" must be run at the root of the folder `calculator-web`
 
 ### Generate new Grammar
 
