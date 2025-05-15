@@ -1,18 +1,18 @@
 <template>
-  <div class="home">
-    <Header></Header>
-    <Calculator class="calculator"/>
-    <Info type="1"/>
-  </div>
+    <div class="home">
+        <Header></Header>
+        <Settings class="calculator" />
+        <Info />
+    </div>
 </template>
 
 <script>
-import Calculator from '@/components/Calculator.vue';
 import Info from '@/components/Info.vue';
+import Settings from '@/components/Settings.vue';
 import Header from '@/components/Header.vue';
 
 export default {
-  components: {Calculator, Info, Header}
+    components: { Settings, Info, Header }
 };
 </script>
 

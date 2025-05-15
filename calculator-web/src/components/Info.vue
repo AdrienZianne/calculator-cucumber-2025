@@ -7,7 +7,7 @@ import Alert from '@/components/Alert.vue';
 export default {
   components: {Alert},
   props:{
-      isCalculatorPro : Boolean
+      type : Number
   },
   methods: {
     /**
@@ -20,7 +20,7 @@ export default {
     },
     /** Method that loads text from the file. */
     accessFile() {
-      if(this.isCalculatorPro) {
+      if(this.type == 0) {
         fetch('/public/infopro.txt') 
           .then(response => response.text()) 
           .then(data => {
@@ -30,8 +30,17 @@ export default {
             Alert.errorManagement(error);
           });
       }
-      else {
+      else if (this.type == 1) {
         fetch('/public/info.txt') 
+          .then(response => response.text()) 
+          .then(data => {
+            this.display(data);
+          })
+          .catch(error => {
+            Alert.errorManagement(error);
+          });
+      } else {
+        fetch('/public/infosetting.txt') 
           .then(response => response.text()) 
           .then(data => {
             this.display(data);

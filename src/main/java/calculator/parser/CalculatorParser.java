@@ -4,11 +4,13 @@ import calculator.Equation;
 import calculator.Expression;
 import calculator.Programmer;
 import calculator.parser.antlr.*;
-import io.Memory;
-import io.Shell;
+
+import io.cli.Shell;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import io.cli.Memory;
 
 /**
  * CalculatorParser

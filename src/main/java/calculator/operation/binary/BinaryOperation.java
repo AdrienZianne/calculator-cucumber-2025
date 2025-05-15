@@ -68,7 +68,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         if (a instanceof MyReal l)
@@ -80,7 +82,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         if (a instanceof MyRational l)
@@ -93,7 +97,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         if (a instanceof MyComplex l)
@@ -106,7 +112,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         if (a instanceof MyInfinity l)
@@ -119,7 +127,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         if (a instanceof MyUnknown l)
@@ -132,7 +142,9 @@ public abstract class BinaryOperation extends Operation {
                 case MyRational r -> { return op(l, r); }
                 case MyInfinity r -> { return op(l,r); }
                 case MyUnknown r -> { return op(l,r); }
-                default -> {}
+                default -> {
+                    // The default case is taken care after all switches.
+                }
             }
         }
         // Error : Not implemented
