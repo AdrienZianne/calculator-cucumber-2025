@@ -25,7 +25,7 @@ class TestMemory {
         e.setRes("2");
         assertEquals("1 + 1", e.getExpression());
         assertEquals("2", e.getRes());
-        assertEquals("1 + 1 = 2", e.toString());
+        assertEquals("1 + 1 => 2", e.toString());
 
         assertTrue(e.equals(e));
         assertTrue(e.equals(new Element("1 + 1", "2")));
@@ -33,7 +33,7 @@ class TestMemory {
         assertFalse(e.equals(new Memory()));
 
         e = new Element("T and T", "T");
-        assertEquals("T and T = T", e.toString());
+        assertEquals("T and T => T", e.toString());
     }
 
     /**

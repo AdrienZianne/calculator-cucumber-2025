@@ -107,12 +107,20 @@ sumInfix : productInfix                             #SumInfixProd
     | sumInfix MOD  sumInfix                        #SumInfixMod
     ;
 
-productInfix: atomInfix                             #ProductInfixAtom
-    | productInfix EXPONENT atomInfix               #ProductInfixExpo
-    | productInfix '*' atomInfix                    #ProductInfixMult
-    | productInfix '/' atomInfix                    #ProductInfixDiv
+
+productInfix : expoInfix                            #ProductInfixAtom
+    | productInfix EXPONENT expoInfix               #ProductInfixExpo
+    | productInfix '*' expoInfix                    #ProductInfixMult
+    | productInfix '/' expoInfix                    #ProductInfixDiv
     | 'root' '(' sumInfix + ',' + sumInfix ')'      #ProductInfixRoot
     ;
+
+
+expoInfix : atomInfix                               #ExpoInfixAtom
+    | expoInfix EXPONENT atomInfix                  #ExpoInfixExpo
+    ;
+
+
 
 atomInfix: unaryInfix           #AtomInfixUnary
     | unknown                   #AtomInfixNumber
@@ -145,8 +153,9 @@ trigoInfix   : 'sin' '(' sumInfix ')'       #TrigoInfixSin
 // The next rules are written like this to prevent any recursion problem.
 
 // Checks to see if the number is an unknown value at first or not
-unknown : complexNumber? UNKNOWN            #UnknownUnknownNumber
-        | complexNumber                     #UnknownNumber
+unknown : complexNumber? UNKNOWN EXPONENT complexNumber             #UnknownUnknownExponentNumber
+        | complexNumber? UNKNOWN                                    #UnknownUnknownNumber
+        | complexNumber                                             #UnknownNumber
         ;
 
 // Checks to see if the number is imaginary at first or not

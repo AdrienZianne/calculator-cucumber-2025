@@ -503,6 +503,20 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExpoInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExpoInfixAtom}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpoInfixAtom(LabeledExprParser.ExpoInfixAtomContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
@@ -635,6 +649,13 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnknownUnknownExponentNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code UnknownUnknownNumber}
 	 * labeled alternative in {@link LabeledExprParser#unknown}.

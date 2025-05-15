@@ -28,13 +28,13 @@ public class Equation {
      * <ul>
      *     <li>Expressions without any unknown terms.</li>
      *     <li>First degree expression.</li>
-     *     <li>Second degree expression.</li>
-     *     <ul>
-     *         <li>Some equations might not have any solution in the real domain.
-     *         In this case the resul depends on the current {@link Configuration}.</li>
-     *     </ul>
+     *     <li>Second degree expression.
+     *          <ul>
+     *              <li>Some equations might not have any solution in the real domain.
+     *              In this case the resul depends on the current {@link Configuration}.</li>
+     *          </ul>
+     *     </li>
      * </ul>
-     * </p>
      * @param left A number or an expression (i.e. an instance of the {@link MyUnknown}).
      * @param right A number or an expression (i.e. an instance of the {@link MyUnknown}).
      */
@@ -174,7 +174,6 @@ public class Equation {
      *             {@code true} or {@code false}, if the equation has no unknown terms.
      *          </li>
      *     </ul>
-     * </p>
      * @return The prettified result of an equation.
      */
     public String prettyResult() {

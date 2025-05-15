@@ -850,6 +850,30 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 */
 	void exitProductInfixDiv(LabeledExprParser.ProductInfixDivContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExpoInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExpoInfixExpo}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExpoInfixAtom}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpoInfixAtom(LabeledExprParser.ExpoInfixAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExpoInfixAtom}
+	 * labeled alternative in {@link LabeledExprParser#expoInfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpoInfixAtom(LabeledExprParser.ExpoInfixAtomContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code AtomInfixUnary}
 	 * labeled alternative in {@link LabeledExprParser#atomInfix}.
 	 * @param ctx the parse tree
@@ -1077,6 +1101,18 @@ public interface LabeledExprListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnknownUnknownExponentNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnknownUnknownExponentNumber}
+	 * labeled alternative in {@link LabeledExprParser#unknown}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code UnknownUnknownNumber}
 	 * labeled alternative in {@link LabeledExprParser#unknown}.
