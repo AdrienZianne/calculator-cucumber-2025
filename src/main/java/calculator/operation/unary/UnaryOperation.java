@@ -18,7 +18,7 @@ public abstract class UnaryOperation extends Operation {
      * @param notation The notation to display the operation.
      * @throws IllegalConstruction
      */
-    public UnaryOperation(Expression argument, Notation notation) throws IllegalConstruction {
+    protected UnaryOperation(Expression argument, Notation notation) throws IllegalConstruction {
         super(Collections.singletonList(argument), notation);
         if (argument == null) {throw new IllegalConstruction();}
     }

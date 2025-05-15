@@ -25,7 +25,7 @@ class TestNotation {
 		Formatter formatter = new Formatter(n);
 		try {
 			formatter.visit(o);
-		} catch (Exception e) {
+		} catch (Exception _) {
 			fail();
 		}
 		assertEquals(s, formatter.getResult());
@@ -59,7 +59,7 @@ class TestNotation {
 				case "/"	->	op = new Divides(params);
 				default		->	fail();
 			}
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 		testNotations(symbol, value1, value2, op);

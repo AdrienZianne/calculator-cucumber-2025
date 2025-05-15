@@ -189,7 +189,7 @@ public class Programmer {
         if (newBase == 1) {
             try {
                 return String.join("", Collections.nCopies(oldRealNum.intValueExact(), "0"));
-            } catch (ArithmeticException error) {
+            } catch (ArithmeticException _) {
                 // If you can't convert the BigInteger to an integer without losing information,
                 // then you need to loop.
                 StringBuilder result = new StringBuilder();
@@ -200,19 +200,19 @@ public class Programmer {
             }
         }
 
-        String res = "";
+        StringBuilder res = new StringBuilder();
         if (oldRealNum.toString().equals("0")) {
-            res = "0";
+            res = new StringBuilder("0");
         } else {
             while (oldRealNum.compareTo(new BigInteger("0")) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
-                res = chars.charAt(divideAndRemainder[1].intValue()) + res;
+                res.insert(0, chars.charAt(divideAndRemainder[1].intValue()));
                 oldRealNum = divideAndRemainder[0];
             }
         }
 
-        return res;
+        return res.toString();
     }
 
     /**

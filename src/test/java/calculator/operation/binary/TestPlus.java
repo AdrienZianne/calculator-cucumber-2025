@@ -23,7 +23,7 @@ class TestPlus extends TestBinaryOperation {
 	void setUp() {
 		  params = new ArrayList<>(Arrays.asList(new MyInteger(value1),new MyInteger(value2)));
 		  try { op = new Plus(params); }
-		  catch(IllegalConstruction e) { fail(); }
+		  catch(IllegalConstruction _) { fail(); }
 	}
 
 	@Test
@@ -38,7 +38,7 @@ class TestPlus extends TestBinaryOperation {
 		// A Times expression should not be the same as a Plus expression
 		try {
 			assertNotSame(new Times(new ArrayList<>()), op);
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -53,7 +53,7 @@ class TestPlus extends TestBinaryOperation {
 			assertEquals(e, e);
 			assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyInteger(5), new MyInteger(4))), Notation.INFIX));
 		}
-		catch(IllegalConstruction e) { fail(); }
+		catch(IllegalConstruction _) { fail(); }
 	}
 
 	@SuppressWarnings("ConstantConditions")
@@ -70,7 +70,7 @@ class TestPlus extends TestBinaryOperation {
 			Plus e = new Plus(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());
 		}
-		catch(IllegalConstruction e) { fail(); }
+		catch(IllegalConstruction _) { fail(); }
 	}
 
 	@Test

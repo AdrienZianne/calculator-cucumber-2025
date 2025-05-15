@@ -41,7 +41,7 @@ public class CalculatorSteps {
 				case "quotient", "/" -> new Divides(params);
 				default -> throw new IllegalConstruction();
 			};
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			throw new IllegalConstruction();
 		}
 		return op;
@@ -72,7 +72,7 @@ public class CalculatorSteps {
 		try {
 			binaryOperations = new ArrayList<>(List.of(createIntegerOperation(s, params))); // create an empty set of
 			// operations to be filled in
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -105,7 +105,7 @@ public class CalculatorSteps {
 			params.add(new MyInteger(n1));
 			params.add(new MyInteger(n2));
 			binaryOperations = new ArrayList<>(List.of(new Plus(params)));
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -120,46 +120,46 @@ public class CalculatorSteps {
 	}
 
 	@When("^I provide a (.*) number (-?\\d+)$")
-	public void whenIProvideAInteger(String s, int val) {
-		addParams(s, new MyInteger(val), 0);
+	public void whenIProvideAInteger(int val) {
+		addParams(new MyInteger(val), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+) to operator (.*)$")
-	public void whenIProvideAInteger(String s, int val, int opIndex) {
-		addParams(s, new MyInteger(val), opIndex);
+	public void whenIProvideAInteger(int val, int opIndex) {
+		addParams(new MyInteger(val), opIndex);
 	}
 
 	@When("^I provide a (.*) number (-?\\d+\\.\\d+)$")
-	public void whenIProvideAReal(String s, double val) {
-		addParams(s, new MyReal(val), 0);
+	public void whenIProvideAReal(double val) {
+		addParams(new MyReal(val), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+\\.\\d+) to operator (.*)$")
-	public void whenIProvideAReal(String s, double val, int opIndex) {
-		addParams(s, new MyReal(val), opIndex);
+	public void whenIProvideAReal(double val, int opIndex) {
+		addParams(new MyReal(val), opIndex);
 	}
 
 	@When("^I provide a (.*) number (-?\\d+)/(\\d+)$")
-	public void whenIProvideARational(String s, int num, int den) {
-		addParams(s, MyRational.create(num, den), 0);
+	public void whenIProvideARational(int num, int den) {
+		addParams(MyRational.create(num, den), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+)/(\\d+) to operator (.*)$")
-	public void whenIProvideARational(String s, int num, int den, int opIndex) {
-		addParams(s, MyRational.create(num, den), opIndex);
+	public void whenIProvideARational(int num, int den, int opIndex) {
+		addParams(MyRational.create(num, den), opIndex);
 	}
 
 	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
-	public void whenIProvideAComplex(String s, double real, double imaginary) {
-		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), 0);
+	public void whenIProvideAComplex(double real, double imaginary) {
+		addParams(MyComplex.create(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
 	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
-	public void whenIProvideAComplex(String s, double real, double imaginary, int opIndex) {
-		addParams(s, MyComplex.create(new MyReal(real), new MyReal(imaginary)), opIndex);
+	public void whenIProvideAComplex(double real, double imaginary, int opIndex) {
+		addParams(MyComplex.create(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
 
-	public void addParams(String s, MyNumber number, int opIndex) {
+	public void addParams(MyNumber number, int opIndex) {
 		try {
 			BinaryOperation op = binaryOperations.get(opIndex);
 			// add extra parameter to the operation
@@ -188,14 +188,13 @@ public class CalculatorSteps {
 			binaryOperations.get(opIndex).addMoreParams(new ArrayList<>(List.of(newOp)));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			fail("The given operator index is out of bounds! " + e);
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
 
 	@Then("^the (.*) is (\\d+)$")
-	public void thenTheOperationIs(String s, int val)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationIs(String s, int val) {
 		try {
 			if (binaryOperations.isEmpty()) {
 				binaryOperations.add(createIntegerOperation(s, params));
@@ -203,52 +202,45 @@ public class CalculatorSteps {
 				binaryOperations.set(0, createIntegerOperation(s, params));
 			}
 			assert (c.eval(binaryOperations.getFirst()).equals(new MyInteger(val)));
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
 
 	@Then("the operation evaluates to (-?\\d+)$")
-	public void thenTheOperationEvaluatesToInteger(int val)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToInteger(int val) {
 		assert (c.eval(binaryOperations.getFirst()).equals(new MyInteger(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)$")
-	public void thenTheOperationEvaluatesToReal(double val)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToReal(double val) {
 		assert (c.eval(binaryOperations.getFirst()).equals(new MyReal(val)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)$")
-	public void thenTheOperationEvaluatesToRational(int num, int den)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToRational(int num, int den) {
 		assert (c.eval(binaryOperations.getFirst()).equals(MyRational.create(num, den)));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesToComplex(double real, double imaginary)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToComplex(double real, double imaginary) {
 		assert (c.eval(binaryOperations.getFirst()).equals(MyComplex.create(new MyReal(real), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, double imaginary)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, double imaginary) {
 		assert (c.eval(binaryOperations.getFirst())
 				.equals(MyComplex.create(MyRational.create(realNum, realDen), new MyReal(imaginary))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesToComplex(double real, int imagNum, int imagDen)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToComplex(double real, int imagNum, int imagDen) {
 		assert (c.eval(binaryOperations.getFirst())
 				.equals(MyComplex.create(new MyReal(real), MyRational.create(imagNum, imagDen))));
 	}
 
 	@Then("the operation evaluates to (-?\\d+)/(\\d+)\\s*\\+\\s*(-?\\d+)/(\\d+)\\s*i$")
-	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, int imagNum, int imagDen)
-			throws ExecutionControl.NotImplementedException, IllegalConstruction {
+	public void thenTheOperationEvaluatesToComplex(int realNum, int realDen, int imagNum, int imagDen) {
 		assert (c.eval(binaryOperations.getFirst())
 				.equals(MyComplex.create(MyRational.create(realNum, realDen), MyRational.create(imagNum, imagDen))));
 	}

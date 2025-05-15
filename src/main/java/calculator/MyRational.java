@@ -66,7 +66,7 @@ public class MyRational extends MyNumber {
                 return new MyUndefinedNumber(divides);
             }
             return new MyErrorNumber(divides, "The operation results in a division by zero error");
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             return new MyErrorNumber(null, "The operation results in a division by zero error");
         }
     }

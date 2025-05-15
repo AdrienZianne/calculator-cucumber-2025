@@ -10,6 +10,14 @@ import java.util.Random;
  * {@link Configuration}
  */
 public abstract class RandomGenerator {
+
+    /**
+     * This constructor should never be used as this class is a utility class.
+     */
+    private RandomGenerator() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * This method generates a random integer number between 0 and the maximum
      * specified in the parameter.

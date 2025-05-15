@@ -38,7 +38,7 @@ public abstract class TrigonometricFunction extends UnaryOperation {
      * @throws IllegalConstruction The given {@code argument} was not valid for the
      *                             trigonometric function.
      */
-    public TrigonometricFunction(Expression argument, Notation notation, TrigonometricFuncExec funcExec)
+    protected TrigonometricFunction(Expression argument, Notation notation, TrigonometricFuncExec funcExec)
             throws IllegalConstruction {
         super(argument, notation);
         this.functionExec = funcExec;

@@ -36,7 +36,7 @@ class TestMyRational {
                                                           // so not equal
         try {
             assertNotEquals(new Times(new ArrayList<>()), number);
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             fail();
         }
     }

@@ -39,7 +39,7 @@ public final class Exponent extends BinaryOperation {
         try {
             res = MyInteger.valueOf(l.getValue().pow(r.getValue().intValue()));
         }
-        catch (ArithmeticException e) {
+        catch (ArithmeticException _) {
             return new MyErrorNumber(this, "The resulting value would overflow the MyInteger supported range");
         }
         return res;

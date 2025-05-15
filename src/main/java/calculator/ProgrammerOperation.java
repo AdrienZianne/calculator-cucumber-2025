@@ -28,6 +28,15 @@ interface LogicOperation {
  * {@link Programmer}
  */
 public class ProgrammerOperation {
+
+
+    /**
+     * This constructor should never be used as this class is a utility class.
+     */
+    private ProgrammerOperation() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Method for applying a logical operation to each of the symbols of the two
      * values.
@@ -40,15 +49,15 @@ public class ProgrammerOperation {
      */
     private static Programmer applyLogicOperation(Programmer l, Programmer r, LogicOperation operation)
             throws ProgrammerException {
-        String newValue = "";
+        StringBuilder newValue = new StringBuilder();
         for (int i = Math.max(l.length(), r.length()) - 1; i >= 0; i--) {
             if (operation.apply(l.logicValue(i), r.logicValue(i))) {
-                newValue += "1";
+                newValue.append("1");
             } else {
-                newValue += "0";
+                newValue.append("0");
             }
         }
-        return (new Programmer(newValue, 2)).newBase(Math.max(l.base, r.base));
+        return (new Programmer(newValue.toString(), 2)).newBase(Math.max(l.base, r.base));
     }
 
     /**
@@ -178,18 +187,17 @@ public class ProgrammerOperation {
      * @return The not of value.
      */
     public static Programmer not(Programmer n) throws ProgrammerException {
-        String newValue = "";
+        StringBuilder newValue = new StringBuilder();
         for (int i = n.length() - 1; i >= 0; i--) {
             if (n.logicValue(i)) {
-                newValue = newValue + "0";
+                newValue.append("0");
             } else {
-                newValue = newValue + "1";
+                newValue.append("1");
             }
         }
 
-        Programmer res = new Programmer(newValue, 2)
+        return new Programmer(newValue.toString(), 2)
                 .newBase(n.base);
-        return res;
     }
 
     /**

@@ -1,7 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

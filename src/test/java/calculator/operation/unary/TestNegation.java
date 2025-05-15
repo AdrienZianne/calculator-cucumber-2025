@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestNegation extends TestUnaryOperation {
+class TestNegation extends TestUnaryOperation {
 
     @Test
     @Override

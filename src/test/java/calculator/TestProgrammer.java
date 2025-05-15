@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@link Programmer}
  * {@link ProgrammerOperation}
  */
-public class TestProgrammer {
+class TestProgrammer {
     /**
      * Method for testing different value constructors.
      */
@@ -86,7 +86,7 @@ public class TestProgrammer {
     })
     void testLength(String num, int base) throws ProgrammerException {
         Programmer p = new Programmer(num, base);
-        assertEquals(p.length(), 4);
+        assertEquals(4, p.length());
     }
 
     /**
@@ -133,20 +133,20 @@ public class TestProgrammer {
     void testOperations() throws ProgrammerException {
         Programmer p1 = new Programmer("0001010", 2);
         Programmer p2 = new Programmer("134", 8);
-        assertEquals(ProgrammerOperation.and(p1, p2).toString(), "0o10");
-        assertEquals(ProgrammerOperation.or(p1, p2).toString(), "0o136");
-        assertEquals(ProgrammerOperation.xor(p1, p2).toString(), "0o126");
-        assertEquals(ProgrammerOperation.nand(p1, p2).toString(), "0o167");
-        assertEquals(ProgrammerOperation.nor(p1, p2).toString(), "0o41");
-        assertEquals(ProgrammerOperation.implication(p1, p2).toString(), "0o175");
-        assertEquals(ProgrammerOperation.equivalence(p1, p2).toString(), "0o51");
-        assertEquals(ProgrammerOperation.shiftLeft(p1, 2).toString(), "0b0101000");
-        assertEquals(ProgrammerOperation.shiftLeft(p2, 2).toString(), "0o160");
-        assertEquals(ProgrammerOperation.shiftRight(p1, 2).toString(), "0b0000010");
-        assertEquals(ProgrammerOperation.shiftRight(p2, 2).toString(), "0o27");
-        assertEquals(ProgrammerOperation.not(p1).toString(), "0b1110101");
-        assertEquals(ProgrammerOperation.trunk(p1, 4).toString(), "0b1010");
-        assertEquals(ProgrammerOperation.trunk(p1, 10).toString(), "0b");
-        assertEquals(ProgrammerOperation.trunk(p1, -3).toString(), "0b0001010");
+        assertEquals("0o10", ProgrammerOperation.and(p1, p2).toString());
+        assertEquals("0o136", ProgrammerOperation.or(p1, p2).toString());
+        assertEquals("0o126", ProgrammerOperation.xor(p1, p2).toString());
+        assertEquals("0o167", ProgrammerOperation.nand(p1, p2).toString());
+        assertEquals("0o41", ProgrammerOperation.nor(p1, p2).toString());
+        assertEquals("0o175", ProgrammerOperation.implication(p1, p2).toString());
+        assertEquals("0o51", ProgrammerOperation.equivalence(p1, p2).toString());
+        assertEquals("0b0101000", ProgrammerOperation.shiftLeft(p1, 2).toString());
+        assertEquals("0o160", ProgrammerOperation.shiftLeft(p2, 2).toString());
+        assertEquals("0b0000010", ProgrammerOperation.shiftRight(p1, 2).toString());
+        assertEquals("0o27", ProgrammerOperation.shiftRight(p2, 2).toString());
+        assertEquals("0b1110101", ProgrammerOperation.not(p1).toString());
+        assertEquals("0b1010", ProgrammerOperation.trunk(p1, 4).toString());
+        assertEquals("0b", ProgrammerOperation.trunk(p1, 10).toString());
+        assertEquals("0b0001010", ProgrammerOperation.trunk(p1, -3).toString());
     }
 }

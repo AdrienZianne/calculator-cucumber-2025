@@ -15,6 +15,7 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
@@ -43,7 +44,7 @@ public class Shell {
 
     private String expressionReuse = "";
 
-    private final String debugMessage = "[DEBUG] : Result was null, returning";
+    private static final String debugMessage = "[DEBUG] : Result was null, returning";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
@@ -158,7 +159,7 @@ public class Shell {
 
                 reader.getHistory().add(line);
 
-            } catch (UserInterruptException e) {
+            } catch (UserInterruptException _) {
                 exit();
             }
         }
@@ -386,5 +387,5 @@ public class Shell {
      * option.
      * See infoOption method.
      */
-    private final HashMap<Options, String[]> infoOptions = new HashMap<Options, String[]>();
+    private final EnumMap<Options, String[]> infoOptions = new EnumMap<>(Options.class);
 }

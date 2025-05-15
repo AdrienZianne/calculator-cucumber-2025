@@ -22,7 +22,7 @@ public abstract class MyNumber implements Expression
      * Constructor method
      *
      */
-    public /*constructor*/ MyNumber() {}
+    protected/*constructor*/ MyNumber() {}
 
   /**
    * Checks if the value stored can be considered as a zero.

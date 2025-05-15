@@ -23,7 +23,7 @@ class TestTimes extends TestBinaryOperation {
 	void setUp() {
 		  params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
 		  try { op = new Times(params); }
-		  catch(IllegalConstruction e) { fail(); }
+		  catch(IllegalConstruction _) { fail(); }
 	}
 
 	@Test
@@ -37,7 +37,7 @@ class TestTimes extends TestBinaryOperation {
 		// A Plus expression should not be the same as a Times expression
 		try {
 			assertNotSame(op, new Plus(new ArrayList<>()));
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -50,7 +50,7 @@ class TestTimes extends TestBinaryOperation {
 			Times e = new Times(p, Notation.INFIX);
 			assertEquals(op, e);
 		}
-		catch(IllegalConstruction e) { fail(); }
+		catch(IllegalConstruction _) { fail(); }
 	}
 
 	@Test
@@ -66,7 +66,7 @@ class TestTimes extends TestBinaryOperation {
 			Times e = new Times(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());
 		}
-		catch(IllegalConstruction e) { fail(); }
+		catch(IllegalConstruction _) { fail(); }
 	}
 
 	@Test

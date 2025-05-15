@@ -113,7 +113,6 @@ public abstract class Operation implements Expression {
     public int hashCode() {
         int result = 5;
         int prime = 31;
-        //result = prime * result + neutral;
         result = prime * result + symbol.hashCode();
         result = prime * result + args.hashCode();
         return result;

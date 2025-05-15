@@ -39,7 +39,7 @@ class TestOperation {
 	void testCountDepth() {
 		try {
 			o.accept(c);
-		} catch (Exception e) {
+		} catch (Exception _) {
 			fail();
 		}
 		assertEquals(2, c.getDepth());
@@ -49,7 +49,7 @@ class TestOperation {
 	void testCountOps() {
 		try {
 			o.accept(c);
-		} catch (Exception e) {
+		} catch (Exception _) {
 			fail();
 		}
 		assertEquals(3, c.getOps());
@@ -59,7 +59,7 @@ class TestOperation {
 	void testCountNbs() {
 		try {
 			o.accept(c);
-		} catch (Exception e) {
+		} catch (Exception _) {
 			fail();
 		}
 		assertEquals(Integer.valueOf(6), c.getNbs());

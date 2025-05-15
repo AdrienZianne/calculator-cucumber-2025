@@ -11,11 +11,6 @@ import java.util.ArrayList;
  */
 public class Counter extends Visitor {
 
-    /**
-     * Default constructor of the class. Does not initialise anything.
-     */
-    public Counter() {}
-
     /** The result of the evaluation will be stored in this private variable */
     private int depth;
     private int ops;

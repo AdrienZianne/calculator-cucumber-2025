@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class TestLogarithm extends TestUnaryOperation {
+class TestLogarithm extends TestUnaryOperation {
 
     @BeforeEach
     void setup()

@@ -22,22 +22,22 @@ import static org.junit.jupiter.api.Assertions.fail;
 class TestCounting {
 
     private int value1, value2;
-    private Expression e;
+    private Expression expression;
 
     @BeforeEach
     void setUp() {
         value1 = 8;
         value2 = 6;
-        e = null;
+        expression = null;
     }
 
     @Test
     void testNumberCounting() {
-        e = new MyInteger(value1);
+        expression = new MyInteger(value1);
         Counter c = new Counter();
         try {
-            e.accept(c);
-        } catch (Exception e) {
+            expression.accept(c);
+        } catch (Exception _) {
             fail();
         }
         //test whether a number has zero depth (i.e. no nested expressions)
@@ -52,24 +52,23 @@ class TestCounting {
     @ValueSource(strings = {"*", "+", "/", "-"})
     void testOperationCounting(String symbol) {
         List<Expression> params = Arrays.asList(new MyInteger(value1),new MyInteger(value2));
-        //Operation op = null;
         try {
             //construct another type of operation depending on the input value
             //of the parameterised test
             switch (symbol) {
-                case "+"	->	e = new Plus(params);
-                case "-"	->	e = new Minus(params);
-                case "*"	->	e = new Times(params);
-                case "/"	->	e = new Divides(params);
+                case "+"	->	expression = new Plus(params);
+                case "-"	->	expression = new Minus(params);
+                case "*"	->	expression = new Times(params);
+                case "/"	->	expression = new Divides(params);
                 default		->	fail();
             }
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             fail();
         }
         Counter c = new Counter();
         try {
-            e.accept(c);
-        } catch (Exception e) {
+            expression.accept(c);
+        } catch (Exception _) {
             fail();
         }
         //test whether a binary operation has depth 1

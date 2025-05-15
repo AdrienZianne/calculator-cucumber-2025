@@ -30,7 +30,7 @@ public class Main {
 	 *
 	 * @param args Command-line parameters are not used in this version
 	 */
-	public static void main(String[] args) throws IllegalConstruction, ExecutionControl.NotImplementedException {
+	public static void main(String[] args) throws IOException {
         if (args.length >= 1 && args[0].equals("web")) {
             SpringApplication.run(Main.class);
         } else {
@@ -40,7 +40,7 @@ public class Main {
                 Shell shell = new Shell();
                 shell.loop(c);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                throw new IOException(ex);
             } catch (Exception exception) {
                 System.out.println("cannot create operations without parameters: " + exception.getMessage());
             }

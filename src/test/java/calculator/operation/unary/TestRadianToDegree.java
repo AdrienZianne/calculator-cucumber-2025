@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestRadianToDegree extends TestUnaryOperation{
+class TestRadianToDegree extends TestUnaryOperation{
 
     @Test
     @Override

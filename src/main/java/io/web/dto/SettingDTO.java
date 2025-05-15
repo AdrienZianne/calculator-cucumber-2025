@@ -1,6 +1,5 @@
 package io.web.dto;
 
-import calculator.Configuration;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

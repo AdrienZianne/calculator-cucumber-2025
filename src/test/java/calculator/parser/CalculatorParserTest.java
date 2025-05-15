@@ -19,9 +19,8 @@ class CalculatorParserTest {
         c = new Calculator();
     }
 
-    // TODO: Test if the exceptions are working
     @Test
-    void testParseStringInfix() throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    void testParseStringInfix() {
         exp = CalculatorParser.parseArithmetic("1 + 2 + 5");
         assertEquals(MyInteger.valueOf(1 + 2 + 5), c.eval(exp));
         exp = CalculatorParser.parseArithmetic("5 * 9");
@@ -37,7 +36,7 @@ class CalculatorParserTest {
     }
 
     @Test
-    void testParseStringPrefix() throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    void testParseStringPrefix() {
         exp = CalculatorParser.parseArithmetic("+ (30 10)");
         assertEquals(MyInteger.valueOf(40), c.eval(exp));
         exp = CalculatorParser.parseArithmetic("- (30 10)");
@@ -49,7 +48,7 @@ class CalculatorParserTest {
     }
 
     @Test
-    void testParseStringPostfix() throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    void testParseStringPostfix() {
         exp = CalculatorParser.parseArithmetic("(30 10) +");
         assertEquals(MyInteger.valueOf(40), c.eval(exp));
         exp = CalculatorParser.parseArithmetic("(30 10) -");

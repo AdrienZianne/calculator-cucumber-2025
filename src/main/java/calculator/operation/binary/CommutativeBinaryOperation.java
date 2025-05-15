@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class CommutativeBinaryOperation extends BinaryOperation
 {
 
-    public CommutativeBinaryOperation(List<Expression> elist, Notation n) throws IllegalConstruction {
+    protected CommutativeBinaryOperation(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
     }
 

@@ -37,7 +37,7 @@ class TestMyInteger {
 		try {
 			assertNotEquals(new Times(new ArrayList<>()), number);
 		}
-		catch (IllegalConstruction e) {fail();}
+		catch (IllegalConstruction _) {fail();}
 	}
 
 
