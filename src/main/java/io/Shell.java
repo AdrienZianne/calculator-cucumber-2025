@@ -187,7 +187,7 @@ public class Shell {
      * @param line User input
      * @return The result of the operation as a string to be stored in the logs.
      *         {@link Calculator}
-     *         {@link MemoryImageSource}
+     *         {@link Memory}
      */
     private String modeArithmetic(Calculator c, String line) {
         try {
