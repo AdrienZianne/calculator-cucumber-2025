@@ -11,6 +11,14 @@ import java.util.Random;
  */
 public abstract class RandomGenerator {
     /**
+     * Private constructor, never supposed to be called, as it's a static utility
+     * class.
+     */
+    private RandomGenerator() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * This method generates a random integer number between 0 and the maximum
      * specified in the parameter.
      *

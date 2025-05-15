@@ -16,7 +16,8 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
      *
      * @param expression An expression to apply the conversion to.
      */
-    public DegreeRadianConvertor(Expression expression, String symbol, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
+    protected DegreeRadianConvertor(Expression expression, String symbol, MyNumber numerator, MyNumber denominator)
+            throws IllegalConstruction {
         this(expression, symbol, null, numerator, denominator);
     }
 
@@ -26,7 +27,8 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
      * @param argument The argument to apply the conversion to.
      * @param notation The notation to display this operation with.
      */
-    public DegreeRadianConvertor(Expression argument, String symbol, Notation notation, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
+    protected DegreeRadianConvertor(Expression argument, String symbol, Notation notation, MyNumber numerator,
+            MyNumber denominator) throws IllegalConstruction {
         super(argument, notation);
         this.symbol = symbol;
         this.numerator = numerator;
@@ -50,12 +52,12 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
 
     @Override
     public MyNumber op(MyComplex c) {
-        return new MyErrorNumber(this,  "Cannot apply a degree and radian transformation on a complex number: " + c);
+        return new MyErrorNumber(this, "Cannot apply a degree and radian transformation on a complex number: " + c);
     }
 
     @Override
     public MyNumber op(MyInfinity i) {
-        return new MyErrorNumber(this,  "Cannot apply a degree/radian conversion from infinity");
+        return new MyErrorNumber(this, "Cannot apply a degree/radian conversion from infinity");
     }
 
     private MyNumber convert(MyNumber og) {
@@ -63,11 +65,12 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
         return BinaryOperation.op(og, nb, Times::new);
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        if (!super.equals(o))
+            return false;
         DegreeRadianConvertor that = (DegreeRadianConvertor) o;
         return Objects.equals(numerator, that.numerator) && Objects.equals(denominator, that.denominator);
     }

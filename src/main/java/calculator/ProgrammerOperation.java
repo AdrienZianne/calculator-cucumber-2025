@@ -29,6 +29,14 @@ interface LogicOperation {
  */
 public class ProgrammerOperation {
     /**
+     * Private constructor, never supposed to be called, as it's a static utility
+     * class.
+     */
+    private ProgrammerOperation() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * Method for applying a logical operation to each of the symbols of the two
      * values.
      * 
