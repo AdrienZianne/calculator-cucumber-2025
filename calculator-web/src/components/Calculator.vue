@@ -91,7 +91,7 @@ export default {
             formattedInputText: '',
             isExpandKeyboard: false,
             isMemory: false,
-            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPI,x=".split(''), "Shift", "Backspace",
+            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPIe,x=".split(''), "Shift", "Backspace",
                 "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " ", ","],
             inputId: document.getElementById('inputId'),
             memoryList: [],

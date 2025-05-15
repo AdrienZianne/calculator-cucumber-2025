@@ -164,7 +164,6 @@ export default {
       if (this.inputText.includes('¨')) this.inputText = this.inputText.replaceAll("¨", "");
       if (this.inputText.includes('`')) this.inputText = this.inputText.replaceAll("`", "");
       if (!this.authorizedKeys.includes(word.toLowerCase())) setTimeout(() => this.removeSpecificWord(word));
-      console.log(word);
       if (word == "Enter" || word == "=") this.replyRequest();
     },
     /**
@@ -207,7 +206,6 @@ export default {
           },
           body: JSON.stringify({ input: this.inputText, isProgra: true }) //In GET, we can't put a body.
         };
-        console.log(this.inputText)
         fetch("http://localhost:8080/calc", requestOptions)
           .then(response => {
             if (!response.ok) return response.json().then(json => Promise.reject(json));

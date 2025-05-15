@@ -64,7 +64,6 @@ export default {
                 })
                 .then(data => {
                     for (let i = 0; i < this.options.length; i++) {
-                        console.log(i, this.options[i].id, data[this.options[i].id], typeof data[this.options[i].id])
 
                         if (typeof data[this.options[i].id] == "boolean") {
                             this.options[i].current = data[this.options[i].id]
@@ -78,7 +77,6 @@ export default {
         },
 
         updateSettings() {
-            console.log(JSON.stringify(this.options.reduce((acc, o) => ({...acc, [o.id]: o.current}), {})))
             const requestOptions = {
                 method: "POST",
                 headers: {
@@ -89,7 +87,6 @@ export default {
             };
             fetch("http://localhost:8080/settings", requestOptions)
                 .then(response => {
-                    if (!response.ok) console.log(response);
                 });
             this.isChanged = false
         }

@@ -19,7 +19,7 @@ public class CalculatorService {
 
         if (request.getIsProgra()) {
             Programmer programmer = CalculatorParser.parseProgrammer(request.getInput());
-            if (programmer == null) throw new Exception("Unable to parse");
+            if (programmer == null) throw new IllegalArgumentException("Unable to parse");
             if (programmer.toString().contains("Error")) throw new Exception(programmer.toString());
             return programmer.toString();
         } else {
@@ -39,8 +39,12 @@ public class CalculatorService {
                 return evaluator.getResult().toString();
             } else {
                 Equation equation =  CalculatorParser.parseArithmeticEquation(request.getInput());
-                if (equation == null || equation.getErrorState() != null) {
-                    throw new Exception();
+                if (equation == null) {
+                    throw new IllegalArgumentException();
+                }
+
+                if (equation.getErrorState() != null) {
+                    throw new  Exception(equation.getErrorState());
                 }
 
                 return equation.prettyResult();

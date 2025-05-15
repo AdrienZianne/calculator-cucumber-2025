@@ -48,11 +48,12 @@ public class CalculatorController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception exception) {
+        boolean isNotExpected = exception instanceof IllegalArgumentException;
         return new ResponseEntity<>(
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST.value())
-                        .message("An unexpected error has occurred.\n" +
-                                "Please contact the maintainers of this application with the step to get this error." + exception.getMessage())
+                        .message((isNotExpected ? "An unexpected error has occurred.\n" +
+                                "Please contact the maintainers of this application with the step to get this error." : "") + exception.getMessage())
                         .build(),
                 HttpStatus.BAD_REQUEST);
     }
