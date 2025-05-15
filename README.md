@@ -30,6 +30,7 @@ The BDD scenarios are specified as .feature files in the src\test\resources dire
 *  Upon first use of the code in this repository, you will need to run "mvn clean install" to ensure that all required project dependencies (e.g. for Java, JUnit, Cucumber, and Maven) will be downloaded and installed locally.
 *  Assuming you have a sufficiently recent version of Maven installed (the required versions are specified as properties in the POM file), you can compile the source code using "mvn compile"
 *  Once the code is compiled, you can execute the main class of the Java code using "mvn exec:java" 
+*  Once launched, you can run the "$help" command to view the various commands.
 *  The tests and BDD scenarios are executable with Maven using "mvn test"
 *  Note that the tests are also executed when you do a "mvn install". It is possible to skip those tests by providing an extra parameter. For details of more advanced uses of Maven, please refer to its official documentation https://maven.apache.org/guides/.
 *  To run the API used by the front end gui, the argument "web" must be passed using 'mvn clean compile exec:java -Dexec.args="web"'.
