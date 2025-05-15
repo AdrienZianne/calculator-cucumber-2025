@@ -33,8 +33,9 @@ export default {
             options: [
                 { id: "roundingMode", name: "Rounding", type: 0, current: null, values: [[0, "Up"], [1, "Down"], [2, "Ceiling"], [3, "Floor"], [4, "Half up"], [5, "Half down"], [6, "Half even"], [7, "Unnecessary"]] },
                 { id: "useRealNotation", name: "Use real notation ?", type: 1, current: null },
-                { id: "useScientificNotation", name: "use scientific notation ?", type: 1, current: null },
+                { id: "useScientificNotation", name: "Use scientific notation ?", type: 1, current: null },
                 { id: "useDegrees", name: "Use degrees ?", type: 1, current: null },
+                { id: "useComplexDomain", name: "Use complex domain ?", type: 1, current: null  },
                 { id: "baseNotationConvention", name: "Base notation convention ?", type: 1, current: null },
                 { id: "logicalSymbol", name: "Logical symbol ?", type: 1, current: null },
                 { id: "realPrecision", name: "Real number precision", type: 2, current: null, bounds: [0, null] },

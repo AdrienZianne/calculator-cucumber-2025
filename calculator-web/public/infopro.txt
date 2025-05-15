@@ -8,6 +8,4 @@ Logical operations are possible with not, and, impl...<br><br>
 
 equiv is used to check whether two values are equivalent (returns 1 or 0).<br><br>
 
->>, << are used for shifts and conv is used to convert to different bases. <br><br>
-
-radtodeg and degtorad are used to convert degrees into radians and vice versa.
+>>, << are used for shifts and conv is used to convert to different bases.

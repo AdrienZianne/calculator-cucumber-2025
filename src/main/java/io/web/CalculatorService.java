@@ -62,6 +62,7 @@ public class CalculatorService {
         if (request.getSeed() != null) Configuration.setSeed(request.getSeed());
         if (request.getBaseNotationConvention() != null) Configuration.setBaseNotationConvention(request.getBaseNotationConvention());
         if (request.getLogicalSymbol() != null) Configuration.setLogicalSymbol(request.getLogicalSymbol());
+        if (request.getUseComplexDomain() != null) Configuration.setUsesComplexDomainDefault(request.getUseComplexDomain());
     }
 
     /// Fetch the current global settings
@@ -77,6 +78,7 @@ public class CalculatorService {
                 .useRealNotation(Configuration.isUsingRealNotation())
                 .useDegrees(Configuration.isUsingDegrees())
                 .useScientificNotation(Configuration.usesScientificNotation())
+                .useComplexDomain(Configuration.usesComplexDomainDefault())
                 .build();
     }
 }

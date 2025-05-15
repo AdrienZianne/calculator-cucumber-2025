@@ -2,7 +2,7 @@
   <div class="home">
     <Header></Header>
     <Calculator class="calculator"/>
-    <Info/>
+    <Info type="1"/>
   </div>
 </template>
 

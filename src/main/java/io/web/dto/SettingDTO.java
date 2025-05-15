@@ -23,4 +23,5 @@ public class SettingDTO {
     Integer seed;
     Boolean baseNotationConvention;
     Boolean logicalSymbol;
+    Boolean useComplexDomain;
 }

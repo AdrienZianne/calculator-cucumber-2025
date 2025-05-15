@@ -56,11 +56,11 @@
                     <button class="key" v-for="op in operations" :op="op" @click="addKey(op)">
                         {{ op }}
                     </button>
-                    <button class="key" @click="moveCursorLeft">←</button>
-                    <button class="key" @click="moveCursorRight">→</button>
                     <button class="key" @click="removeASpecificKey">⌫</button>
                     <button class="key" @click="clearAll">AC</button>
-                    <button class="key pc2" @click="replyRequest">=</button>
+                    <button class="key pc2" @click="addKey('=')">=</button>
+                    <button class="key" @click="replyRequest">↵</button>
+
                 </div>
 
                 <div class="keyboard trigo" v-if="isExpandKeyboard">
@@ -99,7 +99,7 @@ export default {
                 ..."0123456789i.".split('')
             ],
             operations: [
-                ..."+-/*()^%|x".split(''),
+                ..."+-/*()^%|xe".split(''),
             ],
             expandOperations: [
                 "randi",
@@ -204,20 +204,6 @@ export default {
             }
             if (this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt', '\\sqrt');
             if (this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI', '\\pi');
-        },
-        /**Method for moving the cursor left.
-         * 
-         * @see GlobalMethods.vue
-        */
-        moveCursorLeft() {
-            GlobalMethods.moveCursorLeft(inputId);
-        },
-        /**Method for moving the cursor right.
-         * 
-         * @see GlobalMethods.vue
-        */
-        moveCursorRight() {
-            GlobalMethods.moveCursorRight(inputId);
         },
         /**
          * Method for returning to a specific input.

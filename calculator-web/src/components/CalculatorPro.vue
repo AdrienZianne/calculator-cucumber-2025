@@ -61,8 +61,6 @@
           </button>
           <button class="key" @click="removeASpecificKey">⌫</button>
           <button class="key" @click="clearAll">AC</button>
-          <button class="key" @click="moveCursorLeft">←</button>
-          <button class="key" @click="moveCursorRight">→</button>
           <button class="key" @click="replyRequest">=</button>
         </div>
         <button @click="gapButton" class="key gapButton">__________</button>
@@ -91,7 +89,7 @@ export default {
         ..."0123456789".split('')
       ],
       letters: [
-        ..."abcdefghijklmnopqrstuvxyz".split('')
+        ..."abcdefghijklmnopqrstuvxy".split('')
       ],
       operations: [
         "not",
@@ -168,20 +166,6 @@ export default {
       if (!this.authorizedKeys.includes(word.toLowerCase())) setTimeout(() => this.removeSpecificWord(word));
       console.log(word);
       if (word == "Enter" || word == "=") this.replyRequest();
-    },
-    /**Method for moving the cursor left.
-     * 
-     * @see GlobalMethods.vue
-    */
-    moveCursorLeft() {
-      GlobalMethods.moveCursorLeft(inputId);
-    },
-    /**Method for moving the cursor right.
-     * 
-     * @see GlobalMethods.vue
-    */
-    moveCursorRight() {
-      GlobalMethods.moveCursorRight(inputId);
     },
     /**
      * Method for returning to a specific input.
