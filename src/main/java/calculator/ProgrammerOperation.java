@@ -31,13 +31,6 @@ public class ProgrammerOperation {
 
 
     /**
-     * This constructor should never be used as this class is a utility class.
-     */
-    private ProgrammerOperation() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    /**
      * Private constructor, never supposed to be called, as it's a static utility
      * class.
      */

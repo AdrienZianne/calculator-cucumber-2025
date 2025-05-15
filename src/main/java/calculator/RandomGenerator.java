@@ -12,13 +12,6 @@ import java.util.Random;
 public abstract class RandomGenerator {
 
     /**
-     * This constructor should never be used as this class is a utility class.
-     */
-    private RandomGenerator() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    /**
      * Private constructor, never supposed to be called, as it's a static utility
      * class.
      */
