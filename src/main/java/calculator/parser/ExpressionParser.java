@@ -43,7 +43,7 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     }
 
     @Override
-    public Expression visitProductInfixExpo(LabeledExprParser.ProductInfixExpoContext ctx) {
+    public Expression visitExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx) {
         return parseToBinaryOperator(ctx, expressions -> new Exponent(expressions, Notation.INFIX));
     }
 
@@ -143,6 +143,8 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
     public Expression visitUnaryInfixAbsolute(LabeledExprParser.UnaryInfixAbsoluteContext ctx) {
         return parseToUnaryOperator(ctx, expression -> new Absolute(expression, Notation.INFIX));
     }
+
+
     /* _________________________________ PREFIX _________________________________ */
 
     @Override
@@ -406,6 +408,18 @@ public class ExpressionParser extends LabeledExprBaseVisitor<Expression> {
 
         return MyUnknown.create((MyNumber) visit(ctx.getChild(0)), new MyInteger(0));
     }
+
+    @Override
+    public Expression visitUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx) {
+        if (ctx.getChildCount() == 3) {
+            return MyUnknown.create(new MyInteger(1), (MyNumber) visit(ctx.getChild(2)), new MyInteger(0));
+        }
+
+        return MyUnknown.create((MyNumber) visit(ctx.getChild(0)),
+                                (MyNumber) visit(ctx.getChild(3)),
+                                new MyInteger(0));
+    }
+
 
     @Override
     public Expression visitInfinityPositive(LabeledExprParser.InfinityPositiveContext ctx) {

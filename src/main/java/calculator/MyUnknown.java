@@ -32,18 +32,20 @@ public final class MyUnknown extends MyNumber {
      *                 <p>If one of the {@code n_i} is equal to zero, then the value of {@code a_i} will be added to the {@code rest}.</p>
      * @param rest The value of {@code rest}.
      * @return
+     * <p>
      * <ul>
      *     <li>{@code rest} if all {@code a_i} (or all {@code n_i}) are equivalent to zero.</li>
      *     <li>
      *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
      *          (it return the undefined parameter)
      *      </li>
-     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
-     *     <ul>
-     *         <li>A {@code null} argument</li>
-     *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
-     *         <li>Another instance of the {@link MyUnknown} class.</li>
-     *     </ul>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :
+     *          <ul>
+     *              <li>A {@code null} argument</li>
+     *              <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
+     *              <li>Another instance of the {@link MyUnknown} class.</li>
+     *          </ul>
+     *     </li>
      *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
      * </ul>
      */
@@ -63,18 +65,20 @@ public final class MyUnknown extends MyNumber {
      *                 <p>If one of the {@code n_i} is equal to zero, then the value of {@code a_i} will be added to the {@code rest}.</p>
      * @param rest The value of {@code rest}.
      * @return
+     * <p>
      * <ul>
      *     <li>{@code rest} if all {@code a_i} (or all {@code n_i}) are equivalent to zero.</li>
      *     <li>
      *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
      *          (it return the undefined parameter)
      *      </li>
-     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
-     *     <ul>
-     *         <li>A {@code null} argument</li>
-     *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
-     *         <li>Another instance of the {@link MyUnknown} class.</li>
-     *     </ul>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :
+     *          <ul>
+     *              <li>A {@code null} argument</li>
+     *              <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
+     *              <li>Another instance of the {@link MyUnknown} class.</li>
+     *          </ul>
+     *     </li>
      *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
      * </ul>
      */
@@ -132,6 +136,7 @@ public final class MyUnknown extends MyNumber {
      * @param n The value of {@code n}.
      * @param b The value of {@code b}.
      * @return
+     * <p>
      * <ul>
      *     <li>{@code b} if {@code a} is equivalent to zero.</li>
      *     <li>{@code a+b} if {@code n} is equivalent to zero.</li>
@@ -139,12 +144,13 @@ public final class MyUnknown extends MyNumber {
      *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
      *          (it return the undefined parameter)
      *      </li>
-     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
-     *     <ul>
-     *         <li>A {@code null} argument</li>
-     *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
-     *         <li>Another instance of the {@link MyUnknown} class.</li>
-     *     </ul>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :
+     *          <ul>
+     *              <li>A {@code null} argument</li>
+     *              <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
+     *              <li>Another instance of the {@link MyUnknown} class.</li>
+     *          </ul>
+     *     </li>
      *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax^n + b}.</li>
      * </ul>
      */
@@ -157,18 +163,20 @@ public final class MyUnknown extends MyNumber {
      * @param a The value of {@code a}.
      * @param b The value of {@code b}.
      * @return
+     * <p>
      * <ul>
      *     <li>{@code b} if {@code a} is equivalent to zero.</li>
      *     <li>
      *         an instance of the {@link MyUndefinedNumber} class if any of the parameters is also undefined
      *          (it return the undefined parameter)
      *      </li>
-     *     <li> an instance of a {@link MyErrorNumber} if provided with :</li>
+     *     <li> an instance of a {@link MyErrorNumber} if provided with :
      *     <ul>
      *         <li>A {@code null} argument</li>
      *         <li>Another instance of the {@link MyErrorNumber} class (in this case it simply returns the given error).</li>
      *         <li>Another instance of the {@link MyUnknown} class.</li>
      *     </ul>
+     *     </li>
      *     <li>an instance of the {@link MyUnknown} class of the form : {@code ax + b}.</li>
      * </ul>
     */
@@ -239,6 +247,7 @@ public final class MyUnknown extends MyNumber {
      * </p>
      * <p>
      *      With :
+     *      <p>
      *     <ul>
      *         <li>
      *             Each key representing {@code n_i}
@@ -247,7 +256,7 @@ public final class MyUnknown extends MyNumber {
      *             Each value representing {@code a_i}
      *         </li>
      *     </ul>
-     * </p>
+     *
      * Please note that the rest of the equation is not part of this instance.
      * @return Each operand, except the rest.
      */

@@ -869,6 +869,30 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpoInfixExpo(LabeledExprParser.ExpoInfixExpoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpoInfixAtom(LabeledExprParser.ExpoInfixAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpoInfixAtom(LabeledExprParser.ExpoInfixAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAtomInfixUnary(LabeledExprParser.AtomInfixUnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1092,6 +1116,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrigoInfixRadToDeg(LabeledExprParser.TrigoInfixRadToDegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnknownUnknownExponentNumber(LabeledExprParser.UnknownUnknownExponentNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
