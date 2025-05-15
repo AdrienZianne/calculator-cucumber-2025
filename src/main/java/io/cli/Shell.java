@@ -43,7 +43,7 @@ public class Shell {
 
     private String expressionReuse = "";
 
-    private static final String debugMessage = "[DEBUG] : Result was null, returning";
+    private static final String DEBUGMESSAGE = "[DEBUG] : Result was null, returning";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
@@ -192,7 +192,7 @@ public class Shell {
             if (!line.contains("=")) {
                 Expression exp = CalculatorParser.parseArithmetic(line);
                 if (exp == null)
-                    System.out.println(debugMessage);
+                    System.out.println(DEBUGMESSAGE);
                 else {
                     Expression res = c.eval(exp);
                     terminal.writer().println(res);
@@ -201,7 +201,7 @@ public class Shell {
             } else {
                 Equation exp = CalculatorParser.parseArithmeticEquation(line);
                 if (exp == null)
-                    System.out.println(debugMessage);
+                    System.out.println(DEBUGMESSAGE);
                 else {
                     terminal.writer().println(exp.prettyResult());
                     return exp.prettyResult();
@@ -227,7 +227,7 @@ public class Shell {
         try {
             Programmer exp = CalculatorParser.parseProgrammer(line);
             if (exp == null)
-                System.out.println(debugMessage);
+                System.out.println(DEBUGMESSAGE);
             else {
                 terminal.writer().println(exp);
                 return exp.toString();

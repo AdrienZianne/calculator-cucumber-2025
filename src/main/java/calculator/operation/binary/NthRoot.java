@@ -16,7 +16,7 @@ import java.util.List;
  * operation is simply {@code "root"}.
  */
 public final class NthRoot extends BinaryOperation {
-    private static final String errorMessage = "The value of n, cannot be 0 or 1";
+    private static final String ERRORMESSAGE = "The value of n, cannot be 0 or 1";
 
     public NthRoot(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
@@ -133,7 +133,7 @@ public final class NthRoot extends BinaryOperation {
         long n = rootIndex.getValue().intValue();
         double x = r.getValue().doubleValue();
         if (n == 1 || n == 0)
-            return new MyErrorNumber(this, errorMessage);
+            return new MyErrorNumber(this, ERRORMESSAGE);
 
         // If n == 2 then this is a square root operation
         if (n == 2)
@@ -193,14 +193,14 @@ public final class NthRoot extends BinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyInteger r) {
         if (r.getValue().abs().equals(BigInteger.ONE) || r.getValue().abs().equals(BigInteger.ZERO))
-            return new MyErrorNumber(this, errorMessage);
+            return new MyErrorNumber(this, ERRORMESSAGE);
         return infOp(l);
     }
 
     @Override
     public MyNumber op(MyInfinity l, MyReal r) {
         if (r.getValue().abs().equals(BigDecimal.ONE) || r.getValue().equals(BigDecimal.ZERO))
-            return new MyErrorNumber(this, errorMessage);
+            return new MyErrorNumber(this, ERRORMESSAGE);
         return infOp(l);
     }
 
@@ -212,7 +212,7 @@ public final class NthRoot extends BinaryOperation {
     @Override
     public MyNumber op(MyInfinity l, MyRational r) {
         if (r.isZero())
-            return new MyErrorNumber(this, errorMessage);
+            return new MyErrorNumber(this, ERRORMESSAGE);
         return infOp(l);
     }
 
