@@ -119,42 +119,42 @@ public class CalculatorSteps {
 			fail(notation + " is not a correct notation! ");
 	}
 
-	@When("^I provide a (.*) number (-?\\d+)$")
+	@When("^I provide a number (-?\\d+)$")
 	public void whenIProvideAInteger(int val) {
 		addParams(new MyInteger(val), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+) to operator (.*)$")
+	@And("^I provide a number (-?\\d+) to operator (.*)$")
 	public void whenIProvideAInteger(int val, int opIndex) {
 		addParams(new MyInteger(val), opIndex);
 	}
 
-	@When("^I provide a (.*) number (-?\\d+\\.\\d+)$")
+	@When("^I provide a number (-?\\d+\\.\\d+)$")
 	public void whenIProvideAReal(double val) {
 		addParams(new MyReal(val), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+\\.\\d+) to operator (.*)$")
+	@And("^I provide a number (-?\\d+\\.\\d+) to operator (.*)$")
 	public void whenIProvideAReal(double val, int opIndex) {
 		addParams(new MyReal(val), opIndex);
 	}
 
-	@When("^I provide a (.*) number (-?\\d+)/(\\d+)$")
+	@When("^I provide a number (-?\\d+)/(\\d+)$")
 	public void whenIProvideARational(int num, int den) {
 		addParams(MyRational.create(num, den), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+)/(\\d+) to operator (.*)$")
+	@And("^I provide a number (-?\\d+)/(\\d+) to operator (.*)$")
 	public void whenIProvideARational(int num, int den, int opIndex) {
 		addParams(MyRational.create(num, den), opIndex);
 	}
 
-	@When("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
+	@When("^I provide a number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i$")
 	public void whenIProvideAComplex(double real, double imaginary) {
 		addParams(MyComplex.create(new MyReal(real), new MyReal(imaginary)), 0);
 	}
 
-	@And("^I provide a (.*) number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
+	@And("^I provide a number (-?\\d+\\.\\d+)\\s*\\+\\s*(-?\\d+\\.\\d+)\\s*i to operator (.*)$")
 	public void whenIProvideAComplex(double real, double imaginary, int opIndex) {
 		addParams(MyComplex.create(new MyReal(real), new MyReal(imaginary)), opIndex);
 	}
@@ -172,7 +172,7 @@ public class CalculatorSteps {
 		}
 	}
 
-	@When("^I provide a (.*) integer operation (\".*\")$")
+	@When("^I provide a integer operation (\".*\")$")
 	public void whenIProvideAnIntegerOperation(String s, String operator) {
 		whenIProvideAnIntegerOperation(operator, 0);
 	}

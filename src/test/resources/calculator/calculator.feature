@@ -14,8 +14,8 @@ Feature: Integer Arithmetic Expressions
 
   Scenario Outline: Different operation between two terms of different types
     Given an operation <o>
-    When I provide a first number <val1>
-    And I provide a second number <val2>
+    When I provide a number <val1>
+    And I provide a number <val2>
     Then the operation evaluates to <res>
     Examples:
       | o   | val1       | val2       | res           |
@@ -103,8 +103,8 @@ Feature: Integer Arithmetic Expressions
 
   Scenario Outline: Evaluating arithmetic operations with two integer parameters
     Given an operation <op>
-    When I provide a first number <n1>
-    And I provide a second number <n2>
+    When I provide a number <n1>
+    And I provide a number <n2>
     Then the operation evaluates to <result>
 
     Examples:
@@ -116,8 +116,8 @@ Feature: Integer Arithmetic Expressions
 
   Scenario Outline: Checks the formatting of an equation between two integers parameters
     Given an operation <op>
-    When I provide a first number <n1>
-    When I provide a second number <n2>
+    When I provide a number <n1>
+    When I provide a number <n2>
     And I provide the notation <notation> to operator 0
     Then the operation is written like <result>
 
@@ -140,17 +140,17 @@ Feature: Integer Arithmetic Expressions
     Given an operation <op_0>
 
     When I provide another integer operation <op_1> to operator 0
-    And I provide a first number <arg_10> to operator 1
-    And I provide a second number <arg_11> to operator 1
-    And I provide a third number <arg_12> to operator 1
+    And I provide a number <arg_10> to operator 1
+    And I provide a number <arg_11> to operator 1
+    And I provide a number <arg_12> to operator 1
     And I provide the notation <not_1> to operator 1
 
     When I provide another integer operation <op_2> to operator 0
-    And I provide a first number <arg_20> to operator 2
-    And I provide a second number <arg_21> to operator 2
+    And I provide a number <arg_20> to operator 2
+    And I provide a number <arg_21> to operator 2
     And I provide the notation <not_2> to operator 2
 
-    When I provide a first number <arg_0> to operator 0
+    When I provide a number <arg_0> to operator 0
     And I provide the notation INFIX to operator 0
     Then the operation is written like <result>
 
