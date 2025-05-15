@@ -64,7 +64,7 @@ public abstract class RandomGenerator {
     public static MyNumber genRational(BigInteger max1, BigInteger max2) {
         MyInteger num = genInt(max1);
         MyInteger den = genInt(max2);
-        if (den.equals(new MyInteger(0))) {
+        if (Configuration.getSeed() != null && den.equals(new MyInteger(0))) {
             return MyRational.create(num, den);
         }
         while (den.equals(new MyInteger(0))) {
