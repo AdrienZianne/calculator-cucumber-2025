@@ -1,11 +1,9 @@
 package io;
 
 import calculator.*;
-import io.Memory.Category;
-
 import calculator.Configuration.Mode;
 import calculator.parser.CalculatorParser;
-
+import io.Memory.Category;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.UserInterruptException;
@@ -15,9 +13,9 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Arrays;
 
 /**
  * Implement CLI and REPL with command and error

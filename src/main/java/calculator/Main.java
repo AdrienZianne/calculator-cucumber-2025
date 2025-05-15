@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * A very simple calculator in Java

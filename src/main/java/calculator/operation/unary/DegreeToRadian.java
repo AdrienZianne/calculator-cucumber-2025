@@ -3,7 +3,6 @@ package calculator.operation.unary;
 import calculator.*;
 import calculator.operation.binary.BinaryOperation;
 import calculator.operation.binary.Divides;
-import calculator.operation.binary.Minus;
 import calculator.operation.binary.Times;
 
 /**
