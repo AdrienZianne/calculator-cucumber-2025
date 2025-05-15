@@ -41,7 +41,11 @@ public class Shell {
 
     private String expressionReuse = "";
 
-    private final String debugMessage = "[DEBUG] : Result was null, returning";
+    private static final String debugMessage = "[DEBUG] : Result was null, returning";
+
+    private static final String integer = "An positive integer value";
+
+    private static final String bool = "[true|false]";
 
     /**
      * Class constructor. It initializes everything required for the CLI to function
@@ -70,7 +74,7 @@ public class Shell {
 
         infoOptions.put(Options.MODE, new String[] { "mode", "[arithmetic|programmer]",
                 "Selects the calculator mode." });
-        infoOptions.put(Options.REAL_PRECISION, new String[] { "real_precision", "An positive integer value",
+        infoOptions.put(Options.REAL_PRECISION, new String[] { "real_precision", integer,
                 "Selects the precision of real numbers, i.e. how many digits will be used after the dot." });
         infoOptions.put(Options.REAL_ROUNDING_MODE, new String[] { "real_rounding_mode",
                 "roundingmode (See description)",
@@ -85,32 +89,32 @@ public class Shell {
                         \tunnecessary : Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary.
                         \tup : Rounding mode to round away from zero.
                         """ });
-        infoOptions.put(Options.USE_REAL_NOTATION, new String[] { "use_real_notation", "[true|false]",
+        infoOptions.put(Options.USE_REAL_NOTATION, new String[] { "use_real_notation", bool,
                 "Sets whether or not rationals should be displayed as an approximation of their values as reals." });
-        infoOptions.put(Options.USE_SCIENTIFIC_NOTATION, new String[] { "use_scientific_notation", "[true|false]",
+        infoOptions.put(Options.USE_SCIENTIFIC_NOTATION, new String[] { "use_scientific_notation", bool,
                 "Sets wether or not the scientific notation should be used." });
         infoOptions.put(Options.SC_NOTATION_MAX_LEFT,
-                new String[] { "sc_notation_max_left", "An positive integer value",
+                new String[] { "sc_notation_max_left", integer,
                         "The maximum number of digits that can be displayed in the integer part of a number." });
         infoOptions.put(Options.SC_NOTATION_MAX_RIGHT,
-                new String[] { "sc_notation_max_right", "An positive integer value",
+                new String[] { "sc_notation_max_right", integer,
                         "The maximum number of digits that can be displayed in the decimal part of a number." });
         infoOptions.put(Options.USE_COMPLEX_DOMAIN,
-                new String[] { "use_complex_domain", "[true|false]",
+                new String[] { "use_complex_domain", bool,
                         "Select whether to work by default in the complex domain. " +
                                 "(If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)" });
         infoOptions.put(Options.USE_DEGREES,
-                new String[] { "use_degrees", "[true|false]", "Select whether to work in degrees or radians." });
+                new String[] { "use_degrees", bool, "Select whether to work in degrees or radians." });
         infoOptions.put(Options.SEED, new String[] { "seed", "An integer value",
                 "Selects the seed value. Numbers will then be generated according to this value." });
-        infoOptions.put(Options.BASE_NOTATION_CONVENTION, new String[] { "base_notation_convention", "[true|false]",
+        infoOptions.put(Options.BASE_NOTATION_CONVENTION, new String[] { "base_notation_convention", bool,
                 "Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2." });
-        infoOptions.put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", "[true|false]",
-                "Selects whether to display the logic symbols T and F for true and false instead of 1 and 0." });
+        infoOptions.put(Options.LOGICAL_SYMBOL, new String[] { "logical_symbol", bool,
+                bool });
         infoOptions.put(Options.MAX_STORE,
-                new String[] { "max_store", "An positive integer value",
+                new String[] { "max_store", integer,
                         "Number of elements that can be stored in logs and favorites." });
-        infoOptions.put(Options.DELETE_DUPLICATES, new String[] { "delete_duplicates", "[true|false]",
+        infoOptions.put(Options.DELETE_DUPLICATES, new String[] { "delete_duplicates", bool,
                 "Selects whether to delete duplicates in logs and favorites." });
     }
 

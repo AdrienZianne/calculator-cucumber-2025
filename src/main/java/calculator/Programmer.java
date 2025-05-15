@@ -158,11 +158,11 @@ public class Programmer {
             return "" + realNum.length();
         }
 
-        BigInteger newRealNum = new BigInteger("0");
+        BigInteger newRealNum = BigInteger.valueOf(0);
         for (int i = realNum.length() - 1; i >= 0; i--) {
             BigInteger multiplier = new BigInteger("" + chars.indexOf(realNum.charAt(i)));
-            BigInteger base_exponential_value = new BigInteger("" + base).pow(realNum.length() - i - 1);
-            BigInteger digit = multiplier.multiply(base_exponential_value);
+            BigInteger baseExponentialValue = new BigInteger("" + base).pow(realNum.length() - i - 1);
+            BigInteger digit = multiplier.multiply(baseExponentialValue);
             newRealNum = newRealNum.add(new BigInteger("" + digit));
         }
 
@@ -204,7 +204,7 @@ public class Programmer {
         if (oldRealNum.toString().equals("0")) {
             res = "0";
         } else {
-            while (oldRealNum.compareTo(new BigInteger("0")) > 0) {
+            while (oldRealNum.compareTo(BigInteger.valueOf(0)) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
                 res = chars.charAt(divideAndRemainder[1].intValue()) + res;
