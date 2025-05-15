@@ -4,8 +4,25 @@
         <!--First div that covers everything.-->
         <div class="calculator-container">
 
+            <div class="history-window" v-if="isHistoryOpen">
+                <div class="history-container">
+                    <div v-for="(memory, i) in memoryList" :memory="memory" :i="i" class="command">
+                        <button class="memory-button" :class="{ 'memory-button-expand': isExpandKeyboard }"
+                            @click="memoryBack(memory); isHistoryOpen = false">
+                            {{ memory }}
+                        </button>
+                        <button class="delete-button" @click="memoryRemove(i)"></button>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="button-container">
+                    <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
+                    <button class="close-history-button" @click="isHistoryOpen = false">Close history</button>
+                </div>
+            </div>
+
             <!--Divs managing the memoryList.-->
-            <div class="calculator-memory" v-if="isMemory">
+            <!-- <div class="calculator-memory" v-if="isMemory">
                 <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
                     <button class="memory-button" :class="{ 'memory-button-expand': isExpandKeyboard }"
                         @click="memoryBack(memory)">
@@ -14,14 +31,16 @@
                     <button class="delete-button" @click="memoryRemove(i)"></button>
                 </div>
                 <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
-            </div>
+            </div> -->
+            <button class="show-history-button" @click="isHistoryOpen = true">See history</button>
+
 
             <div>
                 <!--https://github.com/justforuse/vue-mathjax-->
                 <!--https://github.com/justforuse/vue-mathjax-next-->
                 <textarea v-model="inputText" @paste.prevent id="inputId" @keydown="forbiddenKeys" @input="formatInput"
                     placeholder="You can write here..."></textarea>
-                <div v-katex="`$$` + formattedInputText + `$$`"></div>
+                <div v-katex="`$$` + formattedInputText + `$$`" v-bind:style="isHistoryOpen ? 'visibility: hidden' : ''"></div>
             </div>
 
             <!--Three divs representing the three parts of the keyboard. 
@@ -39,9 +58,9 @@
                     </button>
                     <button class="key" @click="removeASpecificKey">⌫</button>
                     <button class="key" @click="clearAll">AC</button>
-                    <button class="key" @click="moveCursorLeft">←</button>
-                    <button class="key" @click="moveCursorRight">→</button>
-                    <button class="key" @click="replyRequest">=</button>
+                    <button class="key pc2" @click="addKey('=')">=</button>
+                    <button class="key" @click="replyRequest">↵</button>
+
                 </div>
 
                 <div class="keyboard trigo" v-if="isExpandKeyboard">
@@ -72,7 +91,7 @@ export default {
             formattedInputText: '',
             isExpandKeyboard: false,
             isMemory: false,
-            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPI,".split(''), "Shift", "Backspace",
+            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPIe,x=".split(''), "Shift", "Backspace",
                 "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " ", ","],
             inputId: document.getElementById('inputId'),
             memoryList: [],
@@ -80,9 +99,13 @@ export default {
                 ..."0123456789i.".split('')
             ],
             operations: [
-                ..."+-/*()^".split(''),
+                ..."+-/*()^%|xe".split(''),
             ],
             expandOperations: [
+                "randi",
+                "randre",
+                "randra",
+                "randc",
                 "log",
                 "cos",
                 "sin",
@@ -92,7 +115,14 @@ export default {
                 "PI",
                 ","
             ],
+            isHistoryOpen: false
         };
+    },
+    mounted() {
+        if (localStorage.getItem("arithmetic_memory")) {
+        this.memoryList = JSON.parse(localStorage.getItem("arithmetic_memory"));
+        this.isMemory = true;
+    }
     },
     methods: {
         /**
@@ -151,7 +181,7 @@ export default {
             //There is always ^number not only ^.
             let number = ["^1", "^2", "^3", "^4", "^5", "^6", "^7", "^8", "^9", "^10"];
             if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word));
-            if (word == "Enter" || word == "=") this.replyRequest();
+            if (word == "Enter") this.replyRequest();
         },
         /**
          * Method for formatting the input into a beautiful font.
@@ -175,20 +205,6 @@ export default {
             if (this.formattedInputText.includes('sqrt')) this.formattedInputText = this.formattedInputText.replaceAll('sqrt', '\\sqrt');
             if (this.formattedInputText.includes('PI')) this.formattedInputText = this.formattedInputText.replaceAll('PI', '\\pi');
         },
-        /**Method for moving the cursor left.
-         * 
-         * @see GlobalMethods.vue
-        */
-        moveCursorLeft() {
-            GlobalMethods.moveCursorLeft(inputId);
-        },
-        /**Method for moving the cursor right.
-         * 
-         * @see GlobalMethods.vue
-        */
-        moveCursorRight() {
-            GlobalMethods.moveCursorRight(inputId);
-        },
         /**
          * Method for returning to a specific input.
          * 
@@ -202,6 +218,7 @@ export default {
         memoryClear() {
             this.isMemory = false;
             this.memoryList = [];
+            localStorage.removeItem("arithmetic_memory");
         },
         /**
          * Method that removes an element from the list at a particular index.
@@ -220,6 +237,10 @@ export default {
          * @see GlobalMethods.vue
          */
         replyRequest() {
+            if (this.inputText.includes('randi')) this.inputText = this.inputText.replaceAll("randi", "rand_int");
+            if (this.inputText.includes('randre')) this.inputText = this.inputText.replaceAll("randre", "rand_real");
+            if (this.inputText.includes('randra')) this.inputText = this.inputText.replaceAll("randra", "rand_ratio");
+            if (this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc", "rand_cmplx");
             if (this.inputText != "") {
                 const requestOptions = {
                     method: "POST",
@@ -227,7 +248,7 @@ export default {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
                     },
-                    body: JSON.stringify({ input: this.inputText }) //In GET, we can't put a body.
+                    body: JSON.stringify({ input: this.inputText, isProgra: false }) //In GET, we can't put a body.
                 };
                 fetch("http://localhost:8080/calc", requestOptions)
                     .then(response => {
@@ -238,6 +259,7 @@ export default {
                         let res = GlobalMethods.memoryUpdate(this.memoryList, this.inputText);
                         this.isMemory = res.isMemory;
                         this.memoryList = res.memoryList;
+                        localStorage.setItem("arithmetic_memory", JSON.stringify(this.memoryList));
                         this.inputText = data.answer;
                         this.formatInput();
                     })
@@ -247,13 +269,17 @@ export default {
                         this.formatInput();
                     });
             }
-        }
+        },
     }
 };
 </script>
 
 <style scoped>
 @import '@/assets/sharedcalculator.css';
+
+.calculator-container {
+    position: relative;
+}
 
 .calculator-keyboard {
     display: grid;
@@ -262,7 +288,7 @@ export default {
 }
 
 .expanded {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .keyboard {
@@ -271,23 +297,94 @@ export default {
     gap: 5px;
 }
 
+.trigo {
+    grid-column: span 2;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 40px);
+    justify-self: center;
+}
+
+.symbol {
+    grid-template-rows: repeat(4, 40px);
+}
+
+.pc2 {
+    grid-column: span 2;
+}
+
+.history-window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #499956bb;
+    border-radius: 10px;
+    height: 70vh;
+    width: min(80vw, 800px);
+    backdrop-filter: blur(4px);
+    padding: 20px;
+    gap: 15px;
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.memory-button {
+    flex-grow: 1;
+}
+
+.command {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.separator {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    height: 5px;
+}
+
 @media only screen and (max-width: 650px) {
 
     .calculator-keyboard {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 3fr 4fr;
     }
 
     .keyboard {
         grid-template-columns: repeat(3, 40px);
+        grid-template-rows: repeat(4, 40px);
     }
 
     .key {
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .trigo {
         grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 30px);
         grid-column: 1 / span 2;
+        width: 100%;
+    }
+
+    .symbol {
+        grid-template-rows: repeat(4, 40px);
+        grid-template-columns: repeat(4, 40px);
     }
 }
 

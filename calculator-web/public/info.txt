@@ -3,6 +3,11 @@ Hello and welcome to the Calculator-cucumber ! <br><br>
 You can use your keyboard for simple operations (numbers, (), /, +, *, -, ...) 
 or the one provided by the application (in particular for cos, tan,...).<br><br>
 
+randi (rand_int), randre (rand_real), randra (rand_ratio) and randc (rand_cmplx) are respectively random generators. 
+randi takes one argument, which is the maximum value of the generated integer.
+randre and randc take no arguments.
+randra takes two arguments, the maximum value of the first number and the second.<br><br>
+
 If you're using your computer's keyboard, special operations like cos are therefore 
 performed by enlarging the application's keyboard. You can click Enter when 
 your calculation is complete or click on '=' if you use the application keyboard.<br><br>
@@ -12,4 +17,4 @@ AC deletes your entire calculation, and the arrows allow you to move in your cal
 
 When you make a calculation and submit it, you'll see a memory system. 
 You can delete a specific line from this memory, or delete everything. 
-The memory automatically deletes the first calculation made in the list when it exceeds a size of 5.<br><br>
+The memory automatically deletes the first calculation made in the list when it exceeds a size of 100.<br><br>

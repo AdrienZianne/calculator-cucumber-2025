@@ -60,15 +60,15 @@
      * @return memoryList modified and isMemory to know if memory needs to be activated.
      */
     memoryUpdate(memoryList, inputText){
-      memoryList.push(inputText);
+      memoryList.unshift(inputText);
       let isMemory = true;
-      if(memoryList.length > 5){
-        let res = this.memoryRemove(0, memoryList);
-        return {
-          isMemory: res.isMemory,
-          memoryList: res.memoryList,
-        }
-      } 
+      // if(memoryList.length > 100){
+      //   let res = this.memoryRemove(0, memoryList);
+      //   return {
+      //     isMemory: res.isMemory,
+      //     memoryList: res.memoryList,
+      //   }
+      // } 
       return {
         isMemory: isMemory,
         memoryList: memoryList,

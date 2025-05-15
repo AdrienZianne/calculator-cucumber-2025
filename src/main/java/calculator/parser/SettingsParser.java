@@ -4,9 +4,9 @@ import calculator.Configuration;
 import calculator.Configuration.Mode;
 import calculator.parser.antlr.LabeledSettingsBaseVisitor;
 import calculator.parser.antlr.LabeledSettingsParser;
-import io.Memory;
-import io.Memory.Category;
-import io.Shell;
+import io.cli.Shell;
+import io.cli.Memory;
+import io.cli.Memory.Category;
 
 import java.math.RoundingMode;
 

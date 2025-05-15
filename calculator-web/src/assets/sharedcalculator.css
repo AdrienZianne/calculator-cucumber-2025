@@ -29,7 +29,6 @@
 
   button {
     width: auto;
-    padding: 10px;
     font-size: 20px;
     cursor: pointer;
     background-color: #deebee;
@@ -43,10 +42,7 @@
   
   .memory-button{
     background-color: #f5f6f5;
-    min-width: 320px; 
-    max-width: 320px; 
     overflow-wrap: break-word;
-    margin-bottom: 10px;
   }
   
   .memory-button:hover {
@@ -58,15 +54,11 @@
     max-width: 500px;
   }
   
-  .memory-clear-button {
-    margin-bottom: 10px;
-  }
-  
   .memory-clear-button:hover {
     background-color: #940909;
   }
   
-  .delete-button {
+  .delete-button, .favorite-button {
     background: none;
     font-size: 20px; 
     cursor: pointer; 
