@@ -4,8 +4,25 @@
         <!--First div that covers everything.-->
         <div class="calculator-container">
 
+            <div class="history-window" v-if="isHistoryOpen">
+                <div class="history-container">
+                    <div v-for="(memory, i) in memoryList" :memory="memory" :i="i" class="command">
+                        <button class="memory-button" :class="{ 'memory-button-expand': isExpandKeyboard }"
+                            @click="memoryBack(memory); isHistoryOpen = false">
+                            {{ memory }}
+                        </button>
+                        <button class="delete-button" @click="memoryRemove(i)"></button>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="button-container">
+                    <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
+                    <button class="close-history-button" @click="isHistoryOpen = false">Close history</button>
+                </div>
+            </div>
+
             <!--Divs managing the memoryList.-->
-            <div class="calculator-memory" v-if="isMemory">
+            <!-- <div class="calculator-memory" v-if="isMemory">
                 <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
                     <button class="memory-button" :class="{ 'memory-button-expand': isExpandKeyboard }"
                         @click="memoryBack(memory)">
@@ -14,14 +31,16 @@
                     <button class="delete-button" @click="memoryRemove(i)"></button>
                 </div>
                 <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
-            </div>
+            </div> -->
+            <button class="show-history-button" @click="isHistoryOpen = true">See history</button>
+
 
             <div>
                 <!--https://github.com/justforuse/vue-mathjax-->
                 <!--https://github.com/justforuse/vue-mathjax-next-->
                 <textarea v-model="inputText" @paste.prevent id="inputId" @keydown="forbiddenKeys" @input="formatInput"
                     placeholder="You can write here..."></textarea>
-                <div v-katex="`$$` + formattedInputText + `$$`"></div>
+                <div v-katex="`$$` + formattedInputText + `$$`" v-bind:style="isHistoryOpen ? 'visibility: hidden' : ''"></div>
             </div>
 
             <!--Three divs representing the three parts of the keyboard. 
@@ -72,7 +91,7 @@ export default {
             formattedInputText: '',
             isExpandKeyboard: false,
             isMemory: false,
-            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPI,".split(''), "Shift", "Backspace",
+            authorizedKeys: [..."0123456789.()/*+-logsqrtcinaPI,x=".split(''), "Shift", "Backspace",
                 "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", " ", ","],
             inputId: document.getElementById('inputId'),
             memoryList: [],
@@ -92,6 +111,7 @@ export default {
                 "PI",
                 ","
             ],
+            isHistoryOpen: false
         };
     },
     mounted() {
@@ -157,7 +177,7 @@ export default {
             //There is always ^number not only ^.
             let number = ["^1", "^2", "^3", "^4", "^5", "^6", "^7", "^8", "^9", "^10"];
             if (!this.authorizedKeys.includes(word) && !number.includes(word)) setTimeout(() => this.removeSpecificWord(word));
-            if (word == "Enter" || word == "=") this.replyRequest();
+            if (word == "Enter") this.replyRequest();
         },
         /**
          * Method for formatting the input into a beautiful font.
@@ -263,6 +283,10 @@ export default {
 <style scoped>
 @import '@/assets/sharedcalculator.css';
 
+.calculator-container {
+    position: relative;
+}
+
 .calculator-keyboard {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -292,6 +316,54 @@ export default {
 
 .pc2 {
     grid-column: span 2;
+}
+
+.history-window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #499956bb;
+    border-radius: 10px;
+    height: 70vh;
+    width: min(80vw, 800px);
+    backdrop-filter: blur(4px);
+    padding: 20px;
+    gap: 15px;
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.memory-button {
+    flex-grow: 1;
+}
+
+.command {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.separator {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    height: 5px;
 }
 
 @media only screen and (max-width: 650px) {

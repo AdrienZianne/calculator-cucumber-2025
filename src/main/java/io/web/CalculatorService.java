@@ -1,12 +1,12 @@
 package io.web;
 
-import calculator.Configuration;
-import calculator.Expression;
-import calculator.Programmer;
+import calculator.*;
 import calculator.parser.CalculatorParser;
+import io.cli.Memory;
 import io.web.dto.CalculatorDTO;
 import io.web.dto.SettingDTO;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import visitor.Evaluator;
 
@@ -14,21 +14,45 @@ import visitor.Evaluator;
 @NoArgsConstructor
 public class CalculatorService {
 
+    Memory memory;
+
+    @Autowired
+    public CalculatorService(Memory memory) {
+        this.memory = memory;
+    }
+
     /// Compute the request using the appropriate mode
     public String compute(CalculatorDTO request) throws Exception {
 
-        System.out.println(request.getIsProgra());
         if (request.getIsProgra()) {
             Programmer programmer = CalculatorParser.parseProgrammer(request.getInput());
             if (programmer == null) throw new Exception("Unable to parse");
             return programmer.toString();
         } else {
-            Expression expression = CalculatorParser.parseArithmetic(request.getInput());
+
             Evaluator evaluator = new Evaluator();
-            if (expression != null) {
-                expression.accept(evaluator);
+
+            if (!request.getInput().contains("=")) {
+                Expression expression = CalculatorParser.parseArithmetic(request.getInput());
+
+                if (expression != null) {
+                    expression.accept(evaluator);
+                }
+
+                if (evaluator.getResult() instanceof MyErrorNumber e) {
+                    throw new Exception(e.getMessage());
+                }
+                return evaluator.getResult().toString();
+            } else {
+                Equation equation =  CalculatorParser.parseArithmeticEquation(request.getInput());
+                if (equation == null || equation.getErrorState() != null) {
+                    throw new Exception();
+                }
+
+                return equation.prettyResult();
             }
-            return evaluator.getResult().toString();
+
+
         }
     }
 

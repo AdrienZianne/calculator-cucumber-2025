@@ -4,8 +4,25 @@
     <!--First div that covers everything.-->
     <div class="calculator-container">
 
+      <div class="history-window" v-if="isHistoryOpen">
+        <div class="history-container">
+          <div v-for="(memory, i) in memoryList" :memory="memory" :i="i" class="command">
+            <button class="memory-button" :class="{ 'memory-button-expand': isExpandKeyboard }"
+              @click="memoryBack(memory); isHistoryOpen = false">
+              {{ memory }}
+            </button>
+            <button class="delete-button" @click="memoryRemove(i)"></button>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="button-container">
+          <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
+          <button class="close-history-button" @click="isHistoryOpen = false">Close history</button>
+        </div>
+      </div>
+
       <!--Divs managing the memoryList.-->
-      <div class="calculator-memory" v-if="isMemory">
+      <!-- <div class="calculator-memory" v-if="isMemory">
         <div v-for="(memory, i) in memoryList" :memory="memory" :i="i">
           <button class="memory-button" @click="memoryBack(memory)">
             {{ memory }}
@@ -13,7 +30,8 @@
           <button class="delete-button" @click="memoryRemove(i)"></button>
         </div>
         <button class="memory-clear-button" @click="memoryClear()">Clear Memory</button>
-      </div>
+      </div> -->
+      <button class="show-history-button" @click="isHistoryOpen = true">See history</button>
 
       <div>
         <!--https://github.com/justforuse/vue-mathjax-->
@@ -93,13 +111,14 @@ export default {
         "<",
         ">",
         ","
-      ]
+      ],
+      isHistoryOpen: false
     };
   },
   mounted() {
     if (localStorage.getItem("programmer_memory")) {
-        this.memoryList = JSON.parse(localStorage.getItem("programmer_memory"));
-        this.isMemory = true;
+      this.memoryList = JSON.parse(localStorage.getItem("programmer_memory"));
+      this.isMemory = true;
     }
   },
   methods: {
@@ -237,11 +256,57 @@ export default {
 @import '@/assets/sharedcalculator.css';
 
 
+.calculator-container {
+    position: relative;
+}
+
 .calculator-keyboard {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 4fr 4fr 1fr;
   gap: 10px 5px;
+}
+
+.history-window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #499956bb;
+    border-radius: 10px;
+    height: 70vh;
+    width: min(80vw, 800px);
+    backdrop-filter: blur(4px);
+    padding: 20px;
+    gap: 15px;
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.memory-button {
+    flex-grow: 1;
+}
+
+.command {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .keyboard {
@@ -265,7 +330,7 @@ export default {
   .keyboard {
     grid-template-columns: repeat(6, 1fr);
   }
-  
+
   .number {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 30px);
