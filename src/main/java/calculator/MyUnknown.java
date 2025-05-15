@@ -3,9 +3,9 @@ package calculator;
 
 import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.BuildUnaryOperationFunction;
-import calculator.operation.binary.*;
+import calculator.operation.binary.BinaryOperation;
+import calculator.operation.binary.Plus;
 import calculator.operation.unary.Negation;
-import calculator.operation.unary.SquareRoot;
 import calculator.operation.unary.UnaryOperation;
 
 import java.util.*;

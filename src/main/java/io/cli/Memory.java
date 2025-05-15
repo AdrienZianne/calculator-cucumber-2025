@@ -13,6 +13,10 @@ import calculator.Expression;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  * Memory
  * Class used to store logs and favorite expressions depending on the mode used.
@@ -268,17 +272,5 @@ public class Memory {
      */
     public void reset(Category c) {
         memo[Configuration.getMode().ordinal()][c.ordinal()] = new ArrayList<>();
-    }
-
-
-    /**
-     * Method for retrieving all element in a category
-     *
-     * @param c     The desired categorie.
-     * @param m     The current mode
-     * @return      The list of expressions.
-     */
-    public ArrayList<Element> getExpressions(Mode m, Category c) {
-        return memo[m.ordinal()][c.ordinal()];
     }
 }

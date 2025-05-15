@@ -43,6 +43,8 @@ public class Shell {
 
     private String expressionReuse = "";
 
+    private final String debugMessage = "[DEBUG] : Result was null, returning";
+
     /**
      * Class constructor. It initializes everything required for the CLI to function
      * correctly.
@@ -144,14 +146,10 @@ public class Shell {
                 }
 
                 String res = "";
-                switch (Configuration.getMode()) {
-                    case Mode.ARITHMETIC:
-                        res = modeArithmetic(c, line);
-                        break;
-
-                    case Mode.PROGRAMMER:
-                        res = modeProgrammer(line);
-                        break;
+                if (Configuration.getMode() == Mode.ARITHMETIC) {
+                    res = modeArithmetic(c, line);
+                } else {
+                    res = modeProgrammer(line);
                 }
 
                 if (!res.isEmpty()) {
@@ -194,7 +192,7 @@ public class Shell {
             if (!line.contains("=")) {
                 Expression exp = CalculatorParser.parseArithmetic(line);
                 if (exp == null)
-                    System.out.println("[DEBUG] : Result was null, returning");
+                    System.out.println(debugMessage);
                 else {
                     Expression res = c.eval(exp);
                     terminal.writer().println(res);
@@ -203,7 +201,7 @@ public class Shell {
             } else {
                 Equation exp = CalculatorParser.parseArithmeticEquation(line);
                 if (exp == null)
-                    System.out.println("[DEBUG] : Result was null, returning");
+                    System.out.println(debugMessage);
                 else {
                     terminal.writer().println(exp.prettyResult());
                     return exp.prettyResult();
@@ -229,7 +227,7 @@ public class Shell {
         try {
             Programmer exp = CalculatorParser.parseProgrammer(line);
             if (exp == null)
-                System.out.println("[DEBUG] : Result was null, returning");
+                System.out.println(debugMessage);
             else {
                 terminal.writer().println(exp);
                 return exp.toString();
