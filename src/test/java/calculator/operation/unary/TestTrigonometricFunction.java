@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -149,6 +150,44 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
+    @Override
+    public void testMyInfinity() throws Exception {
+        Configuration.setUseDegrees(true);
+        MyInfinity nb = new MyInfinity(true);
+        boolean[] values = new boolean[] {true, false};
+        for (boolean value : values) {
+            Configuration.setUseDegrees(value);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+        nb = new MyInfinity(false);
+        for (boolean value : values) {
+            Configuration.setUseDegrees(value);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+    }
+
+    @Test
+    @Override
+    public void testMyUnknown() throws Exception {
+        Configuration.setUseDegrees(true);
+        MyUnknown nb = (MyUnknown) MyUnknown.create(MyInteger.valueOf(1), MyInteger.valueOf(2), MyInteger.valueOf(3));
+        boolean[] values = new boolean[] {true, false};
+        for (boolean value : values) {
+            Configuration.setUseDegrees(value);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+    }
+
+    @Test
     public void testIntegerDeg() throws Exception {
         Configuration.setUseDegrees(true);
         ArrayList<MyInteger> toTry = new ArrayList<>();
@@ -243,6 +282,28 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
         boolean[] values = new boolean[] {true, false};
         for (int i = 0; i < values.length; i++) {
             Configuration.setUseDegrees(values[i]);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+    }
+
+    @Test
+    public void testMyInfinityDeg() throws Exception {
+        Configuration.setUseDegrees(false);
+        MyInfinity nb = new MyInfinity(true);
+        boolean[] values = new boolean[] {true, false};
+        for (boolean value : values) {
+            Configuration.setUseDegrees(value);
+            for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
+                // The result was supposed to be an error
+                assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());
+            }
+        }
+        nb = new MyInfinity(false);
+        for (boolean value : values) {
+            Configuration.setUseDegrees(value);
             for (BuildUnaryOperationFunction<TrigonometricFunction> trigoClass : trigoClasses) {
                 // The result was supposed to be an error
                 assertEquals(MyErrorNumber.class, calculator.eval(trigoClass.build(nb)).getClass());

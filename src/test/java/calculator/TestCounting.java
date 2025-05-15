@@ -1,6 +1,7 @@
 package calculator;
 
 //Import Junit5 libraries for unit testing:
+
 import calculator.operation.binary.Divides;
 import calculator.operation.binary.Minus;
 import calculator.operation.binary.Plus;
@@ -11,10 +12,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import visitor.Counter;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 class TestCounting {

@@ -1,7 +1,7 @@
 package calculator.operation.binary;
 
 import calculator.*;
-import calculator.operation.BuildOperationFunction;
+import calculator.operation.BuildBinaryOperationFunction;
 import calculator.operation.Operation;
 import visitor.Evaluator;
 
@@ -36,6 +36,8 @@ public abstract class BinaryOperation extends Operation {
         super(elist, n);
     }
 
+
+
     /**
      * Applies an operation to two numbers and returns it's results.
      * @param a an instance of a {@link MyNumber} subclass
@@ -49,58 +51,150 @@ public abstract class BinaryOperation extends Operation {
         if (b instanceof MyErrorNumber e) {
             return e; // Simply pass the error upwards
         }
+        if (a instanceof MyUndefinedNumber nan)
+        {
+            return new MyErrorNumber(this, "Tried to use an operation on NaN: " + nan);
+        }
+
+        // We obligated to "duplicate" these lines, because they are all calling different functions with different
+        // parameters, even if they wear the same name. (Using a generic method with the switch inside will only cause
+        // an infinite recursion.
         if (a instanceof MyInteger l)
         {
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+            switch (b) {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
         }
         if (a instanceof MyReal l)
         {
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+            switch (b) {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
         }
         if (a instanceof MyRational l)
         {
-            if (b instanceof MyRational r) { return op(l,r); }
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
+            switch (b)
+            {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
         }
         if (a instanceof MyComplex l)
         {
-            if (b instanceof MyComplex r) { return op(l,r); }
-            if (b instanceof MyReal r) { return op(l,r); }
-            if (b instanceof MyInteger r) { return op(l,r); }
-            if (b instanceof MyRational r) { return op(l,r); }
+            switch (b)
+            {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
         }
+        if (a instanceof MyInfinity l)
+        {
+            switch (b)
+            {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
+        }
+        if (a instanceof MyUnknown l)
+        {
+            switch (b)
+            {
+                case MyReal r -> { return op(l, r); }
+                case MyInteger r -> { return op(l, r); }
+                case MyComplex r -> { return op(l, r); }
+                case MyRational r -> { return op(l, r); }
+                case MyInfinity r -> { return op(l,r); }
+                case MyUnknown r -> { return op(l,r); }
+                default -> {
+                    // The default case is taken care after all switches.
+                }
+            }
+        }
+        // Error : Not implemented
         return new MyErrorNumber(this,"The given operation is not implemented yet for the " +
                 "given MyNumber subclasses pair: " + a.getClass() + " and " + b.getClass());
-        // Error : Not implemented
     }
+
 
     public abstract MyNumber op(MyInteger l, MyInteger r);
     public abstract MyNumber op(MyInteger l, MyReal r);
     public abstract MyNumber op(MyInteger l, MyComplex r);
     public abstract MyNumber op(MyInteger l, MyRational r);
+    public abstract MyNumber op(MyInteger l, MyInfinity r);
+    public abstract MyNumber op(MyInteger l, MyUnknown r);
 
     public abstract MyNumber op(MyReal l, MyInteger r);
     public abstract MyNumber op(MyReal l, MyReal r);
     public abstract MyNumber op(MyReal l, MyComplex r);
     public abstract MyNumber op(MyReal l, MyRational r);
+    public abstract MyNumber op(MyReal l, MyInfinity r);
+    public abstract MyNumber op(MyReal l, MyUnknown r);
 
     public abstract MyNumber op(MyComplex l, MyInteger r);
     public abstract MyNumber op(MyComplex l, MyReal r);
     public abstract MyNumber op(MyComplex l, MyComplex r);
     public abstract MyNumber op(MyComplex l, MyRational r);
+    public abstract MyNumber op(MyComplex l, MyInfinity r);
+    public abstract MyNumber op(MyComplex l, MyUnknown r);
 
     public abstract MyNumber op(MyRational l, MyInteger r);
     public abstract MyNumber op(MyRational l, MyReal r);
     public abstract MyNumber op(MyRational l, MyComplex r);
     public abstract MyNumber op(MyRational l, MyRational r);
+    public abstract MyNumber op(MyRational l, MyInfinity r);
+    public abstract MyNumber op(MyRational l, MyUnknown r);
+
+    public abstract MyNumber op(MyInfinity l, MyInteger r);
+    public abstract MyNumber op(MyInfinity l, MyReal r);
+    public abstract MyNumber op(MyInfinity l, MyComplex r);
+    public abstract MyNumber op(MyInfinity l, MyRational r);
+    public abstract MyNumber op(MyInfinity l, MyInfinity r);
+    public abstract MyNumber op(MyInfinity l, MyUnknown r);
+
+    public abstract MyNumber op(MyUnknown l, MyInteger r);
+    public abstract MyNumber op(MyUnknown l, MyReal r);
+    public abstract MyNumber op(MyUnknown l, MyComplex r);
+    public abstract MyNumber op(MyUnknown l, MyRational r);
+    public abstract MyNumber op(MyUnknown l, MyInfinity r);
+    public abstract MyNumber op(MyUnknown l, MyUnknown r);
+
 
 
     // the operation itself is specified in the subclasses
@@ -124,7 +218,7 @@ public abstract class BinaryOperation extends Operation {
      * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
      * @param <T> The {@link BinaryOperation} to create.
      */
-    public static <T extends BinaryOperation> MyNumber op(MyNumber arg1, MyNumber arg2, BuildOperationFunction<T> builder)
+    public static <T extends BinaryOperation> MyNumber op(MyNumber arg1, MyNumber arg2, BuildBinaryOperationFunction<T> builder)
     {
         BinaryOperation u;
         try {
@@ -147,7 +241,7 @@ public abstract class BinaryOperation extends Operation {
      * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
      * @param <T> The {@link BinaryOperation} to create.
      */
-    public static <T extends BinaryOperation> MyNumber op(Evaluator eval, ArrayList<Expression> args, BuildOperationFunction<T> builder)
+    public static <T extends BinaryOperation> MyNumber op(Evaluator eval, ArrayList<Expression> args, BuildBinaryOperationFunction<T> builder)
     {
         BinaryOperation u;
         MyNumber result;

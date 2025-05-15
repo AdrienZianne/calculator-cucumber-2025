@@ -9,7 +9,7 @@ import calculator.operation.binary.Times;
  * A class used to represent the degree to radian conversion.
  * Let {@code x} be our number, the operation will result in {@code x * π/180}.
  */
-public class DegreeToRadian extends UnaryOperation {
+public final class DegreeToRadian extends DegreeRadianConvertor {
     /**
      * The default constructor of the {@link DegreeToRadian} class.
      *
@@ -26,33 +26,13 @@ public class DegreeToRadian extends UnaryOperation {
      * @param notation The notation to display this operation with.
      */
     public DegreeToRadian(Expression argument, Notation notation) throws IllegalConstruction {
-        super(argument, notation);
-        symbol = "degToRad";
+        super(argument, "degToRad", notation, ConstantNumber.PI, MyInteger.valueOf(180));
     }
+
 
     @Override
-    public MyNumber op(MyInteger i) {
-        return degToRadian(i);
-    }
-
-    @Override
-    public MyNumber op(MyReal r) {
-        return degToRadian(r);
-    }
-
-    @Override
-    public MyNumber op(MyRational r) {
-        return degToRadian(r);
-    }
-
-    @Override
-    public MyNumber op(MyComplex c) {
-        return new MyErrorNumber(this,  "Cannot apply a transformation from degrees to radians on a complex number: " + c);
-    }
-
-    private static MyNumber degToRadian(MyNumber og) {
-        MyNumber nb = BinaryOperation.op(ConstantNumber.PI, MyInteger.valueOf(180), Divides::new);
-        return BinaryOperation.op(og, nb, Times::new);
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, DegreeToRadian::new);
     }
 
 }

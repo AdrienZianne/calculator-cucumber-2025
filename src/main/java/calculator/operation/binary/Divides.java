@@ -3,7 +3,6 @@ package calculator.operation.binary;
 import calculator.*;
 import calculator.operation.unary.Negation;
 import calculator.operation.unary.UnaryOperation;
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.List;
 
@@ -47,11 +46,16 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyInteger r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
+
         return MyRational.create(l.getValue(), r.getValue());
     }
 
     @Override
     public MyNumber op(MyInteger l, MyReal r) {
+        MyNumber err = isUndefinedOrInf(l, r);
+        if (err != null) {return err;}
         MyNumber rRatio = MyRational.toRational(r);
         return op(l, rRatio);
     }
@@ -68,12 +72,15 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInteger l, MyRational r) {
+
         return MyRational.create(l.getValue().multiply(r.getNumDenomPair().b.getValue()),
                 r.getNumDenomPair().a.getValue());
     }
 
     @Override
     public MyNumber op(MyReal l, MyInteger r) {
+        MyNumber err = isUndefinedOrInf(l, r);
+        if (err != null) {return err;}
         // To not lose any information we just divide them as rationals and integers
         MyNumber lRatio = MyRational.toRational(l);
         return op(lRatio, r);
@@ -81,6 +88,9 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyReal r) {
+        MyNumber err = isUndefinedOrInf(l, r);
+        if (err != null) {return err;}
+
         // To not lose any information we just divide them as rationals
         MyNumber lRatio = MyRational.toRational(l);
         MyNumber rRatio = MyRational.toRational(r);
@@ -95,11 +105,15 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyComplex l, MyInteger r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
         return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
     @Override
     public MyNumber op(MyComplex l, MyReal r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
         return MyComplex.create(op(l.getRealImaginaryPair().a, r), op(l.getRealImaginaryPair().b, r));
     }
 
@@ -107,8 +121,9 @@ public final class Divides extends BinaryOperation {
     public MyNumber op(MyComplex l, MyComplex r) {
         // Denominator : c^2 + d^2
         MyNumber denom = BinaryOperation.op(
-                BinaryOperation.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a, Times::new), // fixme : use pow instead !
-                BinaryOperation.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b, Times::new), Plus::new);
+                BinaryOperation.op(r.getRealImaginaryPair().a, MyInteger.valueOf(2), Exponent::new),
+                BinaryOperation.op(r.getRealImaginaryPair().b, MyInteger.valueOf(2), Exponent::new),
+                Plus::new);
 
         // Real part: ac + bd
         MyNumber real = BinaryOperation.op(
@@ -136,6 +151,8 @@ public final class Divides extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyInteger r) {
+        MyNumber err = isUndefinedOrInf(l, r);
+        if (err != null) {return err;}
         return MyRational.create(l.getNumDenomPair().a,
                 MyInteger.valueOf(l.getNumDenomPair().b.getValue().multiply(r.getValue())));
     }
@@ -157,6 +174,116 @@ public final class Divides extends BinaryOperation {
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().a.getValue()));
     }
 
+    @Override
+    public MyNumber op(MyInteger l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyInteger l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyReal l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyComplex l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyInfinity r) {
+        return MyInteger.valueOf(0);
+    }
+
+    @Override
+    public MyNumber op(MyRational l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return new MyErrorNumber(this, "Division of infinite by a complex number is not supported");
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return divInfinity(l, r);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return new MyErrorNumber(this, "Division of unknown values by a complex number is not supported");
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInfinity r) {
+        return MyUnknown.applyToAllOperators(l, r, Divides::new);
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        return divByUnknownError();
+    }
+
+    private MyNumber divInfinity(MyInfinity l, MyNumber r) {
+        MyNumber err = isUndefined(l, r);
+        if (err != null) {return err;}
+        // 1 0 = 0
+        // 0 1 = 0
+        // 0 0 = 1
+        // 1 1 = 1
+        return new MyInfinity(l.isPositive() == (r.getSign() > 0));
+    }
+
     public MyNumber divByComplex(MyNumber l, MyComplex r) {
         // c / (a + bi) = (ac - bci) / (a^2 + b^2)
         // numerator :
@@ -165,10 +292,29 @@ public final class Divides extends BinaryOperation {
                                 Negation::new);
 
         // Denominator :
-        MyNumber aTimes2PlusbTimes2 = BinaryOperation.op(BinaryOperation.op(r.getRealImaginaryPair().a, r.getRealImaginaryPair().a, Times::new),
-                                                         BinaryOperation.op(r.getRealImaginaryPair().b, r.getRealImaginaryPair().b, Times::new),
-                                                         Plus::new); // FIXME we should be using pow
-                                                                                   // operations !
+        MyNumber aTimes2PlusbTimes2 = BinaryOperation.op(BinaryOperation.op(r.getRealImaginaryPair().a, MyInteger.valueOf(2), Exponent::new),
+                                                         BinaryOperation.op(r.getRealImaginaryPair().b, MyInteger.valueOf(2), Exponent::new),
+                                                         Plus::new);
+
         return MyComplex.create(op(ac, aTimes2PlusbTimes2), op(minusBc, aTimes2PlusbTimes2));
+    }
+
+    private MyNumber isUndefined(MyNumber num, MyNumber denom) {
+        if (num.isZero() && denom.isZero()) return new MyUndefinedNumber(this);
+        if (denom.isZero()) return new MyErrorNumber(this, "Division by zero error");
+        return null;
+    }
+    private MyNumber isUndefinedOrInf(MyNumber l, MyNumber r) {
+        if (l.isZero() && r.isZero()) return new MyUndefinedNumber(this);
+
+        if (r.equals(MyReal.valueOf(0)))
+            return new MyInfinity(l.getSign() > 0);
+
+        return null;
+    }
+
+    private MyErrorNumber divByUnknownError()
+    {
+        return new MyErrorNumber(this, "The division operation does not support a division by an unknown term");
     }
 }

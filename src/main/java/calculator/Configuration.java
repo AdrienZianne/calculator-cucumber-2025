@@ -51,6 +51,32 @@ public final class Configuration {
     }
 
     /*
+     * __________________________________________________________________Imaginary_Domain
+     */
+
+    private static boolean usesComplexDomainDefault = false;
+
+    /**
+     * Controls whether the complex domain is used by default in some operation.
+     * For example, if set to true then the sqrt operation on a negative number will return a complex value.
+     * Otherwise, it will return an error.
+     * @param usesImaginaryDomain True if the default domain is the complex one, false otherwise.
+     */
+    public static void setUsesComplexDomainDefault(boolean usesImaginaryDomain) {
+        Configuration.usesComplexDomainDefault = usesImaginaryDomain;
+    }
+
+    /**
+     * Checks whether the complex domain is used by default in some operation.
+     * For example, if set to true then the sqrt operation on a negative number will return a complex value.
+     * Otherwise, it will return an error.
+     * @return True if the default domain is the complex one, false otherwise.
+     */
+    public static boolean usesComplexDomainDefault() {
+        return usesComplexDomainDefault;
+    }
+
+    /*
      * __________________________________________________________________Real_Precision
      */
 
@@ -331,5 +357,60 @@ public final class Configuration {
      */
     public static void setLogicalSymbol(boolean value) {
         logicalSymbol = value;
+    }
+
+    /*
+     * __________________________________________________________________Memory
+     */
+
+    /**
+     * Value representing the maximum number of expressions to be stored in memory.
+     * In logs and favorites.
+     */
+    private static int maxStore = 100;
+
+    /**
+     * If this value is set to True, then an expression will not be added to memory
+     * if it is already present. This works for logs and favorites.
+     */
+    private static boolean deleteDuplicates = false;
+
+    /**
+     * Method for recovering the maximum size of logs and favos.
+     * 
+     * @return Maximum size
+     */
+    public static int getMaxStore() {
+        return maxStore;
+    }
+
+    /**
+     * Method for changing the maximum size of logs and bookmarks.
+     * 
+     * @param max the desired size. This must be a positive number.
+     */
+    public static void setMaxStore(int max) {
+        if (max > 0) {
+            maxStore = max;
+        }
+    }
+
+    /**
+     * Method for checking whether duplicates have been removed from logs and
+     * favorites.
+     * 
+     * @return Duplicates are deleted or not.
+     */
+    public static boolean getDeleteDuplicates() {
+        return deleteDuplicates;
+    }
+
+    /**
+     * Method for choosing whether or not to delete duplicates.
+     * 
+     * @param delete Desired behavior.
+     */
+    public static void setDeleteDuplicates(boolean delete) {
+        deleteDuplicates = delete;
     }
 }

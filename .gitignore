@@ -3,6 +3,6 @@
 *.iml
 *.ipr
 *.DS_Store
+*.yml
 .idea/*
 target/*
-calculator-web/*

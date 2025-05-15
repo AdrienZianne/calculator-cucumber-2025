@@ -1,13 +1,8 @@
 package calculator.operation.unary.trigonometry;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
 import calculator.operation.unary.UnaryOperation;
-import org.apache.tomcat.util.bcel.Const;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -91,6 +86,16 @@ public abstract class TrigonometricFunction extends UnaryOperation {
         // for now at least
         return new MyErrorNumber(this, "Tried to apply a trigonometric function on the following complex value: "
                 + c + ". This has not been implemented yet.");
+    }
+
+    @Override
+    public MyNumber op(MyInfinity i) {
+        return new MyErrorNumber(this, "Tried to apply a trigonometric function on infinity");
+    }
+
+    @Override
+    public MyNumber op(MyUnknown x) {
+        return new MyErrorNumber(this, "Expression with unknown factors are not supported by trigonometric functions");
     }
 
     @Override

@@ -1,12 +1,7 @@
 package calculator;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -183,7 +178,7 @@ public class MyReal extends MyNumber {
         return (valD != Double.POSITIVE_INFINITY)
                 && (valD != Double.NEGATIVE_INFINITY)
                 &&
-                !(BigDecimal.valueOf(Double.MAX_VALUE).compareTo(value) < 0);
+                (BigDecimal.valueOf(Double.MAX_VALUE).compareTo(value) >= 0);
     }
 
     /**

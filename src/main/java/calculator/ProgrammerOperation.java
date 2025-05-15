@@ -1,8 +1,8 @@
 package calculator;
 
-import java.util.Collections;
-
 import calculator.Programmer.ProgrammerException;
+
+import java.util.Collections;
 
 /**
  * LogicOperation

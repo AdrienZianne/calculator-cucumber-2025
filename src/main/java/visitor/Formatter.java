@@ -1,8 +1,10 @@
 package visitor;
 
-import calculator.*;
-import calculator.operation.binary.BinaryOperation;
+import calculator.Expression;
+import calculator.MyNumber;
+import calculator.Notation;
 import calculator.operation.Operation;
+import calculator.operation.binary.BinaryOperation;
 import calculator.operation.unary.UnaryOperation;
 
 import java.util.ArrayList;

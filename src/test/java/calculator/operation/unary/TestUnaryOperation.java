@@ -15,5 +15,9 @@ public abstract class TestUnaryOperation {
     public abstract void testMyRational() throws Exception;
     @Test
     public abstract void testMyComplex() throws Exception;
+    @Test
+    public abstract void testMyInfinity() throws Exception;
+    @Test
+    public abstract void testMyUnknown() throws Exception;
 
 }

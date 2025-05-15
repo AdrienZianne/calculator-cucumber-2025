@@ -1,0 +1,21 @@
+REAL_PRECISION : Selects the precision of real numbers, i.e. how many digits will be used after the dot.<br><br>
+REAL_ROUNDING_MODE :
+                        Selects the rounding method for real numbers.The possible values are as follows:<br>
+                        ceiling : Rounding mode to round towards positive infinity.<br>
+                        down : Rounding mode to round towards zero.<br>
+                        floor : Rounding mode to round towards negative infinity.<br>
+                        half_down : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round down.<br>
+                        half_even : Rounding mode to round towards the 'nearest neighbor' unless both neighbors are equidistant, in which case, round towards the even neighbor.<br>
+                        half_up : Rounding mode to round towards 'nearest neighbor' unless both neighbors are equidistant, in which case round up.<br>
+                        unnecessary : Rounding mode to assert that the requested operation has an exact result, hence no rounding is necessary.<br>
+                        up : Rounding mode to round away from zero.<br>
+                        <br><br>
+USE_REAL_NOTATION : Sets whether or not rationals should be displayed as an approximation of their values as reals.<br><br>
+USE_SCIENTIFIC_NOTATION : Sets wether or not the scientific notation should be used.<br><br>
+SC_NOTATION_MAX_LEFT : The maximum number of digits that can be displayed in the integer part of a number.<br><br>
+SC_NOTATION_MAX_RIGHT : The maximum number of digits that can be displayed in the decimal part of a number.<br><br>
+USE_COMPLEX_DOMAIN : (If set to false, this will not prevent the creation of complex values, only some of the operation results like sqrt)<br><br>
+USE_DEGREES : Select whether to work in degrees or radians.<br><br>
+SEED : Selects the seed value. Numbers will then be generated according to this value.<br><br>
+BASE_NOTATION_CONVENTION : Select whether to display known bases according to their convention. For example, base 2 will be written 0b<value> instead of <value>_2.<br><br>
+LOGICAL_SYMBOL : Selects whether to display the logic symbols T and F for true and false instead of 1 and 0.

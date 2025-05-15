@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the hyperbolic sine operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code sinh(x)}.
  */
-public class HyperbolicSine extends TrigonometricFunction {
+public final class HyperbolicSine extends TrigonometricFunction {
     /**
      * A constructor of the {@link HyperbolicSine} class.
      * @param expression An expression to apply the sinh operation to.

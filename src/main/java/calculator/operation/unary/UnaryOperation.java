@@ -4,9 +4,7 @@ import calculator.*;
 import calculator.operation.BuildUnaryOperationFunction;
 import calculator.operation.Operation;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Class used to implement unary operations.
@@ -31,7 +29,10 @@ public abstract class UnaryOperation extends Operation {
             case MyReal r -> op(r);
             case MyRational rr -> op(rr);
             case MyComplex c -> op(c);
+            case MyInfinity i -> op(i);
+            case MyUnknown x -> op(x);
             case MyErrorNumber e -> e; // Simply pass the error up.
+            case MyUndefinedNumber nan -> new MyErrorNumber(this, "Tried to apply an operation on a undefined number: " + nan);
             default -> new MyErrorNumber(this, "The given operation is not implemented yet for the " +
                     "given MyNumber subclass: " + a.getClass());
         };
@@ -44,6 +45,11 @@ public abstract class UnaryOperation extends Operation {
     public abstract MyNumber op(MyRational r);
 
     public abstract MyNumber op(MyComplex c);
+
+    public abstract MyNumber op(MyUnknown x);
+
+    public abstract MyNumber op(MyInfinity i);
+
 
     /**
      * Creates and calls an operation on the given arguments.

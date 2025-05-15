@@ -1,11 +1,16 @@
 package calculator.parser;
 
+import calculator.Equation;
+import calculator.Expression;
+import calculator.Programmer;
 import calculator.parser.antlr.*;
-import calculator.*;
 
-import org.antlr.v4.runtime.*;
+import io.cli.Shell;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
-import io.Shell;
+import io.cli.Memory;
 
 /**
  * CalculatorParser
@@ -17,8 +22,9 @@ public class CalculatorParser {
      * 
      * @param input User input.
      * @param shell Connect to the shell to call methods from the parser.
+     * @param memo  instance to interact with logs and favorites.
      */
-    public static void parseSettings(String input, Shell shell) {
+    public static void parseSettings(String input, Shell shell, Memory memo) {
         // Read input as stream
         CharStream inp = CharStreams.fromString(input);
 
@@ -28,7 +34,7 @@ public class CalculatorParser {
         parser.removeErrorListeners();
         parser.addErrorListener(new ThrowingErrorListener());
 
-        SettingsParser eval = new SettingsParser(shell);
+        SettingsParser eval = new SettingsParser(shell, memo);
         try {
             eval.visit(parser.setting());
         } catch (ParserError e) {
@@ -57,6 +63,25 @@ public class CalculatorParser {
             return eval.visit(parser.expr());
         } catch (ParserError e) {
             System.out.println("Parsing error caught for Arithmetic: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static Equation parseArithmeticEquation(String input) {
+        // Read input as stream
+        CharStream inp = CharStreams.fromString(input);
+
+        LabeledExprLexer lexer = new LabeledExprLexer(inp);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LabeledExprParser parser = new LabeledExprParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        EquationParser eval = new EquationParser();
+        try {
+            return eval.visit(parser.expr());
+        } catch (ParserError e) {
+            System.out.println("Parsing error caught for Arithmetic expression: " + e.getMessage());
             return null;
         }
     }

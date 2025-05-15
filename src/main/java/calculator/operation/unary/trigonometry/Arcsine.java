@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * A class used to represent the arc sinus operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code asin(x)}.
  */
-public class Arcsine extends TrigonometricFunction {
+public final class Arcsine extends TrigonometricFunction {
     /**
      * A constructor of the {@link Arcsine} class.
      * @param expression An expression to apply the arc sin operation to.

@@ -1,10 +1,10 @@
 package calculator;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import calculator.parser.CalculatorParser;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * ProgrammerSteps

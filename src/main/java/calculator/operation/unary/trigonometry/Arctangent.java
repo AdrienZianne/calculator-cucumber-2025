@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the arc tangent operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code atan(x)}.
  */
-public class Arctangent extends TrigonometricFunction {
+public final class Arctangent extends TrigonometricFunction {
     /**
      * A constructor of the {@link Arctangent} class.
      * @param expression An expression to apply the arc tan operation to.

@@ -2,8 +2,6 @@ package calculator;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Objects;
 
 /**
@@ -67,6 +65,13 @@ public class MyInteger extends MyNumber {
      */
     public static MyInteger valueOf(Long v) {
         return new MyInteger(v);
+    }
+
+
+    public static MyInteger toMyInteger(MyRational r) {return toMyInteger(MyReal.toReal(r));}
+    public static MyInteger toMyInteger(MyReal r) {
+        // Round using the correct rounding mode
+        return new MyInteger(r.getValue().setScale(0, Configuration.getRealRoundingMode()).toBigInteger());
     }
 
     @Override

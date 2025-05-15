@@ -1,12 +1,11 @@
 package calculator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import calculator.Programmer.ProgrammerException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import calculator.Programmer.ProgrammerException;
-
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * TestProgrammer

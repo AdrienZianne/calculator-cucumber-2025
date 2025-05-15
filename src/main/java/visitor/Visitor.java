@@ -1,6 +1,6 @@
 package visitor;
 
-import calculator.*;
+import calculator.MyNumber;
 import calculator.operation.Operation;
 
 /**

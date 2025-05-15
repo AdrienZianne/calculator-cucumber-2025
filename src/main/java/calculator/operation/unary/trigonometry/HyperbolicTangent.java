@@ -6,7 +6,7 @@ import calculator.*;
  * A class used to represent the hyperbolic tangent operation on a number.
  * Let {@code x} be our expression, the operation will result in {@code tanh(x)}.
  */
-public class HyperbolicTangent extends TrigonometricFunction {
+public final class HyperbolicTangent extends TrigonometricFunction {
     /**
      * A constructor of the {@link HyperbolicTangent} class.
      * @param expression An expression to apply the tanh operation to.

@@ -4,6 +4,7 @@ import calculator.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,5 +101,71 @@ public final class Plus extends CommutativeBinaryOperation {
 
         return MyRational.create(lNum.add(rNum),
                 l.getNumDenomPair().b.getValue().multiply(r.getNumDenomPair().b.getValue()));
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInteger r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyReal r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyComplex r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyRational r) {
+        return new MyInfinity(l.isPositive());
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyInfinity r) {
+        if (l.isPositive() == r.isPositive()) {return new MyInfinity(l.isPositive());}
+        return new MyUndefinedNumber(this);
+    }
+
+    @Override
+    public MyNumber op(MyInfinity l, MyUnknown r) {
+        return MyUnknown.create(r.getOperands(), op(l, r.getRest()));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyInteger r) {
+        return MyUnknown.create(l.getOperands(), op(l.getRest(), r));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyReal r) {
+        return MyUnknown.create(l.getOperands(), op(l.getRest(), r));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyComplex r) {
+        return MyUnknown.create(l.getOperands(), op(l.getRest(), r));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyRational r) {
+        return MyUnknown.create(l.getOperands(), op(l.getRest(), r));
+    }
+
+    @Override
+    public MyNumber op(MyUnknown l, MyUnknown r) {
+        // The create function already takes care of summing all similar operands.
+        // Therefore, we can simply regroup all operands into one list and feed it to the function.
+        ArrayList<Pair<MyNumber, MyNumber>> allOperands = new ArrayList<>();
+        for (MyNumber operand : l.getOperands().keySet()) {
+            allOperands.add(new Pair<>(l.getOperands().get(operand), operand));
+        }
+        for (MyNumber operand : r.getOperands().keySet()) {
+            allOperands.add(new Pair<>(r.getOperands().get(operand), operand));
+        }
+        // And we can sum the rest.
+        return MyUnknown.create(allOperands, op(l.getRest(), r.getRest()));
     }
 }
