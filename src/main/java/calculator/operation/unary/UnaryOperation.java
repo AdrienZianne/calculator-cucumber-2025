@@ -13,6 +13,7 @@ public abstract class UnaryOperation extends Operation {
 
     /**
      * The default constructor of the {@link UnaryOperation} class.
+     * 
      * @param argument The argument to pass to the operation.
      * @param notation The notation to display the operation.
      * @param notation The notation to display the operation.
@@ -20,7 +21,9 @@ public abstract class UnaryOperation extends Operation {
      */
     protected UnaryOperation(Expression argument, Notation notation) throws IllegalConstruction {
         super(Collections.singletonList(argument), notation);
-        if (argument == null) {throw new IllegalConstruction();}
+        if (argument == null) {
+            throw new IllegalConstruction();
+        }
     }
 
     public MyNumber op(MyNumber a) {
@@ -32,7 +35,8 @@ public abstract class UnaryOperation extends Operation {
             case MyInfinity i -> op(i);
             case MyUnknown x -> op(x);
             case MyErrorNumber e -> e; // Simply pass the error up.
-            case MyUndefinedNumber nan -> new MyErrorNumber(this, "Tried to apply an operation on a undefined number: " + nan);
+            case MyUndefinedNumber nan ->
+                new MyErrorNumber(this, "Tried to apply an operation on a undefined number: " + nan);
             default -> new MyErrorNumber(this, "The given operation is not implemented yet for the " +
                     "given MyNumber subclass: " + a.getClass());
         };
@@ -50,18 +54,20 @@ public abstract class UnaryOperation extends Operation {
 
     public abstract MyNumber op(MyInfinity i);
 
-
     /**
      * Creates and calls an operation on the given arguments.
-     * This method is useful in case one wishes not to deal with {@link IllegalConstruction} errors.
-     * Instead, if an error is thrown it will be stored inside a {@link MyErrorNumber} instance.
-     * @param arg The argument to pass to the unary operator.
+     * This method is useful in case one wishes not to deal with
+     * {@link IllegalConstruction} errors.
+     * Instead, if an error is thrown it will be stored inside a
+     * {@link MyErrorNumber} instance.
+     * 
+     * @param arg     The argument to pass to the unary operator.
      * @param builder A functional interface used to create the needed operation.
-     * @return The result of the computation. Will return a {@link MyErrorNumber} instance if something went wrong.
+     * @return The result of the computation. Will return a {@link MyErrorNumber}
+     *         instance if something went wrong.
      * @param <T> The {@link UnaryOperation} to create.
      */
-    public static <T extends UnaryOperation> MyNumber op(MyNumber arg, BuildUnaryOperationFunction<T> builder)
-    {
+    public static <T extends UnaryOperation> MyNumber op(MyNumber arg, BuildUnaryOperationFunction<T> builder) {
         UnaryOperation u;
         try {
             u = builder.build(arg);

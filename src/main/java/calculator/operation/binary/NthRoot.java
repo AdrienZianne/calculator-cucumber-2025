@@ -10,10 +10,14 @@ import java.util.List;
 
 /**
  * A class used to represent the nth-root operation on a number.
- * Let {@code x} be our expression and {@code n} be the value of the index, the operation will result in {@code n√(x)}.
- * Note that the symbol used for the {@link String} representation of this operation is simply {@code "root"}.
+ * Let {@code x} be our expression and {@code n} be the value of the index, the
+ * operation will result in {@code n√(x)}.
+ * Note that the symbol used for the {@link String} representation of this
+ * operation is simply {@code "root"}.
  */
 public final class NthRoot extends BinaryOperation {
+    private static final String errorMessage = "The value of n, cannot be 0 or 1";
+
     public NthRoot(List<Expression> elist) throws IllegalConstruction {
         this(elist, null);
     }
@@ -30,11 +34,9 @@ public final class NthRoot extends BinaryOperation {
     }
 
     @Override
-    public MyNumber op(MyInteger l, MyReal r)
-    {
+    public MyNumber op(MyInteger l, MyReal r) {
         // Checks if r can be translated as an int
-        if (r.isInt())
-        {
+        if (r.isInt()) {
             return op(l, MyInteger.valueOf(r.getValue().intValue()));
         }
         // if not, then this is not possible.
@@ -112,7 +114,6 @@ public final class NthRoot extends BinaryOperation {
         return nthRoot(MyReal.toReal(l), MyReal.toReal(r));
     }
 
-
     private MyNumber nthRoot(MyReal r, MyInteger rootIndex) {
         return nthRoot(r, MyReal.toReal(rootIndex));
     }
@@ -122,7 +123,7 @@ public final class NthRoot extends BinaryOperation {
         if (rootIndex.getSign() < 0)
             return new MyErrorNumber(this, "The value of the index must be positive");
         if (!rootIndex.isLong())
-            return new MyErrorNumber(this,"The value of the index must be " +
+            return new MyErrorNumber(this, "The value of the index must be " +
                     "an integer smaller than " + Long.MAX_VALUE);
 
         if (!r.isDouble())
@@ -131,19 +132,22 @@ public final class NthRoot extends BinaryOperation {
 
         long n = rootIndex.getValue().intValue();
         double x = r.getValue().doubleValue();
-        if (n == 1 || n == 0) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (n == 1 || n == 0)
+            return new MyErrorNumber(this, errorMessage);
 
         // If n == 2 then this is a square root operation
-        if (n == 2) return UnaryOperation.op(r, SquareRoot::new);
-        if (r.getSign() < 0) return new MyErrorNumber(this, "The value of a root, cannot be negative");
+        if (n == 2)
+            return UnaryOperation.op(r, SquareRoot::new);
+        if (r.getSign() < 0)
+            return new MyErrorNumber(this, "The value of a root, cannot be negative");
 
-
-        return MyReal.valueOf(Math.pow(x, 1./n));
+        return MyReal.valueOf(Math.pow(x, 1. / n));
     }
 
     @Override
     public MyNumber op(MyInteger l, MyInfinity r) {
-        if (l.isZero()) return new MyUndefinedNumber(this);
+        if (l.isZero())
+            return new MyUndefinedNumber(this);
         return MyInteger.valueOf(1);
     }
 
@@ -154,7 +158,8 @@ public final class NthRoot extends BinaryOperation {
 
     @Override
     public MyNumber op(MyReal l, MyInfinity r) {
-        if (l.isZero()) return new MyUndefinedNumber(this);
+        if (l.isZero())
+            return new MyUndefinedNumber(this);
         return MyInteger.valueOf(1);
     }
 
@@ -175,7 +180,8 @@ public final class NthRoot extends BinaryOperation {
 
     @Override
     public MyNumber op(MyRational l, MyInfinity r) {
-        if (l.isZero()) return new MyUndefinedNumber(this);
+        if (l.isZero())
+            return new MyUndefinedNumber(this);
         return MyInteger.valueOf(1);
     }
 
@@ -186,14 +192,15 @@ public final class NthRoot extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyInteger r) {
-        if (r.getValue().abs().equals(BigInteger.ONE) || r.getValue().abs().equals(BigInteger.ZERO)) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (r.getValue().abs().equals(BigInteger.ONE) || r.getValue().abs().equals(BigInteger.ZERO))
+            return new MyErrorNumber(this, errorMessage);
         return infOp(l);
     }
 
     @Override
     public MyNumber op(MyInfinity l, MyReal r) {
         if (r.getValue().abs().equals(BigDecimal.ONE) || r.getValue().equals(BigDecimal.ZERO))
-            return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+            return new MyErrorNumber(this, errorMessage);
         return infOp(l);
     }
 
@@ -204,7 +211,8 @@ public final class NthRoot extends BinaryOperation {
 
     @Override
     public MyNumber op(MyInfinity l, MyRational r) {
-        if (r.isZero()) return new MyErrorNumber(this, "The value of n, cannot be 0 or 1");
+        if (r.isZero())
+            return new MyErrorNumber(this, errorMessage);
         return infOp(l);
     }
 
@@ -258,6 +266,7 @@ public final class NthRoot extends BinaryOperation {
     private MyErrorNumber getIndexErrorText(String numberType) {
         return new MyErrorNumber(this, "A \"" + numberType + "\" number is not a valid index for the root operation");
     }
+
     private MyErrorNumber getIndexComplexErrorText() {
         return new MyErrorNumber(this, "A \"complex\" number is not a valid index for the root operation");
     }
@@ -265,7 +274,6 @@ public final class NthRoot extends BinaryOperation {
     private MyErrorNumber getComplexErrorText() {
         return new MyErrorNumber(this, "A \"complex\" number is not supported by the root operation");
     }
-
 
     // We override the toString method because of this function uniqueness
     @Override
@@ -277,8 +285,7 @@ public final class NthRoot extends BinaryOperation {
                 // we know there is at least two args
                 res = asFunction(this.args.getFirst().toString(), this.args.get(1));
 
-                for (Expression e : this.args.subList(2, this.args.size()))
-                {
+                for (Expression e : this.args.subList(2, this.args.size())) {
                     res = asFunction(res, e);
                 }
             }
@@ -288,8 +295,9 @@ public final class NthRoot extends BinaryOperation {
 
     /**
      * Gets the expression as a string representing the function being applied.
+     * 
      * @param expr The expression being passed to the root function.
-     * @param n The value of the index of the root function.
+     * @param n    The value of the index of the root function.
      * @return The string : {@code "root(expr, n)"}.
      */
     private String asFunction(String expr, Expression n) {

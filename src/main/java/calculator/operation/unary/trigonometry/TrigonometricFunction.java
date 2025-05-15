@@ -44,11 +44,12 @@ public abstract class TrigonometricFunction extends UnaryOperation {
         this.functionExec = funcExec;
     }
 
-
     /**
      * Checks if the real value can be processed by the function.
+     * 
      * @param nb The instance to check.
-     * @return An instance of the {@link MyErrorNumber} class if the value is not supported. {@code null} otherwise.
+     * @return An instance of the {@link MyErrorNumber} class if the value is not
+     *         supported. {@code null} otherwise.
      */
     public abstract MyNumber isNotInBound(MyReal nb);
 
@@ -66,15 +67,21 @@ public abstract class TrigonometricFunction extends UnaryOperation {
     public MyNumber op(MyReal r) {
         // Check if the value can be applied.
         double val = r.getValue().doubleValue();
-        if (Configuration.isUsingDegrees()) val = Math.toRadians(val);
+        if (Configuration.isUsingDegrees())
+            val = Math.toRadians(val);
         MyNumber err = isNotInBound(MyReal.valueOf(val));
-        if (err != null) {return err;}
+        if (err != null) {
+            return err;
+        }
 
-        if (!r.isDouble()) return new MyErrorNumber(this, "The given argument is not a valid double : " + r.getValue());
+        if (!r.isDouble())
+            return new MyErrorNumber(this, "The given argument is not a valid double : " + r.getValue());
 
         Double resDouble = functionExec.apply(val);
 
-        if (resDouble.equals(Double.POSITIVE_INFINITY) || resDouble.equals(Double.NEGATIVE_INFINITY)) {return new MyErrorNumber(this, "The given argument results in an infinite number ");}
+        if (resDouble.equals(Double.POSITIVE_INFINITY) || resDouble.equals(Double.NEGATIVE_INFINITY)) {
+            return new MyErrorNumber(this, "The given argument results in an infinite number ");
+        }
 
         MyReal res = MyReal.valueOf(resDouble);
         return MyRational.toRational(res);
@@ -100,8 +107,10 @@ public abstract class TrigonometricFunction extends UnaryOperation {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        if (!super.equals(o))
+            return false;
         TrigonometricFunction that = (TrigonometricFunction) o;
         return Objects.equals(functionExec, that.functionExec);
     }
