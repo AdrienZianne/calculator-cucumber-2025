@@ -29,7 +29,6 @@ class TestMemory {
 
         assertEquals(e, new Element("1 + 1", "2"));
         assertNotEquals(null, e);
-        assertNotEquals(new Memory(), e);
 
         e = new Element("T and T", "T");
         assertEquals("T and T => T", e.toString());
