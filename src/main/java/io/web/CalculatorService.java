@@ -14,13 +14,6 @@ import visitor.Evaluator;
 @NoArgsConstructor
 public class CalculatorService {
 
-    Memory memory;
-
-    @Autowired
-    public CalculatorService(Memory memory) {
-        this.memory = memory;
-    }
-
     /// Compute the request using the appropriate mode
     public String compute(CalculatorDTO request) throws Exception {
 
