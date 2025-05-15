@@ -205,7 +205,8 @@ public final class MyUnknown extends MyNumber {
     public String toString() {
         StringBuilder res = new StringBuilder();
 
-        for (MyNumber exp : operands.keySet()) {
+        for (Map.Entry<MyNumber, MyNumber> entry : operands.entrySet()) {
+            MyNumber exp = entry.getKey();
             res.append(termAsString(operands.get(exp), exp));
             res.append(" ");
         }

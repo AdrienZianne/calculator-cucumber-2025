@@ -36,7 +36,7 @@ class TestMyRational {
                                                           // so not equal
         try {
             assertNotEquals(new Times(new ArrayList<>()), number);
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             fail();
         }
     }
@@ -66,10 +66,9 @@ class TestMyRational {
     }
 
     @Test
-    void testCreate()
-    {
+    void testCreate() {
         // Test that when trying to give a denominator of 0, an error is returned
-        MyNumber r = MyRational.create(2,0);
+        MyNumber r = MyRational.create(2, 0);
         assertEquals(MyErrorNumber.class, r.getClass());
 
         r = MyRational.create(MyInteger.valueOf(2), MyInteger.valueOf(0));
@@ -88,37 +87,33 @@ class TestMyRational {
     }
 
     @Test
-    void testToRational()
-    {
+    void testToRational() {
         MyNumber r = MyRational.toRational(MyReal.valueOf(0.333));
-        assertEquals(MyRational.create(333,1000), r);
+        assertEquals(MyRational.create(333, 1000), r);
 
         r = MyRational.toRational(MyReal.valueOf(3));
         assertEquals(MyInteger.valueOf(3), r);
 
         r = MyRational.toRational(MyReal.valueOf(0.5));
-        assertEquals(MyRational.create(4,8), r);
+        assertEquals(MyRational.create(4, 8), r);
     }
 
     @Test
-    void testGetSign()
-    {
-        MyRational r = (MyRational) MyRational.create(2,3);
+    void testGetSign() {
+        MyRational r = (MyRational) MyRational.create(2, 3);
 
         assertEquals(1, r.getSign());
-        r = (MyRational) MyRational.create(-2,3);
+        r = (MyRational) MyRational.create(-2, 3);
 
         assertEquals(-1, r.getSign());
-        r = (MyRational) MyRational.create(2,-3);
+        r = (MyRational) MyRational.create(2, -3);
 
         assertEquals(-1, r.getSign());
     }
 
-
     @Test
-    void testErrorNumbers()
-    {
-        MyNumber r = MyRational.create(2,0);
+    void testErrorNumbers() {
+        MyNumber r = MyRational.create(2, 0);
         assertEquals(MyErrorNumber.class, r.getClass());
 
         r = MyRational.create(MyInteger.valueOf(2), MyInteger.valueOf(0));
@@ -128,6 +123,6 @@ class TestMyRational {
         assertEquals(MyErrorNumber.class, r.getClass());
 
         r = MyRational.toRational(MyReal.valueOf(0.5));
-        assertEquals(MyRational.create(4,8), r);
+        assertEquals(MyRational.create(4, 8), r);
     }
 }

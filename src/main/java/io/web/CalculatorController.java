@@ -20,8 +20,7 @@ public class CalculatorController {
 
     /// Calculator main endpoint for arithmetic and programming mode
     @PostMapping(value = "/calc", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity compute(@Validated @RequestBody CalculatorDTO request)
+    public ResponseEntity<Object> compute(@Validated @RequestBody CalculatorDTO request)
             throws Exception {
         String value = calculatorService.compute(request);
         return ResponseEntity.ok(CalculatorResponse.builder().answer(value).build());
@@ -29,16 +28,13 @@ public class CalculatorController {
 
     /// Endpoint to modify global settings
     @PostMapping(value = "/settings", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<Object> settings(@Validated @RequestBody SettingDTO request)
-            throws Exception {
+    public ResponseEntity<Object> settings(@Validated @RequestBody SettingDTO request) {
         calculatorService.setSettings(request);
         return ResponseEntity.ok().build();
     }
 
     /// Endpoint to fetch the global settings
     @GetMapping(value = "/settings")
-    @ResponseBody
     public ResponseEntity<Object> settings() {
         return ResponseEntity.ok(calculatorService.getSettings());
     }

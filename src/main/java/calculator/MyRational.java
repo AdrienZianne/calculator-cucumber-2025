@@ -25,8 +25,6 @@ public class MyRational extends MyNumber {
         this.numDenomPair = simplifyNumDenom(numerator, denominator);
     }
 
-
-
     /**
      * The constructor of the {@link MyRational} class.
      * 
@@ -66,7 +64,7 @@ public class MyRational extends MyNumber {
                 return new MyUndefinedNumber(divides);
             }
             return new MyErrorNumber(divides, "The operation results in a division by zero error");
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             return new MyErrorNumber(null, "The operation results in a division by zero error");
         }
     }
@@ -118,7 +116,7 @@ public class MyRational extends MyNumber {
 
     /**
      * Method for creating a MyRational object using denominator checks.
-
+     * 
      * @param numerator
      * @param denominator
      *
@@ -157,7 +155,8 @@ public class MyRational extends MyNumber {
      *         Either another instance of {@link MyRational}.
      *         Or if the new denominator is equal to 1 or the enumerator is equal to
      *         0, then it returns an {@link MyInteger} instance.
-     *         then it will return an instance of {@link MyInteger} with the rounded value.
+     *         then it will return an instance of {@link MyInteger} with the rounded
+     *         value.
      */
     private MyNumber simplify() {
         Pair<MyInteger, MyInteger> newNumDenom = simplifyNumDenom(this.getNumDenomPair().a.getValue(),
@@ -200,20 +199,22 @@ public class MyRational extends MyNumber {
         if (o == null || getClass() != o.getClass() && (o instanceof MyComplex))
             return false;
 
-        MyRational that = (MyRational) switch (o)
-        {
-            case MyReal r : yield MyRational.toRational(r);
-            case MyRational r : yield r;
-            case MyInteger i :
-            {
+        MyRational that = (MyRational) switch (o) {
+            case MyReal r:
+                yield MyRational.toRational(r);
+            case MyRational r:
+                yield r;
+            case MyInteger i: {
                 if (!i.equals(ConstantNumber.ZERO))
                     yield new MyRational(i, i);
                 yield null;
             }
-            default: yield  null;
+            default:
+                yield null;
         };
 
-        if (that == null) return false;
+        if (that == null)
+            return false;
         return Objects.equals(numDenomPair, that.numDenomPair);
     }
 

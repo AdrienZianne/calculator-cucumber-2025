@@ -1,9 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
 
 /**
  * A class used to represent the radian to degree conversion.
@@ -30,6 +27,8 @@ public final class RadianToDegree extends DegreeRadianConvertor {
     }
 
     @Override
-    public MyNumber op(MyUnknown x) {return MyUnknown.applyToAllOperators(x, RadianToDegree::new);}
+    public MyNumber op(MyUnknown x) {
+        return MyUnknown.applyToAllOperators(x, RadianToDegree::new);
+    }
 
 }

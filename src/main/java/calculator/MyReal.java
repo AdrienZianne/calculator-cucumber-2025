@@ -1,16 +1,13 @@
 package calculator;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
  * Represents a real value. Using a fixed Configuration.getRealPrecision() and
- * ROUNDING_MODE.
+ * ROUNDINGMODE.
  */
 public class MyReal extends MyNumber {
-
-    public static RoundingMode ROUNDING_MODE = RoundingMode.HALF_UP;
 
     private final BigDecimal value;
 
@@ -20,11 +17,12 @@ public class MyReal extends MyNumber {
      * @param value The value to store in this instance.
      */
     public MyReal(double value) {
-        this.value = BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
+        this.value = BigDecimal.valueOf(value).setScale(Configuration.getRealPrecision(),
+                Configuration.getRealRoundingMode());
     }
 
     public MyReal(double value, int precision) {
-        this.value = BigDecimal.valueOf(value).setScale(precision, ROUNDING_MODE);
+        this.value = BigDecimal.valueOf(value).setScale(precision, Configuration.getRealRoundingMode());
     }
 
     /**
@@ -34,7 +32,8 @@ public class MyReal extends MyNumber {
      *              takes as an input a {@link String} instance.
      */
     public MyReal(String value) {
-        this.value = new BigDecimal(value).setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
+        this.value = new BigDecimal(value).setScale(Configuration.getRealPrecision(),
+                Configuration.getRealRoundingMode());
     }
 
     /**
@@ -43,7 +42,7 @@ public class MyReal extends MyNumber {
      * @param value The value to store in this instance.
      */
     public MyReal(BigDecimal value) {
-        this.value = value.setScale(Configuration.getRealPrecision(), ROUNDING_MODE);
+        this.value = value.setScale(Configuration.getRealPrecision(), Configuration.getRealRoundingMode());
     }
 
     /**
@@ -60,7 +59,7 @@ public class MyReal extends MyNumber {
      * Turns a {@link MyRational} into a real value.
      * Beware that this can cause, some information to be lost, depending on the
      * given Configuration.getRealPrecision()
-     * and ROUNDING_MODE.
+     * and Configuration.getRealRoundingMode().
      * 
      * @param r The rational to turn into a real value.
      * @return The real value created.
@@ -68,7 +67,8 @@ public class MyReal extends MyNumber {
     public static MyReal toReal(MyRational r) {
         BigDecimal enumerator = new BigDecimal(r.getNumDenomPair().a.getValue());
         BigDecimal denom = new BigDecimal(r.getNumDenomPair().b.getValue());
-        return new MyReal(enumerator.divide(denom, Configuration.getRealPrecision(), ROUNDING_MODE));
+        return new MyReal(
+                enumerator.divide(denom, Configuration.getRealPrecision(), Configuration.getRealRoundingMode()));
     }
 
     /**
@@ -126,7 +126,8 @@ public class MyReal extends MyNumber {
 
     @Override
     public boolean isZero() {
-        return this.value.equals(BigDecimal.ZERO.setScale(Configuration.getRealPrecision(), ROUNDING_MODE));
+        return this.value.equals(
+                BigDecimal.ZERO.setScale(Configuration.getRealPrecision(), Configuration.getRealRoundingMode()));
     }
 
     @Override

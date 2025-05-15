@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestSquareRoot extends TestUnaryOperation {
+class TestSquareRoot extends TestUnaryOperation {
     @BeforeEach
     public void setup() {
         Configuration.setRealPrecision(5);

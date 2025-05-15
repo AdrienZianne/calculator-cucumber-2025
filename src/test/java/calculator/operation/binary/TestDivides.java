@@ -26,7 +26,7 @@ class TestDivides extends TestBinaryOperation {
 		try {
 			op = new Divides(params);
 			op.notation = Notation.INFIX; // reset the notation to infix (which is the default) before each test
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -43,7 +43,7 @@ class TestDivides extends TestBinaryOperation {
 		// A Times expression should not be the same as a Divides expression
 		try {
 			assertNotSame(op, new Times(new ArrayList<>()));
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -56,7 +56,7 @@ class TestDivides extends TestBinaryOperation {
 		try {
 			Divides d = new Divides(p, Notation.INFIX);
 			assertEquals(op, d);
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}
@@ -75,7 +75,7 @@ class TestDivides extends TestBinaryOperation {
 		try {
 			Divides e = new Divides(p, Notation.INFIX);
 			assertEquals(e.hashCode(), op.hashCode());
-		} catch (IllegalConstruction e) {
+		} catch (IllegalConstruction _) {
 			fail();
 		}
 	}

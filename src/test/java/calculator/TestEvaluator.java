@@ -6,7 +6,6 @@ import calculator.operation.binary.Divides;
 import calculator.operation.binary.Minus;
 import calculator.operation.binary.Plus;
 import calculator.operation.binary.Times;
-import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,13 +30,13 @@ class TestEvaluator {
     }
 
     @Test
-    void testEvaluatorMyInteger() throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    void testEvaluatorMyInteger() {
         assertEquals(MyInteger.valueOf(value1), calc.eval(new MyInteger(value1)));
     }
 
     @ParameterizedTest
     @ValueSource(strings = { "*", "+", "/", "-" })
-    void testEvaluateOperations(String symbol) throws ExecutionControl.NotImplementedException, IllegalConstruction {
+    void testEvaluateOperations(String symbol) {
         List<Expression> params = Arrays.asList(new MyInteger(value1), new MyInteger(value2));
         try {
             // construct another type of operation depending on the input value
@@ -49,7 +48,7 @@ class TestEvaluator {
                 case "/" -> assertEquals(MyRational.create(value1, value2), calc.eval(new Divides(params)));
                 default -> fail();
             }
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction _) {
             fail();
         }
     }

@@ -1,9 +1,7 @@
 package io;
 
-import calculator.Configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.web.CalculatorController;
 import io.web.dto.CalculatorDTO;
@@ -24,8 +22,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +48,7 @@ public class CalculatorControllerTest {
     }
 
     @BeforeAll
-    public static void setup() {
+     static void setup() {
         objectMapper = newObjectMapper();
     }
 
@@ -71,7 +67,7 @@ public class CalculatorControllerTest {
     }
 
     @Test
-    public void performValidComputationReturnAnswer() throws Exception {
+     void performValidComputationReturnAnswer() throws Exception {
         CalculatorDTO dto = CalculatorDTO.builder().input("10 + 10").isProgra(false).build();
         post("/calc", objectMapper.writeValueAsString(dto))
                 .andExpect(status().isOk())
@@ -79,14 +75,14 @@ public class CalculatorControllerTest {
     }
 
     @Test
-    public void performInvalidComputationReturnError() throws Exception {
+     void performInvalidComputationReturnError() throws Exception {
         CalculatorDTO dto = CalculatorDTO.builder().input("invalid input").isProgra(false).build();
         post("/calc", objectMapper.writeValueAsString(dto))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void performValidLogicReturnAnswer() throws Exception {
+     void performValidLogicReturnAnswer() throws Exception {
         CalculatorDTO dto = CalculatorDTO.builder().input("1234_16 and 1232_16").isProgra(true).build();
         post("/calc", objectMapper.writeValueAsString(dto))
                 .andExpect(status().isOk())
@@ -94,33 +90,33 @@ public class CalculatorControllerTest {
     }
 
     @Test
-    public void performInvalidLogicReturnError() throws Exception {
+     void performInvalidLogicReturnError() throws Exception {
         CalculatorDTO dto = CalculatorDTO.builder().input("invalid input").isProgra(true).build();
         post("/calc", objectMapper.writeValueAsString(dto))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void fetchSettings() throws Exception {
+     void fetchSettings() throws Exception {
         get("/settings")
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void modifySettings() throws Exception {
+     void modifySettings() throws Exception {
         SettingDTO settingDTO = SettingDTO.builder().useRealNotation(true).build();
         post("/settings", objectMapper.writeValueAsString(settingDTO))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void modifyInvalidSettingsDoNothing() throws Exception {
+     void modifyInvalidSettingsDoNothing() throws Exception {
         post("/settings", "{\"invalidSetting\":\"invalid input\"}")
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void modifyInvalidValueDoNothing() throws Exception {
+     void modifyInvalidValueDoNothing() throws Exception {
         post("/settings", "{\"seed\":\"a string instead of an integer\"}")
                 .andExpect(status().isBadRequest());
     }

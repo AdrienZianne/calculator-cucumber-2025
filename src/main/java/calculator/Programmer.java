@@ -158,11 +158,11 @@ public class Programmer {
             return "" + realNum.length();
         }
 
-        BigInteger newRealNum = new BigInteger("0");
+        BigInteger newRealNum = BigInteger.valueOf(0);
         for (int i = realNum.length() - 1; i >= 0; i--) {
             BigInteger multiplier = new BigInteger("" + chars.indexOf(realNum.charAt(i)));
-            BigInteger base_exponential_value = new BigInteger("" + base).pow(realNum.length() - i - 1);
-            BigInteger digit = multiplier.multiply(base_exponential_value);
+            BigInteger baseExponentialValue = new BigInteger("" + base).pow(realNum.length() - i - 1);
+            BigInteger digit = multiplier.multiply(baseExponentialValue);
             newRealNum = newRealNum.add(new BigInteger("" + digit));
         }
 
@@ -189,7 +189,7 @@ public class Programmer {
         if (newBase == 1) {
             try {
                 return String.join("", Collections.nCopies(oldRealNum.intValueExact(), "0"));
-            } catch (ArithmeticException error) {
+            } catch (ArithmeticException _) {
                 // If you can't convert the BigInteger to an integer without losing information,
                 // then you need to loop.
                 StringBuilder result = new StringBuilder();
@@ -200,19 +200,19 @@ public class Programmer {
             }
         }
 
-        String res = "";
         if (oldRealNum.toString().equals("0")) {
-            res = "0";
+            return "0";
         } else {
-            while (oldRealNum.compareTo(new BigInteger("0")) > 0) {
+            StringBuilder res = new StringBuilder();
+            while (oldRealNum.compareTo(BigInteger.valueOf(0)) > 0) {
                 BigInteger[] divideAndRemainder = oldRealNum.divideAndRemainder(new BigInteger("" +
                         newBase));
-                res = chars.charAt(divideAndRemainder[1].intValue()) + res;
+                res.insert(0, chars.charAt(divideAndRemainder[1].intValue()));
                 oldRealNum = divideAndRemainder[0];
             }
-        }
 
-        return res;
+            return res.toString();
+        }
     }
 
     /**

@@ -23,18 +23,21 @@ class TestMyComplex {
 
     @Test
     void testEquals() {
-        // Two distinct MyComplex, constructed separately (using a different constructor) but containing the same value should be equal
+        // Two distinct MyComplex, constructed separately (using a different
+        // constructor) but containing the same value should be equal
         assertEquals(MyComplex.create(new MyInteger(imaginary), new MyInteger(real)), number);
         // Two MyComplex containing a distinct value should not be equal:
         int otherImaginary = 7;
         int otherReal = 9;
-        assertNotEquals(MyComplex.create(new MyInteger(otherImaginary), new MyInteger(otherReal)),number);
+        assertNotEquals(MyComplex.create(new MyInteger(otherImaginary), new MyInteger(otherReal)), number);
         assertEquals(number, number); // Identity check (for coverage, as this should always be true)
-        assertNotEquals(number, imaginary/real); // number is of type MyComplex, while value is of type int, so not equal
+        assertNotEquals(number, imaginary / real); // number is of type MyComplex, while value is of type int, so not
+                                                   // equal
         try {
             assertNotEquals(new Times(new ArrayList<>()), number);
+        } catch (IllegalConstruction _) {
+            fail();
         }
-        catch (IllegalConstruction e) {fail();}
     }
 
     @Test
@@ -44,14 +47,12 @@ class TestMyComplex {
         assertEquals(6 + " - " + "i", nb.toString());
     }
 
-
     @Test
-    void testCreate()
-    {
+    void testCreate() {
         MyNumber c = MyComplex.create(MyInteger.valueOf(5), MyInteger.valueOf(0));
         assertEquals(new MyInteger(5), c);
 
-        c = MyComplex.create(5,2);
+        c = MyComplex.create(5, 2);
         assertEquals(MyComplex.create(MyInteger.valueOf(5), MyInteger.valueOf(2)), c);
 
         c = MyComplex.create(new MyInteger(2), MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(5)));
@@ -60,7 +61,8 @@ class TestMyComplex {
         c = MyComplex.create(MyComplex.create(MyInteger.valueOf(4), MyInteger.valueOf(2)), MyInteger.valueOf(5));
         assertEquals(MyComplex.create(MyInteger.valueOf(4), MyInteger.valueOf(7)), c);
 
-        c = MyComplex.create(MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(2)), MyComplex.create(MyInteger.valueOf(3), MyInteger.valueOf(4)));
+        c = MyComplex.create(MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(2)),
+                MyComplex.create(MyInteger.valueOf(3), MyInteger.valueOf(4)));
         assertEquals(MyComplex.create(MyInteger.valueOf(-3), MyInteger.valueOf(5)), c);
 
         c = MyComplex.create(MyInteger.valueOf(1), MyInteger.valueOf(2));

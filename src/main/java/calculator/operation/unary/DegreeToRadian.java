@@ -1,9 +1,6 @@
 package calculator.operation.unary;
 
 import calculator.*;
-import calculator.operation.binary.BinaryOperation;
-import calculator.operation.binary.Divides;
-import calculator.operation.binary.Times;
 
 /**
  * A class used to represent the degree to radian conversion.
@@ -28,7 +25,6 @@ public final class DegreeToRadian extends DegreeRadianConvertor {
     public DegreeToRadian(Expression argument, Notation notation) throws IllegalConstruction {
         super(argument, "degToRad", notation, ConstantNumber.PI, MyInteger.valueOf(180));
     }
-
 
     @Override
     public MyNumber op(MyUnknown x) {

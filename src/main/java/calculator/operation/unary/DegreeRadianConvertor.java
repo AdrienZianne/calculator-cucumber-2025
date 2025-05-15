@@ -16,7 +16,7 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
      *
      * @param expression An expression to apply the conversion to.
      */
-    public DegreeRadianConvertor(Expression expression, String symbol, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
+    protected DegreeRadianConvertor(Expression expression, String symbol, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
         this(expression, symbol, null, numerator, denominator);
     }
 
@@ -26,7 +26,7 @@ public abstract class DegreeRadianConvertor extends UnaryOperation {
      * @param argument The argument to apply the conversion to.
      * @param notation The notation to display this operation with.
      */
-    public DegreeRadianConvertor(Expression argument, String symbol, Notation notation, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
+    protected DegreeRadianConvertor(Expression argument, String symbol, Notation notation, MyNumber numerator, MyNumber denominator) throws IllegalConstruction {
         super(argument, notation);
         this.symbol = symbol;
         this.numerator = numerator;

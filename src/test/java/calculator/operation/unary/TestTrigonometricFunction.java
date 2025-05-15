@@ -19,7 +19,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     public static ArrayList<BuildUnaryOperationFunction<TrigonometricFunction>> trigoClasses;
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         Configuration.setRealPrecision(5);
         trigoClasses = new ArrayList<>();
         trigoClasses.add(Sinus::new);
@@ -188,7 +188,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
-    public void testIntegerDeg() throws Exception {
+    void testIntegerDeg() throws Exception {
         Configuration.setUseDegrees(true);
         ArrayList<MyInteger> toTry = new ArrayList<>();
 
@@ -220,7 +220,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
-    public void testMyRealDeg() throws Exception {
+    void testMyRealDeg() throws Exception {
         Configuration.setUseDegrees(true);
         ArrayList<MyReal> toTry = new ArrayList<>();
 
@@ -250,7 +250,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
-    public void testMyRationalDeg() throws Exception {
+    void testMyRationalDeg() throws Exception {
         Configuration.setUseDegrees(true);
         ArrayList<MyRational> toTry = new ArrayList<>();
 
@@ -276,7 +276,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
-    public void testMyComplexDeg() throws Exception {
+    void testMyComplexDeg() throws Exception {
         Configuration.setUseDegrees(true);
         MyComplex nb = (MyComplex) MyComplex.create(1,1);
         boolean[] values = new boolean[] {true, false};
@@ -290,7 +290,7 @@ public class TestTrigonometricFunction extends TestUnaryOperation {
     }
 
     @Test
-    public void testMyInfinityDeg() throws Exception {
+    void testMyInfinityDeg() throws Exception {
         Configuration.setUseDegrees(false);
         MyInfinity nb = new MyInfinity(true);
         boolean[] values = new boolean[] {true, false};

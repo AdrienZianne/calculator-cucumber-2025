@@ -2,11 +2,9 @@ package io.web;
 
 import calculator.*;
 import calculator.parser.CalculatorParser;
-import io.cli.Memory;
 import io.web.dto.CalculatorDTO;
 import io.web.dto.SettingDTO;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import visitor.Evaluator;
 
@@ -20,7 +18,7 @@ public class CalculatorService {
         if (request.getIsProgra()) {
             Programmer programmer = CalculatorParser.parseProgrammer(request.getInput());
             if (programmer == null) throw new IllegalArgumentException("Unable to parse");
-            if (programmer.toString().contains("Error")) throw new Exception(programmer.toString());
+            if (programmer.toString().contains("Error")) throw new NullPointerException(programmer.toString());
             return programmer.toString();
         } else {
 
@@ -34,7 +32,7 @@ public class CalculatorService {
                 }
 
                 if (evaluator.getResult() instanceof MyErrorNumber e) {
-                    throw new Exception(e.getMessage());
+                    throw new IllegalArgumentException(e.getMessage());
                 }
                 return evaluator.getResult().toString();
             } else {
@@ -44,7 +42,7 @@ public class CalculatorService {
                 }
 
                 if (equation.getErrorState() != null) {
-                    throw new  Exception(equation.getErrorState());
+                    throw new IllegalArgumentException(equation.getErrorState());
                 }
 
                 return equation.prettyResult();
