@@ -1,0 +1,11 @@
+The memory principle is the same as in the normal calculator.
+The =, AC... buttons are also the same. 
+Here are the functionalities you can find on this calculator.<br><br>
+
+You can also perform conversions by using conv to transform to different bases (for example, base 2).<br><br>
+
+Logical operations are possible with not, and, impl...<br><br>
+
+equiv is used to check whether two values are equivalent (returns 1 or 0).<br><br>
+
+>>, << are used for shifts and conv is used to convert to different bases.

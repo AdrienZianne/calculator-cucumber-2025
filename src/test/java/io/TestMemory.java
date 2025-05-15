@@ -1,11 +1,12 @@
 package io;
 
+import io.cli.Memory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.Memory.Category;
-import io.Memory.Element;
+import io.cli.Memory.Category;
+import io.cli.Memory.Element;
 
 import calculator.Configuration;
 
