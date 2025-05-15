@@ -27,6 +27,7 @@ public class CalculatorService {
         if (request.getIsProgra()) {
             Programmer programmer = CalculatorParser.parseProgrammer(request.getInput());
             if (programmer == null) throw new Exception("Unable to parse");
+            if (programmer.toString().contains("Error")) throw new Exception(programmer.toString());
             return programmer.toString();
         } else {
 

@@ -102,6 +102,10 @@ export default {
                 ..."+-/*()^%|x".split(''),
             ],
             expandOperations: [
+                "randi",
+                "randre",
+                "randra",
+                "randc",
                 "log",
                 "cos",
                 "sin",
@@ -247,6 +251,10 @@ export default {
          * @see GlobalMethods.vue
          */
         replyRequest() {
+            if (this.inputText.includes('randi')) this.inputText = this.inputText.replaceAll("randi", "rand_int");
+            if (this.inputText.includes('randre')) this.inputText = this.inputText.replaceAll("randre", "rand_real");
+            if (this.inputText.includes('randra')) this.inputText = this.inputText.replaceAll("randra", "rand_ratio");
+            if (this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc", "rand_cmplx");
             if (this.inputText != "") {
                 const requestOptions = {
                     method: "POST",
@@ -305,8 +313,8 @@ export default {
 
 .trigo {
     grid-column: span 2;
-    grid-template-columns: repeat(8, 50px);
-    grid-template-rows: 40px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 40px);
     justify-self: center;
 }
 

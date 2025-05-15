@@ -91,13 +91,9 @@ export default {
         ..."0123456789".split('')
       ],
       letters: [
-        ..."abcdefghijklmnopqrstuvxy".split('')
+        ..."abcdefghijklmnopqrstuvxyz".split('')
       ],
       operations: [
-        "randi",
-        "randre",
-        "randra",
-        "randc",
         "not",
         "nand",
         "nor",
@@ -108,8 +104,8 @@ export default {
         "equiv",
         "conv",
         ..."_()".split(''),
-        "<",
-        ">",
+        "<<",
+        ">>",
         ","
       ],
       isHistoryOpen: false
@@ -169,7 +165,8 @@ export default {
       if (this.inputText.includes('^')) this.inputText = this.inputText.replaceAll("^", "");
       if (this.inputText.includes('¨')) this.inputText = this.inputText.replaceAll("¨", "");
       if (this.inputText.includes('`')) this.inputText = this.inputText.replaceAll("`", "");
-      if (!this.authorizedKeys.includes(word.lowercase())) setTimeout(() => this.removeSpecificWord(word));
+      if (!this.authorizedKeys.includes(word.toLowerCase())) setTimeout(() => this.removeSpecificWord(word));
+      console.log(word);
       if (word == "Enter" || word == "=") this.replyRequest();
     },
     /**Method for moving the cursor left.
@@ -218,10 +215,6 @@ export default {
      */
     replyRequest() {
       if (this.inputText != "") {
-        if (this.inputText.includes('randi')) this.inputText = this.inputText.replaceAll("randi", "rand_int");
-        if (this.inputText.includes('randre')) this.inputText = this.inputText.replaceAll("randre", "rand_real");
-        if (this.inputText.includes('randra')) this.inputText = this.inputText.replaceAll("randra", "rand_ratio");
-        if (this.inputText.includes('randc')) this.inputText = this.inputText.replaceAll("randc", "rand_cmplx");
         const requestOptions = {
           method: "POST",
           headers: {
@@ -230,6 +223,7 @@ export default {
           },
           body: JSON.stringify({ input: this.inputText, isProgra: true }) //In GET, we can't put a body.
         };
+        console.log(this.inputText)
         fetch("http://localhost:8080/calc", requestOptions)
           .then(response => {
             if (!response.ok) return response.json().then(json => Promise.reject(json));
@@ -311,7 +305,7 @@ export default {
 
 .keyboard {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   /*https://developer.mozilla.org/en-US/docs/Web/CSS/repeat*/
   gap: 5px;
 }
