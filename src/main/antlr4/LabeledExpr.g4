@@ -17,11 +17,13 @@ equation : sumInfix '=' sumInfix            #EquationInfix
 
 /* POSTFIX NOTATION */
 
-sumPostfix : productPostfix                                     #SumPostfixProd
+sumPostfix : productPostfix                #SumPostfixProd
            | postfixBinaryArgs '+'         #SumPostfixSum
            | postfixBinaryArgs '-'         #SumPostfixDiff
            | postfixBinaryArgs 'root'      #SumPostfixRoot
            | postfixBinaryArgs MOD         #SumPostfixMod
+		   | number                        #SumPostfixNumber
+		   | unknown                       #SumPostfixUnknown
            ;
 
 productPostfix  : postfixBinaryArgs EXPONENT   #ProductPostfixExp
@@ -63,6 +65,8 @@ sumPrefix : productPrefix                            #SumPrefixProd
            | '-' prefixBinaryArgs                    #SumPrefixDiff
            | 'root' prefixBinaryArgs                 #SumPrefixRoot
            | MOD prefixBinaryArgs                    #SumPrefixMod
+		   | number                                  #SumPrefixNumber
+		   | unknown                                 #SumPrefixUnknown
            ;
 
 productPrefix   : EXPONENT prefixBinaryArgs          #ProductPrefixExp
@@ -105,6 +109,8 @@ sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
     | sumInfix MOD  sumInfix                        #SumInfixMod
+    | number                                        #SumInfixNumber
+    | unknown                                       #SumInfixUnknown
     ;
 
 
@@ -128,10 +134,10 @@ atomInfix: unaryInfix           #AtomInfixUnary
     ;
 
 unaryInfix: trigoInfix                                   #UnaryInfixTrigo
-          | 'log' + '(' + sumInfix +  ')'                #UnaryInfixLog
-          | 'sqrt' + '(' + sumInfix +  ')'               #UnaryInfixSqrt
-          | (('|' sumInfix + '|')
-                | ('abs' + '(' + sumInfix +')' ) )       #UnaryInfixAbsolute
+          | 'log' '(' sumInfix ')'                       #UnaryInfixLog
+          | 'sqrt' '(' sumInfix ')'                      #UnaryInfixSqrt
+          | (('|' sumInfix '|')
+                | ('abs' '(' sumInfix ')' ) )           #UnaryInfixAbsolute
           | '-' productInfix                             #UnaryInfixNegation
           ;
 
