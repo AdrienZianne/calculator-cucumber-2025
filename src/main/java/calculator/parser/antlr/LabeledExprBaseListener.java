@@ -125,6 +125,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPostfixUnknown(LabeledExprParser.SumPostfixUnknownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPostfixUnknown(LabeledExprParser.SumPostfixUnknownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPostfixExp(LabeledExprParser.ProductPostfixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -473,6 +485,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSumPrefixUnknown(LabeledExprParser.SumPrefixUnknownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumPrefixUnknown(LabeledExprParser.SumPrefixUnknownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProductPrefixExp(LabeledExprParser.ProductPrefixExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -756,6 +780,18 @@ public class LabeledExprBaseListener implements LabeledExprListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPrefixUnaryArgs(LabeledExprParser.PrefixUnaryArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumInfixUnknown(LabeledExprParser.SumInfixUnknownContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumInfixUnknown(LabeledExprParser.SumInfixUnknownContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

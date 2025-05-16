@@ -43,6 +43,7 @@ class TestMyRational {
 
     @Test
     void testToString() {
+        Configuration.setUseRealNotation(false);
         assertEquals(numerator + "/" + denominator, number.toString());
     }
 
