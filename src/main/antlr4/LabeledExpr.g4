@@ -22,7 +22,6 @@ sumPostfix : productPostfix                #SumPostfixProd
            | postfixBinaryArgs '-'         #SumPostfixDiff
            | postfixBinaryArgs 'root'      #SumPostfixRoot
            | postfixBinaryArgs MOD         #SumPostfixMod
-		   | number                        #SumPostfixNumber
 		   | unknown                       #SumPostfixUnknown
            ;
 
@@ -65,7 +64,6 @@ sumPrefix : productPrefix                            #SumPrefixProd
            | '-' prefixBinaryArgs                    #SumPrefixDiff
            | 'root' prefixBinaryArgs                 #SumPrefixRoot
            | MOD prefixBinaryArgs                    #SumPrefixMod
-		   | number                                  #SumPrefixNumber
 		   | unknown                                 #SumPrefixUnknown
            ;
 
@@ -109,7 +107,6 @@ sumInfix : productInfix                             #SumInfixProd
     | sumInfix '+' productInfix                     #SumInfixAdd
     | sumInfix '-' productInfix                     #SumInfixDiff
     | sumInfix MOD  sumInfix                        #SumInfixMod
-    | number                                        #SumInfixNumber
     | unknown                                       #SumInfixUnknown
     ;
 
